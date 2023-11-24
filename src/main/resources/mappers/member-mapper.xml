@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="memberMapper">
+	<resultMap type="Member" id="memberResult">
+		<result column="MEM_NO" property="memNo"/>
+		<result column="MEM_ID" property="memId"/>
+		<result column="MEM_PWD" property="memPwd"/>
+		<result column="MEM_NICK" property="memNick"/>
+		<result column="PHONE" property="phone"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="ADDRESS_DETAIL" property="addressDetail"/>
+		<result column="POST_NO" property="postNo"/>
+		<result column="MEM_CREATEDATE" property="memCreateDate"/>
+		<result column="MEM_STATUS" property="memStatus"/>
+		<result column="BUSINESS_STATUS" property="businessStatus"/>
+	</resultMap>
+	
+	<!-- 일반회원 로그인 쿼리문 -->
+	<select id="loginMember" resultMap="memberResult">
+	SELECT MEM_NO,
+        MEM_ID,
+        MEM_PWD,
+        MEM_NICK,
+        PHONE,
+        ADDRESS,
+        ADDRESS_DETAIL,
+        POST_NO,
+        MEM_CREATEDATE,
+        MEM_STATUS,
+        BUSINESS_STATUS
+	FROM MEMBER
+	WHERE MEM_ID = #{memId}
+	    AND MEM_PWD = #{memPwd}
+	</select>
+</mapper>

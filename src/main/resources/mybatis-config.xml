@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  <configuration>
+     <settings>
+        <!-- setting jdbcTypeForNull : 만약 NULL로 데이터가 전달되면 빈칸이 아닌 NULL로 인식해라 (대문자 NULL 입력) -->
+        <setting name="jdbcTypeForNull" value="NULL"/>
+     </settings>
+     
+     <typeAliases>
+		<typeAlias type="com.kh.bigFish.member.model.vo.Member" alias="Member"/>
+     </typeAliases>
+     <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야한다. -->
+     
+     <!-- enviroment, dataSource에 기술했던 db연결정보관련 root-context.xml에 작성할 예정 
+          왜? db등록은 서버연동과 동시에 같이 이뤄져야되기 때문에
+             서버스타트와 동시에 바로 읽혀지는 root-context.xml문서에 기술할 예정
+     -->
+     
+     <!-- *mappers : 실행할 sql문들을 기록해둔 mapper 파일들을 등록하는 영역 -->
+     <mappers>
+		<mapper resource="/mappers/member-mapper.xml"/>
+     </mappers>
+     <!--  유의사항: 미리 등록해두려면 해당 mapper파일이 진짜 존재하고 있는 상태여야한다. + namespace도 작성되어 있어야한다. -->
+     
+  </configuration>
