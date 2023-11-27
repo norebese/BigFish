@@ -1,0 +1,79 @@
+.login-container {
+    width: 450px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
+  
+  .icon {
+    margin-right: 10px;
+    font-size: 20px;
+    color: #555; /* 아이콘 색상 지정 */
+    position: relative;
+  }
+  
+  .input-field {
+    width: 50%;
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none; /* 포커스 효과 제거 */
+  }
+
+  .login-btn-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .memberEnroll-btn-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .naverkakao{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .naverkakao img{
+    width: 40%;
+    height: 100%;
+    cursor: pointer;
+    transition-property: opacity;
+    transition-duration: 0.05s;
+    transition-timing-function: ease-out;
+  }
+
+  .naverkakao img:hover{
+    opacity: 0.5;
+    transition: opacity 0.05s ease-out;
+  }
+
+  .gray-text{
+    font-size: 10px;
+    margin-top: 10px;
+    color: gray;
+  }
+
+  .find-idpw{
+    width: 450px;
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
+    justify-content: flex-end;
+  }
+
+  .top-line{
+    border-bottom: 2px solid rgb(204, 204, 204);
+    border-radius: 10px;
+    margin: 0px auto 20px auto;
+    width: 90%;
+
+  }
