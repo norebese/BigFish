@@ -1,0 +1,377 @@
+.main-area{
+    position: relative;
+    width: 100%;
+    background: #fff;
+    padding: 10px;
+    left: 0;
+    top: 0;
+}
+p {
+    margin: 0;
+    word-break: keep-all;
+}
+.map-area1{
+    display: block;
+    position: relative;
+    width: 381px;
+    left: 50%;
+    top: 0;
+    margin-left: -190px
+}
+.btn-area .txt{
+    font-size: 15px;
+    color: #fff;
+    line-height: 1;
+    position: absolute;
+    margin-bottom: 0;
+}
+.btn-area .w01{
+    left: 10px;
+    top: 157px;
+}
+.btn-area .w02{
+    left: 10px;
+    top: 293px;
+}
+.btn-area .w03{
+    left: 125px;
+    top: 364px;
+}
+.btn-area .w04{
+    left: 96px;
+    top: 454px
+}
+.btn-area .w05{
+    left: 250px;
+    top: 372px;
+}
+.btn-area .w06{
+    left: 312px;
+    top: 245px
+}
+.btn-area .w07{
+    left: 282px;
+    top: 84px
+}
+.btn-area .w08{
+    left: 256px;
+    top: 10px;
+}
+.imgtab-btn{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    word-break: break-all;
+    max-height: 100%;
+}
+.img-flid1{
+    position: absolute;
+    overflow: hidden;
+    width: 157px;
+    height: 104px;
+    left: 0;
+    top: 109px;
+}
+#hoverImage1{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.img-flid2{
+    position: absolute;
+    overflow: hidden;
+    width: 204px;
+    height: 287px;
+    left: 0;
+    top: 213px;
+}
+#hoverImage2{
+    width: 186px;
+    height: 320px;
+    max-height: none;
+    transform: rotateZ(36deg);
+    left: -75px;
+    top: -53px;
+    z-index: 2;
+}
+.img-flid3{
+    position: absolute;
+    overflow: hidden;
+    width: 204px;
+    height: 226px;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+}
+#hoverImage3{
+    height: 140px;
+    top: 0;
+    right: 0;
+    width: 100%;
+    position: absolute;
+}
+#hoverImage4{
+    height: 90px;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    position: absolute;
+}
+.img-flid4{
+    position: absolute;
+    overflow: hidden;
+    width: 177px;
+    height: 351px;
+    right: 0;
+    top: 149px;
+}
+#hoverImage5{
+    width: 203px;
+    height: 320px;
+    max-height: none;
+    max-width: none;
+    transform: rotateZ(-34deg);
+    left: -45px;
+    top: 93px;
+    z-index: 2;
+}
+#hoverImage6{
+    width: 105px;
+    z-index: 1;
+    right: 0;
+    height: 100%;
+    position: absolute;
+}
+.img-flid5{
+    position: absolute;
+    overflow: hidden;
+    width: 195px;
+    height: 115px;
+    right: 0;
+    top: 35px;
+}
+#hoverImage7{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.map-area1,
+.map-area2,
+.map-area3,
+.map-area4,
+.map-area5,
+.map-area6 {
+    display: none;
+    position: relative;
+    width: 381px;
+    left: 50%;
+    top: 0;
+    margin-left: -190px
+}
+.map-area1.on,
+.map-area2.on,
+.map-area3.on,
+.map-area4.on,
+.map-area5.on,
+.map-area6.on {
+    display: block;
+}
+.prev-btn{
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    top: 2px;
+    right: 2px;
+    z-index: 11;
+    background: url(/images/prev-btn-icon.png);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-area2{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.sub-txt{
+    font-family: 'scd-bold', sans-serif;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    position: absolute;
+}
+.btn-area2 .sub-txt{
+    left: 11px;
+    top: 184px
+}
+.btn-area2 button{
+    font-size: 15px;
+    color: #000;
+    padding: 3px 0;
+    padding-left: 20px;
+    position: absolute;
+    text-align: left;
+    border: none;
+    background: none;
+}
+
+.icon-txt-btn1{
+    left: 178px;
+    top: 135px;
+}
+.btn-area2 img,
+.btn-area3 img,
+.btn-area4 img,
+.btn-area5 img
+{
+    display: inline-block;
+    width: 15px;
+    height: 23px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.icon-txt-btn2{
+    left: 213px;
+    top: 198px;
+}
+.icon-txt-btn3{
+    left: 209px;
+    top: 277px
+}
+.icon-txt-btn4{
+    left: 235px;
+    top: 345px
+}
+
+.btn-area3 .sub-txt{
+    left: 11px;
+    top: 264px;
+}
+.btn-area3 button{
+    font-size: 15px;
+    color: #000;
+    padding: 3px 0;
+    padding-left: 20px;
+    position: absolute;
+    text-align: left;
+    border: none;
+    background: none;
+}
+.icon-txt-btn5{
+    left: 210px;
+    top: 42px;
+}
+.icon-txt-btn6{
+    left: 197px;
+    top: 91px;
+}
+.icon-txt-btn7{
+    left: 182px;
+    top: 147px;
+}
+.icon-txt-btn8{
+    left: 167px;
+    top: 222px;
+}
+.icon-txt-btn9{
+    left: 164px;
+    top: 287px;
+}
+
+.btn-area4 .sub-txt{
+    left: 180px;
+    top: 421px;
+}
+.btn-area4 button{
+    font-size: 15px;
+    color: #000;
+    padding: 3px 0;
+    padding-left: 20px;
+    position: absolute;
+    text-align: left;
+    border: none;
+    background: none;
+}
+.icon-txt-btn10{
+    left: 178px;
+    top: 263px;
+}
+.icon-txt-btn11{
+    left: 269px;
+    top: 228px
+}
+.btn-area5 .sub-txt{
+    left: 169px;
+    top: 402px;
+}
+.btn-area5 button{
+    font-size: 15px;
+    color: #000;
+    padding: 3px 0;
+    padding-left: 20px;
+    position: absolute;
+    text-align: left;
+    border: none;
+    background: none;
+}
+.icon-txt-btn12{
+    left: 100px;
+    top: 221px
+}
+.icon-txt-btn13{
+    left: 244px;
+    top: 224px;
+}
+.icon-txt-btn14{
+    left: 31px;
+    top: 275px;
+}
+.icon-txt-btn15{
+    left: 194px;
+    top: 276px
+}
+.btn-area6 img{
+    display: inline-block;
+    width: 15px;
+    height: 23px;
+    position: absolute;
+    left: auto;
+    right: 0;
+}
+.btn-area6 .sub-txt{
+    left: 265px;
+    top: 388px;
+}
+.btn-area6 button{
+    font-size: 15px;
+    color: #000;
+    padding: 3px 0;
+    padding-right: 20px;
+    position: absolute;
+    text-align: left;
+    border: none;
+    background: none;
+}
+.icon-txt-btn16{
+    left: 168px;
+    top: 132px
+}
+.icon-txt-btn17{
+    left: 43px;
+    top: 150px;
+}
+.icon-txt-btn18{
+    left: 86px;
+    top: 175px
+}
