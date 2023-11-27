@@ -1,9 +1,27 @@
+
+.page-title{
+    margin-left: 100px;
+    margin-right: 100px;
+    border-bottom: 3px solid #e6e6e6;
+    background-color: white;
+    background: white;
+}
+.page-title p{
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(59, 175, 252);
+}
+
+
+
 .main-area{
+    display: flex;
+    height: 504px;
     position: relative;
-    width: 100%;
-    background: #fff;
+    width: 381px;
     padding: 10px;
-    left: 0;
+    left: 100px;
     top: 0;
 }
 p {
@@ -39,7 +57,7 @@ p {
 }
 .btn-area .w04{
     left: 96px;
-    top: 454px
+    top: 454px;
 }
 .btn-area .w05{
     left: 250px;
@@ -47,11 +65,11 @@ p {
 }
 .btn-area .w06{
     left: 312px;
-    top: 245px
+    top: 245px;
 }
 .btn-area .w07{
     left: 282px;
-    top: 84px
+    top: 84px;
 }
 .btn-area .w08{
     left: 256px;
@@ -168,7 +186,9 @@ p {
 .map-area3,
 .map-area4,
 .map-area5,
-.map-area6 {
+.map-area6,
+.map-area7,
+.map-area8 {
     display: none;
     position: relative;
     width: 381px;
@@ -181,7 +201,9 @@ p {
 .map-area3.on,
 .map-area4.on,
 .map-area5.on,
-.map-area6.on {
+.map-area6.on,
+.map-area7.on,
+.map-area8.on {
     display: block;
 }
 .prev-btn{
@@ -191,7 +213,7 @@ p {
     top: 2px;
     right: 2px;
     z-index: 11;
-    background: url(/images/prev-btn-icon.png);
+    background: url(/bigfish/resources/images/prev-btn-icon.png);
     cursor: pointer;
     border: none;
 }
@@ -212,7 +234,7 @@ p {
 }
 .btn-area2 .sub-txt{
     left: 11px;
-    top: 184px
+    top: 184px;
 }
 .btn-area2 button{
     font-size: 15px;
@@ -232,7 +254,8 @@ p {
 .btn-area2 img,
 .btn-area3 img,
 .btn-area4 img,
-.btn-area5 img
+
+.btn-area8 img
 {
     display: inline-block;
     width: 15px;
@@ -247,11 +270,11 @@ p {
 }
 .icon-txt-btn3{
     left: 209px;
-    top: 277px
+    top: 277px;
 }
 .icon-txt-btn4{
     left: 235px;
-    top: 345px
+    top: 345px;
 }
 
 .btn-area3 .sub-txt{
@@ -309,13 +332,35 @@ p {
 }
 .icon-txt-btn11{
     left: 269px;
-    top: 228px
+    top: 228px;
 }
 .btn-area5 .sub-txt{
     left: 169px;
     top: 402px;
 }
-.btn-area5 button{
+.jeju{
+    display: inline-block;
+    width: 15px;
+    height: 23px;
+    position: absolute;
+    left: auto;
+    right: 0;
+}
+.icon-txt-btn12{
+    left: 50px;
+    top: 221px;
+    font-size: 15px;
+    color: #000;
+    padding: 3px 0;
+    padding-right: 20px;
+    position: absolute;
+    text-align: left;
+    border: none;
+    background: none;
+}
+.icon-txt-btn13{
+    left: 244px;
+    top: 224px;
     font-size: 15px;
     color: #000;
     padding: 3px 0;
@@ -325,21 +370,29 @@ p {
     border: none;
     background: none;
 }
-.icon-txt-btn12{
-    left: 100px;
-    top: 221px
-}
-.icon-txt-btn13{
-    left: 244px;
-    top: 224px;
-}
 .icon-txt-btn14{
-    left: 31px;
+    left: 21px;
     top: 275px;
+    font-size: 15px;
+    color: #000;
+    padding: 3px 0;
+    padding-right: 20px;
+    position: absolute;
+    text-align: left;
+    border: none;
+    background: none;
 }
 .icon-txt-btn15{
     left: 194px;
-    top: 276px
+    top: 276px;
+    font-size: 15px;
+    color: #000;
+    padding: 3px 0;
+    padding-left: 20px;
+    position: absolute;
+    text-align: left;
+    border: none;
+    background: none;
 }
 .btn-area6 img{
     display: inline-block;
@@ -365,7 +418,7 @@ p {
 }
 .icon-txt-btn16{
     left: 168px;
-    top: 132px
+    top: 132px;
 }
 .icon-txt-btn17{
     left: 43px;
@@ -373,5 +426,201 @@ p {
 }
 .icon-txt-btn18{
     left: 86px;
-    top: 175px
+    top: 175px;
+}
+.icon-txt-btn19{
+    left: 9px;
+    top: 205px;
+}
+.btn-area7 img{
+    display: inline-block;
+    width: 15px;
+    height: 23px;
+    position: absolute;
+    left: auto;
+    right: 0;
+}
+.btn-area7 .sub-txt{
+    left: 289px;
+    top: 260px;
+}
+.btn-area7 button{
+    font-size: 15px;
+    color: #000;
+    padding: 3px 0;
+    padding-right: 20px;
+    position: absolute;
+    text-align: left;
+    border: none;
+    background: none;
+}
+.icon-txt-btn20{
+    left: 61px;
+    top: 74px;
+}
+.icon-txt-btn21{
+    left: 67px;
+    top: 165px;
+}
+.icon-txt-btn22{
+    left: 87px;
+    top: 244px;
+}
+.btn-area8 .sub-txt{
+    left: 257px;
+    top: 154px;
+}
+.btn-area8 button{
+    font-size: 15px;
+    color: #000;
+    padding: 3px 0;
+    padding-left: 20px;
+    position: absolute;
+    text-align: left;
+    border: none;
+    background: none;
+}
+.icon-txt-btn23{
+    left: 20px;
+    top: 53px;
+}
+.icon-txt-btn24{
+    left: 65px;
+    top: 129px;
+}
+.icon-txt-btn25{
+    left: 127px;
+    top: 240px;
+}
+
+
+
+.weather-area{
+    position: relative;
+    border: 1px solid black;
+    height: 40%;
+    min-width: 500px;
+    left: 250px;
+}
+.fishinfo{
+    position: relative;
+    border: 1px solid black;
+    height: 50%;
+    min-width: 500px;
+    left: 250px;
+    margin-top: 40px;
+}
+
+
+.list-section{
+    position: relative;
+    display: flex;
+}
+
+.filter-area{
+    position: absolute;
+    display: block;
+    right: 0;
+    top: 75px;
+    width: 324px;
+}
+.category-area{
+    margin-top: 50px;
+    border-top: 3px solid #e6e6e6;
+    display: flex;
+    height: 504px;
+    width: 100%;
+    position: relative;
+    background: #fff;
+    padding: 10px;
+    top: 0;
+    margin-left: 100px;
+    margin-right: 100px;
+    flex-direction: column;
+}
+.category-title{
+
+}
+.list-box-area{
+    width: 608px;
+    display: block;
+    margin-top: 20px;
+    background: #fff;
+    border: 1px solid #d5d5d5;
+    border-radius: 0.3rem;
+    line-height: 1;
+}
+.list-visual-area{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    vertical-align: top;
+    border-radius: 0.3rem;
+    background-size: 100% auto;
+}
+.img-box{
+    width: 100%;
+    height: 0;
+    padding-left: 0;
+    padding-bottom: 280px;
+}
+.img-box img{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    transform: translate(0, -50%);
+}
+.cover-area{
+    position: absolute;
+    top: 45%;
+    left: 0;
+    width: 100%;
+    height: 55%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000);
+}
+.list-box-txt{
+    position: absolute;
+    padding: 20px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.list-box-left{
+    margin: 0;
+    padding: 0;
+}
+.fish-kind{
+    background: rgba(38, 99, 226, 0.7);
+    font-size: 14px;
+    color: white;
+}
+.list-name{
+    font-size: 25px;
+    font-weight: 500;
+    color: #fff;
+    margin-top: 7px;
+}
+.list-address{
+    font-size: 14px;
+    color: #fff;
+    opacity: 0.8;
+    margin-top: 6px;
+}
+.list-box-right{
+    position: absolute;
+    right: 30px;
+    bottom: 0;
+    padding: 20px;
+}
+.live-price{
+    margin: 0;
+    padding: 0;
+}
+.price{
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: right;
 }

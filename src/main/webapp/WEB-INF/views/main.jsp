@@ -10,7 +10,6 @@
 <body>
 	<jsp:include page="common/header.jsp"/>
 	
-	<a href="">aa</a>
 	<br><br><br><br>
 	
 	<jsp:include page="common/footer.jsp"/>
