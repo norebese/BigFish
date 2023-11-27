@@ -13,11 +13,13 @@
         width:100%;
         margin:auto;
         margin-top:50px;
+        margin-bottom: 0px;
         background-color: rgb(59, 175, 252);
     }
     #footer-1 {width:100%; height:calc(100% - 40px);}
     #footer-1>p {
         padding:10px;
+        margin: 0px;
         font-size:13px;
     }
 </style>

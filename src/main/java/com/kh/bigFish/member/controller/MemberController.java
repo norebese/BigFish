@@ -41,4 +41,14 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/logout.me")
+	public ModelAndView logoutMember(ModelAndView mv, HttpSession session) {
+		session.removeAttribute("loginUser");
+		
+		session.setAttribute("alertMsg", "로그아웃에 성공했습니다");
+		mv.setViewName("redirect:/");
+		
+		return mv;
+	}
+	
 }
