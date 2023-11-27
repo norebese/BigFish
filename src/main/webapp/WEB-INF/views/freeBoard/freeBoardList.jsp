@@ -5,31 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BIG FISH</title>
     <!-- 부트스트랩 css 사용 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<style>
-   
-     #boardList {text-align:center;}
-     #boardList>tbody>tr:hover {cursor:pointer;}
-
-     #pagingArea {width:fit-content; margin:auto;}
-     
-     #searchForm {
-         width:60%;
-         margin:auto;
-     }
-     #searchForm>* {
-         float:left;
-         margin:5px;
-     }
-     .select {width:20%;}
-     .text {width:53%;}
-     .searchBtn {width:15%;}
-</style>
+    <!-- CSS-->
+    <link rel="stylesheet" href="<%=contextPath%>/resources/css/freeBoardList.css">
+    <!-- JS-->
+    
 </head>
 <body>
-
+    <jsp:include page="../common/header.jsp"/>
     <div class="content" align="center">
         <br><br>
         <div class="innerOuter" style="padding:5% 10%; width: 80%;" >
