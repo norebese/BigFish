@@ -34,6 +34,7 @@
 		</script>
 		<%session.removeAttribute("alertMsg"); %>
 	<%} %>
+
 		<div class="header-area" style="background: white;">
 	            <div class="header-logo">
 	                <img onclick="location.href='<%=contextPath %>'" style="cursor: pointer; height:80px; width: 100px;" src="resources/images/BIGBIGFISH.png" alt="메인로고">
