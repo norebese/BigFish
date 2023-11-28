@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/header.css">
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- 폰트 Noto Sans KR-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,8 @@
 		</script>
 		<%session.removeAttribute("alertMsg"); %>
 	<%} %>
-		<div style="background-color: white;" class="header-area">
+
+		<div class="header-area" style="background: white;">
 	            <div class="header-logo">
 	                <img onclick="location.href='<%=contextPath %>'" style="cursor: pointer; height:80px; width: 100px;" src="resources/images/BIGBIGFISH.png" alt="메인로고">
 	                	
