@@ -1,0 +1,109 @@
+.page-title{
+	color: rgb(59, 175, 252);
+	font-size: 30px;
+	font-weight: bold;
+}
+.shop-list{
+    margin-top: 20px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.list-box-area{
+    padding-right: 20px;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    position: relative;
+    width: 600px;
+    display: block;
+    margin-top: 20px;
+    background: #fff;
+    border: 2px solid #d5d5d5;
+    border-radius: 0.3rem;
+}
+.list-img-box{
+    display: flex;
+}
+.img-box{
+    width: 0;
+    height: 165px;
+    width: 275px;
+    padding-left: 317px;
+    overflow: hidden;
+    position: relative;
+    
+}
+.img-box img{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    transform: translate(-57%, 0);
+}
+.list-txt-box{
+    float: left;
+    width: calc(100% - 275px);
+    padding-left: 15px;
+    margin: 0;
+    padding: 0;
+}
+.list-name{
+    font-size: 22px;
+    font-weight: bold;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 7px;
+}
+.fish-info{
+    margin: 0;
+}
+.information{
+    font-size: 12px
+}
+.reply{
+    font-size: 12px;
+    color: black;
+}
+.like{
+    font-size: 12px;
+    color: black;
+}
+.address{
+    font-size: 13px;
+    color: #878787;
+    font-weight: bold;
+}
+.price-area{
+    font-size: 25px;
+    font-weight: bold;
+    color: #000;
+    margin-top: 30px;
+    text-align: right;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    width: calc(100% - 290px);
+    padding-right: 20px;
+}
+.filter-btn1{
+    position: relative;
+    right: -60%;
+    top: 100px;
+}
+.filter-btn2{
+    position: relative;
+    right: -60%;
+    top: 150px;
+    width: 300px;
+}
+.insert-btn{
+    position: relative;
+    margin-left: 650px;
+    top: -40px;
+}
+.filter-area{
+    position: absolute;
+    left: 850px;
+}
