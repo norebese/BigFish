@@ -51,4 +51,19 @@ public class MemberController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/chooseEnroll.me")
+	public String chooseEnroll() {
+		return "member/chooseEnroll";
+	}
+	
+	@RequestMapping(value="/personalEnrollForm.me")
+	public String personalEnrollForm() {
+		return "member/personalEnrollForm";
+	}
+	
+	@RequestMapping(value="/companyEnrollForm.me")
+	public String companyEnrollForm() {
+		return "member/companyEnrollForm";
+	}
+	
 }

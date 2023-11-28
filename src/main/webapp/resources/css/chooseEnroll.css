@@ -1,0 +1,33 @@
+.top-line{
+    border-bottom: 2px solid rgb(204, 204, 204);
+    border-radius: 10px;
+    margin: 0px auto 20px auto;
+    width: 90%;
+    
+
+  }
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.main-container h3{
+    font-family: 'Noto Sans KR', sans-serif;
+
+}
+
+.choose-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.choose-btn{
+    display: flex;
+    flex-direction: column;
+}
