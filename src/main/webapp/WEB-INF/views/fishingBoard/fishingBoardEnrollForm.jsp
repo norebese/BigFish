@@ -19,11 +19,10 @@
 </head>
 <body>
     <jsp:include page="../common/header.jsp"/>
-   
     <div class="content">
         <br><br>
         <div class="innerOuter">
-            <h2 align="left" style="border-bottom: solid 2px rgb(204,204,204); padding-bottom: 15px;">조황게시판 글수정</h2>
+            <h2 align="left" style="border-bottom: solid 2px rgb(204,204,204); padding-bottom: 15px;">조황게시판 글작성</h2>
             <br>
     
             <table>
