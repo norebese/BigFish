@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BIG FISH</title>
 
 <!-- CSS-->
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/login.css">
@@ -62,7 +62,7 @@
 	    </div>
     </form>
     <div id="personal-naverkakao" class="memberEnroll-btn-container">
-    <button type="button" class="btn btn-secondary" style="width: 450px; ">이메일로 가입하기</button>
+    <button onclick="location.href='chooseEnroll.me'" type="button" class="btn btn-secondary" style="width: 450px; ">이메일로 가입하기</button>
       <div class="naverkakao" style="width:450px; height:38px; margin-top: 10px;">
         <img src="resources/images/login_naver.png" alt="네이버 로그인 아이콘">
         <img src="resources/images/login_kakao.png" alt="카카오 로그인 아이콘">
