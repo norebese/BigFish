@@ -82,31 +82,31 @@
 			<div id="reservationWork" style="display: none; flex-direction: column; align-items: center;">
 				<!-- 카드 1 -->
 				<div style="width: 70%; margin-bottom: 30px;" class="card">
-					<div class="card-header" style="padding-bottom: 3px;">
+					<div class="card-header" style="padding-bottom: 3px;" onclick="location.href='reservationDetail'">
 						<div style="display: flex; flex-direction: row; justify-content: space-between;">
 							<span style="font-weight: bold;">사이판 민물 낚시터</span>
-							<sapn style="font-size: 13px;">No. 123</sapn>
+							<span style="font-size: 13px;">No. 123</span>
 						</div>
 
 						
 						<div style="display: flex; flex-direction: row; justify-content: space-between;">
 							<span style="font-size: 13px;">11월 11일(토) | 11:00</span>
-							<sapn>이용 완료</sapn>
+							<span>이용 완료</span>
 						</div>
 					</div>
 					<div class="card-body">
 						<div style="display: flex; flex-direction: row; justify-content: space-between;">
 							<span>1시간 이용권</span>
-							<sapn>24000원</sapn>
+							<span>24000원</span>
 						</div>
 					</div>
 					<div class="card-footer">
 						<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
 							<span style="font-size: 13px;">예약한 시간에 도착하지 못할 경우 예약이 취소될 수 있습니다.</span>
-							<sapn>
+							<span>
 								<button class="btn btn-sm btn-primary">1:1 문의</button>
 								<button class="btn btn-sm btn-primary">리뷰 쓰기</button>
-							</sapn>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -115,13 +115,13 @@
 					<div class="card-header" style="padding-bottom: 3px;">
 						<div style="display: flex; flex-direction: row; justify-content: space-between;">
 							<span style="font-weight: bold;">해신 바다 낚시터</span>
-							<sapn style="font-size: 13px;">No. 122</sapn>
+							<span style="font-size: 13px;">No. 122</span>
 						</div>
 
 						
 						<div style="display: flex; flex-direction: row; justify-content: space-between;">
 							<span style="font-size: 13px;">12월 11일(월) | 17:00</span>
-							<sapn>이용 예정</sapn>
+							<span>이용 예정</span>
 						</div>
 					</div>
 					<div class="card-body">
