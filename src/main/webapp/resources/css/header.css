@@ -9,6 +9,7 @@
     white-space: nowrap;
     justify-content : space-around;
     font-family: 'Noto Sans KR', sans-serif;
+    background: white;
     
 }
 .header-logo{
@@ -67,7 +68,7 @@
 .memberMenu{
     position: absolute;
     flex-direction: column;
-    border: solid 2px gray;
+    border: solid 2px rgb(59, 175, 252);
     border-radius: 8px;
     padding: 10px;
     right: -38px;
