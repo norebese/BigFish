@@ -23,14 +23,26 @@ public class StudyController {
 	}
 	
 	@RequestMapping(value="/enrollForm.st")
-	public String enrollFrom() {
+	public String enrollForm() {
 	
 		return "study/studyEnrollForm";
 	}
 	
 	@RequestMapping(value="/detail.st")
-	public String selectBoard() {
+	public String selectStudy() {
 		
 		return "study/studyDetailView";
+	}
+	
+	@RequestMapping(value="/delete.st")
+	public String deleteStudy() {
+		
+		return "redirect:list.st";
+	}
+	
+	@RequestMapping(value="/updateForm.st")
+	public String updateForm() {
+		
+		return "study/studyUpdateForm";
 	}
 }
