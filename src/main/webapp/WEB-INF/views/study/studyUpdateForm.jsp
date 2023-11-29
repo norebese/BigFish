@@ -46,9 +46,9 @@
         align-items: flex-start;
     }
     
-    </style>
+</style>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIG FISH</title>
     <!-- 부트스트랩 css 사용 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -61,26 +61,26 @@
     <jsp:include page="../common/header.jsp" />
     <br><br><br><br><br>
 
-    <div class="header-box">
-        <div class="left_box"></div>
-        <div class="center_box">
-            <div style="color: white;">
-            <h2>학습동영상</h2>
-            <br>
-                <tr>
-                    <td>낚시에 대한 새로운 지식을 배워보세요!</td>
-                </tr>
+        <div class="header-box">
+            <div class="left_box"></div>
+            <div class="center_box">
+                <div style="color: white;">
+                <h2>학습동영상</h2>
+                <br>
+                    <tr>
+                        <td>낚시에 대한 새로운 지식을 배워보세요!</td>
+                    </tr>
+                </div>
+                <div class="study-image" style="color: white;">              
+                    <img style="width: 150px;" src="resources/images/study.png">
+                </div>
             </div>
-            <div class="study-image" style="color: white;">              
-                <img style="width: 150px;" src="resources/images/study.png">
-            </div>
+            <div class="right_box"></div>
         </div>
-        <div class="right_box"></div>
-    </div>
 
       <div class="content" align="center">
         <div class="innerOuter" style="padding:5% 10%; width: 80%;">
-            <h3 align="left" style="font-weight: bolder; color: rgb(59, 175, 252);">학습동영상 등록</h3>
+            <h3 align="left" style="font-weight: bolder; color: rgb(59, 175, 252);">학습동영상 수정</h3>
             <br>
 
             <table>
@@ -95,7 +95,7 @@
                     </td>
                 </tr>
             </table>
-            <button type="submit" class="btn btn-primary" onclick="location.href='list.st'" style="border: none; width: 100%; background-color: rgb(59, 175, 252);">게시글 등록</button>
+            <button type="submit" class="btn btn-primary" onclick="location.href='list.st'" style="border: none; width: 100%; background-color: rgb(59, 175, 252);">게시글 수정</button>
       </div>
 
     <jsp:include page="../common/footer.jsp"/>
