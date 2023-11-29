@@ -1,0 +1,24 @@
+.top-line{
+    border-bottom: 2px solid rgb(204, 204, 204);
+    margin: 0px auto 20px auto;
+    width: 90%;
+
+}
+
+body{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.myPage{
+    display: flex;
+    width: 90%;
+    margin: 0px auto;
+}
+
+.myPageMenuList{
+    width: 15%;
+}
+
+.myPageContent{
+    width: 100%;
+}
