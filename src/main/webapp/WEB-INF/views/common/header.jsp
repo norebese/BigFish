@@ -15,7 +15,7 @@
 <script src="<%=contextPath%>/resources/js/header.js"></script>
 
 <!-- CSS-->
-<link rel="stylesheet" href="<%=contextPath%>/resources/css/header.css">
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/header.css?ver=1">
 
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -50,8 +50,8 @@
 	                        <img style="height: auto; width: 15px; margin-top: 7px;" src="resources/images/search_icon.png" alt="검색버튼">
 	                    </a>
 	            	</div>
-	                <a class="menu-link" href="">공지사항</a>
-	                <a class="menu-link" href="">FAQ</a>
+	                <a class="menu-link" href="annList.an">공지사항</a>
+	                <a class="menu-link" href="faqList.fa">FAQ</a>
 	                <c:choose>
 	                <c:when test="${empty loginUser}">
 	                	<a class="menu-link" href="loginForm.me">로그인</a>
@@ -62,7 +62,14 @@
 	                </c:otherwise>
 	                </c:choose>
                     <div class="memberMenu" style="display: none;">
-                        <a style="margin-bottom: 3px;">마이페이지</a>
+                    	<c:choose>
+                    		<c:when test="${loginUser.businessStatus eq 'N' }">
+                    			<a href="personalMyPage.me" style="margin-bottom: 3px; text-decoration: none; color: black;">마이페이지</a>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<a href="companyMyPage.me" style="margin-bottom: 3px; text-decoration: none; color: black;">마이페이지</a>
+                    		</c:otherwise>
+                    	</c:choose>
                         <a href="logout.me" style="text-decoration: none; color: black;">로그아웃</a>
                     </div>
 	            </div>

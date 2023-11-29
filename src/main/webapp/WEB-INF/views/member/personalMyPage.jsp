@@ -1,0 +1,192 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String contextPath = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BIG FISH</title>
+
+<!-- CSS-->
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/personalMyPage.css">
+
+<!-- JS-->
+<script src="<%=contextPath%>/resources/js/personalMyPage.js"></script>
+
+
+</head>
+<body>
+	  <jsp:include page="../common/header.jsp"/>
+	  <br><br><br><br><br>
+	  
+	  
+	<div class="top-line">
+		<h1 class="head-text" style="color: rgb(59, 175, 252);">마이 페이지</h1>
+	</div>
+	<br><br>
+	<!-- 메뉴 -->
+	<div class="myPage">
+		<div class="myPageMenuList">
+			<button id="buttonProfile" onclick="showProfile()" style="width: 100%; border: none; background: rgb(28, 134, 204);" class="btn btn-secondary">프로필 관리</button><br><br>
+			<button id="buttonReservation" onclick="showReservation()" style="width: 100%; border: none; background: rgb(59, 175, 252);" class="btn btn-secondary">예약 목록</button><br><br>
+			<button style="width: 100%; border: none; background: rgb(59, 175, 252); " class="btn btn-secondary">구매 목록</button><br><br>
+			<button style="width: 100%; border: none; background: rgb(59, 175, 252);" class="btn btn-secondary">장바구니</button>
+
+		</div>	
+
+
+
+
+		<!-- 프로필 관리 -->
+		<div class="myPageContent">
+			<div id="profileWork" style="display: flex; flex-direction: column; align-items: center;">
+				<img width="20%" height="20%" src="resources/images/myProfile.png" alt="">
+				<label for="profileImg" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사진 선택</label>
+				<input type="file" id="profileImg" style="display: none;">
+				<br>
+				<table style="width: 60%;">
+					<tr>
+						<td align="center" style="width: 20%;">닉네임</td>
+						<td><input class="form-control" type="text" placeholder="${loginUser.memNick}"></td>
+						<td style="width: 30%;"><button style="width: 75%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">변경</button></td>
+					</tr>
+				</table><br>
+				<table style="width: 60%;">
+					<tr>
+						<td align="center" style="width: 20%;">휴대폰 번호</td>
+						<td><input class="form-control" type="text" placeholder="${loginUser.phone}"></td>
+						<td style="width: 30%;"><button style="width: 75%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">변경</button></td>
+					</tr>
+				</table><br>
+				<table style="width: 60%;">
+					<tr>
+						<td align="center" style="width: 20%;">주소</td>
+						<td><input readonly class="form-control" type="text" placeholder="${loginUser.address}"></td>
+						<td style="width: 30%;"><button style="width: 75%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">주소 검색</button></td>
+					</tr>
+					<tr>
+						<td align="center" style="width: 20%;">상세 주소</td>
+						<td><input class="form-control" type="text" placeholder="${loginUser.addressDetail}"></td>
+						<td style="width: 30%;"><button style="width: 75%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">변경</button></td>
+					</tr>
+				</table><br>
+
+				<button type="button" data-bs-toggle="modal" data-bs-target="#changePwd" class="btn btn-primary" style="border: none; background: rgb(59, 175, 252);">비밀번호 변경</button>
+				
+
+
+			</div>
+			<!-- 예약 목록 -->
+			<div id="reservationWork" style="display: none; flex-direction: column; align-items: center;">
+				<!-- 카드 1 -->
+				<div style="width: 70%; margin-bottom: 30px;" class="card">
+					<div class="card-header" style="padding-bottom: 3px;">
+						<div style="display: flex; flex-direction: row; justify-content: space-between;">
+							<span style="font-weight: bold;">사이판 민물 낚시터</span>
+							<sapn style="font-size: 13px;">No. 123</sapn>
+						</div>
+
+						
+						<div style="display: flex; flex-direction: row; justify-content: space-between;">
+							<span style="font-size: 13px;">11월 11일(토) | 11:00</span>
+							<sapn>이용 완료</sapn>
+						</div>
+					</div>
+					<div class="card-body">
+						<div style="display: flex; flex-direction: row; justify-content: space-between;">
+							<span>1시간 이용권</span>
+							<sapn>24000원</sapn>
+						</div>
+					</div>
+					<div class="card-footer">
+						<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+							<span style="font-size: 13px;">예약한 시간에 도착하지 못할 경우 예약이 취소될 수 있습니다.</span>
+							<sapn>
+								<button class="btn btn-sm btn-primary">1:1 문의</button>
+								<button class="btn btn-sm btn-primary">리뷰 쓰기</button>
+							</sapn>
+						</div>
+					</div>
+				</div>
+				<!-- 카드 2 -->
+				<div style="width: 70%; margin-bottom: 30px;" class="card">
+					<div class="card-header" style="padding-bottom: 3px;">
+						<div style="display: flex; flex-direction: row; justify-content: space-between;">
+							<span style="font-weight: bold;">해신 바다 낚시터</span>
+							<sapn style="font-size: 13px;">No. 122</sapn>
+						</div>
+
+						
+						<div style="display: flex; flex-direction: row; justify-content: space-between;">
+							<span style="font-size: 13px;">12월 11일(월) | 17:00</span>
+							<sapn>이용 예정</sapn>
+						</div>
+					</div>
+					<div class="card-body">
+						<div style="display: flex; flex-direction: row; justify-content: space-between;">
+							<span>1시간 이용권</span>
+							<sapn>35000원</sapn>
+						</div>
+					</div>
+					<div class="card-footer">
+						<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+							<span style="font-size: 13px;">예약한 시간에 도착하지 못할 경우 예약이 취소될 수 있습니다.</span>
+							<sapn>
+								<button class="btn btn-sm btn-primary">1:1 문의</button>
+								<button class="btn btn-sm btn-primary">리뷰 쓰기</button>
+							</sapn>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</div>
+
+	  
+			<!-- The Modal -->
+		<div class="modal" id="changePwd">
+			<div class="modal-dialog">
+			<div class="modal-content">
+	
+			<!-- Modal Header -->
+			<div class="modal-header">
+			<h4 class="modal-title">비밀번호 변경</h4>
+			
+			</div>
+	
+			<!-- Modal body -->
+			<form action="">
+			<div style="display: flex;" class="modal-body">
+				
+				<table style="width: 80%; margin: 0px auto;">
+					<tr>
+						<td><input placeholder="현재 비밀번호를 입력하세요." class="form-control" type="text"></td>
+					</tr>
+					<tr>
+						<td><input placeholder="변경할 비밀번호를 입력하세요." class="form-control" type="text"></td>
+					</tr>
+					<tr>
+						<td><input placeholder="다시 한번 변경할 비밀번호를 입력하세요." class="form-control" type="text"></td>
+					</tr>
+				</table>
+			</div>
+	
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">변경하기</button>
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+				
+			</div>
+			</form>
+			</div>
+			</div>
+		</div>
+
+
+	  <br><br>
+	  <jsp:include page="../common/footer.jsp"/>
+</body>
+</html>
