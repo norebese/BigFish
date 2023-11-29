@@ -15,10 +15,13 @@
 <script src="<%=contextPath%>/resources/js/header.js"></script>
 
 <!-- CSS-->
-<link rel="stylesheet" href="<%=contextPath%>/resources/css/header.css">
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/header.css?ver=1">
 
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- 폰트 Noto Sans KR-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,7 +61,14 @@
 	                </c:otherwise>
 	                </c:choose>
                     <div class="memberMenu" style="display: none;">
-                        <a style="margin-bottom: 3px;">마이페이지</a>
+                    	<c:choose>
+                    		<c:when test="${loginUser.businessStatus eq 'N' }">
+                    			<a href="personalMyPage.me" style="margin-bottom: 3px; text-decoration: none; color: black;">마이페이지</a>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<a href="companyMyPage.me" style="margin-bottom: 3px; text-decoration: none; color: black;">마이페이지</a>
+                    		</c:otherwise>
+                    	</c:choose>
                         <a href="logout.me" style="text-decoration: none; color: black;">로그아웃</a>
                     </div>
 	            </div>
