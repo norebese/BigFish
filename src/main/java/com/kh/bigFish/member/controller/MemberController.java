@@ -26,9 +26,9 @@ public class MemberController {
 	
 	@RequestMapping(value="/login.me")
 	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session) {
-		
+		System.out.println(m);
 		Member loginUser = memberService.loginMember(m);
-		
+		System.out.println(loginUser);
 		if(loginUser == null) {
 			mv.addObject("errorMsg","로그인 실패");
 			mv.setViewName("common/errorPage");
@@ -49,6 +49,21 @@ public class MemberController {
 		mv.setViewName("redirect:/");
 		
 		return mv;
+	}
+	
+	@RequestMapping(value="/chooseEnroll.me")
+	public String chooseEnroll() {
+		return "member/chooseEnroll";
+	}
+	
+	@RequestMapping(value="/personalEnrollForm.me")
+	public String personalEnrollForm() {
+		return "member/personalEnrollForm";
+	}
+	
+	@RequestMapping(value="/companyEnrollForm.me")
+	public String companyEnrollForm() {
+		return "member/companyEnrollForm";
 	}
 	
 }

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%
+	String contextPath = request.getContextPath();
+	String alertMsg = (String)session.getAttribute("alertMsg");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +18,12 @@
 
 </head>
 <body>
-  <jsp:include page="../common/header.jsp"/>
+    <jsp:include page="../common/header.jsp"/>
  
     <div class="content" align="center">
         <br><br>
         <div class="innerOuter" style="padding:5% 10%; width: 80%;" >
-            <h2 align="left" style="border-bottom: solid 2px rgb(204,204,204); padding-bottom: 15px; " >자유게시판</h2>
+            <h2 align="left" style="border-bottom: solid 2px rgb(204,204,204); padding-bottom: 15px; " >조황게시판</h2>
             <br>
            
             
@@ -47,14 +52,13 @@
                         </div>
                     </div>
                 </div>
-                <!-- <tr>
-
-                    <td> <i class="bi bi-person-circle">광주낚시맨</i> </td>
-                    <th>작성일</th>
-                    <td>좋아요:50</td>
-                    <td>조회수:32</td>
-                    <td>2023/0101</td>
-                </tr> -->
+                <div style="flex: 1; display: flex; margin-top: 20px;">
+                    <!-- 이미지를 감싸는 div -->
+                    <div style="width: 100%; height: 400px; margin-bottom: 20px; overflow: hidden;">
+                        <!-- 실제로는 이미지의 경로를 적어주세요. -->
+                        <img src="<%=contextPath%>/resources/images/fishing.jpg" alt="Your Image" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
                 
                
                 <tr>
