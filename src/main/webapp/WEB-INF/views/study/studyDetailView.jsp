@@ -46,6 +46,10 @@
 }
 
 </style>
+<!-- 부트스트랩 css 사용 -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+
 </head>
 <body>
     <jsp:include page="../common/header.jsp" />
@@ -103,6 +107,7 @@
             </div>
         </div>
 
+        <!-- 댓글 파트 -->
         <div style="width: 70%; margin: 0px auto;" >
         <table id="replyArea" class="table" align="center" onload="">
             <thead>
@@ -110,12 +115,10 @@
                     <c:when test="${ empty loginUser }">
                         <tr>
                             <th colspan="2">
-                                <textarea class="form-control" readonly cols="50" rows="2" style="resize: none; width: 100%;">
-                                    로그인 후 이용 가능 합니다.
-                                </textarea>
+                                <textarea class="form-control" readonly cols="50" rows="2" placeholder="로그인 후 이용가능합니다." style="text-align: center; resize: none; width: 100%;"></textarea>
                             </th>
-                            <th align="right">
-                                <button class="btn btn-secondary disavled">등록하기</button>
+                            <th>
+                                <th style="vertical-align: middle;"><button class="btn btn-secondary disavled">등록하기</button></th>
                             </th>
                         </tr>
                         </c:when>
@@ -128,24 +131,45 @@
                             </tr>
                         </c:otherwise>
                     </c:choose>
-                        <tr>
-                            <td colspan="3">댓글(<span id="rcount">3</span>)</td>
-                        </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th>낚시초보</th>
-                        <td>유익한 영상이네요!</td>
-                        <td>2023-02-01</td>
-                    </tr>
-                    <tr>
-                        <th>낚시왕</th>
-                        <td>대박!</td>
-                        <td>2023-02-05</td>
-                    </tr>
-                </tbody>
             </table>
         </div>
+
+
+    <!-- 댓글파트 -->
+    <div class="replyArea" style="width: 70%; margin: 0px auto;">
+        <div class="container" style="border-bottom: solid 2px rgb(204,204,204); ">
+        <div class="row">
+            <div class="col-sm" style="display: flex; align-items: center;">
+                <i class="bi bi-person" style="font-size: 40px;"></i>
+                <span >낚시킹</span>
+            </div>
+            <div class="col-md-8" style="display: flex; align-items: center;">유익하네요!</div>
+            <div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
+        </div>
+        </div>
+        <div class="container" style="border-bottom: solid 2px rgb(204,204,204); ">
+        <div class="row">
+            <div class="col-sm" style="display: flex; align-items: center;">
+                <i class="bi bi-person" style="font-size: 40px;"></i>
+                <span >낚시초보</span>
+            </div>
+            <div class="col-md-8" style="display: flex; align-items: center;">굳.</div>
+            <div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
+        </div>
+        </div>
+
+        <div class="container" style="border-bottom: solid 2px rgb(204,204,204); ">
+        <div class="row">
+            <div class="col-sm" style="display: flex; align-items: center;">
+                <i class="bi bi-person" style="font-size: 40px;"></i>
+                <span >낚시맨</span>
+            </div>
+            <div class="col-md-8" style="display: flex; align-items: center;">대박이네요.</div>
+            <div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
+        </div>
+        </div>
+    </div>
     
     <!-- The Modal -->
     <div class="modal" id="deleteStudy">
