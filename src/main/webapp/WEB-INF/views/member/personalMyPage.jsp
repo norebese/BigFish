@@ -42,7 +42,7 @@
 		<!-- 프로필 관리 -->
 		<div class="myPageContent">
 			<div id="profileWork" style="display: flex; flex-direction: column; align-items: center;">
-				<img width="20%" height="20%" src="resources/images/profile.png" alt="">
+				<img width="20%" height="20%" src="resources/images/myProfile.png" alt="">
 				<label for="profileImg" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사진 선택</label>
 				<input type="file" id="profileImg" style="display: none;">
 				<br>
