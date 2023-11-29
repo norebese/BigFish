@@ -4,14 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Big Fish</title>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	<br><br><br><br><br><br>
-	
-	
-	
 	
 	
 	<br><br><br><br><br><br>

@@ -10,4 +10,14 @@ public class AnnounceController {
 	public String AnnounceList() {
 		return "announce/announceList";
 	}
+	
+	@RequestMapping(value="annDetail.an")
+	public String AnnDetail() {
+		return "announce/announceDetail";
+	}
+	
+	@RequestMapping(value="annEnrollForm.an")
+	public String AnnEnrollForm() {
+		return "announce/announceEnrollForm";
+	}
 }
