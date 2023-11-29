@@ -26,4 +26,9 @@ public class ReservationController {
 		
 		return "reservation/fishReservation";
 	}
+	@RequestMapping(value="/reservationDetail")
+	public String reservationDetail() {
+		
+		return "reservation/reservationDetail";
+	}
 }
