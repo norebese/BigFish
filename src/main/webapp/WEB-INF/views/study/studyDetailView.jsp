@@ -8,36 +8,41 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
+.header-box{
+    display: flex;
+    flex-direction: row;
+}
+
 .left_box{
-    background-color: rgb(52, 152, 219); 
-    position: absolute; 
-    left: 0.25px; 
-    width: 275px; 
+    background-color: rgb(52, 152, 219);  
+    width: 25%; 
     height: 286px;
 }
 
 .center_box{
+    display: flex;
+    flex-direction: row;
     background-color: rgb(59, 175, 252); 
-    left: 275px; 
-    width: 650px; 
+    width: 100%; 
+    max-width: 1200px;
     height: 286px;
+    justify-content: space-evenly;
+    align-items: center;
     
 }
 
 .right_box{
     background-color: rgb(52, 152, 219); 
-    position: absolute;
-    left: 1155px; 
-    width: 275px; 
+    width: 25%; 
     height: 286px;
 }
 
-.study_image{
-    position: absolute; 
-    top: 142.008px; 
-    left: 608.2px; 
-    width: 317px; 
-    height: 204px;
+.study-image{
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
 }
 
 </style>
@@ -46,34 +51,36 @@
     <jsp:include page="../common/header.jsp" />
     <br><br><br><br><br>
 
-    <div class="container-fluid p-5 bg-primary text-white text-center">
-        <h2>학습동영상</h2>
-        <br>
-        <h6>낚시에 대한 새로운 지식을 배워보세요.</h6>
-
-      </div>
-
-    <!-- <div class="left_box"></div>
-    <div class="center_box">
-        <div 
-            type="image" class="study_image" src="resources/images/study.png">
+      <div class="header-box">
+        <div class="left_box"></div>
+        <div class="center_box">
+            <div style="color: white;">
+            <h2>학습동영상</h2>
+            <br>
+                <tr>
+                    <td>낚시에 대한 새로운 지식을 배워보세요!</td>
+                </tr>
+            </div>
+            <div class="study-image" style="color: white;">              
+                <img style="width: 150px;" src="resources/images/study.png">
+            </div>
         </div>
+        <div class="right_box"></div>
     </div>
-    <div class="right_box"></div> -->
-
     <div class="content" align="center">
-        <br><br>
         <div class="innerOuter" style="padding:5% 10%; width: 80%;">
-            <h3 align="left" style="color: rgb(59, 175, 252); margin-left: 50px;">학습동영상</h3>
+            <h3 align="left" style="font-weight: bolder; color: rgb(59, 175, 252); margin-left: 5px;">학습동영상</h3>
             <br>
 
-            <table id="contentArea" class="table table-hover" align="center">
+            <table id="contentArea" class="table table-hover" style="border-color: black;" align="center">
                 <tr>
                     <th>너도 할 수 있다 낚시</th>
-                    <td style="font-size: 0.8rem;">2023-01-01</td>
-                    <td style="font-size: 0.8rem;">조회수: 36</td>
-                    <td style="font-size: 0.8rem;">좋아요: 12</td>
+                    <td></td>                
+                    <td></td>
                 </tr>    
+                    <td style="font-size: 0.9rem;">2023-01-01</td>
+                    <td style="font-size: 0.8rem; text-align: right;">조회수: 36</td>
+                    <td style="font-size: 0.8rem; width: 10%;">좋아요: 12</td>  
             </table>
 
             <br>
@@ -90,8 +97,8 @@
                 <!-- 수정하기, 삭제하기 버튼은 이 글이 본인이 작성한 글일 경우에만 보여져야 함 -->
                 <!-- <c:if test="${loginUser.memId eq s.studyWriter}">  [</c:if>]가 밑에 div 감싸주기 -->
                 <div align="right">
-                    <a class="btn btn-primary" onclick="postFormSubmit(1)">글 수정</a>
-                    <a class="btn btn-danger" onclick="postFormSubmit(2)">글 삭제</a>
+                    <a class="btn btn-primary" onclick="location.href='updateForm.st'">글 수정</a>
+                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteStudy">글 삭제</a>
                 </div>
             </div>
         </div>
@@ -139,6 +146,32 @@
                 </tbody>
             </table>
         </div>
+    
+    <!-- The Modal -->
+    <div class="modal" id="deleteStudy">
+        <div class="modal-dialog">
+        <div class="modal-content">
+    
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title">게시글 삭제</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+    
+            <!-- Modal body -->
+            <div class="modal-body">
+            해당 게시글을 삭제 하시겠습니까?
+            </div>
+    
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="location.href='list.st'" type="submit" style="border: none; background-color: rgb(52, 152, 219); color: white;">네</button>                
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">아니오</button>
+            </div>
+    
+        </div>
+        </div>
+    </div>
 
     <jsp:include page="../common/footer.jsp"/>
 </body>
