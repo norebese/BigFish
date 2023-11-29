@@ -71,14 +71,17 @@
 	</div>
 	<br><br><br><br>
 	<div class="ann-button">
-		<button onClick="announceList()">목록으로</button>
-		<button>수정하기</button>
+		<button onClick="annList()">목록으로</button>
+		<button onClick="annEnrollForm()">수정하기</button>
 		<button>삭제하기</button>
 	</div>
 	
 	<script>
-		function announceList(){
-			location.href="announceList.an";
+		function annList(){
+			location.href="annList.an";
+		}
+		function annEnrollForm(){
+			location.href="annEnrollForm.an";
 		}
 	</script>
 	

@@ -59,7 +59,7 @@
 	<div onclick="annDetail()">
 		<ul>
 			<li class="ann-title">2023 추석 휴무 안내</li>
-			<p class="ann-date">2023.11.22<p>
+			<p class="ann-date">2023.11.22</p>
 		</ul>
 			<div class="ann-title-line"></div>
 	</div>
@@ -67,7 +67,7 @@
 	<div>
 		<ul>
 			<li class="ann-title">2023 추석 휴무 안내</li>
-			<p class="ann-date">2023.11.22<p>
+			<p class="ann-date">2023.11.22</p>
 		</ul>
 			<div class="ann-title-line"></div>
 	</div>
@@ -75,28 +75,27 @@
 	<div>
 		<ul>
 			<li class="ann-title">2023 추석 휴무 안내</li>
-			<p class="ann-date">2023.11.22<p>
+			<p class="ann-date">2023.11.22</p>
 		</ul>
 			<div class="ann-title-line"></div>
 	</div>
 	<div>
 		<ul>
 			<li class="ann-title">2023 추석 휴무 안내</li>
-			<p class="ann-date">2023.11.22<p>
+			<p class="ann-date">2023.11.22</p>
 		</ul>
 			<div class="ann-title-line"></div>
 	</div>
 	<br>
-	<button class="ann-create" onclick="annEnrollForm()">작성하기</button>
+	<button class="ann-create" onclick="annInsert()">작성하기</button>
 	
 	<script>
 		function annDetail() {
 			location.href = "annDetail.an"	
 		}
-		function annEnrollForm() {
-			location.href = "annEnrollForm.an"
+		function annInsert() {
+			location.href = "annInsert.an"
 		}
-		
 	</script>
 	
 	<br><br><br><br><br><br>

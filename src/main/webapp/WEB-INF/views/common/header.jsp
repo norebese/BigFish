@@ -47,7 +47,7 @@
 	                        <img style="height: auto; width: 15px; margin-top: 7px;" src="resources/images/search_icon.png" alt="검색버튼">
 	                    </a>
 	            	</div>
-	                <a class="menu-link" href="announceList.an">공지사항</a>
+	                <a class="menu-link" href="annList.an">공지사항</a>
 	                <a class="menu-link" href="">FAQ</a>
 	                <c:choose>
 	                <c:when test="${empty loginUser}">
