@@ -1,19 +1,19 @@
 
+.header-area{
+    z-index: 999;
+}
+
 .page-title{
     margin-left: 100px;
     margin-right: 100px;
     border-bottom: 3px solid #e6e6e6;
     background-color: white;
     background: white;
-}
-.page-title p{
     margin-bottom: 20px;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
     color: rgb(59, 175, 252);
 }
-
-
 
 .main-area{
     display: flex;
@@ -515,31 +515,30 @@ p {
 .list-section{
     position: relative;
     display: flex;
+    flex-direction: row;
+    margin-left: 100px;
+    margin-right: 100px;
+    border-top: 3px solid #e6e6e6;
+    margin-top: 20px;
 }
 
 .filter-area{
-    position: absolute;
     display: block;
-    right: 0;
-    top: 75px;
+    margin-top: 130px;
     width: 324px;
 }
 .category-area{
     margin-top: 50px;
-    border-top: 3px solid #e6e6e6;
     display: flex;
-    height: 504px;
-    width: 100%;
     position: relative;
     background: #fff;
     padding: 10px;
     top: 0;
-    margin-left: 100px;
     margin-right: 100px;
     flex-direction: column;
 }
 .category-title{
-
+    font-weight: bold;
 }
 .list-box-area{
     width: 608px;
@@ -623,4 +622,8 @@ p {
     font-size: 25px;
     font-weight: bold;
     text-align: right;
+}
+.goTop{
+	display: flex;
+	
 }

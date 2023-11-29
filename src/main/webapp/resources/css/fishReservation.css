@@ -1,3 +1,6 @@
+.header-area{
+    z-index: 999;
+}
 .page-title{
 	color: rgb(59, 175, 252);
 	font-size: 30px;
@@ -100,7 +103,7 @@
 }
 .insert-btn{
     position: relative;
-    margin-left: 650px;
+    margin-left: 850px;
     top: -40px;
 }
 .filter-area{

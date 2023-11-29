@@ -11,10 +11,11 @@
 <meta charset="UTF-8">
 <title>BIG FISH</title>
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/seaReservation.css">
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-	<div style="margin: 0; padding: 0;">
+<jsp:include page="../common/header.jsp"/>
+	<div style="margin: 150px 0 0 0; padding: 0; background-color: white;">
         <p class="page-title">바다 낚시 지도</p>
     </div>
     <div class="main-area">
@@ -217,19 +218,7 @@
     <div class="list-section">
         
         <div class="category-area">
-            <div class="filter-area">
-                <select class="form-select" aria-label="Default select example" style="width: 200px;">
-                    <option selected>전체</option>
-                    <option value="1">전체</option>
-                    <option value="2">돔돔</option>
-                    <option value="3">방어</option>
-                  </select>
-                  <select class="form-select" aria-label="Default select example" style="width: 200px; margin-top: 100px;">
-                    <option selected>전체</option>
-                    <option value="1">바다 배</option>
-                    <option value="2">바다 좌대</option>
-                  </select>
-            </div>
+            
             <div class="category-title">
                 <p>카테고리 제목</p>
             </div>
@@ -262,8 +251,56 @@
                     </div>
                 </div>
             </a>
+            <a class="list-box-area" href="">
+                <div class="list-visual-area">
+                    <div class="img-box">
+                        <img src="" alt="">
+                    </div>
+                    <div class="cover-area"></div>
+                    <div class="list-box-txt">
+                        <div class="list-box-left">
+                            <div>
+                                <span class="fish-kind">도다리 외 3종</span>
+                            </div>
+                            <p class="list-name">
+                                	왜목마을좌대
+                            </p>
+                            <p class="list-address">
+                                	충남 당진시
+                            </p>
+                        </div>
+                        <div class="list-box-right">
+                            <div class="live-price">
+                                <p class="price">
+                                    20000
+                                    <span>원</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="filter-area">
+                <select class="form-select" aria-label="Default select example" style="width: 200px;">
+                    <option selected>전체</option>
+                    <option value="1">전체</option>
+                    <option value="2">돔돔</option>
+                    <option value="3">방어</option>
+                  </select>
+                  <select class="form-select" aria-label="Default select example" style="width: 200px; margin-top: 100px;">
+                    <option selected>전체</option>
+                    <option value="1">바다 배</option>
+                    <option value="2">바다 좌대</option>
+                  </select>
+            </div>
+        <div class="goTop" onclick="moveTop()">
+        	<img alt="" src="위로가기">
+        	
         </div>
     </div>
     <script src="<%=contextPath%>/resources/js/seaReservation.js"></script>
+    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

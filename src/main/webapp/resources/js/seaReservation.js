@@ -91,4 +91,7 @@
         test.addEventListener('click', function() {
             document.getElementById('testtext').innerText='정보 입니다';
         });
-
+		
+		function moveTop(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+        }

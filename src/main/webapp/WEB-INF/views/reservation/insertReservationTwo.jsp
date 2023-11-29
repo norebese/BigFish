@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="<%=contextPath%>/resources/css/insertReservationTwo.css">
 </head>
 <body>
-	<div style="margin: 0 100px; padding: 0; border-bottom: 1px solid;">
+<jsp:include page="../common/header.jsp"/>
+	<div style="margin: 150px 100px 10px 100px; padding: 0; border-bottom: 1px solid;">
         <p class="page-title">예약정보 확인</p>
     </div>
     <div class="section">
@@ -65,8 +66,9 @@
     </div>
     <div class="next-btn">
         
-        <button type="button" class="btn btn-primary" style="position: absolute; right: 0; margin-top: 30px;">예약하기</button>
+        <button type="button" class="btn btn-primary" style="position: absolute; right: 0; margin-top: 5px;">예약하기</button>
     
     </div>
+    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
