@@ -1,0 +1,71 @@
+.top-line{
+    border-bottom: 2px solid rgb(204, 204, 204);
+    margin: 0px auto 20px auto;
+    width: 90%;
+
+}
+
+body{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.myPage{
+    display: flex;
+    width: 90%;
+    margin: 0px auto;
+}
+
+.myPageMenuList{
+    width: 15%;
+}
+
+.myPageContent{
+    width: 100%;
+}
+
+.Calendar  td {
+	width: 50px;
+	height: 50px;
+}
+
+.Calendar { 
+	text-align: center;
+	margin-left: 50px;
+	margin-bottom: 100px;
+}
+
+.Calendar>thead>tr:first-child>td { font-weight: bold; }
+
+.Calendar>thead>tr:last-child>td {
+	background-color: gray;
+	color: white;
+}        
+
+.pastDay{ background-color: lightgray; }
+
+.today{            
+	background-color: #FFCA64;            
+	cursor: pointer;
+}
+
+.futureDay{            
+	background-color: #FFFFFF;
+	cursor: pointer;
+}
+
+.futureDay.choiceDay, .today.choiceDay{            
+	background-color: #3E85EF;            
+	color: #fff;
+	cursor: pointer;
+}
+.next-btn{
+	position: relative;
+	margin: 0 100px;
+	padding: 0;
+	word-wrap: break-word;
+	white-space: nowrap;
+}
+.Calendar .btn{
+	position: absolute;
+	right: 0;
+} 

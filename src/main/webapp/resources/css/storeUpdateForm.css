@@ -1,0 +1,28 @@
+.top-line{
+    border-bottom: 2px solid rgb(204, 204, 204);
+    margin: 0px auto 20px auto;
+    width: 90%;
+
+  }
+
+  .head-text{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: bolder;
+  }
+
+  .input-form > *{
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  .warning-text{
+    font-size: 15px;
+  }
+
+  .infoTitle{
+    display: flex;
+    width: 40%;
+    margin: 0px auto 10px auto;
+    font-size: 25px;
+    font-weight: bolder;
+    color: rgb(59, 175, 252);
+  }
