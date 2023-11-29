@@ -4,7 +4,8 @@
 <%
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
-%>
+%> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -190,7 +191,6 @@
                 </th>
             </div>
         </div>
-        
     </div>
     <jsp:include page="../common/footer.jsp"/>
 </body>
