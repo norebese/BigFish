@@ -6,47 +6,46 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.announce-ann{
-		color: rgb(59, 175, 252);
-    	width: 90%;
-    	margin: 10px auto;
-    	font-weight: bolder;
-	}
-	.border-line{
-		border-bottom: 2px solid rgb(204, 204, 204);
-    	width: 90%;
-    	margin: 10px auto;	
-	}
-	.ann-title{
-		width: 90%;
-    	margin: 10px 55px;
-    	font-size: 25px;
-   		font-weight: bolder;
-	}
-	.ann-title-line{
-		border-bottom: 2px solid rgb(204, 204, 204);
-		width: 90%;
-    	margin: 10px auto;	
-	}
-	
-	.ann-date{
-		width: 90%;
-    	margin: 10px 55px;
-	}
-	li::marker {
-  		color: rgb(41, 128, 185);
-	}
-	.ann-create{
-		background-color: rgb(59, 175, 252);
-		color: white;
-		border-radius: 3px;
-    	border: none;
-    	width: 85px;
-    	height: 35px;
-    	position: absolute;
-    	margin-left: 1350px;
-    	margin-bottom: 100px;
-    }
+.announce-ann{
+	color: rgb(59, 175, 252);
+    width: 90%;
+    margin: 10px auto;
+    font-weight: bolder;
+}
+.border-line{
+	border-bottom: 2px solid rgb(204, 204, 204);
+    width: 90%;
+    margin: 10px auto;	
+}
+.ann-title{
+	width: 90%;
+    margin: 10px 55px;
+    font-size: 25px;
+   	font-weight: bolder;
+}
+.ann-title-line{
+	border-bottom: 2px solid rgb(204, 204, 204);
+	width: 90%;
+    margin: 10px auto;	
+}
+.ann-date{
+	width: 90%;
+    margin: 10px 55px;
+}
+li::marker {
+  	color: rgb(41, 128, 185);
+}
+.ann-create{
+	background-color: rgb(59, 175, 252);
+	color: white;
+	border-radius: 3px;
+    border: none;
+    width: 85px;
+    height: 35px;
+    position: absolute;
+    margin-left: 1350px;
+    margin-bottom: 100px;
+}
 </style>
 </head>
 <body>

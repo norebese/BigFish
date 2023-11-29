@@ -23,7 +23,7 @@ public class AnnounceController {
 	
 	@RequestMapping(value="annEnrollForm.an")
 	public String AnnEnrollForm() {
-		return "announce/announceEnrollForm";
+		return "announce/announceEnroll";
 	}
 		
 	
