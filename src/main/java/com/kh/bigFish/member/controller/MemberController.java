@@ -75,5 +75,9 @@ public class MemberController {
 	public String companyMyPage() {
 		return "member/companyMyPage";
 	}
-	
+	@RequestMapping(value="/myReservationDetail")
+	public String myReservationDetail() {
+		
+		return "member/myReservationDetail";
+	}
 }
