@@ -17,7 +17,8 @@
     
 </head>
 <body>
-	<div style="margin: 0 100px; padding: 0; border-bottom: 1px solid;">
+<jsp:include page="../common/header.jsp"/>
+	<div style="margin: 150px 100px 10px 100px; padding: 0; border-bottom: 1px solid;">
         <p class="page-title">예약하기</p>
     </div>
     <div class="fisrt-sec">
@@ -149,8 +150,9 @@
 
     <div class="next-btn">
         
-            <button type="button" class="btn btn-primary" style="position: absolute; right: 0; margin-top: 30px;">다음으로</button>
+            <button type="button" class="btn btn-primary" style="position: absolute; right: 0; margin-top: 5px;">다음으로</button>
         
     </div>
+    <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
