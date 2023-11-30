@@ -1,4 +1,4 @@
-package com.kh.bigFish.member.controller;
+package com.kh.bigFish.reservation.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

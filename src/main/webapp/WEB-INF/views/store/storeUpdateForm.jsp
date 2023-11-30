@@ -10,6 +10,12 @@
 <title>BIG FISH</title>
 <!-- CSS-->
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/storeUpdateForm.css">
+
+<!-- JS-->
+<script src="<%=contextPath%>/resources/js/storeUpdateForm.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
     <jsp:include page="../common/header.jsp"/>
@@ -298,8 +304,13 @@
             <button id="enroll-btn" type="submit" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">회원가입</button></td>
         </div>
     </form>
-</div>
 
+    
+</div>
+    <div style="display: flex;width: 80%;justify-content: flex-end; align-items: baseline;">
+        <label for="topButton">위로 이동</label>
+        <img id="topButton" name="topButton" style="cursor: pointer; width: 30px; height: 30px;" onclick="moveTop()" src="resources/images/topButton.png" alt="">
+    </div>
 
 <br><br>
 <jsp:include page="../common/footer.jsp"/>

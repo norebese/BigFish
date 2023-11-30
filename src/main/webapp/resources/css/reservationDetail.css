@@ -1,0 +1,182 @@
+
+.header-area{
+    z-index: 999;
+}
+.page-title{
+	color: rgb(59, 175, 252);
+	font-size: 30px;
+	font-weight: bold;
+}
+.photo-info{
+    position: relative;
+    display: flex;
+    margin-top: 60px;
+    margin-left: 100px;
+    margin-right: 100px;
+    border-bottom: 1px solid;
+    min-width: 100vh;
+}
+
+.photo-info img{
+    max-height: 400px;
+    max-width: 600px;
+    min-height: 400px;
+    min-width: 600px;
+}
+.photo-area{
+    margin-bottom: 100px;
+}
+.info-area{
+    margin-left: 50px;
+    word-break: keep-all;
+}
+.bkind{
+    font-weight: 500;
+    color: #9e5c4a;
+}
+.bname{
+    font-size: 50px;
+}
+.baddress{
+    margin-top: 50px;
+    font-size: 30px;
+}
+.detail-reply{
+    position: relative;
+    margin-top: 60px;
+    margin-left: 100px;
+    margin-right: 100px;
+    border-bottom: 1px solid;
+    min-width: 100vh;
+}
+.tab-area{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    
+}
+.tab-area li{
+    float: left;
+    display: flex;
+}
+.half{
+    display: flex;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+.detail-tab{
+    width: 70%;
+    height: 60px;
+    margin-right: 80px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(238, 238, 238);
+    font-size: 30px;
+    cursor: pointer;
+    word-break: keep-all;
+}
+.reply-tab{
+    width: 50%;
+    height: 60px;
+    margin-right: 80px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(238, 238, 238);
+    font-size: 30px;
+    cursor: pointer;
+}
+.map-plus{
+    display: none;
+}
+.map-plus.on{
+    display: block;
+}
+.map-area{
+    display: flex;
+    border-bottom: 1px solid;
+}
+.kakao-map{
+   height: 600px; 
+   width: 600px;
+   border: 1px solid black;
+   margin-top: 50px;
+   margin-bottom: 50px;
+}
+.address-area{
+    margin-top: 150px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+}
+.title-address{
+    font-size: 50px;
+}
+.detail-address{
+    font-size: 30px;
+}
+.price-area{
+    margin-top: 50px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid;
+}
+.price-title{
+    font-size: 40px;
+    color: rgb(41, 128, 185);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    width: 100px;
+}
+.price-num{
+    width: 500px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.fish-img{
+    margin-top: 30px;
+    margin-right: 30px;
+}
+.fish-img img{
+    height: 50px;
+    width: 50px;
+}
+.fishname{
+    margin-top: 20px;
+}
+.fishkind-area{
+    border-bottom: 1px solid;
+}
+.information{
+    border-bottom: 1px solid;
+}
+.info-title{
+    margin-top: 20px;
+    font-size: 30px;
+}
+.detail-info{
+    margin-bottom: 50px;
+}
+.detail-info p{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.reply-area{
+    display: none;
+}
+.reply-area.on{
+    display: block;
+}
+.reply-line{
+    border-bottom: 1px solid black;
+    margin-top: 50px;
+}
+
+
+
+
