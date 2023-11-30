@@ -83,7 +83,7 @@
 			<div id="reservationWork" style="display: none; flex-direction: column; align-items: center;">
 				<!-- 카드 1 -->
 				<div style="width: 70%; margin-bottom: 30px;" class="card">
-					<div class="card-header" style="padding-bottom: 3px;" onclick="location.href='memberRservationDetail'">
+					<div class="card-header" style="padding-bottom: 3px;" onclick="location.href='myReservationDetail'">
 						<div style="display: flex; flex-direction: row; justify-content: space-between;">
 							<span style="font-weight: bold;">사이판 민물 낚시터</span>
 							<span style="font-size: 13px;">No. 123</span>
