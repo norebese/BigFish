@@ -12,7 +12,7 @@
 		<result column="ADDRESS" property="address"/>
 		<result column="ADDRESS_DETAIL" property="addressDetail"/>
 		<result column="POST_NO" property="postNo"/>
-		<result column="MEM_CREATEDATE" property="memCreateDate"/>
+		<result column="MEM_CREATE_DATE" property="memCreateDate"/>
 		<result column="MEM_STATUS" property="memStatus"/>
 		<result column="BUSINESS_STATUS" property="businessStatus"/>
 		<result column="MEM_ADMIN" property="memAdmin"/>
@@ -28,7 +28,7 @@
         ADDRESS,
         ADDRESS_DETAIL,
         POST_NO,
-        MEM_CREATEDATE,
+        MEM_CREATE_DATE,
         MEM_STATUS,
         BUSINESS_STATUS,
         MEM_ADMIN

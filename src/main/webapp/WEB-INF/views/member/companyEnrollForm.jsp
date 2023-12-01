@@ -18,6 +18,15 @@
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<!-- memberAPI-->
+<script src="<%=contextPath%>/resources/js/service/member-api.js"></script>
+
+<!-- storeAPI-->
+<script src="<%=contextPath%>/resources/js/service/store-api.js"></script>
+
+<!-- 주소 검색 API (다음카카오)-->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -34,26 +43,33 @@
 			
 			<table style="width:40%; margin: 0px auto;">
 				<tr>
-					<td><input required placeholder="이메일을 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
-					<td><button type="button" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">중복 확인</button></td>
+					<td><input id="emailId" name="memId" required placeholder="이메일을 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
+					<td><button type="button" onclick="checkEmailId()" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">중복 확인</button></td>
 				</tr>
-				<tr><td></td></tr>
-				<tr><td style="height: 30px;"></td></tr>
 				<tr>
-					<td><input id="pwd" required placeholder="비밀번호를 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="password"></td>
+					<td id="checkEmailIdSpace" style="height: 25px;"></td>
+				</tr>
+					<td><input name="memPwd" id="pwd" required placeholder="비밀번호를 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="password"></td>
 					<td><button type="button" id="pwdCheck-btn" onclick="checkPwd();" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">비밀번호 확인</button></td>
 				</tr>
 				<tr id="passwordRule" style="display: none;">
 					<td><div class="warning-text" style=" width: 100%; margin: 0px auto; color: red;">&nbsp;비밀번호는 영문, 숫자, 특수문자 조합으로 8~15자여야합니다.</div></td>
 				</tr>
 			
-
 			</table>
 			<br>
 			<input id="pwdAgain" onkeyup="samePwd()" required placeholder="비밀번호를 한번 더 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="password">
 			<div id="checkPasswordRule" class="warning-text" style=" display: none; width: 40%; margin: 0px auto; color: red;">&nbsp;비밀번호가 일치하지 않습니다.</div>
 			<br>
-			<input required placeholder="닉네임을 입력해주세요. (닉네임은 변경 가능합니다.)" style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
+			<table style="width:40%; margin: 0px auto;">
+				<tr>
+					<td><input required id="memNick" name="memNick" placeholder="닉네임을 입력해주세요. (닉네임은 변경 가능합니다.)" style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
+					<td><button type="button" id="checkNick-btn" onclick="checkNick()" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">닉네임 중복 확인</button></td>
+				</tr>
+				<tr>
+					<td id="checkNickSpace" style="height: 25px;"></td>
+				</tr>
+			</table>
 			<input required placeholder="휴대폰 번호를 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
 
 
@@ -63,11 +79,14 @@
 			<input required placeholder="사업장 전화번호를 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
 			<table style="width: 40%; margin: 0px auto;">
 				<tr style="width: 100%;">
-					<td><input required placeholder="사업자 번호를 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
-					<td><button type="button" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">사업자 확인</button></td>
+					<td><input id="businessNo" required placeholder="사업자 번호를 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
+					<td><button onclick="checkBusinessNo()" type="button" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">사업자 확인</button></td>
+				</tr>
+				<tr>
+					<td id="checkBusinessNoSpace" style="height: 25px;"></td>
 				</tr>
 			</table>
-			<br>
+			
 			<div style="width: 40%; margin: 0px auto 5px auto; color: rgb(59, 175, 252);">
 				사업 종류
 			</div>
@@ -87,14 +106,14 @@
 			</table><br>
 			<table style="width: 40%; margin: 0px auto;">
 				<tr style="width: 100%;">
-					<td><input placeholder="우편번호" readonly style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
-					<td><button type="button" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">주소 검색</button></td>
+					<td><input id="postcode" placeholder="우편번호" readonly style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
+					<td><button onclick="sample6_execDaumPostcode()" type="button" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">주소 검색</button></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input readonly placeholder="주소 검색 버튼으로 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
+					<td colspan="2"><input id="address" readonly placeholder="주소 검색 버튼으로 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
 				</tr>
 				<tr>
-					<td colspan="2"><input required placeholder="상세 주소를 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"><br></td>
+					<td colspan="2"><input id="addressDetail" required placeholder="상세 주소를 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"><br></td>
 				</tr>
 			</table><br>
 			<div style="width: 40%; margin: 0px auto 5px auto; color: rgb(59, 175, 252);">
