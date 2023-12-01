@@ -66,7 +66,7 @@
 
     <div class="header-box">
         <div class="left_box"></div>
-        <div class="center_box">
+        <div class="centerbox">
             <div style="color: white;">
             <h2>학습동영상</h2>
             <br>
@@ -104,66 +104,46 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr onclick="">
-                        <td>5</td>
-                        <td>낚시왕의 자비로운 동영상</td>
-                        <td>2023-01-01</td>
-                        <td>100</td>
-                        <td>55</td>
+                	<c:forEach var="s" items="${list}">
+                    <tr onclick="location.href='detail.st?sno=${s.studyNo}'">
+                        <td>${s.studyNo}</td>
+                        <td>${s.studyTitle}</td>
+                        <td>${s.studyCreateDate}</td>
+                        <td>${s.studyCount}</td>
+                        <td>${s.studyGoodStatus}</td>
                     </tr>
-                    <tr onclick="">
-                        <td>4</td>
-                        <td>낚시왕의 자비로운 동영상</td>
-                        <td>2023-01-01</td>
-                        <td>100</td>
-                        <td>55</td>
-                    </tr>
-                    <tr onclick="">
-                        <td>3</td>
-                        <td>낚시왕의 자비로운 동영상</td>
-                        <td>2023-01-01</td>
-                        <td>100</td>
-                        <td>55</td>
-                    </tr>
-                    <tr onclick="">
-                        <td>2</td>
-                        <td>낚시왕의 자비로운 동영상</td>
-                        <td>2023-01-01</td>
-                        <td>100</td>
-                        <td>55</td>
-                    </tr>
-                    <tr onclick="">
-                        <td>1</td>
-                        <td>낚시왕의 자비로운 동영상</td>
-                        <td>2023-01-01</td>
-                        <td>100</td>
-                        <td>55</td>
-                    </tr>
-
+					</c:forEach>
                 </tbody>
             </table>
 
             <br>
 
-            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+            <div id="pagingArea">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+                   <c:choose>
+                      <c:when test="${pi.currentPage eq 1 }">
+                          <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+                       </c:when>
+                       <c:otherwise>
+                          <li class="page-item"><a class="page-link" href="list.st?cpage=${pi.currentPage-1 }">이전</a></li>
+                       </c:otherwise>
+                   </c:choose>
+                   
+               <c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+                         <li class="page-item"><a class="page-link" href="list.st?cpage=${p }">${p }</a></li>
+                    </c:forEach>
+                    
+                    <c:choose>
+                       <c:when test="${pi.currentPage eq pi.maxPage }">
+                           <li class="page-item disabled"><a class="page-link" href="#">다음</a></li>
+                        </c:when>
+                        <c:otherwise>
+                           <li class="page-item"><a class="page-link" href="list.st?cpage=${pi.currentPage+1 }">다음</a></li>
+                        </c:otherwise>
+                     </c:choose>
+                
                 </ul>
-            </nav>
+            </div>
 
 
             <form id="searchForm" action="" method="get" align="center">

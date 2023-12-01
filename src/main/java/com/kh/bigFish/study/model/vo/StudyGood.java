@@ -14,16 +14,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Study {
-	private int studyNo;
-	private String studyTitle;
-	private String studyContent;
-	private String studyStatus;
-	private int studyCount;
-	private String studyWriter;
-	private String studyLink;
-	private Date studyCreateDate;
+public class StudyGood {
 	private int rmemNo;
-	private String studyGoodStatus;
+	private int rstudyNo;
+	private String studyGOODStatus;
+	
+	
 }
-
