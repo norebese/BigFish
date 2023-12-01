@@ -27,5 +27,5 @@ public class Member {
 	private Date memCreateDate;
 	private String memStatus;
 	private String businessStatus;
-	
+	private String memAdmin;
 }
