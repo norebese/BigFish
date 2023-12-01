@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,6 +47,14 @@ li::marker {
     margin-left: 1350px;
     margin-bottom: 100px;
 }
+
+.pagingArea{
+	idth: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 60px;
+}
 </style>
 </head>
 <body>
@@ -55,45 +64,58 @@ li::marker {
 	<h1 class="announce-ann" style="color:rgb(59, 175, 252)">공지사항</h1>
 	<div class="border-line"></div>
 	<br><br>
-	<div onclick="annDetail()">
+	<c:forEach var="a" items="${list}">	
+		<div onclick="location.href='annDetail.an?ano=${a.annNo}'">
 		<ul>
-			<li class="ann-title">2023 추석 휴무 안내</li>
-			<p class="ann-date">2023.11.22</p>
+			<li class="ann-title">${a.annTitle}</li>
+			<p class="ann-date">${a.annCreateDate}</p>
 		</ul>
 			<div class="ann-title-line"></div>
 	</div>
+	</c:forEach>
 	
-	<div>
-		<ul>
-			<li class="ann-title">2023 추석 휴무 안내</li>
-			<p class="ann-date">2023.11.22</p>
-		</ul>
-			<div class="ann-title-line"></div>
-	</div>
-	
-	<div>
-		<ul>
-			<li class="ann-title">2023 추석 휴무 안내</li>
-			<p class="ann-date">2023.11.22</p>
-		</ul>
-			<div class="ann-title-line"></div>
-	</div>
-	<div>
-		<ul>
-			<li class="ann-title">2023 추석 휴무 안내</li>
-			<p class="ann-date">2023.11.22</p>
-		</ul>
-			<div class="ann-title-line"></div>
-	</div>
 	<br>
-	<button class="ann-create" onclick="annInsert()">작성하기</button>
+	
+	<c:if test="${ not empty loginUser }">
+    	<button class="ann-create" onclick="annEnroll()">작성하기</button>
+        <br>
+    </c:if>
+    
+	<br><br><br>
+	
+	 <div id="pagingArea" class="pagingArea">
+     	<ul class="pagination">
+                
+               	<c:choose>
+               		<c:when test="${ pi.currentPage eq 1 }">
+                   		<li class="page-item disabled"><a class="page-link">이전</a></li>
+                   	</c:when>
+                   	<c:otherwise>
+                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+                   	</c:otherwise>
+				</c:choose>
+
+				<c:forEach var="p" begin="${pi.startPage}" end="${ pi.endPage }" >
+                  		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ p }">${ p }</a></li>  
+                   </c:forEach>
+            
+                   
+                   <c:choose>
+               		<c:when test="${ pi.currentPage eq pi.maxPage }">
+                   		<li class="page-item disabled"><a class="page-link">다음</a></li>
+                   	</c:when>
+                   	<c:otherwise>
+                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage + 1 }">Next</a></li>
+                   	</c:otherwise>
+				</c:choose>
+                  	
+                
+		</ul>
+	</div>
 	
 	<script>
-		function annDetail() {
-			location.href = "annDetail.an"	
-		}
-		function annInsert() {
-			location.href = "annInsert.an"
+		function annEnroll() {
+			location.href = "annEnroll.an"
 		}
 	</script>
 	

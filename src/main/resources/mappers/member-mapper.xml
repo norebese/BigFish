@@ -15,6 +15,7 @@
 		<result column="MEM_CREATEDATE" property="memCreateDate"/>
 		<result column="MEM_STATUS" property="memStatus"/>
 		<result column="BUSINESS_STATUS" property="businessStatus"/>
+		<result column="MEM_ADMIN" property="memAdmin"/>
 	</resultMap>
 	
 	<!-- 일반회원 로그인 쿼리문 -->
@@ -29,7 +30,8 @@
         POST_NO,
         MEM_CREATEDATE,
         MEM_STATUS,
-        BUSINESS_STATUS
+        BUSINESS_STATUS,
+        MEM_ADMIN
 	FROM MEMBER
 	WHERE MEM_ID = #{memId}
 	    AND MEM_PWD = #{memPwd}

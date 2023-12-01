@@ -1,10 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Big Fish</title>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"
+	integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"
+	integrity="sha256-5slxYrL5Ct3mhMAp/dgnb5JSnTYMtkr4dHby34N10qw=" crossorigin="anonymous"></script>
+
+<!-- language pack -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"
+	integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+  integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg=" crossorigin="anonymous">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
+integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
+
 <style>
 .announce-ann{
 	color: rgb(59, 175, 252);
@@ -38,10 +59,6 @@
 	width: 850px;
     height: 40px;
 }
-.ann-content{
-	width: 850px;
-    height: 550px;
-}
 </style>
 </head>
 <body>
@@ -52,13 +69,66 @@
 	<div class="border-line"></div>
 	
 	<br><br>
-	<form class="ann-form">
-		<input type="text" class="ann-title" name="ann-title" placeholder="제목을 입력해주세요.">
-		<br><br><br>
-		<textarea class="ann-content" name="ann-content" placeholder="내용을 입력해주세요." ></textarea>
-		<br><br>
-		<button class="ann-button">게시글 등록</button>
-	</form>
+	<div class="ann-form">
+	<form action="annInsert.an">
+			<input type="text" class="ann-title" name="annTitle" placeholder="제목을 입력해주세요.">
+			<br><br><br>
+			<input type="hidden" value="${loginUser.memId}" name="annWriter" />
+			<textarea id="summernote"  class="ann-content" name="annContent" placeholder="내용을 입력해주세요." ></textarea>
+			<br><br>
+			<button class="btn btn-primary ann-button">게시글 등록</button>
+		</form>
+	</div> 
+
+	<script>
+		$('#summernote').summernote({
+		  placeholder: '내용을 적어주세요.',
+		  tabsize: 5,
+		  width: 950,
+		  height: 400,
+		  maxHeight: 450,
+		  lang: 'ko-KR',
+		  
+		  callbacks: {
+              onImageUpload: function (files, editor, welEditable) {
+                  // 파일 업로드 (다중 업로드를 위해 반복문 사용)
+                  for (var i = files.length - 1; i >= 0; i--) {
+                      var fileName = files[i].name
+
+                      // 이미지 alt 속성 삽일을 위한 설정
+                      var caption = prompt('이미지 설명 :', fileName)
+                      if (caption == '') {
+                          caption = '이미지'
+                      }
+                      uploadSummernoteImageFile(files[i], this, caption)
+                  }
+              }
+		  	}
+		});
+		
+		 // 이미지 업로드 함수 ajax 활용
+	    function uploadSummernoteImageFile(file, el, caption) {
+	        data = new FormData()
+	        data.append('file', file)
+	        $.ajax({
+	            data: data,
+	            type: 'POST',
+	            url: 'uploadSummernoteImageFile',
+	            contentType: false,
+	            enctype: 'multipart/form-data',
+	            processData: false,
+	            success: function (data) {
+	                $(el).summernote(
+	                    'editor.insertImage',
+	                    data.url,
+	                    function ($image) {
+	                        $image.attr('alt', caption) // 캡션 정보를 이미지의 alt 속성에 설정
+	                    }
+	                )
+	            },
+	        })
+	    }
+	</script>
 	
 	<br><br><br><br><br><br>
 	<jsp:include page="../common/footer.jsp"/>

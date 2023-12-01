@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="annMapper">
+	<resultMap type="Announce" id="annResult">
+ 		<result column="ANN_NO" property="annNo" />
+ 		<result column="ANN_TITLE" property="annTitle" />
+ 		<result column="ANN_WRITER" property="annWriter" />
+ 		<result column="ANN_CONTENT" property="annContent" />
+ 		<result column="ANN_CREATE_DATE" property="annCreateDate" />
+ 		<result column="ANN_COUNT" property="annCount" />
+ 	</resultMap>
+ 	
+ 	<select id="selectListCount" resultType="_int">
+ 		SELECT COUNT (*)
+ 			FROM ANNOUNCE
+ 		  WHERE ANN_STATUS = 'Y'
+ 	</select>
+ 	
+ 	<select id="selectList" resultMap="annResult">
+ 		SELECT ANN_NO,
+ 			   ANN_TITLE,
+ 			   ANN_WRITER,
+ 			   TO_CHAR(ANN_CREATEDATE, 'YYYY-MM-DD') AS "CREATE_DATE",
+ 			   ANN_COUNT
+ 		FROM ANNOUNCE
+ 		WHERE ANN_STATUS = 'Y'
+ 		ORDER BY ANN_NO DESC
+ 	</select>
+ 	
+ 	<insert id="insertAnn">
+ 		INSERT INTO
+ 			   ANNOUNCE (
+ 			   		   ANN_NO,
+ 			   		   ANN_TITLE,
+ 			   		   ANN_WRITER,
+ 			   		   ANN_CONTENT	   
+ 			   		 )
+ 			  VALUES (
+ 			  		   SEQ_ANN_NO.NEXTVAL,
+ 			  		   #{annTitle},
+ 			  		   #{annWriter},
+ 			  		   #{annContent}
+ 			  )
+ 	</insert>
+ 	
+ 	<update id="increaseCount">
+ 		UPDATE ANNOUNCE
+ 		   SET ANN_COUNT = ANN_COUNT + 1
+ 		 WHERE ANN_NO = #{annNo}
+ 		   AND ANN_STATUS = 'Y'
+ 	</update>
+ 	
+ 	<select id="selectAnnounce" resultMap="annResult">
+ 		SELECT ANN_NO,
+ 			   ANN_TITLE,
+ 			   ANN_WRITER,
+ 			   ANN_CONTENT,
+ 			   ANN_COUNT,
+ 			   TO_CHAR(ANN_CREATEDATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+ 		  FROM ANNOUNCE
+ 		 WHERE ANN_STATUS = 'Y'
+ 		   AND ANN_NO = #{annNo}
+ 	</select>
+</mapper>

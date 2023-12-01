@@ -65,13 +65,13 @@
 		<br><br>
 	
 		<button class="ann-button" onClick="annList()">목록으로</button>
-		<button class="ann-button" onClick="annEnrollForm()">수정하기</button>
+		<button class="ann-button" onClick="annUpdate()">수정하기</button>
 	</div>
 	
 	<script>
 	function annList(){
 		location.href="annList.an";
-	}
+	}s
 	</script>
 	<br><br><br><br><br><br>
 	<jsp:include page="../common/footer.jsp"/>
