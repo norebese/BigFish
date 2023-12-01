@@ -35,5 +35,9 @@ public class AnnDao {
 	public Announce selectAnnounce(SqlSessionTemplate sqlSession, int annNo) {
 		return sqlSession.selectOne("annMapper.selectAnnounce", annNo);
 	}
+	
+	public int updateAnnounce(SqlSessionTemplate sqlSession, Announce a) {
+		return sqlSession.update("annMapper.updateAnnounce", a);
+	}
 }
 	

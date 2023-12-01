@@ -78,9 +78,26 @@ public class AnnounceController {
 		}
 	}
 	
-	@RequestMapping(value="annUpdate.an")
-	public String AnnEnrollForm() {
+	@RequestMapping(value="annUpdateForm.an")
+	public String AnnEnrollForm(int ano, Model model) {
+		
+		model.addAttribute("a", annService.selectAnnounce(ano));
+		
 		return "announce/announceEnroll";
+	}
+	
+	@RequestMapping(value="annUpdate.an")
+	public String updateAnn(Announce a, HttpSession session, Model model) {
+		
+		int result = annService.updateAnnounce(a);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글 수정 완료");
+			return "redirect:annDetail.an?ano=" + a.getAnnNo();
+		} else {
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			return "common/errorPage";
+		}
 	}
 	
 	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")

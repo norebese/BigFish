@@ -22,7 +22,7 @@
  		SELECT ANN_NO,
  			   ANN_TITLE,
  			   ANN_WRITER,
- 			   TO_CHAR(ANN_CREATEDATE, 'YYYY-MM-DD') AS "CREATE_DATE",
+ 			   TO_CHAR(ANN_CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE",
  			   ANN_COUNT
  		FROM ANNOUNCE
  		WHERE ANN_STATUS = 'Y'
@@ -58,9 +58,17 @@
  			   ANN_WRITER,
  			   ANN_CONTENT,
  			   ANN_COUNT,
- 			   TO_CHAR(ANN_CREATEDATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+ 			   TO_CHAR(ANN_CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
  		  FROM ANNOUNCE
  		 WHERE ANN_STATUS = 'Y'
  		   AND ANN_NO = #{annNo}
  	</select>
+ 	
+ 	<!-- 게시글 수정 관련 쿼리문 -->
+ 	<update id="updateAnnounce">
+ 		UPDATE ANNOUNCE
+ 		   SET ANN_TITLE = #{annTitle},
+ 		   	   ANN_CONTENT = #{annContent}
+ 		 WHERE ANN_NO = #{annNo}
+ 	</update>
 </mapper>

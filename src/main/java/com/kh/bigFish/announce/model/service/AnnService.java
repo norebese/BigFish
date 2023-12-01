@@ -11,4 +11,5 @@ public interface AnnService {
 	int InsertAnn(Announce a);
 	int increaseCount(int annCount);
 	Announce selectAnnounce(int annNo);
+	int updateAnnounce(Announce a);
 }

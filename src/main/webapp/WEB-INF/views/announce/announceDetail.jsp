@@ -6,6 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style>
 .announce-ann{
 	color: rgb(59, 175, 252);
@@ -83,7 +93,7 @@
 		<c:if test="${ not empty loginUser }">
 			<div class="btn-area">
 				<a class="btn btn-primary" onClick="annList()">목록으로</a>
-				<a class="btn btn-primary" onclick="annUpdate()">수정하기</a>
+				<a class="btn btn-primary" onclick="location.href='annUpdateForm.an?ano=${a.annNo}'">수정하기</a>
 				<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>
 			</div>
 		</c:if>
@@ -120,9 +130,6 @@
 	<script>
 		function annList(){
 			location.href="annList.an";
-		}
-		function annUpdate(){
-			location.href="annUpdate.an";
 		}
 	</script>
 	

@@ -38,5 +38,9 @@ public class AnnServiceImpl implements AnnService {
 	public Announce selectAnnounce(int annNo) {
 		return annDao.selectAnnounce(sqlSession, annNo);
 	}
+	@Override
+	public int updateAnnounce(Announce a) {
+		return annDao.updateAnnounce(sqlSession, a);
+	}
 
 }
