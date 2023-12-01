@@ -66,7 +66,7 @@
 
     <div class="header-box">
         <div class="left_box"></div>
-        <div class="center_box">
+        <div class="centerbox">
             <div style="color: white;">
             <h2>학습동영상</h2>
             <br>
