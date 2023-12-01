@@ -103,7 +103,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("/checkNick")
 	public String checkNick(String memNick) {
-		System.out.println(memNick);
+		
 		int result = memberService.checkNick(memNick);
 		
 		if(result>0) {
