@@ -11,6 +11,7 @@
      
      <typeAliases>
 		<typeAlias type="com.kh.bigFish.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.bigFish.study.model.vo.Study" alias="Study"/>
      </typeAliases>
      <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야한다. -->
      
@@ -22,6 +23,7 @@
      <!-- *mappers : 실행할 sql문들을 기록해둔 mapper 파일들을 등록하는 영역 -->
      <mappers>
 		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/study-mapper.xml"/>
      </mappers>
      <!--  유의사항: 미리 등록해두려면 해당 mapper파일이 진짜 존재하고 있는 상태여야한다. + namespace도 작성되어 있어야한다. -->
      

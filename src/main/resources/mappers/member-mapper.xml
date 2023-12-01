@@ -15,6 +15,7 @@
 		<result column="MEM_CREATE_DATE" property="memCreateDate"/>
 		<result column="MEM_STATUS" property="memStatus"/>
 		<result column="BUSINESS_STATUS" property="businessStatus"/>
+		<result column="MEM_ADMIN" property="memAdmin"/>
 	</resultMap>
 	
 	<!-- 일반회원 로그인 쿼리문 -->
@@ -29,9 +30,48 @@
         POST_NO,
         MEM_CREATE_DATE,
         MEM_STATUS,
-        BUSINESS_STATUS
+        BUSINESS_STATUS,
+        MEM_ADMIN
 	FROM MEMBER
 	WHERE MEM_ID = #{memId}
 	    AND MEM_PWD = #{memPwd}
 	</select>
+	
+	<!-- 회원 가입 시 이메일 중복 체크 쿼리 -->
+	<select id="checkEmailId" resultType="_int">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE MEM_ID = #{emailId}
+	</select>
+	
+	<!-- 회원 가입 시 닉네임 중복 체크 쿼리 -->
+	<select id="checkNick" resultType="_int">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE MEM_NICK = #{memNick}
+	</select>
+	
+	<!--  일반 회원 가입 -->
+	<insert id="insertPersonalMember">
+	INSERT INTO MEMBER(
+						MEM_NO,
+						MEM_ID,
+						MEM_PWD,
+						MEM_NICK,
+						PHONE,
+						ADDRESS,
+						ADDRESS_DETAIL,
+						POST_NO
+						)
+				VALUES(
+						SEQ_MEM_NO.NEXTVAL,
+						#{memId},
+						#{memPwd},
+						#{memNick},
+						#{phone},
+						#{address},
+						#{addressDetail},
+						#{postNo}
+						)		
+	</insert>
 </mapper>
