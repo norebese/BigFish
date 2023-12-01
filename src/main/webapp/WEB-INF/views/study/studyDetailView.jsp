@@ -12,6 +12,7 @@
 .header-box{
     display: flex;
     flex-direction: row;
+    
 }
 
 .left_box{
