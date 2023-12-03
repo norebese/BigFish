@@ -42,5 +42,9 @@ public class AnnServiceImpl implements AnnService {
 	public int updateAnnounce(Announce a) {
 		return annDao.updateAnnounce(sqlSession, a);
 	}
+	@Override
+	public int deleteAnn(int annNo) {
+		return annDao.deleteAnn(sqlSession, annNo);
+	}
 
 }

@@ -119,8 +119,8 @@
 			
 			      <!-- Modal footer -->
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">예</button>
-			        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">아니오</button>
+			        <a class="btn btn-danger" data-bs-dismiss="modal" onclick="location.href='annDelete.an?ano=${a.annNo}'">예</a>
+			        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">아니오</button>
 			      </div>
 			
 			    </div>

@@ -12,7 +12,6 @@
      <typeAliases>
 		<typeAlias type="com.kh.bigFish.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.bigFish.announce.model.vo.Announce" alias="Announce"/>
-		<typeAlias type="com.kh.bigFish.store.model.vo.Store" alias="Store"/>
 		<typeAlias type="com.kh.bigFish.study.model.vo.Study" alias="Study"/>
      </typeAliases>
      <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야한다. -->
@@ -26,7 +25,6 @@
      <mappers>
 		<mapper resource="/mappers/member-mapper.xml"/>
 		<mapper resource="/mappers/ann-mapper.xml"/>
-		<mapper resource="/mappers/store-mapper.xml"/>
 		<mapper resource="/mappers/study-mapper.xml"/>
      </mappers>
      <!--  유의사항: 미리 등록해두려면 해당 mapper파일이 진짜 존재하고 있는 상태여야한다. + namespace도 작성되어 있어야한다. -->

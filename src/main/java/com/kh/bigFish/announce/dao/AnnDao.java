@@ -39,5 +39,9 @@ public class AnnDao {
 	public int updateAnnounce(SqlSessionTemplate sqlSession, Announce a) {
 		return sqlSession.update("annMapper.updateAnnounce", a);
 	}
+	
+	public int deleteAnn(SqlSessionTemplate sqlSession, int annNo) {
+		return sqlSession.delete("annMapper.deleteAnn", annNo);
+	}
 }
 	

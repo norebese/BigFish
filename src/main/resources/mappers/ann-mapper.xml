@@ -64,11 +64,16 @@
  		   AND ANN_NO = #{annNo}
  	</select>
  	
- 	<!-- 게시글 수정 관련 쿼리문 -->
  	<update id="updateAnnounce">
  		UPDATE ANNOUNCE
  		   SET ANN_TITLE = #{annTitle},
  		   	   ANN_CONTENT = #{annContent}
  		 WHERE ANN_NO = #{annNo}
+ 	</update>
+ 	
+ 	<update id="deleteAnn">
+ 		UPDATE ANNOUNCE
+ 		   SET ANN_STATUS = 'N'
+ 	 	 WHERE ANN_NO = #{annNo}
  	</update>
 </mapper>

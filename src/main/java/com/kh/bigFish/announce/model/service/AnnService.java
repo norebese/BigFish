@@ -12,4 +12,5 @@ public interface AnnService {
 	int increaseCount(int annCount);
 	Announce selectAnnounce(int annNo);
 	int updateAnnounce(Announce a);
+	int deleteAnn(int annNo);
 }

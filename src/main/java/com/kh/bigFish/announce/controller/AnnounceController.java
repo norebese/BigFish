@@ -100,6 +100,19 @@ public class AnnounceController {
 		}
 	}
 	
+	@RequestMapping(value="annDelete.an")
+	public String deleteAnn(int ano, HttpSession session, Model model) {
+		int result = annService.deleteAnn(ano);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글 삭제 성공");
+			return "redirect:annList.an";
+		} else {
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			return "common/errorPage";
+		}
+	}
+	
 	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
