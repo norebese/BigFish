@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+ <mapper namespace="reservationMapper">
+ 
+ 	<resultMap type="Reservation" id="reservationResult">
+ 		<result column="REV_NO" property="revNo"/>
+ 		<result column="RMEM_NO" property="rmemNo"/>
+ 		<result column="RSTORE_NO" property="rstoreNo"/>
+ 		<result column="REV_DATE" property="revDate"/>
+ 		<result column="REV_PEOPLE" property="revPeople"/>
+ 		<result column="REV_START" property="revStart"/>
+ 		<result column="REV_END" property="revEnd"/>
+ 		<result column="REV_STATUS" property="revStatus"/>
+ 		<result column="REV_REQUEST" property="revRequest"/>
+ 		<result column="REV_NAME" property="revName"/>
+ 		<result column="REV_PHONE" property="revPhone"/>
+ 	</resultMap>
+ 
+ 	<insert id="insertReservation" parameterType="Reservation">
+ 		INSERT INTO RESERVATION (rev_no, rmem_no, rstore_no, rev_date, rev_people, rev_start, rev_end, rev_status, rev_request, rev_name, rev_phone)
+		VALUES
+		(1, 
+		#{rmemNo}, 
+		#{rstoreNo},
+		DEFAULT, 
+		#{revPeople}, 
+		TO_DATE(#{revStart}, 'YYYY-MM-DD HH24:MI'), 
+		TO_DATE(#{revEnd}, 'YYYY-MM-DD HH24:MI'), 
+		'N', 
+		#{revRequest}, 
+		#{revName}, 
+		#{revPhone})
+ 	</insert>
+ 
+ </mapper>

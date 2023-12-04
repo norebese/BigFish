@@ -3,10 +3,12 @@
  "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
  
  <mapper namespace="storeMapper">
+ 
  	<resultMap type="Store" id="storeResult">
  		<result column="STORE_NO" property="storeNo"/>
- 		<result column="RMEM_NO" property="remNo"/>
- 		<result column="LOCATION" property="location"/>
+ 		<result column="RMEM_NO" property="rmemNo"/>
+ 		<result column="LOCATION_BIG" property="locationBig"/>
+ 		<result column="LOCATION_SMALL" property="locationSmall"/>
  		<result column="STORE_ADDRESS" property="storeAddress"/>
  		<result column="STORE_ADDRESS_DETAIL" property="storeAddressDetail"/>
  		<result column="STORE_POST_NO" property="storePostNo"/>
@@ -17,15 +19,27 @@
  		<result column="STORE_WEEKEND" property="storeWeekend"/>
  		<result column="STORE_GROUP" property="storeGroup"/>
  		<result column="STORE_KIND" property="storeKind"/>
+ 		<result column="STORE_FISH_KIND" property="storeFishKind"/>
  		<result column="BUSINESS_NO" property="businessNo"/>
  	</resultMap>
  
- 	<select id="checkBusinessNo" resultType="_int">
-	SELECT COUNT(*)
-	FROM STORE
-	WHERE BUSINESS_NO = #{businessNo}
+	<select id="checkBusinessNo" resultType="_int">
+		SELECT COUNT(*)
+		FROM STORE
+		WHERE BUSINESS_NO = #{businessNo}
  	</select>
- 
- 
+
+ 	<select id="ajaxStoreList" resultMap="storeResult">
+ 		SELECT *
+ 		FROM STORE
+ 		WHERE LOCATION_BIG = #{locationBig}
+ 		AND LOCATION_SMALL = #{locationSmall}
+ 	</select>
+ 	
+ 	<select id="resDetailPage" resultMap="storeResult">
+ 		SELECT *
+ 		FROM STORE
+ 		WHERE STORE_NO = #{num}
+ 	</select>
  
  </mapper>

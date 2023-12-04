@@ -14,19 +14,21 @@ import lombok.ToString;
 @ToString
 public class Store {
 
-	private int storeNo;
-	private int remNo;
-	private String location;
-	private String storeAddress;
-	private String storeAddressDetail;
-	private int storePostNo;
-	private String storeName;
-	private String storePhone;
-	private int maxMember;
-	private String storeWeekday;
-	private String storeWeekend;
-	private String storeGroup;
-	private String storeKind;
-	private int businessNo;
-	
+   private int storeNo;
+   private int rmemNo;
+   private String locationBig;
+   private String locationSmall;
+   private String storeAddress;
+   private String storeAddressDetail;
+   private int storePostNo;
+   private String storeName;
+   private String storePhone;
+   private int maxMember;
+   private String storeWeekday;
+   private String storeWeekend;
+   private String storeGroup;
+   private String storeKind;
+   private String StoreFishKind;
+   private String businessNo;
+   
 }
