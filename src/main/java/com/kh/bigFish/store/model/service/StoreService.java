@@ -1,8 +1,11 @@
 package com.kh.bigFish.store.model.service;
 
+
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.store.model.vo.Store;
 import com.kh.bigFish.store.model.vo.Ticket;
+import java.util.ArrayList;
+
 
 public interface StoreService {
 	
@@ -17,5 +20,11 @@ public interface StoreService {
 	
 	// 사업장 추가 시 사진 추가
 	int insertAttachment(Attachment a);
+
+	ArrayList<Store> ajaxStoreList(Store s);
+	
+	Store resDetailPage(int num);
 	
 }
+
+

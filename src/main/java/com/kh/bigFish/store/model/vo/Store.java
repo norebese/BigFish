@@ -32,3 +32,4 @@ public class Store {
 	private String businessNo;
 	
 }
+

@@ -28,4 +28,5 @@ public class Member {
 	private String memStatus;
 	private String businessStatus;
 	private String memAdmin;
+	
 }
