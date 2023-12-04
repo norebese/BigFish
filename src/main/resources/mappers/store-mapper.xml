@@ -3,10 +3,12 @@
  "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
  
  <mapper namespace="storeMapper">
+ 
  	<resultMap type="Store" id="storeResult">
  		<result column="STORE_NO" property="storeNo"/>
- 		<result column="RMEM_NO" property="remNo"/>
- 		<result column="LOCATION" property="location"/>
+ 		<result column="RMEM_NO" property="rmemNo"/>
+ 		<result column="LOCATION_BIG" property="locationBig"/>
+ 		<result column="LOCATION_SMALL" property="locationSmall"/>
  		<result column="STORE_ADDRESS" property="storeAddress"/>
  		<result column="STORE_ADDRESS_DETAIL" property="storeAddressDetail"/>
  		<result column="STORE_POST_NO" property="storePostNo"/>
@@ -17,15 +19,108 @@
  		<result column="STORE_WEEKEND" property="storeWeekend"/>
  		<result column="STORE_GROUP" property="storeGroup"/>
  		<result column="STORE_KIND" property="storeKind"/>
+ 		<result column="STORE_FISH_KIND" property="storeFishKind"/>
  		<result column="BUSINESS_NO" property="businessNo"/>
  	</resultMap>
+ 	
+ 	<resultMap type="TicKet" id="ticketResult">
+ 		<result column="TICKET_NO" property="ticketNo"/>
+ 		<result column="RSTORE_NO" property="rstoreNo"/>
+ 		<result column="TICKET_NAME" property="ticketName"/>
+ 		<result column="TICKET_PRICE" property="ticketPrice"/>
+ 		<result column="TICKET_TIME" property="ticketTime"/>
+ 	</resultMap>
  
- 	<select id="checkBusinessNo" resultType="_int">
-	SELECT COUNT(*)
-	FROM STORE
-	WHERE BUSINESS_NO = #{businessNo}
+	<select id="checkBusinessNo" resultType="_int">
+		SELECT COUNT(*)
+		FROM STORE
+		WHERE BUSINESS_NO = #{businessNo}
  	</select>
- 
- 
+
+ 	<select id="ajaxStoreList" resultMap="storeResult">
+ 		SELECT *
+ 		FROM STORE
+ 		WHERE LOCATION_BIG = #{locationBig}
+ 		AND LOCATION_SMALL = #{locationSmall}
+ 	</select>
+ 	
+ 	<select id="resDetailPage" resultMap="storeResult">
+ 		SELECT *
+ 		FROM STORE
+ 		WHERE STORE_NO = #{num}
+ 	</select>
+
+ 	<insert id="insertStore">
+ 	INSERT INTO STORE(
+ 						STORE_NO,
+ 						RMEM_NO,
+ 						LOCATION_BIG,
+ 						LOCATION_SMALL,
+ 						STORE_ADDRESS,
+ 						STORE_ADDRESS_DETAIL,
+ 						STORE_POST_NO,
+ 						STORE_NAME,
+ 						STORE_PHONE,
+ 						MAX_MEMBER,
+ 						STORE_WEEKDAY,
+ 						STORE_WEEKEND,
+ 						STORE_GROUP,
+ 						STORE_KIND,
+ 						STORE_FISH_KIND,
+ 						BUSINESS_NO
+ 						)
+ 				VALUES(
+ 						SEQ_STORE_NO.NEXTVAL,
+ 						SEQ_MEM_NO.CURRVAL,
+ 						#{locationBig},
+ 						#{locationSmall},
+ 						#{storeAddress},
+ 						#{storeAddressDetail},
+ 						#{storePostNo},
+ 						#{storeName},
+ 						#{storePhone},
+ 						#{maxMember},
+ 						#{storeWeekday},
+ 						#{storeWeekend},
+ 						#{storeGroup},
+ 						#{storeKind},
+ 						#{storeFishKind},
+ 						#{businessNo}
+ 				)
+ 	</insert>
+
+ 	<insert id="insertTicket">
+ 	INSERT INTO TICKET(
+ 						TICKET_NO,
+ 						RSTORE_NO,
+ 						TICKET_NAME,
+ 						TICKET_PRICE,
+ 						TICKET_TIME
+ 	)
+ 				VALUES(
+ 						SEQ_TICKET_NO.NEXTVAL,
+ 						SEQ_STORE_NO.CURRVAL,
+ 						#{ticketName},
+ 						#{ticketPrice},
+ 						#{ticketTime}
+ 	)
+ 	</insert>
+	
+ 	<insert id="insertAttachment">
+ 	INSERT INTO ATTACHMENT(
+ 							FILE_NO,
+ 							ORIGIN_NAME,
+ 							CHANGE_NAME,
+ 							FILE_PATH,
+ 							RSTORE_NO
+ 							)
+ 				VALUES(
+ 						SEQ_FILE_NO.NEXTVAL,
+ 						#{originName},
+ 						#{changeName},
+ 						#{filePath},
+ 						SEQ_STORE_NO.CURRVAL
+ 						)
+ 	</insert>
  
  </mapper>

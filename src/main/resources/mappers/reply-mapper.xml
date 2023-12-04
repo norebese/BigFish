@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="studyMapper">
+	<resultMap type="Reply" id="replyResult">
+		<result column="REPLY_NO" property="replyNo"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="REPLY_WRITER" property="replyWriter"/>
+		<result column="REPLY_CREATE_DATE" property="replyCreateDate"/>
+		<result column="REPLY_STATUS" property="replyStatus"/>
+		<result column="RMEM_NO" property="rmemNo"/>
+		<result column="RFREE_NO" property="rfreeNo"/>
+		<result column="RFISHING_NO" property="rfishungNo"/>
+		<result column="RSTUDY_NO" property="rstudyNo"/>
+	</resultMap>
+	
+	<select id="selectReplyList" resultMap="replyResult">
+		SELECT REPLY_NO,
+			   REPLY_CONTENT,
+			   REPLY_WRITER,
+			   TO_CHAR(REPLY_CREATE_DATE, 'YYYY-MM-DD') AS REPLY_CREATE_DATE
+		   FROM REPLY
+	     WHERE REPLY_STATUS = 'Y'
+	       AND RSTUDY_NO = #{sno}
+	     ORDER BY REPLY_NO DESC
+	</select>
+	
+	<insert id="insertReply" >
+		INSERT INTO REPLY (
+			 REPLY_NO,
+			 REPLY_CONTENT,
+			 RSTUDY_NO,
+			 REPLY_WRITER 
+		     )
+		 VALUES (
+		 	SEQ_REPLY_NO.NEXTVAL,
+		 	#{replyContent},
+		 	#{rstudyNo},
+		 	#{replyWriter}
+		   )
+	</insert>
+</mapper>

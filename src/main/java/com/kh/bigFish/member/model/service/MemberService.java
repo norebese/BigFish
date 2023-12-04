@@ -15,4 +15,7 @@ public interface MemberService {
 	
 	// 개인 회원 가입
 	int insertPersonalMember(Member m);
+	
+	// 사업자 회원 가입
+	int insertCompanyMember(Member m);
 }

@@ -11,7 +11,7 @@
 		<result column="STUDY_COUNT" property="studyCount"/>
 		<result column="STUDY_WRITER" property="studyWriter"/>
 		<result column="STUDY_LINK" property="studyLink"/>
-		<result column="STUDY_CREATEDATE" property="studyCreateDate"/>
+		<result column="STUDY_CREATE_DATE" property="studyCreateDate"/>
 		<result column="RMEM_NO" property="rmemNo"/>
 		<result column="STUDY_GOOD_STATUS" property="studyGoodStatus"/>
 	</resultMap>
@@ -25,7 +25,7 @@
 	<select id="selectList" resultMap="studyResult">
 		SELECT STUDY_NO,
 			   STUDY_TITLE,
-			   TO_CHAR(STUDY_CREATEDATE, 'YYYY-MM-DD') AS "STUDY_CREATEDATE",
+			   TO_CHAR(STUDY_CREATE_DATE, 'YYYY-MM-DD') AS "STUDY_CREATE_DATE",
 			   STUDY_COUNT,
 			   STUDY_GOOD_STATUS
 			FROM STUDY
@@ -50,9 +50,34 @@
 	
 	<update id="increaseCount">
 		UPDATE STUDY
-		   SET COUNT = COUNT + 1
+		   SET STUDY_COUNT = STUDY_COUNT + 1
 		WHERE STUDY_NO = #{studtNo}
 			AND STUDY_STATUS = 'Y'
 	</update>
 	
+	<select id="selectStudy" resultMap="studyResult">
+		SELECT STUDY_NO,
+			   STUDY_TITLE,
+			   STUDY_CONTENT,
+			   STUDY_COUNT,
+			   TO_CHAR(STUDY_CREATE_DATE, 'YYYY-MM-DD') AS "STUDY_CREATE_DATE",
+			   STUDY_LINK
+		  FROM STUDY
+		WHERE STUDY_STATUS = 'Y'
+			AND STUDY_NO = #{studyNo}
+	</select>
+	
+	<update id="deleteStudy">
+		UPDATE STUDY
+		   SET STUDY_STATUS = 'N'
+		 WHERE STUDY_NO = #{studyNo}
+	</update>
+	
+	<update id="updateStudy">
+		UPDATE STUDY
+		   SET STUDY_TITLE = #{studyTitle},
+		   	   STUDY_CONTENT = #{studyContent},
+		   	   STUDY_LINK = #{studyLink}
+		WHERE STUDY_NO = #{studyNo}
+	</update>
 </mapper>
