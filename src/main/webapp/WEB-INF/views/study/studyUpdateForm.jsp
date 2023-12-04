@@ -46,10 +46,7 @@
         align-items: flex-start;
     }
 
-    .form-control{
-        overflow: auto;
-        text-overflow: clip;
-    }
+    
     
 </style>
 
@@ -98,7 +95,7 @@
                 </tr> 
                 <tr>
                     <td>
-                        <input type="text" id="link" class="form-control" style="margin-bottom: 20px;" value="${s.studyLink}" name="studyLink" required placeholder="동영상 주소 입력">
+                        <input type="text" id="link" class="form-control" style="margin-bottom: 20px;" value='${s.studyLink}' kk1351name="studyLink" required placeholder="동영상 주소 입력">
                     </td>
                 </tr>            
                 <tr>

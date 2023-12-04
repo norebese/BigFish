@@ -1,5 +1,7 @@
 package com.kh.bigFish.study.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
+import com.kh.bigFish.reply.model.vo.Reply;
 import com.kh.bigFish.study.model.service.StudyService;
 import com.kh.bigFish.study.model.vo.Study;
 
@@ -100,6 +105,27 @@ public class StudyController {
 		} else {
 			model.addAttribute("errorMsg", "게시글 수정 실패");
 			return "common/errorPage";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="rlist.st", produces="application/json; charset=UTF-8")
+	public String selectReplyList(int sno) {
+		
+		ArrayList<Reply> list = studyService.selectReplyList(sno);
+		
+		return new Gson().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping("rinsert.st")
+	public String insertReply(Reply r) {
+		int result = studyService.insertReply(r);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
 		}
 	}
 }

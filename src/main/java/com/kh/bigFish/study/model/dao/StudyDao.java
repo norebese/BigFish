@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.bigFish.common.model.vo.PageInfo;
+import com.kh.bigFish.reply.model.vo.Reply;
 import com.kh.bigFish.study.model.vo.Study;
 
 @Repository
@@ -42,5 +43,13 @@ public class StudyDao {
 	
 	public int updateStudy(SqlSessionTemplate sqlSession, Study s) {
 		return sqlSession.update("studyMapper.updateStudy", s);
+	}
+	
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bno) {
+		return (ArrayList)sqlSession.selectList("studyMapper.selectReplyList", bno);
+	}
+	
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("studyMapper.insertReply", r);
 	}
 }

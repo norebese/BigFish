@@ -80,5 +80,4 @@
 		   	   STUDY_LINK = #{studyLink}
 		WHERE STUDY_NO = #{studyNo}
 	</update>
-	
 </mapper>
