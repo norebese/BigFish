@@ -39,7 +39,6 @@ public class StudyController {
 	
 	@RequestMapping(value="/insert.st")
 	public String insertStudy(Study s, HttpSession session, Model model) {
-		System.out.println(s);
 		int result = studyService.insertStudy(s);
 //		System.out.println(result);
 		if (result > 0) {
@@ -51,54 +50,56 @@ public class StudyController {
 		}
 	}
 	
-//	@RequestMapping(value="/detail.st")
-//	public String selectStudy(int sno, Model model) {
-//		
-//		int result = studyService.increaseCount(sno);
-//		
-//		if(result > 0) {
-//			Study s = studyService.selectStudy(sno);
-//			model.addAttribute("s", s);
-//			
-//			return "study/studyDetailView";
-//		} else {
-//			model.addAttribute("errorMsg", "게시글 작성 실패");
-//			return "common/errorPage";
-//		}
-//	}
-//	
-//	@RequestMapping(value="/delete.st")
-//	public String deleteStudy(int sno, HttpSession session, Model model) {
-//		
-//		int result = studyService.deleteStudy(sno);
-//		if (result > 0) {
-//			session.setAttribute("alertMsg", "게시글 삭제 성공");
-//			return "redirect:list.st";
-//		} else {
-//			model.addAttribute("errorMsg", "게시글 삭제 실패");
-//			return "common/errorPage";
-//		}
-//	}
-//	
-//	@RequestMapping(value="/updateForm.st")
-//	public String updateForm(int sno, Model model) {
-//		
-//		model.addAttribute("s", studyService.selectStudy(sno));
-//		
-//		return "study/studyUpdateForm";
-//	}
-//	
-//	@RequestMapping(value="update.st")
-//	public String updateStudy(Study s, HttpSession session, Model model) {
-//		
-//		int result = studyService.updateStudy(s);
-//		
-//		if (result > 0) {
-//			session.setAttribute("alertMsg", "게시글 수정 완료");
-//			return "redirect:detail.st?sno=" + s.getStudyNo();
-//		} else {
-//			model.addAttribute("errorMsg", "게시글 수정 실패");
-//			return "common/errorPage";
-//		}
-//	}
+	@RequestMapping(value="/detail.st")
+	public String selectStudy(int sno, Model model) {
+		
+		int result = studyService.increaseCount(sno);
+		
+		if(result > 0) {
+			Study s = studyService.selectStudy(sno);
+			model.addAttribute("s", s);
+			
+			return "study/studyDetailView";
+		} else {
+			model.addAttribute("errorMsg", "게시글 작성 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping(value="/delete.st")
+	public String deleteStudy(int sno, HttpSession session, Model model) {
+		int result = studyService.deleteStudy(sno);
+		
+		if (result > 0) {
+			session.setAttribute("alertMsg", "게시글 삭제 성공");
+			return "redirect:list.st";
+		} else {
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping(value="/updateForm.st")
+	public String updateForm(int sno, Model model) {
+		
+		model.addAttribute("s", studyService.selectStudy(sno));
+		
+		return "study/studyUpdateForm";
+	}
+	
+	@RequestMapping(value="update.st")
+	public String updateStudy(Study s, HttpSession session, Model model) {
+		
+		System.out.println(s);
+		
+		int result = studyService.updateStudy(s);
+		
+		if (result > 0) {
+			session.setAttribute("alertMsg", "게시글 수정 완료");
+			return "redirect:detail.st?sno=" + s.getStudyNo();
+		} else {
+			model.addAttribute("errorMsg", "게시글 수정 실패");
+			return "common/errorPage";
+		}
+	}
 }

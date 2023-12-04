@@ -79,7 +79,7 @@
     </div>
 
       <div class="content" align="center">
-        <form id="enrollForm" method="post" action="insert.st" >
+        <form id="enrollForm" action="insert.st" >
         <div class="innerOuter" style="padding:5% 10%; width: 80%;">
             <h3 align="left" style="font-weight: bolder; color: rgb(59, 175, 252);">학습동영상 등록</h3>
             <br>

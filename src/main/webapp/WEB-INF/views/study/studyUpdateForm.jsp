@@ -45,6 +45,11 @@
         justify-content: space-around;
         align-items: flex-start;
     }
+
+    .form-control{
+        overflow: auto;
+        text-overflow: clip;
+    }
     
 </style>
 
@@ -81,21 +86,30 @@
       <div class="content" align="center">
         <div class="innerOuter" style="padding:5% 10%; width: 80%;">
             <h3 align="left" style="font-weight: bolder; color: rgb(59, 175, 252);">학습동영상 수정</h3>
+            	<form action="update.st" id="updateForm">
+            	<input type="hidden" name="studyNo" value="${s.studyNo}">
             <br>
 
             <table>
                 <tr>
                     <td>
-                        <input type="text" id="title" class="form-control" style="margin-bottom: 20px;" value="" name="boardTitle" required placeholder="제목을 입력해주세요.">
+                        <input type="text" id="title" class="form-control" style="margin-bottom: 20px;" value="${s.studyTitle}" name="studyTitle" required placeholder="제목을 입력해주세요.">
+                    </td>
+                </tr> 
+                <tr>
+                    <td>
+                        <input type="text" id="link" class="form-control" style="margin-bottom: 20px;" value="${s.studyLink}" name="studyLink" required placeholder="동영상 주소 입력">
                     </td>
                 </tr>            
                 <tr>
                     <td>
-                        <textarea id="content" class="form-control" rows="19" style="resize:none; margin-bottom: 20px;" name="boardContent" required placeholder="내용을 입력해주세요."></textarea>
+                        <textarea id="content" class="form-control" rows="19" style="resize:none; margin-bottom: 20px;" name="studyContent" required placeholder="내용을 입력해주세요.">${s.studyContent}</textarea>
                     </td>
                 </tr>
             </table>
-            <button type="submit" class="btn btn-primary" onclick="location.href='list.st'" style="border: none; width: 100%; background-color: rgb(59, 175, 252);">게시글 수정</button>
+            <button type="submit" class="btn btn-primary" onclick="location.href='update.st?sno=${s.studyNo}'" style="border: none; width: 100%; background-color: rgb(59, 175, 252);">게시글 수정</button>
+      	  </form>
+      	</div>
       </div>
 
     <jsp:include page="../common/footer.jsp"/>

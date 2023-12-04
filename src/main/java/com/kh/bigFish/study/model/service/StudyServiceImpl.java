@@ -50,6 +50,7 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public int updateStudy(Study s) {
+//		System.out.println(s);
 		return studyDao.updateStudy(sqlSession, s);
 	}
 
