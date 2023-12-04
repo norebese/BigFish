@@ -66,7 +66,6 @@ public class AnnounceController {
 	public String AnnInsert(Announce a, HttpSession session, Model model, MultipartFile upFile) {
 		System.out.println(a);
 		System.out.println(upFile);
-		int result = annService.InsertAnn(a);
 		
 		Attachment at = null;
 		
@@ -78,10 +77,13 @@ public class AnnounceController {
 			at = new Attachment();
 			
 			at.setOriginName(upFile.getOriginalFilename());
-			at.setChangeName("resources/uploadFiles/" + changeName);
+			at.setChangeName(changeName);
+			at.setFilePath(session.getServletContext().getRealPath("/resources/uploadFiles/"));
 		}
 		
-		if (result > 0) { 
+		int result = annService.InsertAnn(a);
+		
+		if (result > 0) {
 			session.setAttribute("alertMsg", "게시글 작성 완료");
 			return "redirect:annList.an";
 		} else { //실패 => 에러페이지

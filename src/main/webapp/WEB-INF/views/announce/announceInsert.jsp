@@ -107,9 +107,7 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 		  }
 
 		});
-		
-		$('#summernote').summernote(setting);
-		
+				
 	    function uploadSummernoteImageFile(file) {
 	    	console.log(file);
 				data = new FormData();
