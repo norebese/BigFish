@@ -135,6 +135,58 @@ th, td {
     justify-content: center;
     text-align: center;
 }
+.choice-area{
+	margin-left: 50px;
+}
+.option-list{
+	height: 200px;
+	width: 500px;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction:row;
+    margin-top: 0;
+    list-style: none;
+}
+.option-item{
+    position: relative;
+    padding: 20px 0;
+    margin: 0;
+}
+
+.checkbox-icon{
+    margin: 1px 8px 0 0;
+}
+.option-info{
+    display: flex;
+}
+.info-text{
+    margin-right: 15px;
+}
+.boucher-title{
+    overflow: hidden;
+    max-height: 48px;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    font-size: 26px;
+}
+.info-content{
+    margin-top: 3px;
+    line-height: 30px;
+    font-size: 20px;
+}
+.resnum-area{
+	text-align: center;
+	width: 80px;
+	border: none;
+}
+.input-group{
+	justify-content: center;
+}
+
+
+
+
 .fish-img{
     margin-top: 30px;
     margin-right: 30px;
@@ -177,6 +229,32 @@ th, td {
     margin-top: 50px;
 }
 
-
-
-
+.btn-fixed{
+	position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-color: #e9e9ec;
+    border-color: var(--booking-color-gray80);
+    z-index: 9010;
+    background-color: white;
+}
+.btn-inner{
+	display: flex;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    box-sizing: border-box;
+}
+.fixed-btn{
+	width: 100%;
+	height: 45px;
+	background-color: rgb(41, 128, 185) ;
+    color: #fff;
+    border-radius: 8px;
+    border: none;
+}
+.pad{
+	width: 100%;
+	height: 69px;
+}

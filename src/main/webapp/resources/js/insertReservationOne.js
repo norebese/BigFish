@@ -51,6 +51,12 @@ function buildCalendar() {
             nowColumn.onclick = function () { choiceDate(this); }
         }
     }
+    $(".today, .futureDay").on("click", function() {
+            dateClicked = 'passed';
+        	day = $(this).text();
+        	
+			console.log(day);
+        });
 }
 
 // 날짜 선택
@@ -69,6 +75,8 @@ function prevCalendar() {
     let pbtn = document.getElementById("prev-btn");
     pbtn.removeEventListener("click", prevCalendar);
     buildCalendar();    // 달력 다시 생성
+    
+    
 }
 // 다음달 버튼 클릭
 function nextCalendar() {
@@ -78,7 +86,6 @@ function nextCalendar() {
     let pbtn = document.getElementById("prev-btn");
     pbtn.addEventListener("click", prevCalendar);
     buildCalendar();    // 달력 다시 생성
-    
     
 }
 

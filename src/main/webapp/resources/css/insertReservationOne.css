@@ -52,11 +52,8 @@
 }
 
 .cal-area{
-	
 	position: relative;
-	margin: 0 100px;
 	padding: 0;
-	border-bottom: 1px solid;
 	word-wrap: break-word;
 	white-space: nowrap;
 }
@@ -73,7 +70,6 @@
 .time-area{
 	margin-left: 50px;
 	display: flex;
-	margin-top: 50px;
 	margin-bottom: 5px;
 }
 .start-time{
@@ -90,14 +86,16 @@
 
 
 td {
-	width: 50px;
-	height: 50px;
+	width: 70px;
+	height: 70px;
+	text-align: center;
+	font-size: 25px;
 }
 
 .Calendar { 
 	text-align: center;
-	margin-left: 50px;
 	margin-bottom: 100px;
+	margin-left: 50px;
 }
 
 .Calendar>thead>tr:first-child>td { font-weight: bold; }
@@ -131,7 +129,7 @@ td {
 	word-wrap: break-word;
 	white-space: nowrap;
 }
-.btn{
+.cal-area.btn{
 	position: absolute;
 	right: 0;
 }
