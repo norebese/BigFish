@@ -16,10 +16,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <!-- CSS-->
     <link rel="stylesheet" href="<%=contextPath%>/resources/css/freeBoardUpdateForm.css">
+     <!-- 썸머노트 사용 -->
+     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 <body>
+    
     <jsp:include page="../common/header.jsp"/>
-   
     <div class="content">
         <br><br>
         <div class="innerOuter">
@@ -42,29 +46,26 @@
                         
                             <!-- 설명을 포함한 div -->
                             <div style="flex: 1; display: flex; flex-direction: column;">
-                                <span style="flex: 1;">썸네일 사진을 삽입해주세요.</span>
+                                <span style="flex: 1;"></span>
                             </div>
                         </div>
                         <div>
-                            <textarea id="content" class="form-control" rows="19" style="resize:none; margin-bottom: 20px;" name="boardContent" required>
-                                붕어 잡는 기대감보다는 맘 편히 제 님과 쉬다 왔네요👍
-
-                                포인트는 정말 이뿌고 최고였습니다!
-                                
-                                그리고 낚시하면서 초평지를 처음 와 봤는데요!
-                                
-                                내년 봄에 산란철때 다시 도전해봐야겠습니다.
-                                
-                                사또좌대 시설도 좋네요😎 제 님이 매우 만족👍
-                                
-                                다음에 또 올게요!🙏</textarea>
+                            <td id="content"><div id="summernote"  style="resize:none; margin-bottom: 20px; height: 100%;"></div></td>
                         </div>
                 
             </table>
-            <button type="button" class="btn btn-primary" style="width: 100%;">게시글 등록</button>
+			<br>
+            <button type="button" class="btn btn-primary" style="width: 100%;">게시글 수정</button>
            
         </div>
     </div>
+    <script>
+        $('#summernote').summernote({
+          placeholder: '내용을 입력하세요',
+          tabsize: 2,
+          height: 600
+        });
+      </script>
 </body>
 
 </html>
