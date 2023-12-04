@@ -13,7 +13,7 @@
 		<typeAlias type="com.kh.bigFish.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.bigFish.store.model.vo.Store" alias="Store"/>
 		<typeAlias type="com.kh.bigFish.study.model.vo.Study" alias="Study"/>
-
+		<typeAlias type="com.kh.bigFish.store.model.vo.Ticket" alias="Ticket"/>
      </typeAliases>
      <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야한다. -->
      

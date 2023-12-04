@@ -74,4 +74,24 @@
 						#{postNo}
 						)		
 	</insert>
+	
+	<!-- 사업자 회원 가입 -->
+	<insert id="insertCompanyMember">
+	INSERT INTO MEMBER(
+					MEM_NO,
+					MEM_ID,
+					MEM_PWD,
+					MEM_NICK,
+					PHONE,
+					BUSINESS_STATUS
+					)
+			VALUES(
+					SEQ_MEM_NO.NEXTVAL,
+					#{memId},
+					#{memPwd},
+					#{memNick},
+					#{phone},
+					'Y'
+					)
+	</insert>
 </mapper>

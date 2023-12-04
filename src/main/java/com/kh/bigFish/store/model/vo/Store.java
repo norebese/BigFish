@@ -15,8 +15,9 @@ import lombok.ToString;
 public class Store {
 
 	private int storeNo;
-	private int remNo;
-	private String location;
+	private int rmemNo;
+	private String locationBig;
+	private String locationSmall;
 	private String storeAddress;
 	private String storeAddressDetail;
 	private int storePostNo;
@@ -27,6 +28,7 @@ public class Store {
 	private String storeWeekend;
 	private String storeGroup;
 	private String storeKind;
-	private int businessNo;
+	private String storeFishKind;
+	private String businessNo;
 	
 }
