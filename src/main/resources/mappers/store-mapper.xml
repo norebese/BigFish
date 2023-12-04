@@ -23,6 +23,12 @@
  		<result column="BUSINESS_NO" property="businessNo"/>
  	</resultMap>
  
+	<select id="checkBusinessNo" resultType="_int">
+		SELECT COUNT(*)
+		FROM STORE
+		WHERE BUSINESS_NO = #{businessNo}
+ 	</select>
+
  	<select id="ajaxStoreList" resultMap="storeResult">
  		SELECT *
  		FROM STORE

@@ -79,6 +79,7 @@
     </div>
 
       <div class="content" align="center">
+        <form id="enrollForm" action="insert.st" >
         <div class="innerOuter" style="padding:5% 10%; width: 80%;">
             <h3 align="left" style="font-weight: bolder; color: rgb(59, 175, 252);">학습동영상 등록</h3>
             <br>
@@ -86,17 +87,24 @@
             <table>
                 <tr>
                     <td>
-                        <input type="text" id="title" class="form-control" style="margin-bottom: 20px;" value="" name="boardTitle" required placeholder="제목을 입력해주세요.">
+                        <input type="text" id="title" class="form-control" style="margin-bottom: 20px;" name="studyTitle" required placeholder="제목을 입력해주세요.">
+                    </td>
+                </tr> 
+                <tr>
+                    <td>
+                        <input type="text" id="link" class="form-control" style="margin-bottom: 20px;" name="studyLink" required placeholder="동영상 주소 입력.">
                     </td>
                 </tr>            
                 <tr>
                     <td>
-                        <textarea id="content" class="form-control" rows="19" style="resize:none; margin-bottom: 20px;" name="boardContent" required placeholder="내용을 입력해주세요."></textarea>
+                        <textarea id="content" class="form-control" rows="19" style="resize:none; margin-bottom: 20px;" name="studyContent" required placeholder="내용을 입력해주세요."></textarea>
                     </td>
                 </tr>
             </table>
             <button type="submit" class="btn btn-primary" onclick="location.href='list.st'" style="border: none; width: 100%; background-color: rgb(59, 175, 252);">게시글 등록</button>
       </div>
+    </form>
+    </div>
 
     <jsp:include page="../common/footer.jsp"/>
 </body>

@@ -28,6 +28,9 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.resDetailPage(sqlSession, num);
 	}
 	
-	
+	@Override
+	public int checkBusinessNo(String businessNo) {
+		return storeDao.checkBusinessNo(sqlSession, businessNo);
+	}
 		
 }

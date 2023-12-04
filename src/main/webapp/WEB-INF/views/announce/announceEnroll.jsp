@@ -47,32 +47,25 @@
 <jsp:include page="../common/header.jsp"/>
 	<br><br><br><br><br><br>
 	
-	<div class="ann-form" >
 		<h1 class="announce-ann" style="color:rgb(59, 175, 252)">공지사항</h1>
 		<div class="border-line"></div>
 	
 		
 	<br>
 	
-	
-		<form>
-		
-			<input type="text" class="ann-title" name="ann-title" placeholder="제목을 입력해주세요.">
+		<form class="ann-form" action="annUpdate.an">
+			<input type="text" class="ann-title" value="${a.annTitle}" name="annTitle" />
+			<input type="hidden" name="annNo" value="${a.annNo }"/>
+			<input type="hidden" value="${loginUser.memId}" name="annWriter" />
 			<br><br><br>
-			<textarea class="ann-content" name="ann-content" placeholder="내용을 입력해주세요.">안녕하세요 관리자 입니다. 다름이아니라...	... 안내사항 입니다.</textarea>
-		
+			<textarea class="ann-content" name="annContent" placeholder="내용을 입력해주세요.">${a.annContent}</textarea>
+			
+			<button class="ann-button" onclick="location.href='annList.an'">목록으로</button>
+			<button type="submit" class="ann-button">수정하기</button>
 		</form>
-		<br><br>
+
 	
-		<button class="ann-button" onClick="annList()">목록으로</button>
-		<button class="ann-button" onClick="annEnrollForm()">수정하기</button>
-	</div>
-	
-	<script>
-	function annList(){
-		location.href="annList.an";
-	}
-	</script>
+
 	<br><br><br><br><br><br>
 	<jsp:include page="../common/footer.jsp"/>
 </body>

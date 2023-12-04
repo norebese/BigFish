@@ -15,9 +15,14 @@
      <!-- CSS-->
      <link rel="stylesheet" href="<%=contextPath%>/resources/css/freeBoardEnrollForm.css">
     
+	 <!-- 썸머노트 사용 -->
+     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 </head>
 <body>
-    <jsp:include page="../common/header.jsp"/>
+	<jsp:include page="../common/header.jsp"/>
     <div class="content">
         <br><br>
         <div class="innerOuter">
@@ -26,17 +31,27 @@
 
             <table>
                 <tr>
-                    <td><input type="text" id="title" class="form-control" style="margin-bottom: 20px;" value="" name="boardTitle" required></td>
+                    <td><input type="text" id="title" class="form-control" style="margin-bottom: 20px;" value="" name="freeBoardTitle" placeholder="제목을 작성해주세요." required></td>
+                    <td><input type="hidden" id="title" value="${loginUser.memNick}" name="freeBoardWriter"  placeholder="제목을 작성해주세요." required></td>
+                    
                 </tr>
                 
                 <tr>
-                    <td><textarea id="content" class="form-control" rows="19" style="resize:none; margin-bottom: 20px;" name="boardContent" required></textarea></td>
+                    <td> <div id="summernote"  style="resize:none; margin-bottom: 20px; height: 100%;"></div></td>
                 </tr>
                 
             </table>
+			<br>
             <button type="button" class="btn btn-primary" style="width: 100%;">게시글 작성</button>
            
         </div>
     </div>
+    <script>
+        $('#summernote').summernote({
+          placeholder: '내용을 입력하세요',
+          tabsize: 2,
+          height: 600
+        });
+      </script>
 </body>
 </html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="studyMapper">
+	<resultMap type="Study" id="studyResult">
+		<result column="STUDY_NO" property="studyNo"/>
+		<result column="STUDY_TITLE" property="studyTitle"/>
+		<result column="STUDY_CONTENT" property="studyContent"/>
+		<result column="STUDY_STATUS" property="studyStatus"/>
+		<result column="STUDY_COUNT" property="studyCount"/>
+		<result column="STUDY_WRITER" property="studyWriter"/>
+		<result column="STUDY_LINK" property="studyLink"/>
+		<result column="STUDY_CREATE_DATE" property="studyCreateDate"/>
+		<result column="RMEM_NO" property="rmemNo"/>
+		<result column="STUDY_GOOD_STATUS" property="studyGoodStatus"/>
+	</resultMap>
+	
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		 FROM STUDY
+		WHERE STUDY_STATUS = 'Y'
+	</select>
+	
+	<select id="selectList" resultMap="studyResult">
+		SELECT STUDY_NO,
+			   STUDY_TITLE,
+			   TO_CHAR(STUDY_CREATE_DATE, 'YYYY-MM-DD') AS "STUDY_CREATE_DATE",
+			   STUDY_COUNT,
+			   STUDY_GOOD_STATUS
+			FROM STUDY
+		LEFT JOIN STUDYGOOD ON (STUDY_NO = RSTUDY_NO)
+		WHERE STUDY_STATUS = 'Y'
+	</select>
+	
+	<insert id="insertStudy">
+		INSERT INTO STUDY(
+				STUDY_NO,
+				STUDY_TITLE,
+				STUDY_CONTENT,
+				STUDY_LINK
+				)
+			VALUES (
+			SEQ_STUDY_NO.NEXTVAL,
+				#{studyTitle},
+				#{studyContent},
+				#{studyLink}
+				)	
+	</insert>
+	
+	<update id="increaseCount">
+		UPDATE STUDY
+		   SET STUDY_COUNT = STUDY_COUNT + 1
+		WHERE STUDY_NO = #{studtNo}
+			AND STUDY_STATUS = 'Y'
+	</update>
+	
+	<select id="selectStudy" resultMap="studyResult">
+		SELECT STUDY_NO,
+			   STUDY_TITLE,
+			   STUDY_CONTENT,
+			   STUDY_COUNT,
+			   TO_CHAR(STUDY_CREATE_DATE, 'YYYY-MM-DD') AS "STUDY_CREATE_DATE",
+			   STUDY_LINK
+		  FROM STUDY
+		WHERE STUDY_STATUS = 'Y'
+			AND STUDY_NO = #{studyNo}
+	</select>
+	
+	<update id="deleteStudy">
+		UPDATE STUDY
+		   SET STUDY_STATUS = 'N'
+		 WHERE STUDY_NO = #{studyNo}
+	</update>
+	
+	<update id="updateStudy">
+		UPDATE STUDY
+		   SET STUDY_TITLE = #{studyTitle},
+		   	   STUDY_CONTENT = #{studyContent},
+		   	   STUDY_LINK = #{studyLink}
+		WHERE STUDY_NO = #{studyNo}
+	</update>
+</mapper>
