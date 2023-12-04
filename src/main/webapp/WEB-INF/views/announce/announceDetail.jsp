@@ -87,6 +87,9 @@
 		<div class="ann-title-line"></div>
 		
 		<div class="ann-content">${a.annContent}</div>
+			<c:if test="${ not empty a.originName }" >
+	               					★
+	        </c:if>
 		
 		<br><br>
 		

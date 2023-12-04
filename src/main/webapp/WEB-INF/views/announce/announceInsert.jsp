@@ -91,15 +91,27 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 		  width: 950,
 		  height: 400,
 		  maxHeight: 450,
-		  lang: 'ko-KR'
+		  lang: 'ko-KR',
+		    callbacks : { //여기 부분이 이미지를 첨부하는 부분
+
+		                  onImageUpload : function(files) {
+
+	                      console.log(files);
+
+	                      for (let i = files.length - 1; i >= 0; i--) {
+
+                          uploadSummernoteImageFile(files[i]);
+
+			     }
+			  }
+		  }
+
 		});
 		
-		$('#summernote').summernote('insertImage', url, function ($image) {
-			  $image.css('width', $image.width() / 3);
-			  $image.attr('data-filename', 'retriever');
-			});
+		$('#summernote').summernote(setting);
 		
-	    function uploadSummernoteImageFile(file, el) {
+	    function uploadSummernoteImageFile(file) {
+	    	console.log(file);
 				data = new FormData();
 				data.append("file", file);
 				$.ajax({
@@ -110,10 +122,10 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 					enctype : 'multipart/form-data',
 					processData : false,
 					success : function(data) {
-						$(el).summernote('editor.insertImage', data.url);
+						  		$('#summernote').summernote('code', data);
 					}
 				});
-			}
+			};
 	    
 	</script>
 	

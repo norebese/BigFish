@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.bigFish.announce.dao.AnnDao;
 import com.kh.bigFish.announce.model.vo.Announce;
+import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 
 @Service

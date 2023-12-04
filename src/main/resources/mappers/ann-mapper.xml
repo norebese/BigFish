@@ -8,6 +8,9 @@
  		<result column="ANN_TITLE" property="annTitle" />
  		<result column="ANN_WRITER" property="annWriter" />
  		<result column="ANN_CONTENT" property="annContent" />
+ 		<result column="ORIGIN_NAME" property="originName" />
+ 		<result column="CHANGE_NAME" property="changeName" />
+ 		<result column="FILE_NO" property="fileNo"/>
  		<result column="ANN_CREATE_DATE" property="annCreateDate" />
  		<result column="ANN_COUNT" property="annCount" />
  	</resultMap>
@@ -35,13 +38,17 @@
  			   		   ANN_NO,
  			   		   ANN_TITLE,
  			   		   ANN_WRITER,
- 			   		   ANN_CONTENT	   
+ 			   		   ANN_CONTENT,
+ 			   		   ORIGIN_NAME,
+ 			   		   CHANGE_NAME	   
  			   		 )
  			  VALUES (
  			  		   SEQ_ANN_NO.NEXTVAL,
  			  		   #{annTitle},
  			  		   #{annWriter},
- 			  		   #{annContent}
+ 			  		   #{annContent},
+ 			  		   #{originName},
+ 			  		   #{changeName}
  			  )
  	</insert>
  	
@@ -58,6 +65,8 @@
  			   ANN_WRITER,
  			   ANN_CONTENT,
  			   ANN_COUNT,
+ 			   ORIGIN_NAME,
+ 			   CHANGE_NAME,
  			   TO_CHAR(ANN_CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
  		  FROM ANNOUNCE
  		 WHERE ANN_STATUS = 'Y'
@@ -67,7 +76,9 @@
  	<update id="updateAnnounce">
  		UPDATE ANNOUNCE
  		   SET ANN_TITLE = #{annTitle},
- 		   	   ANN_CONTENT = #{annContent}
+ 		   	   ANN_CONTENT = #{annContent},
+ 		   	   ORIGIN_NAME = #{originName},
+ 		   	   CHANGE_NAME = #{changeName}
  		 WHERE ANN_NO = #{annNo}
  	</update>
  	

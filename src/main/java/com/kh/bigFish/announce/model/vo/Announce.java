@@ -19,6 +19,8 @@ public class Announce {
 	private String annTitle;
 	private String annWriter;
 	private String annContent;
+	private String originName;
+	private String changeName;
 	private Date annCreateDate;
 	private String annStatus;
 	private int annCount;
