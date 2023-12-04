@@ -25,7 +25,9 @@ public class MemberDao {
 		return sqlSession.selectOne("memberMapper.checkNick",memNick);
 	}
 	
-	
+	public int insertCompanyMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.insertCompanyMember", m);
+	}
 	
 	
 }

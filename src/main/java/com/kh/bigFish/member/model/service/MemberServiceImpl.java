@@ -36,4 +36,9 @@ public class MemberServiceImpl implements MemberService {
 	public int checkNick(String memNick) {
 		return memberDao.checkNick(sqlSession, memNick);
 	}
+
+	@Override
+	public int insertCompanyMember(Member m) {
+		return memberDao.insertCompanyMember(sqlSession, m);
+	}
 }
