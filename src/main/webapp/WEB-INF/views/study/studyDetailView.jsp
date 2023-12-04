@@ -55,7 +55,7 @@
 <body>
     <jsp:include page="../common/header.jsp" />
     <br><br><br><br><br>
-
+	<div>
       <div class="header-box">
         <div class="left_box"></div>
         <div class="center_box">
@@ -73,41 +73,56 @@
         <div class="right_box"></div>
     </div>
     <div class="content" align="center">
+    	<form action="detail.st">
         <div class="innerOuter" style="padding:5% 10%; width: 80%;">
             <h3 align="left" style="font-weight: bolder; color: rgb(59, 175, 252); margin-left: 5px;">학습동영상</h3>
             <br>
 
             <table id="contentArea" class="table table-hover" style="border-color: black;" align="center">
                 <tr>
-                    <th>너도 할 수 있다 낚시</th>
+                    <th>${s.studyTitle}</th>
                     <td></td>                
                     <td></td>
                 </tr>    
-                    <td style="font-size: 0.9rem;">2023-01-01</td>
-                    <td style="font-size: 0.8rem; text-align: right;">조회수: 36</td>
-                    <td style="font-size: 0.8rem; width: 10%;">좋아요: 12</td>  
+                    <td style="font-size: 0.9rem;">${s.studyCreateDate}</td>
+                    <td style="font-size: 0.8rem; text-align: right;">조회수: ${s.studyCount}</td>
+                    <td style="font-size: 0.8rem; width: 15%;">좋아요: ${s.studyGoodStatus}</td>  
             </table>
 
             <br>
 
             <tr>
-                <td colspan="4"><p>너도 할 수 있어 낚시!</p></td>
+                <td colspan="4"><p>${s.studyContent}</p></td>
             </tr>
 
             <tr>    <!--src 링크를 el값으로 받아온다-->
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/PVAnXu6lxBU?si=Fx2VF4Y_gG1fS_ZE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/PVAnXu6lxBU?si=Fx2VF4Y_gG1fS_ZE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+                ${s.studyLink}
             </tr>
-            <br><br><br><br>
-            
+            </form>
+            </div>
+               
                 <!-- 수정하기, 삭제하기 버튼은 이 글이 본인이 작성한 글일 경우에만 보여져야 함 -->
-                <!-- <c:if test="${loginUser.memId eq s.studyWriter}">  [</c:if>]가 밑에 div 감싸주기 -->
-                <div align="right">
-                    <a class="btn btn-primary" onclick="location.href='updateForm.st'">글 수정</a>
+                <c:if test="${loginUser.memId eq s.studyWriter}">  <!-- 이 기능 안됨  -->
+                <div>
+                    <!-- <a class="btn btn-primary" onclick="location.href='updateForm.st'">글 수정</a> -->
+                    <!-- <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteStudy">글 삭제</a> -->
+                    <a class="btn btn-primary" onclick="postFormSubmit(1)">글 수정</a>
                     <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteStudy">글 삭제</a>
                 </div>
-            </div>
-        </div>
+                </c:if>
+                <form action="" method="post" id="postForm">
+                    <input type="hidden" name="sno" value="${s.studyNo}">
+                </form>
 
+                <script>
+                    function postFormSubmit(num) {
+                        if(num === 1) {
+                            $("#postForm").attr('action', 'updateForm.st');
+                        } $("#postForm").submit();
+                    }
+                </script>
+				<br>
         <!-- 댓글 파트 -->
         <div style="width: 70%; margin: 0px auto;" >
         <table id="replyArea" class="table" align="center" onload="">
@@ -116,7 +131,7 @@
                     <c:when test="${ empty loginUser }">
                         <tr>
                             <th colspan="2">
-                                <textarea class="form-control" readonly cols="50" rows="2" placeholder="로그인 후 이용가능합니다." style="text-align: center; resize: none; width: 100%;"></textarea>
+                                <textarea class="form-control" readonly cols="50" rows="2" style="resize: none; width: 100%;">로그인 후 이용가능 합니다.</textarea>
                             </th>
                             <th>
                                 <th style="vertical-align: middle;"><button class="btn btn-secondary disavled">등록하기</button></th>
@@ -132,45 +147,74 @@
                             </tr>
                         </c:otherwise>
                     </c:choose>
+                    <tr>
+                        <td colspan="3">댓글(<span id="rcount">3</span>)</td>
+                    </tr>
                 </thead>
+                <tbody>
+                    
+                </tbody>
             </table>
         </div>
 
 
     <!-- 댓글파트 -->
-    <div class="replyArea" style="width: 70%; margin: 0px auto;">
-        <div class="container" style="border-bottom: solid 2px rgb(204,204,204); ">
-        <div class="row">
-            <div class="col-sm" style="display: flex; align-items: center;">
-                <i class="bi bi-person" style="font-size: 40px;"></i>
-                <span >낚시킹</span>
-            </div>
-            <div class="col-md-8" style="display: flex; align-items: center;">유익하네요!</div>
-            <div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
-        </div>
-        </div>
-        <div class="container" style="border-bottom: solid 2px rgb(204,204,204); ">
-        <div class="row">
-            <div class="col-sm" style="display: flex; align-items: center;">
-                <i class="bi bi-person" style="font-size: 40px;"></i>
-                <span >낚시초보</span>
-            </div>
-            <div class="col-md-8" style="display: flex; align-items: center;">굳.</div>
-            <div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
-        </div>
-        </div>
+    
+    
+    <script>
+        $(function(){
+            //댓글 조회하는 함수호출
+            selectReplyList();
+        })
 
-        <div class="container" style="border-bottom: solid 2px rgb(204,204,204); ">
-        <div class="row">
-            <div class="col-sm" style="display: flex; align-items: center;">
-                <i class="bi bi-person" style="font-size: 40px;"></i>
-                <span >낚시맨</span>
-            </div>
-            <div class="col-md-8" style="display: flex; align-items: center;">대박이네요.</div>
-            <div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
-        </div>
-        </div>
-    </div>
+        function selectReplyList(){
+            $.ajax({
+                url: "rlist.st",
+                data: {
+                    sno: ${s.studyNo}
+                },
+                success: function(list){
+                    let str = "";
+                    for (reply of list){
+                        str += ("<tr>" + 
+                                    "<td>" + reply.reply + "</td>" +
+                                    "<td>" + reply.replyContent + "</td>" +
+                                    "<td>" + reply.replyCreateDate + "</td>" +
+                                "</tr>")
+                    }
+
+                    //$("#replyArea tbody").html();
+                    document.querySelector("#replyArea tbody").innerHTML = str;
+                    document.querySelector("#rcount").innerHTML = list.length;
+                },
+                error: function(){
+                    console.log("ajax통신 실패")
+                }
+            })
+        }
+
+        //댓글 추가
+        function addReply(){
+            $.ajax({
+                url: "rinsert.st",
+                data: {
+                    rstudyNo: '${s.studyNo}',
+                    replyWriter: '${loginUser.memNick}',
+                    replyContent: $("#content").val()
+                },
+                success: function(res){
+                        //성공시 다시 그려주기
+                    if (res === "success") {
+                        selectReplyList();
+                        $("#content").val("");
+                    }
+                },
+                error: function(){
+                    console.log("ajax통신 실패")
+                }
+            })
+        }
+    </script>
     
     <!-- The Modal -->
     <div class="modal" id="deleteStudy">
@@ -185,18 +229,21 @@
     
             <!-- Modal body -->
             <div class="modal-body">
-            해당 게시글을 삭제 하시겠습니까?
+              	  해당 게시글을 삭제 하시겠습니까?
             </div>
     
             <!-- Modal footer -->
             <div class="modal-footer">
-            <button class="btn btn-secondary" onclick="location.href='list.st'" type="submit" style="border: none; background-color: rgb(52, 152, 219); color: white;">네</button>                
+            <button class="btn btn-secondary" onclick="location.href='delete.st?sno=${s.studyNo}'" type="submit" style="border: none; background-color: rgb(52, 152, 219); color: white;">네</button>                
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">아니오</button>
             </div>
     
         </div>
         </div>
     </div>
+    </div>
+  
+    
 
     <jsp:include page="../common/footer.jsp"/>
 </body>
