@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div id="showList-area">
-	            <a class="list-box-area" href="">
+	            <a class="list-box-area" href="resDetailPage?storeNumber=1">
 	                <div class="list-img-box">
 	                    <div class="img-box">
 	                        <img src="<%=contextPath%>/resources/images/shop-example.jpg" alt="">

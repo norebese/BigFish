@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,13 +56,10 @@ public class ReservationController {
 		return "reservation/reservationDetail";
 	}
 	
-	
-	
-	
-	
+
 //	@RequestMapping("loadTickets")
 //	@ResponseBody
-//	public list<Ticket> loadTickets(){
+//	public ArrayList<Ticket> loadTickets(){
 //		
 //		
 //		

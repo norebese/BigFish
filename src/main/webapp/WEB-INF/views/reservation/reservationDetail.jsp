@@ -1,3 +1,4 @@
+<%@page import="com.kh.bigFish.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -5,6 +6,7 @@
 <%
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
+	Member loginUser = (Member)session.getAttribute("loginUser");
 %> 
 
 <!DOCTYPE html>
@@ -426,7 +428,7 @@
 	
     <div class="btn-fixed">
     	<div class="btn-inner">
-    		<button class="fixed-btn" onclick="saveSelectedDate()">예약하기</button>
+    		<button class="fixed-btn" onclick="saveSelectedDate()" <%= (loginUser == null) ? "disabled style='background:gray'" : "" %>>예약하기</button>
     	</div>
     </div>
     <jsp:include page="../common/footer.jsp"/>

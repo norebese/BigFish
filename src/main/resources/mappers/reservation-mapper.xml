@@ -21,7 +21,7 @@
  	<insert id="insertReservation" parameterType="Reservation">
  		INSERT INTO RESERVATION (rev_no, rmem_no, rstore_no, rev_date, rev_people, rev_start, rev_end, rev_status, rev_request, rev_name, rev_phone)
 		VALUES
-		(1, 
+		(SEQ_REV_NO.NEXTVAL, 
 		#{rmemNo}, 
 		#{rstoreNo},
 		DEFAULT, 
