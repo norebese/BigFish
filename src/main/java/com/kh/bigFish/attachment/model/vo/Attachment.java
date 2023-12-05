@@ -16,15 +16,18 @@ import lombok.ToString;
 @ToString
 public class Attachment {
 
-	private int fileNo;
-	private String originName;
-	private String changeName;
-	private String filePath;
-	private Date uploadDate;
-	private int fileLevel;
-	private String fileStatus;
-	private int rfishNo;
-	private int rproductNo;
-	private int rfishingNo;
-	private int rstoreNo;
+
+   private int fileNo;
+   private String originName;
+   private String changeName;
+   private String filePath;
+   private Date uploadDate;
+   private int fileLevel;
+   private String fileStatus;
+   private int rfishNo;
+   private int rproductNo;
+   private int rfishingNo;
+   private int rstoreNo;
 }
+
+
