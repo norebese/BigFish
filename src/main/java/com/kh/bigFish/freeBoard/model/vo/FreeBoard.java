@@ -23,6 +23,8 @@ public class FreeBoard {
 	private Date createDate;
 	private int count;
 	private int rmemNo;
+	private String OriginName;
+	private String ChangeName;
 	
 	
 }
