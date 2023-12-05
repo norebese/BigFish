@@ -61,6 +61,11 @@ public class MemberServiceImpl implements MemberService {
 	public int updateAddress(Member m) {
 		return memberDao.updateAddress(sqlSession, m);
 	}
+
+	@Override
+	public int profileImgAreaChange(Member m) {
+		return memberDao.profileImgAreaChange(sqlSession, m);
+	}
 	
 	
 }
