@@ -18,6 +18,12 @@
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <!-- memberAPI-->
 <script src="<%=contextPath%>/resources/js/service/member-api.js"></script>
 
@@ -71,7 +77,7 @@
 					<td id="checkNickSpace" style="height: 25px;"></td>
 				</tr>
 			</table>
-			<input required name="phone" placeholder="휴대폰 번호를 입력해주세요. (-포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
+			<input required name="phone" placeholder="휴대폰 번호를 입력해주세요. (-미포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
 
 
 			<div class="infoTitle">사업장 정보</div>
@@ -80,7 +86,7 @@
 			<input required name="storePhone" placeholder="사업장 전화번호를 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
 			<table style="width: 40%; margin: 0px auto;">
 				<tr style="width: 100%;">
-					<td><input name="businessNo" id="businessNo" required placeholder="사업자 번호를 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
+					<td><input name="businessNo" id="businessNo" required placeholder="사업자 번호를 입력해주세요. (-미포함)" style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
 					<td><button onclick="checkBusinessNo()" type="button" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">사업자 확인</button></td>
 				</tr>
 				<tr>
@@ -95,8 +101,8 @@
 			<select name="storeKind" class="form-select" style="width: 100%;">
 				<option value="seaShip">바다 배</option>
 				<option value="seaSeat">바다 좌대</option>
-				<option value="lakeSeat">민물 좌대</option>
-				<option value="fishingCafe">낚시카페</option>
+				<option value="FreshSeat">민물 좌대</option>
+				<option value="FreshCafe">낚시카페</option>
 			</select>
 			</div><br>
 			<table style="width: 40%; margin: 0px auto;">
