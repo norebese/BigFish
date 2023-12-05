@@ -1,10 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <style>
 .announce-ann{
 	color: rgb(59, 175, 252);
@@ -18,10 +29,14 @@
     margin: 10px auto;		
 }
 .ann-title{
-	width: 90%;
-    margin: 10px 80px;
+    margin: 0px 80px;
     font-size: 25px;
    	font-weight: bolder;
+   	border: none;
+   	display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 .ann-date{
 	width: 90%;
@@ -32,23 +47,30 @@
 	width: 90%;
     margin: 10px auto;	
 }
-.ann-textArea{
-	width: 90%;
-    margin: 10px 80px;
-}
-.ann-button {
-	display: flex;
-    width: 300px;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 600px;
-}
-.ann-button > button{
-	color: white;
-	border-radius: 3px;
+.ann-content{
+	margin: 0px 80px;
     border: none;
-    width: 85px;
-    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.ann-form{
+	display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.btn-area{
+	width: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 230px;
+}
+.btn-area > button, a {
+	width: 130px;
+	height: 40px;
 }
 </style>
 </head>
@@ -59,53 +81,55 @@
 	<h1 class="announce-ann" style="color:rgb(59, 175, 252)">공지사항</h1>
 	<div class="border-line"></div>
 	
-	<p class="ann-title">2023 추석 휴무 안내</p>
-	<p class="ann-date">2023.11.22</p>
-	<div class="ann-title-line"></div>
+	<div class="ann-form">
+		<p class="ann-title">${a.annTitle}</p>
+		<p class="ann-date">${a.annCreateDate}</p>	
+		<div class="ann-title-line"></div>
+		
+		<div class="ann-content">${a.annContent}</div>
+		
+		<br><br>
+		
+		<c:if test="${ not empty loginUser }">
+			<div class="btn-area">
+				<a class="btn btn-primary" onClick="annList()">목록으로</a>
+				<a class="btn btn-primary" onclick="location.href='annUpdateForm.an?ano=${a.annNo}'">수정하기</a>
+				<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>
+			</div>
+		</c:if>
+	</div>
 
-	<div class="ann-textArea">
-		안녕하세요 관리자 입니다.<br>
-		다름이아니라...	<br>
-		... 안내사항 입니다.
-	</div>
 	<br><br><br><br>
-	<div class="ann-button">
-		<button class="btn btn-primary" onClick="annList()">목록으로</button>
-		<button class="btn btn-primary" onClick="annEnrollForm()">수정하기</button>
-		<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>
-							<!-- The Modal -->
-						<div class="modal" id="myModal">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						
-						      <!-- Modal Header -->
-						      <div class="modal-header">
-						        <h4 class="modal-title">주의 !</h4>
-						        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-						      </div>
-						
-						      <!-- Modal body -->
-						      <div class="modal-body">
-						    	정말 삭제하시겠습니까?    
-						      </div>
-						
-						      <!-- Modal footer -->
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">예</button>
-						        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">아니오</button>
-						      </div>
-						
-						    </div>
-						  </div>
-						</div>
-	</div>
+	
+				<!-- The Modal -->
+			<div class="modal" id="myModal">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			
+			      <!-- Modal Header -->
+			      <div class="modal-header">
+			        <h4 class="modal-title">주의 !</h4>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+			      </div>
+			
+			      <!-- Modal body -->
+			      <div class="modal-body">
+			    	정말 삭제하시겠습니까?    
+			      </div>
+			
+			      <!-- Modal footer -->
+			      <div class="modal-footer">
+			        <a class="btn btn-danger" data-bs-dismiss="modal" onclick="location.href='annDelete.an?ano=${a.annNo}'">예</a>
+			        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">아니오</button>
+			      </div>
+			
+			    </div>
+			  </div>
+			</div>
 	
 	<script>
 		function annList(){
 			location.href="annList.an";
-		}
-		function annEnrollForm(){
-			location.href="annEnrollForm.an";
 		}
 	</script>
 	

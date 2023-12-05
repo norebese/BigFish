@@ -15,4 +15,23 @@ public interface MemberService {
 	
 	// 개인 회원 가입
 	int insertPersonalMember(Member m);
+	
+	// 사업자 회원 가입
+	int insertCompanyMember(Member m);
+	
+	// 핸드폰 변경
+	int updatePhone(Member m);
+	
+	// 정보 변경 이후 로그인 정보 가져오기
+	Member takeUserInfo(Member m);
+	
+	// 닉네임 변경
+	int updateNick(Member m);
+	
+	// 주소 변경
+	int updateAddress(Member m);
+	
+	// 프로필 이미지 변경
+	int profileImgAreaChange(Member m);
+	
 }

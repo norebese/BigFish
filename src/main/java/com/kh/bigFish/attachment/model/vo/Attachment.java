@@ -8,12 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
 public class Attachment {
+
 
    private int fileNo;
    private String originName;
@@ -27,4 +29,5 @@ public class Attachment {
    private int rfishingNo;
    private int rstoreNo;
 }
+
 
