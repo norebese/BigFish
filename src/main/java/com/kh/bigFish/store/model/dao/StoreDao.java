@@ -37,4 +37,8 @@ public class StoreDao {
 	public int insertAttachment(SqlSessionTemplate sqlSession, Attachment a) {
 		return sqlSession.insert("storeMapper.insertAttachment",a);
 	}
+
+	public ArrayList<Ticket> TicketTime(SqlSessionTemplate sqlSession, int storeNum) {
+		return (ArrayList)sqlSession.selectList("storeMapper.TicketTime", storeNum);
+	}
 }

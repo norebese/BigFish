@@ -122,5 +122,11 @@
  						SEQ_STORE_NO.CURRVAL
  						)
  	</insert>
+ 	
+ 	<select id="TicketTime" resultType="_int">
+		SELECT TICKET_TIME
+		FROM TICKET
+		WHERE RSTORE_NO = #{storeNum}
+ 	</select>
  
  </mapper>

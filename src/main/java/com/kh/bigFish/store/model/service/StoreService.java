@@ -25,6 +25,8 @@ public interface StoreService {
 	
 	Store resDetailPage(int num);
 	
+	ArrayList<Ticket> TicketTime(int storeNum);
+	
 }
 
 

@@ -49,6 +49,11 @@ public class StoreServiceImpl implements StoreService{
 	public int insertAttachment(Attachment a) {
 		return storeDao.insertAttachment(sqlSession, a);
 	}
+
+	@Override
+	public ArrayList<Ticket> TicketTime(int storeNum) {
+		return storeDao.TicketTime(sqlSession, storeNum);
+	}
 	
 }
 

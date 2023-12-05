@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.bigFish.reservation.model.service.ReservationService;
+import com.kh.bigFish.reservation.model.vo.Reservation;
 import com.kh.bigFish.store.model.service.StoreService;
 import com.kh.bigFish.store.model.vo.Store;
 import com.kh.bigFish.store.model.vo.Ticket;
@@ -23,6 +25,9 @@ public class StoreController {
 	
 	@Autowired
 	private StoreService storeService;
+	
+	@Autowired
+	private ReservationService reservationService;
 	
 	@RequestMapping(value="/storeEnrollForm.sto")
 	public String storeEnrollForm() {
@@ -80,21 +85,43 @@ public class StoreController {
 		return "reservation/reservationDetail";
 	}
 	
-//	@RequestMapping("loadTickets")
-//	public ArrayList<Ticket> loadTickets(HttpServletRequest request){
-//		String year = request.getParameter("year");
-//		String month = request.getParameter("month");
-//		String day = request.getParameter("day");
-//		String time = request.getParameter("time");
-//		
-//		String dateTimeString = String.format("%s-%s-%s %s", year, month, day, time);
-//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//		LocalDateTime localDateTime = LocalDateTime.parse(dateTimeString, formatter);
-//		String startTime = localDateTime.format(formatter);
-//		
-//		//이용권 시간 받아오기
-//		ArrayList<Ticket> TicketTime = storeService.TicketTime();
-//		
+	@RequestMapping("loadTickets")
+	public ArrayList<Ticket> loadTickets(Reservation R, HttpServletRequest request, HttpSession session){
+		Store s = (Store) session.getAttribute("st");
+		String year = request.getParameter("year");
+		String month = request.getParameter("month");
+		String day = request.getParameter("day");
+		String time = request.getParameter("time");
+		int pAmount = s.getMaxMember();
+		
+		String dateTimeString = String.format("%s-%s-%s %s", year, month, day, time);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime localDateTime = LocalDateTime.parse(dateTimeString, formatter);
+		String startTime = localDateTime.format(formatter);
+		
+		//이용권 시간 받아오기
+		int storeNum = s.getStoreNo();
+		System.out.println("storeNum:"+storeNum);
+		ArrayList<Ticket> TicketTime = storeService.TicketTime(storeNum);
+		System.out.println(TicketTime);
+		
+		for (Ticket ticket : TicketTime) {
+			int timeE = ticket.getTicketTime();
+			
+			String dateTimeStringE = String.format("%s-%s-%s %02d:00", year, month, day, timeE);
+			DateTimeFormatter formatterE = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+			LocalDateTime localDateTimeE = LocalDateTime.parse(dateTimeStringE, formatterE);
+			String endTime = localDateTimeE.format(formatterE);
+			
+			R.setRstoreNo(s.getStoreNo());
+			R.setRevStart(startTime);
+			R.setRevEnd(endTime);
+			
+			int jungbok = reservationService.jungbokCheck(R);
+			
+		    ticket.setAmount(jungbok);
+		}
+		
 //		//받은 티켓 정보에서 이용시간ticketTime을 받아서(ex3시간) 파라미터에서 받은 시작 시간과 티켓이용시간을 더한 끝시간을 구해서 reservation table에서의 중복된 시간을 구한다. 
 //		//반복문을 여기에 적용시켜 각 객체의 ticketTime을 
 //		for(int i =0; i<= TicketList.size(); i++) {
@@ -104,12 +131,9 @@ public class StoreController {
 //			인원수의 경우 겹치는 카운트에 -1해서 더해주면 될듯
 //			ArrayList<Ticket> TicketListPlus = storeService.loadTicketsPlus(TicketList.get(i).getTicketTime());
 //		}
-//		
-//		
-//		
-//		
-//		return TicketList;
-//	}
+
+		return TicketTime;
+	}
 	
 
 }

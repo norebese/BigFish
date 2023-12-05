@@ -33,5 +33,17 @@
 		#{revName}, 
 		#{revPhone})
  	</insert>
+ 	
+ 	<select id="jungbokCheck">
+ 		SELECT COUNT(*)
+		FROM RESERVATION
+		WHERE RSTORE_NO = #{rstoreNo}
+		  AND REV_STATUS = 'Y'
+		  AND (
+		    (#{revStart} >= REV_START AND #{revStart} < REV_END)
+		    OR (#{revEnd} > REV_START AND #{revEnd} <= REV_END)
+		    OR (#{revStart} <= REV_START AND #{revEnd} >= REV_END)
+		  )
+ 	</select>
  
  </mapper>
