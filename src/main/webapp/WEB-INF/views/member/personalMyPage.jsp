@@ -61,14 +61,15 @@
 				<img id="profileShowArea" width="20%" height="20%" src=${loginUser.memChangeName} alt="">
 				<label for="profileImg" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사진 선택</label>
 				<input onchange="profileImgChange()" type="file" id="profileImg" style="display: none;">
+				<input id="memChangeName" type="hidden" value="${loginUser.memChangeName}">
 				<br>
 				<table style="width: 60%;">
 					<form action="updateNick.me" method="post"> <!-- 닉네임 변경 -->
 						<input id="memNo" type="hidden" name="memNo" value="${loginUser.memNo}">
 						<tr>
 							<td align="center" style="width: 20%;">닉네임</td>
-							<td><input name="memNick" class="form-control" type="text" placeholder="${loginUser.memNick}"></td>
-							<td style="width: 30%;"><button style="width: 75%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">변경</button></td>
+							<td><input required name="memNick" class="form-control" type="text" placeholder="${loginUser.memNick}"></td>
+							<td style="width: 30%;"><button type="submit" style="width: 75%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">변경</button></td>
 						</tr>
 					</form>	
 				</table><br>
