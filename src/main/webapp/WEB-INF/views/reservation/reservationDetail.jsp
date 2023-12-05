@@ -437,10 +437,17 @@
     <script>
 	function loadTickets(){
 		
+	let year = document.getElementById("calYear").textContent;
+   	let month = document.getElementById("calMonth").textContent;
+		
 		$.ajax({
             type: "GET",
             url: "loadTickets", 
             data: { 
+            	year: year,
+        		month: month,
+        		day: day,
+        		time: selectedTime,
             },
             success: function(response) {
             	

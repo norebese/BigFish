@@ -23,6 +23,7 @@ import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reservation.model.service.ReservationService;
 import com.kh.bigFish.reservation.model.vo.Reservation;
 import com.kh.bigFish.store.model.vo.Store;
+import com.kh.bigFish.store.model.vo.Ticket;
 
 @Controller
 public class ReservationController {
@@ -57,14 +58,6 @@ public class ReservationController {
 	}
 	
 
-//	@RequestMapping("loadTickets")
-//	@ResponseBody
-//	public ArrayList<Ticket> loadTickets(){
-//		
-//		
-//		
-//		return Ticket;
-//	}
 	
 	@RequestMapping("insertReservation")
 	public void insertReservation(Reservation R , Member M, HttpServletRequest request, HttpServletResponse response, HttpSession session) {

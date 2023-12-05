@@ -40,14 +40,21 @@ function init(){
             dateClicked = 'passed';
         	day = $(this).text();
         	
-			console.log(day);
         });
 	
 	$(".form-select").change(function() {
         // 선택된 값을 가져와 변수에 저장
         selectedTime = $(this).val();
-        console.log("Selected time: " + selectedTime);
+        
+        if (!dateClicked) {
+        // 날짜가 선택되지 않았으면 알림 띄우고 select 태그 초기화
+        showDateAlert();
+        return;
+    }
+        
+        loadTickets();
     });
+    
     
         
 	// 주소로 좌표를 검색합니다
@@ -78,7 +85,11 @@ function init(){
 	});  
 }
 
-
+function showDateAlert() {
+    alert("날짜를 먼저 선택하세요.");
+    // 해당 select 태그 초기화
+    $(".form-select").val('');
+}
 
 function handleCheckboxClick(clickedCheckboxId) {
     isChecked = 'checkOk';
