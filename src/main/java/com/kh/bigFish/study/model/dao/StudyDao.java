@@ -1,6 +1,8 @@
 package com.kh.bigFish.study.model.dao;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -51,5 +53,9 @@ public class StudyDao {
 	
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
 		return sqlSession.insert("studyMapper.insertReply", r);
+	}
+	
+	public List<Study> getSearchList(SqlSessionTemplate sqlSession, Study s) {
+		return sqlSession.selectList("studyMapper.getSearchList", s);
 	}
 }

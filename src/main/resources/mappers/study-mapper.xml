@@ -80,4 +80,19 @@
 		   	   STUDY_LINK = #{studyLink}
 		WHERE STUDY_NO = #{studyNo}
 	</update>
+	
+	<select id="getSearchList" resultMap="studyResult">
+		SELECT STUDY_NO
+			STUDY_TITLE
+			STUDY_CONTENT
+			STUDY_STATUS
+			STUDY_COUNT
+			RMEM_NO
+			STUDY_CREATE_DATE
+			STUDY_LINK
+		FROM STUDY
+		WHERE STUDY_NO = #{studyNo}
+	</select>
+	
+	
 </mapper>

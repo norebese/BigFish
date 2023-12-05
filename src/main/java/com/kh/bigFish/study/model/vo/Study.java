@@ -25,5 +25,9 @@ public class Study {
 	private Date studyCreateDate;
 	private int rmemNo;
 	private String studyGoodStatus;
+	
+	//검색필터
+	private String type; //검색 타입
+	private String keyword; //검색 내용
 }
 

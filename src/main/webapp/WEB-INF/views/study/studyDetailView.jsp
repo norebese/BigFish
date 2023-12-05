@@ -103,7 +103,7 @@
             </div>
                
                 <!-- 수정하기, 삭제하기 버튼은 이 글이 본인이 작성한 글일 경우에만 보여져야 함 -->
-                <c:if test="${loginUser.memId eq s.studyWriter}">  <!-- 이 기능 안됨  -->
+                <c:if test="${loginUser.memAdmin eq 'Y'}">  
                 <div>
                     <!-- <a class="btn btn-primary" onclick="location.href='updateForm.st'">글 수정</a> -->
                     <!-- <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteStudy">글 삭제</a> -->

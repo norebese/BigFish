@@ -1,12 +1,14 @@
 package com.kh.bigFish.study.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -107,7 +109,7 @@ public class StudyController {
 			return "common/errorPage";
 		}
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value="rlist.st", produces="application/json; charset=UTF-8")
 	public String selectReplyList(int sno) {
@@ -127,5 +129,15 @@ public class StudyController {
 		} else {
 			return "fail";
 		}
+	}
+	
+	@GetMapping(value="searchList.st")
+	@ResponseBody
+	public List<Study> getSearchList(@RequestParam("type") String type,
+			@RequestParam("keyword") String keyword, Model model) throws Exception{
+		Study s = new Study();
+		s.setType(type);
+		s.setKeyword(keyword);
+		return studyService.getSearchList(s);
 	}
 }
