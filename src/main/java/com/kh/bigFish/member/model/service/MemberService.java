@@ -31,4 +31,7 @@ public interface MemberService {
 	// 주소 변경
 	int updateAddress(Member m);
 	
+	// 프로필 이미지 변경
+	int profileImgAreaChange(Member m);
+	
 }

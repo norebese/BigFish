@@ -44,4 +44,8 @@ public class MemberDao {
 	public int updateAddress(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.updateAddress", m);
 	}
+	
+	public int profileImgAreaChange(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.profileImgAreaChange", m);
+	}
 }

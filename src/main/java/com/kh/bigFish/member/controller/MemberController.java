@@ -11,7 +11,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -126,6 +129,38 @@ public class MemberController {
 		}else {
 			// 해당 닉네임 사용 가능 (같은 닉네임 없음)
 			return "Y";
+		}
+		
+	}
+	
+	// 프로필 사진 변경
+	@ResponseBody
+	@RequestMapping("profileImgAreaChange")
+	public String profileImgAreaChange(@RequestParam("memNo") int memNo,
+									   @RequestPart("profileImg") MultipartFile profileImg,
+									   HttpSession session, Model model) {
+		// 파일이 저장됨
+		String changeName = saveFile(profileImg, session,"resources/uploadFiles/");
+		
+		
+		// 저장된 경로 및 파일이름, 멤버 고유번호 객체 세팅
+		Member m = new Member();
+		m.setMemNo(memNo);
+		m.setMemChangeName("resources/uploadFiles/"+changeName);
+		
+		// 저장된 경로 및 파일이름 DB 접근하여 변경
+		int result = memberService.profileImgAreaChange(m);
+		
+		if(result>0) {
+			// 변경 성공
+			Member loginUser = memberService.takeUserInfo(m);
+			
+			
+			return loginUser.getMemChangeName();	
+		}else {
+			// 변경 실패
+			model.addAttribute("errorMsg","주소 변경 실패");
+			return "common/errorPage";
 		}
 		
 	}
@@ -276,7 +311,7 @@ public class MemberController {
 			
 		}else {
 		   // 휴대폰 번호 변경 실패
-			model.addAttribute("errorMsg","게시글 작성 실패");
+			model.addAttribute("errorMsg","휴대폰 번호 변경 실패");
 			return "common/errorPage";
 		}
 		
@@ -298,7 +333,7 @@ public class MemberController {
 			
 		}else {
 		   // 닉네임 변경 실패
-			model.addAttribute("errorMsg","게시글 작성 실패");
+			model.addAttribute("errorMsg","닉네임 변경 실패");
 			return "common/errorPage";
 		}
 		
@@ -312,7 +347,7 @@ public class MemberController {
 		int result = memberService.updateAddress(m);
 		
 		if(result>0) {
-			// 닉네임 변경 성공
+			// 주소 변경 성공
 			Member loginUser = memberService.takeUserInfo(m);
 			
 			session.setAttribute("loginUser", loginUser);
@@ -320,8 +355,8 @@ public class MemberController {
 			return "redirect:/personalMyPage.me";	
 			
 		}else {
-		   // 닉네임 변경 실패
-			model.addAttribute("errorMsg","게시글 작성 실패");
+		   // 주소 변경 실패
+			model.addAttribute("errorMsg","주소 변경 실패");
 			return "common/errorPage";
 		}
 	}

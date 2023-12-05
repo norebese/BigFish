@@ -15,6 +15,9 @@
 <!-- JS-->
 <script src="<%=contextPath%>/resources/js/personalMyPage.js"></script>
 
+<!-- API-->
+<script src="<%=contextPath%>/resources/js/service/member-api.js"></script>
+
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -55,13 +58,13 @@
 		<div class="myPageContent">
 			<!-- 프로필 관리 -->
 			<div id="profileWork" style="display: flex; flex-direction: column; align-items: center;">
-				<img width="20%" height="20%" src="resources/images/myProfile.png" alt="">
+				<img id="profileShowArea" width="20%" height="20%" src=${loginUser.memChangeName} alt="">
 				<label for="profileImg" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사진 선택</label>
-				<input type="file" id="profileImg" style="display: none;">
+				<input onchange="profileImgChange()" type="file" id="profileImg" style="display: none;">
 				<br>
 				<table style="width: 60%;">
 					<form action="updateNick.me" method="post"> <!-- 닉네임 변경 -->
-						<input type="hidden" name="memNo" value="${loginUser.memNo}">
+						<input id="memNo" type="hidden" name="memNo" value="${loginUser.memNo}">
 						<tr>
 							<td align="center" style="width: 20%;">닉네임</td>
 							<td><input name="memNick" class="form-control" type="text" placeholder="${loginUser.memNick}"></td>

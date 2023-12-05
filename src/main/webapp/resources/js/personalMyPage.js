@@ -72,3 +72,21 @@ function sample6_execDaumPostcode() {
         }
     }).open();
 }
+
+function profileImgChange(){
+    const profileShowArea = document.querySelector("#profileShowArea");
+    const memNo = document.querySelector("#memNo");
+    const profileImg = document.querySelector("#profileImg");
+    
+
+    let formData = new FormData();
+        formData.append("profileImg",profileImg.files[0]);
+        formData.append("memNo",memNo.value);
+                    
+    memberApi.profileImgAreaChange(formData, function(result){
+        profileShowArea.src = result;
+    })
+
+    
+
+}
