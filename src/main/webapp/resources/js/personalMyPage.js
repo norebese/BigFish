@@ -76,12 +76,14 @@ function sample6_execDaumPostcode() {
 function profileImgChange(){
     const profileShowArea = document.querySelector("#profileShowArea");
     const memNo = document.querySelector("#memNo");
+    const memChangeName = document.querySelector("#memChangeName");
     const profileImg = document.querySelector("#profileImg");
     
 
     let formData = new FormData();
         formData.append("profileImg",profileImg.files[0]);
         formData.append("memNo",memNo.value);
+        formData.append("memChangeName",memChangeName.value);
                     
     memberApi.profileImgAreaChange(formData, function(result){
         profileShowArea.src = result;

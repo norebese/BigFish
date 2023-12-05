@@ -137,6 +137,7 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping("profileImgAreaChange")
 	public String profileImgAreaChange(@RequestParam("memNo") int memNo,
+									   @RequestParam("memChangeName") String memChangeName,
 									   @RequestPart("profileImg") MultipartFile profileImg,
 									   HttpSession session, Model model) {
 		// 파일이 저장됨
@@ -154,6 +155,8 @@ public class MemberController {
 		if(result>0) {
 			// 변경 성공
 			Member loginUser = memberService.takeUserInfo(m);
+			
+			new File(session.getServletContext().getRealPath(memChangeName)).delete();
 			
 			
 			return loginUser.getMemChangeName();	
@@ -295,7 +298,7 @@ public class MemberController {
 		return changeName;
 	}
 	
-	// 휴대폰 번호 변경
+	// 개인 휴대폰 번호 변경
 	@RequestMapping("/updatePhone.me")
 	public String updatePhone(Member m, Model model, HttpSession session) {
 		
@@ -317,7 +320,29 @@ public class MemberController {
 		
 	}
 	
-	// 닉네임 변경
+	// 사업자 휴대폰 번호 변경
+	@RequestMapping("/companyUpdatePhone.me")
+	public String companyUpdatePhone(Member m, Model model, HttpSession session) {
+		
+	
+		int result = memberService.updatePhone(m);
+		if(result>0) {
+			// 휴대폰 번호 변경 성공
+			Member loginUser = memberService.takeUserInfo(m);
+			
+			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("alertMsg", "정보변경에 성공했습니다.");
+			return "redirect:/companyMyPage.me";	
+			
+		}else {
+		   // 휴대폰 번호 변경 실패
+			model.addAttribute("errorMsg","휴대폰 번호 변경 실패");
+			return "common/errorPage";
+		}
+		
+	}
+	
+	// 개인 닉네임 변경
 	@RequestMapping("/updateNick.me")
 	public String updateNick(Member m, Model model, HttpSession session) {
 		
@@ -340,7 +365,30 @@ public class MemberController {
 		
 	}
 	
-	// 주소 변경
+	// 사업자 닉네임 변경
+	@RequestMapping("/companyUpdateNick.me")
+	public String companyUpdateNick(Member m, Model model, HttpSession session) {
+		
+		int result = memberService.updateNick(m);
+		
+		if(result>0) {
+			// 닉네임 변경 성공
+			Member loginUser = memberService.takeUserInfo(m);
+			
+			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("alertMsg", "정보변경에 성공했습니다.");
+			return "redirect:/companyMyPage.me";	
+			
+		}else {
+		   // 닉네임 변경 실패
+			model.addAttribute("errorMsg","닉네임 변경 실패");
+			return "common/errorPage";
+		}
+		
+		
+	}
+	
+	// 개인 주소 변경
 	@RequestMapping("/updateAddress.me")
 	public String updateAddress(Member m, Model model, HttpSession session) {
 		
