@@ -11,10 +11,12 @@
      
      <typeAliases>
 		<typeAlias type="com.kh.bigFish.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.bigFish.reservation.model.vo.Reservation" alias="Reservation"/>
 		<typeAlias type="com.kh.bigFish.store.model.vo.Store" alias="Store"/>
 		<typeAlias type="com.kh.bigFish.study.model.vo.Study" alias="Study"/>
-		<typeAlias type="com.kh.bigFish.reply.model.vo.Reply" alias="Reply"/>
-
+		<typeAlias type="com.kh.bigFish.store.model.vo.Ticket" alias="Ticket"/>
+      <typeAlias type="com.kh.bigFish.announce.model.vo.Announce" alias="Announce"/>
+      <typeAlias type="com.kh.bigFish.reply.model.vo.Reply" alias="Reply"/>
      </typeAliases>
      <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야한다. -->
      
@@ -26,7 +28,9 @@
      <!-- *mappers : 실행할 sql문들을 기록해둔 mapper 파일들을 등록하는 영역 -->
      <mappers>
 		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/reservation-mapper.xml"/>
 		<mapper resource="/mappers/store-mapper.xml"/>
+		<mapper resource="/mappers/ann-mapper.xml"/>
 		<mapper resource="/mappers/study-mapper.xml"/>
 		<mapper resource="/mappers/reply-mapper.xml"/>
      </mappers>

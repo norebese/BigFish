@@ -16,6 +16,7 @@
 		<result column="MEM_STATUS" property="memStatus"/>
 		<result column="BUSINESS_STATUS" property="businessStatus"/>
 		<result column="MEM_ADMIN" property="memAdmin"/>
+		<result column="MEM_CHANGE_NAME" property="memChangeName"/>
 	</resultMap>
 	
 	<!-- 일반회원 로그인 쿼리문 -->
@@ -31,7 +32,8 @@
         MEM_CREATE_DATE,
         MEM_STATUS,
         BUSINESS_STATUS,
-        MEM_ADMIN
+        MEM_ADMIN,
+        MEM_CHANGE_NAME
 	FROM MEMBER
 	WHERE MEM_ID = #{memId}
 	    AND MEM_PWD = #{memPwd}
@@ -61,7 +63,8 @@
 						PHONE,
 						ADDRESS,
 						ADDRESS_DETAIL,
-						POST_NO
+						POST_NO,
+						MEM_CHANGE_NAME
 						)
 				VALUES(
 						SEQ_MEM_NO.NEXTVAL,
@@ -71,7 +74,80 @@
 						#{phone},
 						#{address},
 						#{addressDetail},
-						#{postNo}
+						#{postNo},
+						'resources/images/myProfile.png'
 						)		
 	</insert>
+	
+	<!-- 사업자 회원 가입 -->
+	<insert id="insertCompanyMember">
+	INSERT INTO MEMBER(
+					MEM_NO,
+					MEM_ID,
+					MEM_PWD,
+					MEM_NICK,
+					PHONE,
+					BUSINESS_STATUS,
+					MEM_CHANGE_NAME
+					)
+			VALUES(
+					SEQ_MEM_NO.NEXTVAL,
+					#{memId},
+					#{memPwd},
+					#{memNick},
+					#{phone},
+					'Y',
+					'resources/images/myProfile.png'
+					)
+	</insert>
+	
+	<!-- 휴대폰 번호 변경 -->
+	<update id="updatePhone">
+    UPDATE MEMBER
+    SET PHONE = #{phone}
+    WHERE MEM_NO = #{memNo}
+	</update>
+	
+	<!-- 닉네임 변경 -->
+	<update id="updateNick">
+    UPDATE MEMBER
+    SET MEM_NICK = #{memNick}
+    WHERE MEM_NO = #{memNo}
+	</update>
+	
+	<!-- 주소 변경 -->
+	<update id="updateAddress">
+    UPDATE MEMBER
+    SET ADDRESS = #{address},
+    	ADDRESS_DETAIL = #{addressDetail},
+    	POST_NO = #{postNo}
+    WHERE MEM_NO = #{memNo}		
+	</update>
+	
+	<!-- 프로필 변경 -->
+	<update id="profileImgAreaChange">
+    UPDATE MEMBER
+    SET MEM_CHANGE_NAME = #{memChangeName}
+    WHERE MEM_NO = #{memNo}
+	</update>
+	
+	<!-- 정보변경 이후 로그인 정보 가져오기 -->
+	<select id="takeUserInfo" resultMap="memberResult">
+	SELECT MEM_NO,
+        MEM_ID,
+        MEM_PWD,
+        MEM_NICK,
+        PHONE,
+        ADDRESS,
+        ADDRESS_DETAIL,
+        POST_NO,
+        MEM_CREATE_DATE,
+        MEM_STATUS,
+        BUSINESS_STATUS,
+        MEM_ADMIN,
+        MEM_CHANGE_NAME
+	FROM MEMBER
+	WHERE MEM_NO = #{memNo}
+	</select>
+	
 </mapper>

@@ -1,8 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	
@@ -87,6 +98,8 @@ li::marker {
 		<div id="faq1" class="collapse">
 			<p class="faq-title">1.이런거</p>
 			<button class="btn btn-primary enroll-btn" onclick="faqEnroll()">수정하기</button>
+			
+			
 							<!-- Button to Open the Modal -->
 				<button type="button" class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#myModal">
 				  	삭제하기
