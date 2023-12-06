@@ -20,7 +20,6 @@ import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
 
 
 @Controller
-
 public class FreeBoardController {
 	
 	@Autowired
@@ -80,9 +79,14 @@ public class FreeBoardController {
 		
 		try {
 			upfile.transferTo(new File(savePath + changeName));
-		} catch (IllegalStateException | IOException e) {
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		return ("/resources/uploadFiles/" + changeName);
 		  
