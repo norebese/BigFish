@@ -72,7 +72,6 @@
 	
 	<form class="ann-form" action="annInsert.an" >
 			<input type="text" class="ann-title" name="annTitle" placeholder="제목을 입력해주세요.">
-			<input type="hidden" name="annNo" value="${a.annNo }"/>
 			<input type="hidden" value="${loginUser.memId}" name="annWriter" />
 			<br><br><br>
 			<textarea id="summernote"  class="ann-content" name="annContent" placeholder="내용을 입력해주세요. "></textarea>
@@ -90,39 +89,30 @@
         let toolbar = [
 
             // 글꼴 설정
-
             ['fontname', ['fontname']],
 
             // 글자 크기 설정
-
             ['fontsize', ['fontsize']],
 
             // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
-
             ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
 
             // 글자색
-
             ['color', ['forecolor','color']],
 
             // 표만들기
-
             ['table', ['table']],
 
             // 글머리 기호, 번호매기기, 문단정렬
-
             ['para', ['ul', 'ol', 'paragraph']],
 
             // 줄간격
-
             ['height', ['height']],
 
             // 그림첨부, 링크만들기, 동영상첨부
-
             ['insert',['picture','link','video']],
 
             // 코드보기, 확대해서보기, 도움말
-
             ['view', ['codeview','fullscreen', 'help']]
 
         ];
@@ -131,80 +121,40 @@
         let setting = {
 
             height : 600,
-
             minHeight : null,
-
             maxHeight : null,
-
             focus : true,
-
             lang : 'ko-KR',
-
             toolbar : toolbar,
 
             callbacks : { //여기 부분이 이미지를 첨부하는 부분
-
                 onImageUpload : function(files) {
-
                     console.log(files);
-
                     for (let i = files.length - 1; i >= 0; i--) {
-
                         uploadSummernoteImageFile(files[i]);
-
                     }
-
                 }
-
             }
-
         };
-
 
         $('#summernote').summernote(setting);
 
-
         function uploadSummernoteImageFile(file) {
-
-        	console.log(file);
-
             data = new FormData();
-
             data.append("upfile", file);
-
             $.ajax({
-
                 data : data,
-
                 type : "POST",
-
-                url : "uploadSummernoteImageFile",
-
+                url : "uploadImageFile",
                 contentType : false,
-
                 enctype : 'multipart/form-data',
-
                 processData : false,
-
                 success : function(data) {
-
-                    console.log(data)
-
-                     console.log($("#summernote"))
-
                    $("#summernote").summernote("insertImage","/bigFish" + data);
-
-               
-
                 }
-
             });
-
         }
-
     });
-
-
     </script>
 
 

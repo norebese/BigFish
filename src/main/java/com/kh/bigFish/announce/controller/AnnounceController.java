@@ -48,12 +48,10 @@ public class AnnounceController {
 		
 		if(result > 0) {
 			Announce a = annService.selectAnnounce(ano);
-			model.addAttribute("a", a);
-			
+			model.addAttribute("a", a);			
 			return "announce/announceDetail";
 		} else {
 			model.addAttribute("errorMsg", "게시글 조회 실패");
-			
 			return "common/errorPage";
 		}
 	}
@@ -113,7 +111,7 @@ public class AnnounceController {
 	}
 	
 		@ResponseBody
-		@RequestMapping(value="/uploadSummernoteImageFile")
+		@RequestMapping(value="/uploadImageFile")
 		public String saveFile(MultipartFile upfile,HttpSession session, String path) {
 
 			//원래 파일명

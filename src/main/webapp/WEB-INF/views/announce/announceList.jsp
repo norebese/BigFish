@@ -76,7 +76,7 @@ li::marker {
 	
 	<br>
 	
-	<c:if test="${ not empty loginUser }">
+	<c:if test="${  not empty loginUser and loginUser.memAdmin eq 'Y'}">
     	<button class="ann-create" onclick="annEnroll()">작성하기</button>
         <br>
     </c:if>

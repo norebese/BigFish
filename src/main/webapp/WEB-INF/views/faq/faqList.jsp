@@ -89,7 +89,7 @@ li::marker {
 					<ul>
 						<li class="faq-title">${f.faqContent}</li>
 					</ul>
-					<c:if test="${ not empty loginUser and loginUser.memAdmin eq 'Y}">
+					<c:if test="${ not empty loginUser and loginUser.memAdmin eq 'Y'}">
 						<button class="btn btn-primary enroll-btn" onclick="location.href='faqEnrollForm.fa?fno=${f.faqNo}'">수정하기</button>		
 						<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>		
 					</c:if>				
