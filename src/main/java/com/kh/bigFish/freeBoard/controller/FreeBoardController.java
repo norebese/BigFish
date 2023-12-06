@@ -40,12 +40,6 @@ public class FreeBoardController {
 			return "common/errorMsg";
 		}
 	}
-//	  
-	
-
-
-
-	
 
 	
 	@RequestMapping(value="/freeEnrollForm.bo")
