@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String contextPath = request.getContextPath();
+%>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,46 +23,9 @@
 
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 
-<!-- language pack -->
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"
-	integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="anonymous"></script>	
-<style>
-.announce-ann{
-	color: rgb(59, 175, 252);
-    width: 90%;
-    margin: 10px auto;
-    font-weight: bolder;
-}
-.border-line{
-	border-bottom: 2px solid rgb(204, 204, 204);
-    width: 90%;
-    margin: 10px auto;		
-}
-.ann-button {
-    width: 850px;
-    font-size: 16px;
-    font-weight: bolder;
-    height: 50px;
-    background-color: rgb(59, 175, 252);
-    color: white;
-    border-radius: 3px;
-    border: 4px solid;
-}
-.ann-form{
-	display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-.ann-title{
-	width: 850px;
-    height: 40px;
-}
-.ann-content{
-	width: 850px;
-    height: 550px;
-}
-</style>
+<!-- CSS-->
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/announceInsert.css">
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>

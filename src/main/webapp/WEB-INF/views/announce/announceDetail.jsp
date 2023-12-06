@@ -1,66 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%
+	String contextPath = request.getContextPath();
+%>   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<!-- CSS-->
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/announceDetail.css">
 
-<style>
-.announce-ann{
-	color: rgb(59, 175, 252);
-    width: 90%;
-    margin: 10px auto;
-    font-weight: bolder;
-}
-.border-line{
-	border-bottom: 2px solid rgb(204, 204, 204);
-    width: 90%;
-    margin: 10px auto;		
-}
-.ann-title{
-    margin: 0px 80px;
-    font-size: 25px;
-   	font-weight: bolder;
-   	border: none;
-   	display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-.ann-date{
-	width: 90%;
-    margin: 10px 80px;
-}
-.ann-title-line{
-	border-bottom: 2px solid rgb(204, 204, 204);
-	width: 90%;
-    margin: 10px auto;	
-}
-.ann-content{
-	margin: 0px 80px;
-    border: none;
-}
-.ann-form{
-	display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-}
-.btn-area{
-	width: 40%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 10px auto;
-}
-.btn-area > button, a {
-	width: 130px;
-	height: 40px;
-}
-</style>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>

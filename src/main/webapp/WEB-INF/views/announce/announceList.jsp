@@ -1,66 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String contextPath = request.getContextPath();
+%>  
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-.announce-ann{
-	color: rgb(59, 175, 252);
-    width: 90%;
-    margin: 10px auto;
-    font-weight: bolder;
-}
-.border-line{
-	border-bottom: 2px solid rgb(204, 204, 204);
-    width: 90%;
-    margin: 10px auto;	
-}
-.ann-title{
-	width: 90%;
-    margin: 10px 55px;
-    font-size: 25px;
-   	font-weight: bolder;
-}
-.ann-title-line{
-	border-bottom: 2px solid rgb(204, 204, 204);
-	width: 90%;
-    margin: 10px auto;	
-}
-.ann-date{
-	width: 90%;
-    margin: 10px 55px;
-}
-li::marker {
-  	color: rgb(41, 128, 185);
-}
-.ann-create{
-	background-color: rgb(59, 175, 252);
-	color: white;
-	border-radius: 3px;
-    border: none;
-    width: 85px;
-    height: 35px;
-    position: absolute;
-    margin-left: 1350px;
-    margin-bottom: 100px;
-}
 
-.pagingArea{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+<!-- CSS-->
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/announceList.css">
+<style>
+.rightarrow{
+	width:40px;
+	height:40px;
 }
-.ann-search-area{
+.ann-area{
 	display: flex;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-}
-.text{
-	width: 500px;
+    width: 90%;
+    justify-content: space-between;
+    height: 35px;
 }
 </style>
 </head>
@@ -72,13 +33,15 @@ li::marker {
 	<div class="border-line"></div>
 	<br><br>
 	<c:forEach var="a" items="${list}">	
-		<div onclick="location.href='annDetail.an?ano=${a.annNo}'">
-		<ul>
-			<li class="ann-title">${a.annTitle}</li>
-			<p class="ann-date">${a.annCreateDate}</p>
-		</ul>
-			<div class="ann-title-line"></div>
-	</div>
+		<div class="ann-area" onclick="location.href='annDetail.an?ano=${a.annNo}'">
+			<ul>
+				<li class="ann-title">${a.annTitle}</li>
+			</ul>
+			<img class="rightarrow" src="resources/images/rightarrow.png">
+		</div>
+		<p class="ann-date">${a.annCreateDate}</p>
+		<div class="ann-title-line"></div>
+		<br>
 	</c:forEach>
 	
 	<br>

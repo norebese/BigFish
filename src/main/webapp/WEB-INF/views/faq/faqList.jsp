@@ -20,8 +20,9 @@
 }
 .border-line{
 	border-bottom: 2px solid rgb(204, 204, 204);
-    width: 90%;
-    margin: 10px auto;	
+    width: 85%;
+    margin: 10px;
+    margin-left: 70px;
 }
 .faq-area{
 	display: flex;
@@ -69,9 +70,6 @@ li::marker {
     border: none;
 	margin-left: 1200px;
 }
-.delete-btn{
-	margin-left: 12900px;
-}
 .downarrow{
 	width:40px;
 	height:40px;
@@ -107,8 +105,10 @@ li::marker {
 			<div class="faq-content">${f.faqContent}</div>
 
 			<c:if test="${ not empty loginUser and loginUser.memAdmin eq 'Y'}">
-				<button class="btn btn-primary enroll-btn" onclick="location.href='faqEnrollForm.fa?fno=${f.faqNo}'">수정하기</button>		
-				<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>		
+				<div class="faq-btn-area">
+					<button class="btn btn-primary" onclick="location.href='faqEnrollForm.fa?fno=${f.faqNo}'">수정하기</button>		
+					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>		
+				</div>
 			</c:if>				
 		</div>	
 	</div>
@@ -136,12 +136,11 @@ li::marker {
 		</div>
 	</c:forEach>
 	<br><br>
-	<div class="border-line"></div>
 	
 	<br>
 	
 	<c:if test="${ not empty loginUser }">
-	<button class="btn btn-primary faq-create" onclick="location.href='faqInsertForm.an'">작성하기</button>
+		<button class="btn btn-primary faq-create" onclick="location.href='faqInsertForm.an'">작성하기</button>
 	</c:if>
 	
 	<br><br><br><br><br><br>
