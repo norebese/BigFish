@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%
+	String contextPath = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +48,7 @@
     margin: 10px 10px;	
 }
 .faq-date{
-    margin-left: 7px;
+    margin-left: 34px;
 }
 li::marker {
   	color: rgb(41, 128, 185);
@@ -56,8 +59,8 @@ li::marker {
     background-color: white;
     font-weight: bolder;
 }
-.faq-title{
-	 margin-left: 7px;
+.faq-content{
+	 margin-left: 34px;
 }
 .enroll-btn{
 	background-color: rgb(59, 175, 252);
@@ -69,6 +72,17 @@ li::marker {
 .delete-btn{
 	margin-left: 12900px;
 }
+.downarrow{
+	width:40px;
+	height:40px;
+}
+
+.collapse-area{
+	display: flex;
+    width: 90%;
+    justify-content: space-between;
+    height: 35px;
+}
 </style>
 <body>
 	<jsp:include page="../common/header.jsp"/>
@@ -78,50 +92,50 @@ li::marker {
 	<div class="border-line"></div>
 	<br><br>
 	<c:forEach var="f" items="${list}">	
-		<div class="faq-area">
-		
-			<button class="faq-btn" data-bs-toggle="collapse" data-bs-target="#faq${f.faqNo}">${f.faqTitle}</button>
-			<p class="faq-date">${f.faqCreateDate}</p>
-			<div class="faq-title-line"></div>
-		
-			
-				<div id="faq${f.faqNo}" class="collapse">
-					<ul>
-						<li class="faq-title">${f.faqContent}</li>
-					</ul>
-					<c:if test="${ not empty loginUser and loginUser.memAdmin eq 'Y'}">
-						<button class="btn btn-primary enroll-btn" onclick="location.href='faqEnrollForm.fa?fno=${f.faqNo}'">수정하기</button>		
-						<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>		
-					</c:if>				
-				</div>	
+	<div class="faq-area">
+		<div class="collapse-area">
+			<ul>
+				<li class="faq-btn">${f.faqTitle}</li>
+			</ul>
+			<img class="downarrow" src="resources/images/downarrow.png" data-bs-toggle="collapse" data-bs-target="#faq${f.faqNo}">
 		</div>
+		<p class="faq-date">${f.faqCreateDate}</p>
+		<div class="faq-title-line"></div>
+
+		<div id="faq${f.faqNo}" class="collapse">
 		
+			<div class="faq-content">${f.faqContent}</div>
+
+			<c:if test="${ not empty loginUser and loginUser.memAdmin eq 'Y'}">
+				<button class="btn btn-primary enroll-btn" onclick="location.href='faqEnrollForm.fa?fno=${f.faqNo}'">수정하기</button>		
+				<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>		
+			</c:if>				
+		</div>	
+	</div>
+	
 		<!-- The Modal -->
 		<div class="modal" id="myModal">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		
-		      <!-- Modal Header -->
-		      <div class="modal-header">
-		        <h4 class="modal-title">주의 !</h4>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-		      </div>
-		
-		      <!-- Modal body -->
-		      <div class="modal-body">
-		    	정말 삭제하시겠습니까?    
-		      </div>
-		
-		      <!-- Modal footer -->
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-danger" onclick="location.href='faqDelete.fa?fno=${f.faqNo}'">예</button>
-		        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">아니오</button>
-		      </div>
-		
-		    </div>
-		  </div>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">주의 !</h4>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+					<!-- Modal body -->
+					<div class="modal-body">
+						정말 삭제하시겠습니까?    
+					</div>
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" onclick="location.href='faqDelete.fa?fno=${f.faqNo}'">예</button>
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">아니오</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</c:forEach>
+	<br><br>
 	<div class="border-line"></div>
 	
 	<br>

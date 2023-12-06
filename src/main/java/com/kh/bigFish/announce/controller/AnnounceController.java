@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.bigFish.announce.model.service.AnnService;
 import com.kh.bigFish.announce.model.vo.Announce;
-import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
 
@@ -110,6 +110,25 @@ public class AnnounceController {
 		}
 	}
 	
+	@RequestMapping(value="searchAnn.an")
+	public ModelAndView searchAnn(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		PageInfo pi = Pagenation.getPageInfo(annService.selectSearchListCount(map), currentPage, 10, 5);
+		ArrayList<Announce> list = annService.selectSearchList(map, pi);
+		
+		mv.addObject("pi",pi)
+		  .addObject("list", list)
+		  .addObject("condition", condition)
+		  .addObject("keyword", keyword)
+		  .setViewName("announce/announceList");
+		
+		return mv;
+	}
+	
 		@ResponseBody
 		@RequestMapping(value="/uploadImageFile")
 		public String saveFile(MultipartFile upfile,HttpSession session, String path) {
@@ -143,7 +162,4 @@ public class AnnounceController {
 
 		}
 
-
-		
-	
 }

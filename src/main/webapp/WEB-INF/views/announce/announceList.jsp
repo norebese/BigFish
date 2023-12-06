@@ -49,11 +49,18 @@ li::marker {
 }
 
 .pagingArea{
-	idth: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 60px;
+}
+.ann-search-area{
+	display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.text{
+	width: 500px;
 }
 </style>
 </head>
@@ -77,7 +84,7 @@ li::marker {
 	<br>
 	
 	<c:if test="${  not empty loginUser and loginUser.memAdmin eq 'Y'}">
-    	<button class="ann-create" onclick="annEnroll()">작성하기</button>
+    	<button class="ann-create" onclick="location.href='annEnroll.an'">작성하기</button>
         <br>
     </c:if>
     
@@ -98,7 +105,6 @@ li::marker {
 				<c:forEach var="p" begin="${pi.startPage}" end="${ pi.endPage }" >
                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ p }">${ p }</a></li>  
                    </c:forEach>
-            
                    
                    <c:choose>
                		<c:when test="${ pi.currentPage eq pi.maxPage }">
@@ -108,17 +114,30 @@ li::marker {
                    		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage + 1 }">Next</a></li>
                    	</c:otherwise>
 				</c:choose>
-                  	
                 
 		</ul>
 	</div>
 	
-	<script>
-		function annEnroll() {
-			location.href = "annEnroll.an"
-		}
-	</script>
-	
+		<form class="ann-search-area" id="searchForm" action="searchAnn.an" method="get" align="center">
+			<div class="select">
+				<select class="custom-select" name="condition">
+	                <option value="annTitle">제목</option>
+	                <option value="annContent">내용</option>
+	            </select>
+	         </div>
+	        <div class="text">
+	           	<input type="text" class="form-control" name="keyword">
+	        </div>
+	        <button type="submit" class="searchBtn btn btn-primary">검색</button>
+	     </form>
+	 <c:if test="${ not empty condition }">
+        <script>
+        	window.onload = function() {
+        		const opt = document.querySelector("#ann-search-area option[value=${condition}]")
+        		opt.setAttribute("selected", true);
+        	}
+        </script>
+	</c:if>
 	<br><br><br><br><br><br>
 	
 	<jsp:include page="../common/footer.jsp"/>
