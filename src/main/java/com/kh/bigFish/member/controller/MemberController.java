@@ -11,7 +11,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -130,6 +133,41 @@ public class MemberController {
 		
 	}
 	
+	// 프로필 사진 변경
+	@ResponseBody
+	@RequestMapping("profileImgAreaChange")
+	public String profileImgAreaChange(@RequestParam("memNo") int memNo,
+									   @RequestParam("memChangeName") String memChangeName,
+									   @RequestPart("profileImg") MultipartFile profileImg,
+									   HttpSession session, Model model) {
+		// 파일이 저장됨
+		String changeName = saveFile(profileImg, session,"resources/uploadFiles/");
+		
+		
+		// 저장된 경로 및 파일이름, 멤버 고유번호 객체 세팅
+		Member m = new Member();
+		m.setMemNo(memNo);
+		m.setMemChangeName("resources/uploadFiles/"+changeName);
+		
+		// 저장된 경로 및 파일이름 DB 접근하여 변경
+		int result = memberService.profileImgAreaChange(m);
+		
+		if(result>0) {
+			// 변경 성공
+			Member loginUser = memberService.takeUserInfo(m);
+			
+			new File(session.getServletContext().getRealPath(memChangeName)).delete();
+			
+			
+			return loginUser.getMemChangeName();	
+		}else {
+			// 변경 실패
+			model.addAttribute("errorMsg","주소 변경 실패");
+			return "common/errorPage";
+		}
+		
+	}
+	
 	// 개인 회원가입
 	@RequestMapping("/insertPersonalMember.me")
 	public String insertPersonalMember(Member m, Model model, HttpSession session) {
@@ -148,7 +186,7 @@ public class MemberController {
 		
 	}
 	
-
+	// 사업자 회원 가입
 	// 자바스크립트 단에서 i를 이용해 가공하는 방식으로 변경해야함
 	// 배열인 상태로 네임을 받아서 네임 길이 재서 그 길이에 따라 클릭될때마다 값을 저장하는 형식
 	// const i = document.querySelectorAll(".fishTicketName").length;
@@ -228,7 +266,7 @@ public class MemberController {
 	
 	
 	
-	
+	// 파일 이름 변경용 메서드
 	public String saveFile(MultipartFile upfile, HttpSession session, String path) {
 		//파일명 수정 후 서버 업로드 시키기("이미지저장용 (2).jpg" => 20231109102712345.jpg)
 		//년월일시분초 + 랜덤숫자 5개 + 확장자
@@ -260,9 +298,115 @@ public class MemberController {
 		return changeName;
 	}
 	
+	// 개인 휴대폰 번호 변경
+	@RequestMapping("/updatePhone.me")
+	public String updatePhone(Member m, Model model, HttpSession session) {
+		
 	
+		int result = memberService.updatePhone(m);
+		if(result>0) {
+			// 휴대폰 번호 변경 성공
+			Member loginUser = memberService.takeUserInfo(m);
+			
+			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("alertMsg", "정보변경에 성공했습니다.");
+			return "redirect:/personalMyPage.me";	
+			
+		}else {
+		   // 휴대폰 번호 변경 실패
+			model.addAttribute("errorMsg","휴대폰 번호 변경 실패");
+			return "common/errorPage";
+		}
+		
+	}
 	
+	// 사업자 휴대폰 번호 변경
+	@RequestMapping("/companyUpdatePhone.me")
+	public String companyUpdatePhone(Member m, Model model, HttpSession session) {
+		
 	
+		int result = memberService.updatePhone(m);
+		if(result>0) {
+			// 휴대폰 번호 변경 성공
+			Member loginUser = memberService.takeUserInfo(m);
+			
+			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("alertMsg", "정보변경에 성공했습니다.");
+			return "redirect:/companyMyPage.me";	
+			
+		}else {
+		   // 휴대폰 번호 변경 실패
+			model.addAttribute("errorMsg","휴대폰 번호 변경 실패");
+			return "common/errorPage";
+		}
+		
+	}
 	
+	// 개인 닉네임 변경
+	@RequestMapping("/updateNick.me")
+	public String updateNick(Member m, Model model, HttpSession session) {
+		
+		int result = memberService.updateNick(m);
+		
+		if(result>0) {
+			// 닉네임 변경 성공
+			Member loginUser = memberService.takeUserInfo(m);
+			
+			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("alertMsg", "정보변경에 성공했습니다.");
+			return "redirect:/personalMyPage.me";	
+			
+		}else {
+		   // 닉네임 변경 실패
+			model.addAttribute("errorMsg","닉네임 변경 실패");
+			return "common/errorPage";
+		}
+		
+		
+	}
+	
+	// 사업자 닉네임 변경
+	@RequestMapping("/companyUpdateNick.me")
+	public String companyUpdateNick(Member m, Model model, HttpSession session) {
+		
+		int result = memberService.updateNick(m);
+		
+		if(result>0) {
+			// 닉네임 변경 성공
+			Member loginUser = memberService.takeUserInfo(m);
+			
+			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("alertMsg", "정보변경에 성공했습니다.");
+			return "redirect:/companyMyPage.me";	
+			
+		}else {
+		   // 닉네임 변경 실패
+			model.addAttribute("errorMsg","닉네임 변경 실패");
+			return "common/errorPage";
+		}
+		
+		
+	}
+	
+	// 개인 주소 변경
+	@RequestMapping("/updateAddress.me")
+	public String updateAddress(Member m, Model model, HttpSession session) {
+		
+		int result = memberService.updateAddress(m);
+		
+		if(result>0) {
+			// 주소 변경 성공
+			Member loginUser = memberService.takeUserInfo(m);
+			
+			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("alertMsg", "정보변경에 성공했습니다.");
+			return "redirect:/personalMyPage.me";	
+			
+		}else {
+		   // 주소 변경 실패
+			model.addAttribute("errorMsg","주소 변경 실패");
+			return "common/errorPage";
+		}
+	}
 	
 }

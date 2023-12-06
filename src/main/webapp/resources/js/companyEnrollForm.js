@@ -4,16 +4,20 @@ function checkPwd(){
     const pwd = document.querySelector("#pwd");
     const passwordRule = document.querySelector("#passwordRule");
     const pwdCheckBtn = document.querySelector("#pwdCheck-btn");
+    const enrollBtn = document.querySelector("#enroll-btn");
 
     if(!reg.test(pwd.value)){
         passwordRule.style.display = "block";
         return;
     }
 
-    passwordRule.style.display = "none";
-    pwd.setAttribute("readonly",true);
+    passwordRule.style.display = "block";
+    passwordRule.style.color = "#2f9947";
+    passwordRule.innerHTML = "&nbsp;사용 가능한 비밀번호입니다.";
     
-    pwdCheckBtn.setAttribute("disabled",true);
+    
+    
+    enrollBtn.removeAttribute("disabled");
 
 }
 
@@ -103,6 +107,7 @@ function checkNick(){
             // 사용 가능한 경우
             checkNickSpace.innerHTML = "사용 가능한 닉네임입니다.";
             checkNickSpace.style.color = "#2f9947";
+            enrollBtn.removeAttribute("disabled");
         }else{
             // 사용 불가능한 경우
             checkNickSpace.innerHTML = "사용 불가능한 닉네임입니다.";
@@ -125,6 +130,7 @@ function checkEmailId(){
             // 사용 가능한 경우
             checkEmailIdSpace.innerHTML = "사용 가능한 아이디입니다.";
             checkEmailIdSpace.style.color = "#2f9947";
+            enrollBtn.removeAttribute("disabled");
         }else{
             // 사용 불가능한 경우
             checkEmailIdSpace.innerHTML = "사용 불가능한 아이디입니다.";
@@ -142,6 +148,7 @@ function checkBusinessNo(){
     const checkBusinessNoSpace = document.querySelector("#checkBusinessNoSpace");
     const checkBnoSendData = {b_no : [businessNo.value]};
     const checkSameBnoSendData = {businessNo: businessNo.value+""};
+    const enrollBtn = document.querySelector("#enroll-btn");
 
     storeApi.checkBno(checkBnoSendData, function(result){
         console.log(result);
@@ -152,14 +159,17 @@ function checkBusinessNo(){
                 if(result==="Y"){
                     checkBusinessNoSpace.innerHTML = "사용 가능한 사업자 번호입니다."
                     checkBusinessNoSpace.style.color = "#2f9947";
+                    enrollBtn.removeAttribute("disabled");
                 }else{
                     checkBusinessNoSpace.innerHTML = "이미 등록된 사업자 번호입니다."
                     checkBusinessNoSpace.style.color = "#dd2f35";
+                    enrollBtn.setAttribute("disabled",true);
                 }
             })
         }else{
             checkBusinessNoSpace.innerHTML = "잘못된 사업자 번호입니다."
             checkBusinessNoSpace.style.color = "#dd2f35";
+            enrollBtn.setAttribute("disabled",true);
         }
 
     

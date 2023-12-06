@@ -26,6 +26,6 @@ public class Attachment {
 	   private int rproductNo;
 	   private int rfishingNo;
 	   private int rstoreNo;
-	   private int rannounceNo;
-
 }
+
+

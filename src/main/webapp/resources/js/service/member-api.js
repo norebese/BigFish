@@ -23,6 +23,22 @@ const memberApi = {
                 console.log("ajax 닉네임 중복 체크 통신 실패");
             }
         })
+    },
+
+    profileImgAreaChange : function(data, callback){
+        $.ajax({
+            type : "POST",
+            url : "profileImgAreaChange",
+            data : data,
+            contentType : false,
+            processData : false,
+            success : function(result){
+                callback(result)
+            },
+            error : function(){
+                console.log("ajax 프로필 이미지 변경 통신 실패");
+            }
+        })
     }
     
 }

@@ -14,6 +14,18 @@
 <!-- JS-->
 <script src="<%=contextPath%>/resources/js/companyMyPage.js"></script>
 
+<!-- API-->
+<script src="<%=contextPath%>/resources/js/service/member-api.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
@@ -32,23 +44,30 @@
 		</div>
 		<div class="myPageContent">
 			<div id="profileWork" style="display: flex; flex-direction: column; align-items: center;">
-				<img width="20%" height="20%" src="resources/images/myProfile.png" alt="">
+				<img id="profileShowArea" width="20%" height="20%" src=${loginUser.memChangeName} alt="">
 				<label for="profileImg" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사진 선택</label>
-				<input type="file" id="profileImg" style="display: none;">
+				<input onchange="profileImgChange()" type="file" id="profileImg" style="display: none;">
+				<input id="memChangeName" type="hidden" value="${loginUser.memChangeName}">
 				<br>
 				<table style="width: 60%;">
-					<tr>
-						<td align="center" style="width: 20%;">닉네임</td>
-						<td><input class="form-control" type="text" placeholder="${loginUser.memNick}"></td>
-						<td style="width: 30%;"><button style="width: 75%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">변경</button></td>
-					</tr>
+					<form action="companyUpdateNick.me" method="post"> <!-- 닉네임 변경 -->
+						<input id="memNo" type="hidden" name="memNo" value="${loginUser.memNo}">
+						<tr>
+							<td align="center" style="width: 20%;">닉네임</td>
+							<td><input required name="memNick" class="form-control" type="text" placeholder="${loginUser.memNick}"></td>
+							<td style="width: 30%;"><button type="submit" style="width: 75%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">변경</button></td>
+						</tr>
+					</form>
 				</table><br>
 				<table style="width: 60%;">
+					<form action="companyUpdatePhone.me" method="post"> <!-- 휴대폰 번호 변경 -->
+						<input type="hidden" name="memNo" value="${loginUser.memNo}">
 					<tr>
 						<td align="center" style="width: 20%;">휴대폰 번호</td>
-						<td><input class="form-control" type="text" placeholder="${loginUser.phone}"></td>
+						<td><input required name="phone" class="form-control" type="text" placeholder="${loginUser.phone}"></td>
 						<td style="width: 30%;"><button style="width: 75%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">변경</button></td>
 					</tr>
+					</form>
 				</table><br>
 
 				<button type="button" data-bs-toggle="modal" data-bs-target="#changePwd" class="btn btn-primary" style="border: none; background: rgb(59, 175, 252);">비밀번호 변경</button>

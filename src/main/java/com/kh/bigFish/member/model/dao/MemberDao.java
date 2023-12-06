@@ -29,5 +29,23 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertCompanyMember", m);
 	}
 	
+	public int updatePhone(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updatePhone", m);
+	}
 	
+	public Member takeUserInfo(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.takeUserInfo", m);
+	}
+	
+	public int updateNick(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateNick", m);
+	}
+	
+	public int updateAddress(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateAddress", m);
+	}
+	
+	public int profileImgAreaChange(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.profileImgAreaChange", m);
+	}
 }
