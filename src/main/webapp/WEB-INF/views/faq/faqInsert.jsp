@@ -6,20 +6,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+<<link
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
-  integrity="sha256-7ZWbZUAi97rkirk4DcEp4GWDPkWpRMcNaEyXGsNXjLg=" crossorigin="anonymous">
-  
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"
-	integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>  
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css"
-integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="anonymous">
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js"
-	integrity="sha256-5slxYrL5Ct3mhMAp/dgnb5JSnTYMtkr4dHby34N10qw=" crossorigin="anonymous"></script>
+	rel="stylesheet"
+
+	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+
+	crossorigin="anonymous">
+
+<link rel="stylesheet"
+
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 	
 	
 	<!-- language pack -->
@@ -74,19 +73,19 @@ integrity="sha256-IKhQVXDfwbVELwiR0ke6dX+pJt0RSmWky3WB2pNx9Hg=" crossorigin="ano
 	<div class="border-line"></div>
 	
 	<br><br>
-	<div class="faq-form">
-		<form action="faqInsert.fa">
+	
+		<form class="faq-form" action="faqInsert.fa">
 			<input type="text" class="faq-title" name="faqTitle" placeholder="제목을 입력해주세요.">
 			<input type="hidden" value="${loginUser.memId}" name="faqWriter" />
 			<br><br><br>
 			<textarea id="summernote" class="faq-content" name="faqContent"></textarea>
 			<br><br>
-			<button type="submit" class="faq-button">게시글 등록</button>
+			<button type="submit" class="btn btn-primary faq-button">게시글 등록</button>
 		</form>
-	</div>
+	
 	
 	<script>
-		$('#summernote').summernote({
+		$('#summernote').summernote({	
 		  placeholder: '내용을 적어주세요.',
 		  tabsize: 5,
 		  width: 950,

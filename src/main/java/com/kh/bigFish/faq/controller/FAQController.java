@@ -28,7 +28,6 @@ public class FAQController {
 		mv.addObject("pi", pi)
 		  .addObject("list", faqService.selectList(pi))
 		  .setViewName("faq/faqList");
-		System.out.println(faqService.selectList(pi));
 		
 		return mv;
 	}

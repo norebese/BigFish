@@ -7,14 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<!-- Latest compiled and minified CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <style>
 .announce-ann{
@@ -50,10 +42,6 @@
 .ann-content{
 	margin: 0px 80px;
     border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
 }
 .ann-form{
 	display: flex;
@@ -62,11 +50,11 @@
     flex-direction: column;
 }
 .btn-area{
-	width: 70%;
+	width: 40%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-    margin-left: 230px;
+    margin: 10px auto;
 }
 .btn-area > button, a {
 	width: 130px;
@@ -87,9 +75,6 @@
 		<div class="ann-title-line"></div>
 		
 		<div class="ann-content">${a.annContent}</div>
-			<c:if test="${ not empty a.originName }" >
-	               					★
-	        </c:if>
 		
 		<br><br>
 		

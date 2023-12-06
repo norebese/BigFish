@@ -19,12 +19,7 @@
  	</select>
  	
  	<select id="selectList" resultMap="faqResult">
- 		SELECT FAQ_NO,
- 			   FAQ_TITLE,
- 			   FAQ_WRITER,
- 			   TO_CHAR(FAQ_CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE",
- 			   FAQ_CONTENT,
- 			   FAQ_COUNT
+ 		SELECT *
  		FROM FAQ
  		WHERE FAQ_STATUS = 'Y'
  		ORDER BY FAQ_NO DESC
@@ -47,12 +42,7 @@
  	</insert>
  	
  	<select id="selectFaq" resultMap="faqResult">
- 		SELECT FAQ_NO,
- 			   FAQ_TITLE,
- 			   FAQ_WRITER,
- 			   FAQ_CONTENT,
- 			   FAQ_COUNT,
- 			   TO_CHAR(FAQ_CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+ 		SELECT *
  		  FROM FAQ
  		 WHERE FAQ_STATUS = 'Y'
  		   AND FAQ_NO = #{faqNo}

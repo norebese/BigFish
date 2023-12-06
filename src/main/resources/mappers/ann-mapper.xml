@@ -8,8 +8,6 @@
  		<result column="ANN_TITLE" property="annTitle" />
  		<result column="ANN_WRITER" property="annWriter" />
  		<result column="ANN_CONTENT" property="annContent" />
- 		<result column="ORIGIN_NAME" property="originName" />
- 		<result column="CHANGE_NAME" property="changeName" />
  		<result column="FILE_NO" property="fileNo"/>
  		<result column="ANN_CREATE_DATE" property="annCreateDate" />
  		<result column="ANN_COUNT" property="annCount" />
@@ -22,11 +20,7 @@
  	</select>
  	
  	<select id="selectList" resultMap="annResult">
- 		SELECT ANN_NO,
- 			   ANN_TITLE,
- 			   ANN_WRITER,
- 			   TO_CHAR(ANN_CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE",
- 			   ANN_COUNT
+ 		SELECT *
  		FROM ANNOUNCE
  		WHERE ANN_STATUS = 'Y'
  		ORDER BY ANN_NO DESC
@@ -38,17 +32,13 @@
  			   		   ANN_NO,
  			   		   ANN_TITLE,
  			   		   ANN_WRITER,
- 			   		   ANN_CONTENT,
- 			   		   ORIGIN_NAME,
- 			   		   CHANGE_NAME	   
+ 			   		   ANN_CONTENT	  
  			   		 )
  			  VALUES (
  			  		   SEQ_ANN_NO.NEXTVAL,
  			  		   #{annTitle},
  			  		   #{annWriter},
- 			  		   #{annContent},
- 			  		   #{originName},
- 			  		   #{changeName}
+ 			  		   #{annContent}
  			  )
  	</insert>
  	
@@ -60,14 +50,7 @@
  	</update>
  	
  	<select id="selectAnnounce" resultMap="annResult">
- 		SELECT ANN_NO,
- 			   ANN_TITLE,
- 			   ANN_WRITER,
- 			   ANN_CONTENT,
- 			   ANN_COUNT,
- 			   ORIGIN_NAME,
- 			   CHANGE_NAME,
- 			   TO_CHAR(ANN_CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+ 		SELECT *
  		  FROM ANNOUNCE
  		 WHERE ANN_STATUS = 'Y'
  		   AND ANN_NO = #{annNo}
@@ -76,9 +59,7 @@
  	<update id="updateAnnounce">
  		UPDATE ANNOUNCE
  		   SET ANN_TITLE = #{annTitle},
- 		   	   ANN_CONTENT = #{annContent},
- 		   	   ORIGIN_NAME = #{originName},
- 		   	   CHANGE_NAME = #{changeName}
+ 		   	   ANN_CONTENT = #{annContent}
  		 WHERE ANN_NO = #{annNo}
  	</update>
  	
@@ -87,4 +68,5 @@
  		   SET ANN_STATUS = 'N'
  	 	 WHERE ANN_NO = #{annNo}
  	</update>
+ 	
 </mapper>

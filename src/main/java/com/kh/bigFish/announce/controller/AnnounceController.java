@@ -3,6 +3,7 @@ package com.kh.bigFish.announce.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
@@ -63,27 +64,11 @@ public class AnnounceController {
 	}
 	
 	@RequestMapping(value="annInsert.an")
-	public String AnnInsert(Announce a, HttpSession session, Model model, MultipartFile upFile) {
-		System.out.println(a);
-		System.out.println(upFile);
+	public String AnnInsert(Announce a, HttpSession session, Model model) {;
+				
+		int annResult = annService.InsertAnn(a);
 		
-		Attachment at = null;
-		
-		//전달된 파일이 있을경우 => 파일명 수정 후 서버 업로드 => 원본명, 서버업로드된 경로로 a에 담기(파일이 있을때만)
-		if(!upFile.getOriginalFilename().equals("")) {
-			
-			String changeName = saveFile(upFile, session, "/resources/uploadFiles/");
-			
-			at = new Attachment();
-			
-			at.setOriginName(upFile.getOriginalFilename());
-			at.setChangeName(changeName);
-			at.setFilePath(session.getServletContext().getRealPath("/resources/uploadFiles/"));
-		}
-		
-		int result = annService.InsertAnn(a);
-		
-		if (result > 0) {
+		if (annResult > 0) {					
 			session.setAttribute("alertMsg", "게시글 작성 완료");
 			return "redirect:annList.an";
 		} else { //실패 => 에러페이지
@@ -127,31 +112,40 @@ public class AnnounceController {
 		}
 	}
 	
-	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
-	@ResponseBody
-	public String saveFile(MultipartFile upFile, HttpSession session, String path)  {
+		@ResponseBody
+		@RequestMapping(value="/uploadSummernoteImageFile")
+		public String saveFile(MultipartFile upfile,HttpSession session, String path) {
 
-				String originName = upFile.getOriginalFilename();
-				
-				String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-				
-				int ranNum = (int)(Math.random() * 90000) + 10000;
-				
-				String ext = originName.substring(originName.lastIndexOf("."));
-								
-				String changeName = currentTime + ranNum + ext;
-				
-				String savePath = session.getServletContext().getRealPath(path);
-				
-				try {
-					upFile.transferTo(new File(savePath + changeName));
-				} catch (IllegalStateException | IOException e) {
-					e.printStackTrace();
-				}
-				
-				return changeName;
-	
-	}
+			//원래 파일명
+			String originName = upfile.getOriginalFilename();
+
+			//시간정보(년월일시분초)
+			String currentTime = new SimpleDateFormat("yyyyMMddHHss").format(new Date());
+
+
+			//랜덤숫자 5자리
+			int ranNum = (int)(Math.random() *90000) + 10000;
+			
+			//확장자
+			String ext = originName.substring(originName.lastIndexOf("."));
+
+			//변경된 이름
+			String changeName = currentTime + ranNum + ext;
+			
+			//첨부파일 저장할 폴더의 물리적인 경우(web이 아니라 진짜 컴퓨터 안에있는 드라아비)
+			String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
+
+			try {
+				upfile.transferTo(new File(savePath + changeName));
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			return ("/resources/uploadFiles/" + changeName);
+
+		}
+
+
 		
 	
 }

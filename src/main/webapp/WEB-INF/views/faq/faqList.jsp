@@ -4,16 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<!-- Latest compiled and minified CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	
@@ -99,26 +89,14 @@ li::marker {
 					<ul>
 						<li class="faq-title">${f.faqContent}</li>
 					</ul>
-					<c:if test="${ not empty loginUser }">
-						<button class="btn btn-primary enroll-btn" onclick="location.href='faqEnrollForm.fa?fno=${f.faqNo}'">수정하기</button>
-				
-										<!-- Button to Open the Modal -->
-							<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>		
+					<c:if test="${ not empty loginUser and loginUser.memAdmin eq 'Y}">
+						<button class="btn btn-primary enroll-btn" onclick="location.href='faqEnrollForm.fa?fno=${f.faqNo}'">수정하기</button>		
+						<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>		
 					</c:if>				
 				</div>	
 		</div>
-	</c:forEach>
-	<div class="border-line"></div>
-	
-	<br>
-	
-	<c:if test="${ not empty loginUser }">
-	<button class="btn btn-primary faq-create" onclick="location.href='faqInsertForm.an'">작성하기</button>
-	</c:if>
-	
-	<br><br><br><br><br><br>
-	
-	<!-- The Modal -->
+		
+		<!-- The Modal -->
 		<div class="modal" id="myModal">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
@@ -143,7 +121,16 @@ li::marker {
 		    </div>
 		  </div>
 		</div>
-			
+	</c:forEach>
+	<div class="border-line"></div>
+	
+	<br>
+	
+	<c:if test="${ not empty loginUser }">
+	<button class="btn btn-primary faq-create" onclick="location.href='faqInsertForm.an'">작성하기</button>
+	</c:if>
+	
+	<br><br><br><br><br><br>
 	<jsp:include page="../common/footer.jsp"/>	
 </body>
 </html>
