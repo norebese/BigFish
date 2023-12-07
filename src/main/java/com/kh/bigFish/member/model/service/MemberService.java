@@ -34,4 +34,7 @@ public interface MemberService {
 	// 프로필 이미지 변경
 	int profileImgAreaChange(Member m);
 	
+	// 네이버 로그인 체크
+	Member checkMember(String memId);
+	
 }
