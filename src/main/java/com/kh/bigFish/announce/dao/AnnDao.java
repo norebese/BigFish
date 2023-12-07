@@ -1,6 +1,7 @@
 package com.kh.bigFish.announce.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -42,6 +43,18 @@ public class AnnDao {
 	
 	public int deleteAnn(SqlSessionTemplate sqlSession, int annNo) {
 		return sqlSession.delete("annMapper.deleteAnn", annNo);
+	}
+	
+	public int selectSearchListCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("annMapper.selectSearchListCount", map);	
+	}
+	
+	public ArrayList<Announce> selectSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("annMapper.selectSearchList", map, rowBounds);
 	}
 }
 	

@@ -12,6 +12,7 @@
 <style>
 
 .header-box{
+		margin-top: 70px;
         display: flex;
         flex-direction: row;
     }

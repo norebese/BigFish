@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="freeBoardMapper">
+	<resultMap type="FreeBoard" id="freeBoardResult">
+		<result column="FISHING_NO" property="freeNo" />
+		<result column="FISHING_TITLE" property="freeTitle" />
+		<result column="FISHING_WRITER" property="freeWriter" />
+		<result column="FISHING_CONTENT" property="freeContent" />
+		<result column="FISHING_STATUS" property="status" />
+		<result column="FISHING_CREATE_DATE" property="createDate" />
+		<result column="FISHING_COUNT" property="count" />
+		<result column="RMEM_NO" property="rmemNo" />
+	</resultMap>
+
+	<insert id="insertFreeBoard">
+  	INSERT INTO FREEBOARD (
+					  FREE_NO,
+					  FREE_TITLE,
+					  FREE_WRITER,
+					  FREE_CONTENT
+					  )
+			VALUES (
+					SEQ_FREE_NO.NEXTVAL,
+					#{freeTitle},
+					#{freeWriter},
+					#{freeContent}
+					)
+  </insert>
+
+</mapper>
