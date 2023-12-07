@@ -29,7 +29,6 @@
 	<jsp:include page="../common/header.jsp"/>
 	<br><br><br><br>
 	
-	
 	<h1 class="announce-ann" style="color:rgb(59, 175, 252)">공지사항</h1>
 	<div class="border-line"></div>
 	<br><br>

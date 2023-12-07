@@ -1,48 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%
+	String contextPath = request.getContextPath();
+%> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-.faq-fa{
-	color: rgb(59, 175, 252);
-    width: 90%;
-    margin: 10px auto;
-    font-weight: bolder;
-}
-.border-line{
-	border-bottom: 2px solid rgb(204, 204, 204);
-    width: 90%;
-    margin: 10px auto;		
-}
-.faq-button {
-    width: 850px;
-    font-size: 16px;
-    font-weight: bolder;
-    height: 50px;
-    background-color: rgb(59, 175, 252);
-    color: white;
-    border-radius: 3px;
-    border: 4px solid;
-}
-.faq-form{
-	display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-.faq-title{
-	width: 850px;
-    height: 40px;
-}
-.faq-content{
-	width: 850px;
-    height: 550px;
-}
-</style>
+
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/faqEnroll.css">
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
