@@ -46,6 +46,10 @@
     justify-content: space-around;
     align-items: flex-start;
 }
+
+.form-controll{
+	margin-top: 24px;
+}
     
 </style>
 
@@ -145,9 +149,9 @@
                 
                 </ul>
             </div>
+            
 
-
-            <form id="searchForm" action="" method="get" align="center">
+			<form id="searchForm" action="" method="get" align="center">
                 <div class="select" style="margin: none;">
                     <select id="selectbox" name="selectbox" onchange="" class="form-select pt-1 mt-4">
                         <option value="A">제목</option>

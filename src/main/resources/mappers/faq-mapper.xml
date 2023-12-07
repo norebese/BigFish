@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+ <mapper namespace="faqMapper">
+ 	<resultMap type="FAQ" id="faqResult">
+ 		<result column="FAQ_NO" property="faqNo" />
+ 		<result column="FAQ_TITLE" property="faqTitle" />
+ 		<result column="FAQ_WRITER" property="faqWriter" />
+ 		<result column="FAQ_CREATE_DATE" property="faqCreateDate" />
+ 		<result column="FAQ_CONTENT" property="faqContent" />
+ 		<result column="FAQ_COUNT" property="faqCount" />
+ 	</resultMap>
+ 	
+ 	<select id="selectListCount" resultType="_int">
+ 		SELECT COUNT (*)
+ 			FROM FAQ
+ 		  WHERE FAQ_STATUS = 'Y'
+ 	</select>
+ 	
+ 	<select id="selectList" resultMap="faqResult">
+ 		SELECT *
+ 		FROM FAQ
+ 		WHERE FAQ_STATUS = 'Y'
+ 		ORDER BY FAQ_NO DESC
+ 	</select>
+ 	
+ 	<insert id="faqInsert">
+ 		INSERT INTO
+ 			   FAQ (
+			   		  FAQ_NO,
+ 			   		  FAQ_TITLE,
+ 			   		  FAQ_WRITER,
+ 			   		  FAQ_CONTENT	   
+ 			   		)
+ 			  VALUES (
+ 			  		   SEQ_FAQ_NO.NEXTVAL,
+ 			  		   #{faqTitle},
+ 			  		   #{faqWriter},
+ 			  		   #{faqContent}
+ 			  )
+ 	</insert>
+ 	
+ 	<select id="selectFaq" resultMap="faqResult">
+ 		SELECT *
+ 		  FROM FAQ
+ 		 WHERE FAQ_STATUS = 'Y'
+ 		   AND FAQ_NO = #{faqNo}
+ 	</select>
+ 	
+ 	<update id="updateFaq">
+ 		UPDATE FAQ
+ 		   SET FAQ_TITLE = #{faqTitle},
+ 		   	   FAQ_CONTENT = #{faqContent}
+ 		 WHERE FAQ_NO = #{faqNo}
+ 	</update>
+ 	
+ 	<update id="faqDelete">
+ 		UPDATE FAQ
+ 		   SET FAQ_STATUS = 'N'
+ 	 	 WHERE FAQ_NO = #{faqNo}
+ 	</update>
+ 	
+ </mapper>

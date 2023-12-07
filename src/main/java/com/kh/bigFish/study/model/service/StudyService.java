@@ -1,6 +1,7 @@
 package com.kh.bigFish.study.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.reply.model.vo.Reply;
@@ -34,4 +35,7 @@ public interface StudyService {
 	
 	//댓글 작성
 	int insertReply(Reply r);
+	
+	//검색 결과 리스트
+
 }

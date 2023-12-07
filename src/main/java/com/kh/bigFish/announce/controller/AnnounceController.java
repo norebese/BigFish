@@ -2,14 +2,13 @@ package com.kh.bigFish.announce.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
 import com.kh.bigFish.announce.model.service.AnnService;
 import com.kh.bigFish.announce.model.vo.Announce;
 import com.kh.bigFish.common.model.vo.PageInfo;
@@ -50,12 +48,10 @@ public class AnnounceController {
 		
 		if(result > 0) {
 			Announce a = annService.selectAnnounce(ano);
-			model.addAttribute("a", a);
-			
+			model.addAttribute("a", a);			
 			return "announce/announceDetail";
 		} else {
 			model.addAttribute("errorMsg", "게시글 조회 실패");
-			
 			return "common/errorPage";
 		}
 	}
@@ -66,10 +62,11 @@ public class AnnounceController {
 	}
 	
 	@RequestMapping(value="annInsert.an")
-	public String AnnInsert(Announce a, HttpSession session, Model model) {
-		int result = annService.InsertAnn(a);
+	public String AnnInsert(Announce a, HttpSession session, Model model) {;
+				
+		int annResult = annService.InsertAnn(a);
 		
-		if (result > 0) { 
+		if (annResult > 0) {					
 			session.setAttribute("alertMsg", "게시글 작성 완료");
 			return "redirect:annList.an";
 		} else { //실패 => 에러페이지
@@ -113,38 +110,56 @@ public class AnnounceController {
 		}
 	}
 	
-	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
-	@ResponseBody
-	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
-		JsonObject jsonObject = new JsonObject();
+	@RequestMapping(value="searchAnn.an")
+	public ModelAndView searchAnn(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {
 		
-        /*
-		 * String fileRoot = "C:\\summernote_image\\"; // 외부경로로 저장을 희망할때.
-		 */
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
 		
-		// 내부경로로 저장
-		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-		String fileRoot = contextRoot+"resources/fileupload/";
+		PageInfo pi = Pagenation.getPageInfo(annService.selectSearchListCount(map), currentPage, 10, 5);
+		ArrayList<Announce> list = annService.selectSearchList(map, pi);
 		
-		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
-		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
-		String savedFileName = UUID.randomUUID() + extension;	//저장될 파일 명
+		mv.addObject("pi",pi)
+		  .addObject("list", list)
+		  .addObject("condition", condition)
+		  .addObject("keyword", keyword)
+		  .setViewName("announce/announceList");
 		
-		File targetFile = new File(fileRoot + savedFileName);	
-		try {
-			InputStream fileStream = multipartFile.getInputStream();
-			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			jsonObject.addProperty("url", "/summernote/resources/fileupload/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
-			jsonObject.addProperty("responseCode", "success");
-				
-		} catch (IOException e) {
-			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
-			jsonObject.addProperty("responseCode", "error");
-			e.printStackTrace();
-		}
-		String a = jsonObject.toString();
-		return a;
+		return mv;
 	}
-		
 	
+		@ResponseBody
+		@RequestMapping(value="/uploadImageFile")
+		public String saveFile(MultipartFile upfile,HttpSession session, String path) {
+
+			//원래 파일명
+			String originName = upfile.getOriginalFilename();
+
+			//시간정보(년월일시분초)
+			String currentTime = new SimpleDateFormat("yyyyMMddHHss").format(new Date());
+
+
+			//랜덤숫자 5자리
+			int ranNum = (int)(Math.random() *90000) + 10000;
+			
+			//확장자
+			String ext = originName.substring(originName.lastIndexOf("."));
+
+			//변경된 이름
+			String changeName = currentTime + ranNum + ext;
+			
+			//첨부파일 저장할 폴더의 물리적인 경우(web이 아니라 진짜 컴퓨터 안에있는 드라아비)
+			String savePath = session.getServletContext().getRealPath("/resources/uploadFiles/");
+
+			try {
+				upfile.transferTo(new File(savePath + changeName));
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			return ("/resources/uploadFiles/" + changeName);
+
+		}
+
 }
