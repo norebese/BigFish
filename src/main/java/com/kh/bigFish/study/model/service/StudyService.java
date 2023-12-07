@@ -37,5 +37,5 @@ public interface StudyService {
 	int insertReply(Reply r);
 	
 	//검색 결과 리스트
-	List<Study> getSearchList(Study s);
+
 }

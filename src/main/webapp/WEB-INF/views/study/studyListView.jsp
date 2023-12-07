@@ -149,79 +149,22 @@
                 
                 </ul>
             </div>
-
-			<!-- <div>
-                <select name="searchType">
-                    <option value="${s.studyTitle}">제목</option>
-                    <option value="${s.studyContent}">내용</option>
-                    <input type="text" name="keyword">
-
-                    <button type="button">검색</button>
-                </select>
-            </div> -->
-
             
 
-			<div>
-             <form id="searchForm" action="" method="get" align="center">
-		        <div class="select" style="margin: none;">
-		            <select id="selectbox" name="selectbox" onchange=""
-		                class="form-select pt-1 mt-4"  >
-		                <option value="${s.studyTitle}">제목</option>
-		                <option value="${s.studyContent}">내용</option>
-		     
-		             </select>  
-		        </div>
-		        <div class="text">
-		            <input type="text" class="form-control" name="keyword" style="margin-top: 24px;">
-		        </div>
-		        <button id="result" type="submit" class="searchBtn btn btn-secondary" onclick="search()" style="margin-top: 28px;">검색</button>
-		    </form>
+			<form id="searchForm" action="" method="get" align="center">
+                <div class="select" style="margin: none;">
+                    <select id="selectbox" name="selectbox" onchange="" class="form-select pt-1 mt-4">
+                        <option value="A">제목</option>
+                        <option value="B">내용</option>
 
-              <script>
-                function search(){
-			        $.ajax({
-			          url : 'searchList.do',
-			          type : 'POST',
-			          data : {
-			        	  studyTitle: $('#studyTitle').val(),
-			        	  studyContent: $('#studyContent').val()
-			          },
-			          success : function(result) {
-			          console.log(result);
-			          },
-			          error : function() {
-			          console.log("ajax 실패");
-			          }
-			        });
-			      };
-			  </script>
-			</div>
-            <script>
-                function search(target){
-                    var searchType = $('input[name="searchType"]:checked').val(); 
-                    $.ajax({
-                        type: 'GET',
-                        dataType: 'JSON',
-                        url: `asset/${searchType}_study.json`, 
-                        error: function(result){
-                            console.log(result);
-                        },
-                        success: function(data){
-                            var checkWord = $("#studyInput").val();
-                            var studyList = $("#studyList");
-                            console.log(checkWord);
-
-                            studyList.empty();
-                            data.forEach((study)=>{
-                                if(study['name'].includes(checkWord)){
-                                    studyList.append(`<span style="cursor: pointer;" onclick="select(this);"> ${study['name']} </span> <br/>`);                
-                                }
-                            })
-                        }
-                    })
-                }    
-            </script>
+                    </select>
+                </div>
+                <div class="text">
+                    <input type="text" class="form-control" name="keyword" style="margin-top: 24px;">
+                </div>
+                <button type="submit" class="searchBtn btn btn-secondary"
+                    style="margin-top: 28px;">검색</button>
+            </form>
         </div>
     </div>
         <jsp:include page="../common/footer.jsp" />

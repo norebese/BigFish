@@ -65,12 +65,4 @@ public class StudyServiceImpl implements StudyService {
 	public int insertReply(Reply r) {
 		return studyDao.insertReply(sqlSession, r);
 	}
-
-	@Override
-	public List<Study> getSearchList(Study s) {
-		return studyDao.getSearchList(sqlSession, s);
-	}
-
-	
-
 }

@@ -34,7 +34,6 @@ public class StudyController {
 		mv.addObject("pi", pi)
 		  .addObject("list", studyService.selectList(pi))
 		  .setViewName("study/studyListView");
-//		 System.out.println(studyService.selectList(pi));
 		return mv;
 	}
 	
@@ -129,15 +128,5 @@ public class StudyController {
 		} else {
 			return "fail";
 		}
-	}
-	
-	@GetMapping(value="searchList.st")
-	@ResponseBody
-	public List<Study> getSearchList(@RequestParam("type") String type,
-			@RequestParam("keyword") String keyword, Model model) throws Exception{
-		Study s = new Study();
-		s.setType(type);
-		s.setKeyword(keyword);
-		return studyService.getSearchList(s);
 	}
 }
