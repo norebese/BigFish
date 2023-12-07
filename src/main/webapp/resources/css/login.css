@@ -43,13 +43,17 @@
   }
 
   .naverkakao img{
-    width: 40%;
+    width: 100%;
     height: 100%;
     cursor: pointer;
     transition-property: opacity;
     transition-duration: 0.05s;
     transition-timing-function: ease-out;
   }
+  .naverkakao a{
+    width: 40%;
+  }
+
 
   .naverkakao img:hover{
     opacity: 0.5;

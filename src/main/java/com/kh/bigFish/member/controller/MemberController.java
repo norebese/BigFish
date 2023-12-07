@@ -1,17 +1,25 @@
 package com.kh.bigFish.member.controller;
 
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -19,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.member.model.service.MemberService;
 import com.kh.bigFish.member.model.vo.Member;
@@ -69,16 +79,132 @@ public class MemberController {
 		
 		return mv;
 	}
+	// 메인으로
+	@RequestMapping(value="/goMain.me")
+	public String goMain() {
+		return "redirect:/";
+	}
 	// 회원가입 (개인/사업자) 선택 폼으로 이동
 	@RequestMapping(value="/chooseEnroll.me")
 	public String chooseEnroll() {
 		return "member/chooseEnroll";
 	}
-	// 개인 회원가입 폼으로 이동
+	// 네이버 개인 회원가입 폼으로 이동
 	@RequestMapping(value="/personalEnrollForm.me")
-	public String personalEnrollForm() {
+	public String personalEnrollForm(HttpSession session, Model model) {
+		
+		
+		String result = (String)session.getAttribute("res");
+		
+		JsonObject totalObj = JsonParser.parseString(result).getAsJsonObject();
+//		System.out.println(totalObj);
+//		
+//		System.out.println(totalObj.get("access_token"));
+//		System.out.println(totalObj.get("access_token").getAsString());
+//		System.out.println(totalObj.get("refresh_token"));
+//		System.out.println(totalObj.get("token_type"));
+//		System.out.println(totalObj.get("expires_in"));
+		
+		
+		// 회원 정보 받기
+		
+		String token = totalObj.get("access_token").getAsString(); // 액세스토큰
+		String header = "Bearer "+token;
+		
+		String apiURL = "https://openapi.naver.com/v1/nid/me";
+		
+		Map<String, String> requestHeaders = new HashMap<String, String>();
+		requestHeaders.put("Authorization", header);
+		
+		String responseBody = get(apiURL,requestHeaders);
+		
+		
+		
+		JsonObject memberInfo =  JsonParser.parseString(responseBody).getAsJsonObject();
+		JsonObject resObj = memberInfo.getAsJsonObject("response");
+		
+		
+		
+		Member isMember = memberService.checkMember(resObj.get("email").getAsString());
+		System.out.println(isMember);
+		
+		if(isMember != null) {
+			Member loginUser = memberService.loginMember(isMember);
+			
+			session.setAttribute("loginUser", loginUser);
+			return "redirect:/";
+		}
+		
+		session.setAttribute("memberInfo", responseBody);
+		
+		
+		
 		return "member/personalEnrollForm";
 	}
+	
+	// 개인 회원가입 폼으로 이동
+	@RequestMapping(value="/basicPersonalEnrollForm.me")
+	public String basicPersonalEnrollForm() {
+		return "member/basicPersonalEnrollForm";
+	}
+	
+	
+	
+	
+    private static String get(String apiUrl, Map<String, String> requestHeaders){
+        HttpURLConnection con = connect(apiUrl);
+        try {
+            con.setRequestMethod("GET");
+            for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
+                con.setRequestProperty(header.getKey(), header.getValue());
+            }
+
+
+            int responseCode = con.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
+                return readBody(con.getInputStream());
+            } else { // 에러 발생
+                return readBody(con.getErrorStream());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("API 요청과 응답 실패", e);
+        } finally {
+            con.disconnect();
+        }
+    }
+	
+	private static HttpURLConnection connect(String apiUrl){
+        try {
+            URL url = new URL(apiUrl);
+            return (HttpURLConnection)url.openConnection();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("API URL이 잘못되었습니다. : " + apiUrl, e);
+        } catch (IOException e) {
+            throw new RuntimeException("연결이 실패했습니다. : " + apiUrl, e);
+        }
+    }
+	
+    private static String readBody(InputStream body){
+        InputStreamReader streamReader = new InputStreamReader(body);
+
+
+        try (BufferedReader lineReader = new BufferedReader(streamReader)) {
+            StringBuilder responseBody = new StringBuilder();
+
+
+            String line;
+            while ((line = lineReader.readLine()) != null) {
+                responseBody.append(line);
+            }
+
+
+            return responseBody.toString();
+        } catch (IOException e) {
+            throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
+        }
+    }
+	
+	
 	// 사업자 회원가입 폼으로 이동
 	@RequestMapping(value="/companyEnrollForm.me")
 	public String companyEnrollForm() {
@@ -115,6 +241,19 @@ public class MemberController {
 			return "Y";
 		}
 	}
+	
+	
+	
+	// 네이버 로그인
+	@RequestMapping("/naverLogin.me")
+	public String naverLogin() {
+	
+		return "member/navercallback";
+		
+	}
+	
+	
+	
 	
 	// 닉네임 중복체크
 	@ResponseBody
