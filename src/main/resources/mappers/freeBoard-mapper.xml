@@ -12,20 +12,6 @@
 		<result column="FISHING_CREATE_DATE" property="createDate" />
 		<result column="FISHING_COUNT" property="count" />
 		<result column="RMEM_NO" property="rmemNo" />
-		<result column="ORIGIN_NAME" property="OriginName" />
-		<result column="CHANGE_NAME" property="ChangeName" />
-	</resultMap>
-	<resultMap type="Attachment" id="attachmentResult">
-		<result column="FISHING_NO" property="freeNo" />
-		<result column="FISHING_TITLE" property="freeTitle" />
-		<result column="FISHING_WRITER" property="freeWriter" />
-		<result column="FISHING_CONTENT" property="freeContent" />
-		<result column="FISHING_STATUS" property="status" />
-		<result column="FISHING_CREATE_DATE" property="createDate" />
-		<result column="FISHING_COUNT" property="count" />
-		<result column="RMEM_NO" property="rmemNo" />
-		<result column="ORIGIN_NAME" property="OriginName" />
-		<result column="CHANGE_NAME" property="ChangeName" />
 	</resultMap>
 
 	<insert id="insertFreeBoard">
@@ -42,20 +28,5 @@
 					#{freeContent}
 					)
   </insert>
-	<insert id="insertAttachment">
-			INSERT INTO ATTACHMENT (
-						FILE_NO
-					   ,REF_BNO
-					   ,ORIGIN_NAME
-					   ,CHANGE_NAME
-					   ,FILE_PATH
-						)
-		VALUES (
-		SEQ_FILE_NO.NEXTVAL,
-		SEQ_FREE_NO.CURRVAL,
-		#{ORIGIN_NAME},
-		#{CHANGE_NAME},
-		#{FilePath}
-		)
-	</insert>
+
 </mapper>

@@ -1,6 +1,7 @@
 package com.kh.bigFish.announce.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.bigFish.announce.dao.AnnDao;
 import com.kh.bigFish.announce.model.vo.Announce;
+import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 
 @Service
@@ -45,6 +47,14 @@ public class AnnServiceImpl implements AnnService {
 	@Override
 	public int deleteAnn(int annNo) {
 		return annDao.deleteAnn(sqlSession, annNo);
+	}
+	@Override
+	public int selectSearchListCount(HashMap<String, String> map) {
+		return annDao.selectSearchListCount(sqlSession, map);
+	}
+	@Override
+	public ArrayList<Announce> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		return annDao.selectSearchList(sqlSession, map, pi);
 	}
 
 }

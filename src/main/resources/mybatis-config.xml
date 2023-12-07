@@ -14,14 +14,12 @@
 		<typeAlias type="com.kh.bigFish.reservation.model.vo.Reservation" alias="Reservation"/>
 		<typeAlias type="com.kh.bigFish.store.model.vo.Store" alias="Store"/>
 		<typeAlias type="com.kh.bigFish.study.model.vo.Study" alias="Study"/>
-
+		<typeAlias type="com.kh.bigFish.faq.model.vo.FAQ" alias="FAQ" />
 		<typeAlias type="com.kh.bigFish.freeBoard.model.vo.FreeBoard" alias="FreeBoard"/>
 		<typeAlias type="com.kh.bigFish.attachment.model.vo.Attachment" alias="Attachment"/>
-
 		<typeAlias type="com.kh.bigFish.store.model.vo.Ticket" alias="Ticket"/>
-      <typeAlias type="com.kh.bigFish.announce.model.vo.Announce" alias="Announce"/>
+      	<typeAlias type="com.kh.bigFish.announce.model.vo.Announce" alias="Announce"/>
       <typeAlias type="com.kh.bigFish.reply.model.vo.Reply" alias="Reply"/>
-
      </typeAliases>
      <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야한다. -->
      
@@ -37,11 +35,9 @@
 		<mapper resource="/mappers/store-mapper.xml"/>
 		<mapper resource="/mappers/ann-mapper.xml"/>
 		<mapper resource="/mappers/study-mapper.xml"/>
-
+		<mapper resource="/mappers/faq-mapper.xml" />
 		<mapper resource="/mappers/freeBoard-mapper.xml"/>
-
 		<mapper resource="/mappers/reply-mapper.xml"/>
-
      </mappers>
      <!--  유의사항: 미리 등록해두려면 해당 mapper파일이 진짜 존재하고 있는 상태여야한다. + namespace도 작성되어 있어야한다. -->
      

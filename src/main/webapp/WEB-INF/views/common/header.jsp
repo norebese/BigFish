@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
@@ -15,14 +15,9 @@
 <script src="<%=contextPath%>/resources/js/header.js"></script>
 
 <!-- CSS-->
-<<<<<<< HEAD
 <link rel="stylesheet"
 	href="<%=contextPath%>/resources/css/header.css?ver=1">
 
-=======
-<link rel="stylesheet" href="<%=contextPath%>/resources/css/header.css?ver=1">
-<%-- 
->>>>>>> e4848c61f5b7163a92ad2cbadfb8170f3aea9b25
 <!-- Latest compiled and minified CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -33,13 +28,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- jQuery library -->
-<<<<<<< HEAD
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-=======
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
---%>
->>>>>>> e4848c61f5b7163a92ad2cbadfb8170f3aea9b25
 
 <!-- 폰트 Noto Sans KR-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,9 +45,23 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+
+
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+	<!-- summernote 한국어 팩 -->
+<!-- language pack -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"
+	integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="anonymous"></script>	
+
 </head>
 <body>
 	<%if(alertMsg != null){ %>
+		<script>
 	<script>
 			alert("<%=alertMsg%>");
 		</script>
