@@ -1,6 +1,7 @@
 package com.kh.bigFish.study.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,4 @@ public class StudyServiceImpl implements StudyService {
 	public int insertReply(Reply r) {
 		return studyDao.insertReply(sqlSession, r);
 	}
-
 }

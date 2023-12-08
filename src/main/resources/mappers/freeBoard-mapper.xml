@@ -12,6 +12,7 @@
 		<result column="FREE_CREATE_DATE" property="createDate" />
 		<result column="FREE_COUNT" property="count" />
 		<result column="RMEM_NO" property="rmemNo" />
+
 		<result column="ORIGIN_NAME" property="OriginName" />
 		<result column="CHANGE_NAME" property="ChangeName" />
 
@@ -27,6 +28,7 @@
 		<result column="RMEM_NO" property="rmemNo" />
 		<result column="ORIGIN_NAME" property="OriginName" />
 		<result column="CHANGE_NAME" property="ChangeName" />
+
 	</resultMap>
 
 	<!-- 게시글의 총 갯수 조회하는 쿼리 -->
@@ -38,6 +40,7 @@
 	</select>
 
 	<insert id="insertFreeBoard">
+
 		INSERT INTO FREEBOARD (
 		FREE_NO,
 		FREE_TITLE,
@@ -104,4 +107,5 @@
 		WHERE FREE_STATUS = 'Y'
 		AND FREE_NO = #{freeNo}
 	</select>
+
 </mapper>

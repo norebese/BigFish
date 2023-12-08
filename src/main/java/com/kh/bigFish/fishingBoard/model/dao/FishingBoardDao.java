@@ -18,8 +18,8 @@ public class FishingBoardDao {
 	}
 	public int insertFishingBoardFile(SqlSessionTemplate sqlSession,Attachment at) {
 		System.out.println("나는 불행합니다."+at);
-		//	return sqlSession.insert("boardMapper.insertfishingBoard", b);
-		return 1;
+		return sqlSession.insert("boardMapper.insertfishingBoard", b);
+		
 	}
 
 }

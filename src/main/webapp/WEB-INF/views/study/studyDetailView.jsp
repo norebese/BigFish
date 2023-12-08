@@ -50,6 +50,17 @@
 <!-- 부트스트랩 css 사용 -->
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+     
+    
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 </head>
 <body>
@@ -103,10 +114,8 @@
             </div>
                
                 <!-- 수정하기, 삭제하기 버튼은 이 글이 본인이 작성한 글일 경우에만 보여져야 함 -->
-                <c:if test="${loginUser.memId eq s.studyWriter}">  <!-- 이 기능 안됨  -->
+                <c:if test="${loginUser.memAdmin eq 'Y'}">  
                 <div>
-                    <!-- <a class="btn btn-primary" onclick="location.href='updateForm.st'">글 수정</a> -->
-                    <!-- <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteStudy">글 삭제</a> -->
                     <a class="btn btn-primary" onclick="postFormSubmit(1)">글 수정</a>
                     <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteStudy">글 삭제</a>
                 </div>
@@ -148,7 +157,7 @@
                         </c:otherwise>
                     </c:choose>
                     <tr>
-                        <td colspan="3">댓글(<span id="rcount">3</span>)</td>
+                        <td colspan="3">댓글(<span id="rcount"></span>)</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -242,9 +251,7 @@
         </div>
     </div>
     </div>
-  
-    
-
+ 
     <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
