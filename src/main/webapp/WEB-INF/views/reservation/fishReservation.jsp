@@ -27,12 +27,16 @@
         <script type="text/javascript">
 	        let selectedRegion;
 	    	let selectedCity;
+	    	let dpage = 0;
         	function ajaxStoreList(){
+        		document.getElementById("more").style.display = "none";
+        		dpage += ${pi.currentPage};
         		$.ajax({
                     type: "GET",
                     url: "ajaxStoreList", 
                     data: { selectedRegion: selectedRegion,
-                    		selectedCity: selectedCity
+                    		selectedCity: selectedCity,
+                    		dpage: dpage
                     },
                     dataType: 'json',
                     success: function(data) {
@@ -40,7 +44,29 @@
                             emptyResult();
                         } else {
                         	updateList(data);
+                        	let moreButton = $('<button id="moreA" onclick="ajaxStoreListMore()">더 보기ddd</button>');
+                            $('#moreBtn').append(moreButton);
                         }
+                    },
+                    error: function() {
+                    	console.log("ajax 통신 실패");
+                    }
+                });
+        	}
+        	
+        	function ajaxStoreListMore(){
+        		dpage ++;
+        		$.ajax({
+                    type: "GET",
+                    url: "ajaxStoreList", 
+                    data: { selectedRegion: selectedRegion,
+                    		selectedCity: selectedCity,
+                    		dpage: dpage
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                   		nextList(data);
+
                     },
                     error: function() {
                     	console.log("ajax 통신 실패");
@@ -56,14 +82,15 @@
                 </div>
             </div>
             <div id="showList-area">
-	            <a class="list-box-area" href="resDetailPage?storeNumber=1">
+            <c:forEach var="sl" items="${storeList}">
+	            <a class="list-box-area" href="resDetailPage?storeNumber=${sl.storeNo}">
 	                <div class="list-img-box">
 	                    <div class="img-box">
 	                        <img src="<%=contextPath%>/resources/images/shop-example.jpg" alt="">
 	                    </div>
 	                    <div class="list-txt-box">
 	                        <p class="list-name">
-	                            	가게 이름
+	                            	${sl.storeName}
 	                        </p>
 	                        <p class="fish-info">
 	                            <span class="reply">
@@ -72,61 +99,61 @@
 	                            </span>
 	                            <span class="like">
 	                                <img style="height: 12px;" src="<%=contextPath%>/resources/images/like.png" alt="">
-	                                111
+	                                ${sl.likeCount}
 	                            </span>
 	                        </p>
 	                        <p class="address">
-	                            <span>서울 관악구</span>
+	                            <span>${sl.storeAddress}</span>
 	                        </p>
 	                        <div class="price-area">
 	                            <p>
-	                                9,000
+	                                ${sl.minPrice}
 	                                <span>원</span>
 	                            </p>
 	                        </div>
 	                    </div>
 	                </div>
 	            </a>
-	            <a class="list-box-area" href="">
-	                <div class="list-img-box">
-	                    <div class="img-box">
-	                        <img src="<%=contextPath%>/resources/images/shop-example.jpg" alt="">
-	                    </div>
-	                    <div class="list-txt-box">
-	                        <p class="list-name">
-	                            가게 이름
-	                        </p>
-	                        <p class="fish-info">
-	                            <span class="information">어종정보</span>
-	                            <span class="reply">
-	                                <img style="height: 12px;" src="<%=contextPath%>/resources/images/reply.png" alt="">
-	                                22
-	                            </span>
-	                            <span class="like">
-	                                <img style="height: 12px;" src="<%=contextPath%>/resources/images/like.png" alt="">
-	                                111
-	                            </span>
-	                        </p>
-	                        <p class="address">
-	                            <span>서울 관악구</span>
-	                        </p>
-	                        <div class="price-area">
-	                            <p>
-	                                9,000
-	                                <span>원</span>
-	                            </p>
-	                        </div>
-	                    </div>
-	                </div>
-	            </a>
+	          </c:forEach>
             </div>
         </div>
         <div class="insert-btn">
-                <button type="button" class="btn btn-primary" style="width: 300px;">등록하기</button>
+        	<div id="moreBtn">
+        		<button id="more" onclick="addpage()">더 보기</button>
+        	</div>
+            <button id="insert" type="button" class="btn btn-primary" style="width: 300px;">등록하기</button>
         </div>
         
     </div>
     <jsp:include page="../common/footer.jsp"/>
+    
+    <script type="text/javascript">
+    let cpage = 1;
+    function addpage(){
+    	document.getElementById("more").style.display = "none";
+    	cpage += ${pi.currentPage};
+   		$.ajax({
+               type: "GET",
+               url: "fishReservationAddPage",
+               data: {
+            	   cpage: cpage
+				},
+               dataType: 'json',
+               success: function(data) {
+            	nextList(data);
+            	if(cpage != ${pi.maxPage}){
+            		document.getElementById("more").style.display = "block";
+            	}else{
+					document.getElementById("more").style.display = "none";
+				}
+               },
+               error: function() {
+               	console.log("ajax 통신 실패");
+               }
+           });
+   	}
+    </script>
+    
     
     <!-- Modal -->
 

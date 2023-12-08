@@ -102,10 +102,18 @@
     width: 300px;
 }
 .insert-btn{
-    position: relative;
-    margin-left: 850px;
+    position: absolute;
+    display: flex;
 }
 .filter-area{
     position: absolute;
     left: 850px;
+}
+#more{
+    position: relative;
+    left: 550px;
+}
+#insert{
+	position: relative;
+    left: 780px;
 }

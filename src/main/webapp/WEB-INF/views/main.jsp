@@ -181,7 +181,7 @@
 		<div class="main">
 			<div class="container-fluid h-100">
 				<div class="row h-50">
-					<a href="" class="col h-100" style="text-decoration: none; color: black;">
+					<a href="seaReservation" class="col h-100" style="text-decoration: none; color: black;">
 						<img src="<%=contextPath%>/resources/images/1701241622228.png"
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">바다 낚시</p>

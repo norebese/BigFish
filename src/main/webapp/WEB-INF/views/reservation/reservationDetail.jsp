@@ -20,7 +20,6 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<link rel="stylesheet" href="<%=contextPath%>/resources/css/reservationDetail.css">
@@ -80,6 +79,16 @@
             <p class="baddress">
                 ${st.storeAddress }
             </p>
+            <div id="like-logo" onclick="updateLike()">
+	            <c:choose>
+	            <c:when test="${Slike.storeGoodStatus eq 'Y'}">
+	            	<img src="<%=contextPath%>/resources/images/heart-filled.png">
+	            </c:when>
+	            <c:otherwise>
+	            	<img src="<%=contextPath%>/resources/images/heart-notfill.png">
+	            </c:otherwise>
+	            </c:choose>
+            </div>
         </div>
     </div>
 
@@ -169,141 +178,9 @@
 				                </div>
 				               	<div>
 				                	<ul class="option-list">
-				                		<li class="option-item">
-				                			<label style="display: flex; cursor: pointer;" id="checkboxLabel1" data-bs-toggle="modal" data-bs-target="#myModal1">
-				                				<div class="checkbox-icon">
-				                					<label for="myCheckbox1">
-				                						<input type="checkbox" id="myCheckbox1" class="myCheckbox" data-target="#checkboxLabel1" onclick="handleCheckboxClick('myCheckbox1')" value="1">
-				                					</label>
-				                				</div>
-				                				<div class="option-info">
-				                					<div class="info-text">
-				                						<div class="boucher-title">
-				                							이용권 이름
-				                						</div>
-				                						<div class="info-content">
-				                							<span>남은 수량 : 22 <br></span>
-				                							<span>가격 : 220000 <br></span>
-				                							<span>이용가능 시간 :</span>
-				                							<span class="timeval">1</span>
-				                							<span>hr</span>
-				                						</div>
-				                					</div>
-				                				</div>
-				                			</label>
-				                			<!-- The Modal -->
-											<div class="modal" id="myModal1">
-											  <div class="modal-dialog modal-dialog-centered">
-											    <div class="modal-content">
-											      <div class="modal-header">
-											        <h4 class="modal-title">인원수 설정</h4>
-											        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-											      </div>
-											      <div class="modal-body">
-											        <label for="quantity1">인원수:</label>
-												    <div class="input-group">
-												        <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity('quantity1', -1)">-</button>
-												        <input type="text" class="resnum-area" id="quantity1" value="1">
-												        <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity('quantity1', 1)">+</button>
-												    </div>
-											      </div>
-											      <div class="modal-footer">
-											        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="selectNum('quantity1')">확인</button>
-											      </div>
-											    </div>
-											  </div>
-											</div>
-				                		</li>
-				                		<li class="option-item">
-				                			<label style="display: flex; cursor: pointer;" id="checkboxLabel2" data-bs-toggle="modal" data-bs-target="#myModal2">
-				                				<div class="checkbox-icon">
-				                					<label for="myCheckbox2">
-				                						<input type="checkbox" id="myCheckbox2" class="myCheckbox" data-target="#checkboxLabel2" onclick="handleCheckboxClick('myCheckbox2')" value="2">
-				                					</label>
-				                				</div>
-				                				<div class="option-info">
-				                					<div class="info-text">
-				                						<div class="boucher-title">
-				                							이용권 이름
-				                						</div>
-				                						<div class="info-content">
-				                							<span>남은 수량 : 22 <br></span>
-				                							<span>가격 : 220000<br></span>
-				                							<span>이용가능 시간 :</span>
-				                							<span class="timeval">2</span>
-				                							<span>hr</span>
-				                						</div>
-				                					</div>
-				                				</div>
-				                			</label>
-				                			<!-- The Modal -->
-											<div class="modal" id="myModal2">
-											  <div class="modal-dialog modal-dialog-centered">
-											    <div class="modal-content">
-											      <div class="modal-header">
-											        <h4 class="modal-title">인원수 설정</h4>
-											        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-											      </div>
-											      <div class="modal-body">
-											        <label for="quantity2">인원수:</label>
-												    <div class="input-group">
-												        <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity('quantity2', -1)">-</button>
-												        <input type="text" class="resnum-area" id="quantity2" value="1">
-												        <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity('quantity2', 1)">+</button>
-												    </div>
-											      </div>
-											      <div class="modal-footer">
-											        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="selectNum('quantity2')">확인</button>
-											      </div>
-											    </div>
-											  </div>
-											</div>
-				                		</li>
-				                		<li class="option-item">
-				                			<label style="display: flex; cursor: pointer;" id="checkboxLabel3" data-bs-toggle="modal" data-bs-target="#myModal3">
-				                				<div class="checkbox-icon">
-				                					<label for="myCheckbox3">
-				                						<input type="checkbox" id="myCheckbox3" class="myCheckbox" data-target="#checkboxLabel3" onclick="handleCheckboxClick('myCheckbox3')" value="3">
-				                					</label>
-				                				</div>
-				                				<div class="option-info">
-				                					<div class="info-text">
-				                						<div class="boucher-title">
-				                							이용권 이름
-				                						</div>
-				                						<div class="info-content">
-				                							<span>남은 수량 : 22 <br></span>
-				                							<span>가격 : 220000<br></span>
-				                							<span>이용가능 시간 :</span>
-				                							<span class="timeval">3</span>
-				                							<span>hr</span>
-				                						</div>
-				                					</div>
-				                				</div>
-				                			</label>
-				                			<!-- The Modal -->
-											<div class="modal" id="myModal3">
-											  <div class="modal-dialog modal-dialog-centered">
-											    <div class="modal-content">
-											      <div class="modal-header">
-											        <h4 class="modal-title">인원수 설정</h4>
-											        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-											      </div>
-											      <div class="modal-body">
-											        <label for="quantity3">인원수:</label>
-												    <div class="input-group">
-												        <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity('quantity3', -1)">-</button>
-												        <input type="text" class="resnum-area" id="quantity3" value="1">
-												        <button type="button" class="btn btn-outline-secondary" onclick="changeQuantity('quantity3', 1)">+</button>
-												    </div>
-											      </div>
-											      <div class="modal-footer">
-											        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="selectNum('quantity3')">확인</button>
-											      </div>
-											    </div>
-											  </div>
-											</div>
-				                		</li>
+				                		<div id="showTicket-area">
+					                		
+				                		</div>
 				                	</ul>
 				                </div>
 				               
@@ -435,6 +312,27 @@
     <div class="pad"></div>
     
     <script>
+    function updateLike(){
+    	let likeImg = document.getElementById('like-logo');
+   		$.ajax({
+               type: "GET",
+               url: "ajaxUpdateLike", 
+               success: function(data) {
+            	   console.log(data);
+					if(data == 'Y'){
+						likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-filled.png">'
+					}else{
+						likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-notfill.png">'
+					}
+					console.log("ajax 통신 성공");
+               },
+               error: function() {
+               	console.log("ajax 통신 실패");
+               }
+           });
+   		
+   	}
+    
 	function loadTickets(){
 		
 	let year = document.getElementById("calYear").textContent;
@@ -449,13 +347,16 @@
         		day: day,
         		time: selectedTime,
             },
-            success: function(response) {
-            	
+            dataType: 'json',
+            success: function(data) {
+            	console.log(data);
+            	updateTicket(data);
             },
             error: function() {
             	console.log("ajax 통신 실패");
             }
         });
+		
 	}
 
     function saveSelectedDate() {

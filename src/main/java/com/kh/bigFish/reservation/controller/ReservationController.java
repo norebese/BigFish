@@ -31,11 +31,6 @@ public class ReservationController {
 	@Autowired
 	private ReservationService reservationService;
 	
-	@RequestMapping(value="/seaReservation")
-	public String seaReservation() {
-		
-		return "reservation/seaReservation";
-	}
 	@RequestMapping(value="/insertReservationOne")
 	public String insertReservationOne() {
 		
@@ -46,11 +41,7 @@ public class ReservationController {
 		
 		return "reservation/insertReservationTwo";
 	}
-	@RequestMapping(value="/fishReservation")
-	public String fishReservation() {
-		
-		return "reservation/fishReservation";
-	}
+	
 	@RequestMapping(value="reservationDetail")
 	public String reservationDetail() {
 		

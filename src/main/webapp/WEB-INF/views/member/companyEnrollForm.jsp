@@ -101,8 +101,8 @@
 			<select name="storeKind" class="form-select" style="width: 100%;">
 				<option value="seaShip">바다 배</option>
 				<option value="seaSeat">바다 좌대</option>
-				<option value="lakeSeat">민물 좌대</option>
-				<option value="fishingCafe">낚시카페</option>
+				<option value="FreshSeat">민물 좌대</option>
+				<option value="FreshCafe">낚시카페</option>
 			</select>
 			</div><br>
 			<table style="width: 40%; margin: 0px auto;">

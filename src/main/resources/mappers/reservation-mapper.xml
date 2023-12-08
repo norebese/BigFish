@@ -34,8 +34,17 @@
 		#{revPhone})
  	</insert>
  	
- 	<select id="jungbokCheck">
- 		
+ 	<select id="jungbokCheck" resultType="_int">
+		SELECT COALESCE(SUM(r.REV_PEOPLE), 0) AS RESERVED_PEOPLE
+		FROM STORE s
+		LEFT JOIN RESERVATION r ON s.STORE_NO = r.RSTORE_NO
+		WHERE s.STORE_NO = #{rstoreNo}
+		AND r.REV_STATUS = 'Y'
+		AND (
+		    (#{revStart} &gt;= r.REV_START AND #{revStart} &lt; r.REV_END)
+		    OR (#{revEnd} &gt; r.REV_START AND #{revEnd} &lt;= r.REV_END)
+		    OR (#{revStart} &lt;= r.REV_START AND #{revEnd} &gt;= r.REV_END)
+			)
  	</select>
  
  </mapper>

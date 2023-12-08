@@ -50,8 +50,8 @@ function init(){
         // 날짜가 선택되지 않았으면 알림 띄우고 select 태그 초기화
         showDateAlert();
         return;
-    }
-        
+   		}
+        console.log(selectedTime);
         loadTickets();
     });
     
@@ -113,8 +113,8 @@ function handleCheckboxClick(clickedCheckboxId) {
 }
 
 function changeQuantity(inputId, change) {
-        var inputElement = document.getElementById(inputId);
-        var currentValue = parseInt(inputElement.value);
+        let inputElement = document.getElementById(inputId);
+        let currentValue = parseInt(inputElement.value);
 
         // 값이 1보다 작지 않으면 감소 버튼이 눌려도 실행되지 않도록
         if (change === -1 && currentValue > 1) {
@@ -130,6 +130,32 @@ function changeQuantity(inputId, change) {
     
 function selectNum(targetId){
 		numPeople = document.getElementById(targetId).value;
-	        
-		
+
 	}
+	
+	
+function updateTicket(date){
+	
+	let ToUpdate = $('#showTicket-area');
+	let htmlContent = '';
+	
+	$.each(date, function (index, ticket) {
+                htmlContent += '<li class="option-item"><label style="display: flex; cursor: pointer;" id="checkboxLabel'+ticket.ticketNo+'" data-bs-toggle="modal" data-bs-target="#myModal'+ticket.ticketNo+'">'
+        		+'<div class="checkbox-icon"><label for="myCheckbox'+ticket.ticketNo+'"><input type="checkbox" id="myCheckbox'+ticket.ticketNo+'" class="myCheckbox" data-target="#checkboxLabel'+ticket.ticketNo
+                +`" onclick="handleCheckboxClick('myCheckbox` + ticket.ticketNo+ `')" value="`+ticket.ticketNo+'">'
+        		+'</label></div><div class="option-info"><div class="info-text"><div class="boucher-title">'+ticket.ticketName+'</div>'
+        		+'<div class="info-content"><span>남은 수량 : '+ticket.amount+' <br></span><span>가격 : '+ticket.ticketPrice+'<br></span><span>이용가능 시간 :</span>'
+        		+'<span class="timeval">'+ticket.ticketTime+'</span><span>hr</span></div></div></div></label><div class="modal" id="myModal'+ticket.ticketNo+'">'
+				+'<div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">인원수 설정</h4>'
+				+'<button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><label for="quantity'+ticket.ticketNo+'">인원수:</label>'
+				+`<div class="input-group"><button type="button" class="btn btn-outline-secondary" onclick="changeQuantity('quantity`+ticket.ticketNo+`', -1)">-</button>`
+				+'<input type="text" class="resnum-area" id="quantity'+ticket.ticketNo+'" value="1">'
+				+`<button type="button" class="btn btn-outline-secondary" onclick="changeQuantity('quantity`+ticket.ticketNo+`', 1)">+</button>`
+				+'</div></div><div class="modal-footer">'
+				+`<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="selectNum('quantity`+ticket.ticketNo+`')">확인</button>'`
+				+'</div></div></div></div></li>';
+            });
+    
+	
+	ToUpdate.html(htmlContent);
+}

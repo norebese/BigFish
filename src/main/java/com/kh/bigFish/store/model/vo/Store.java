@@ -30,6 +30,7 @@ public class Store {
 	private String storeKind;
 	private String storeFishKind;
 	private String businessNo;
-	
+	private int likeCount;
+	private int minPrice;
 }
 
