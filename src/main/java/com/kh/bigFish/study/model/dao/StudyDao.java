@@ -2,12 +2,14 @@ package com.kh.bigFish.study.model.dao;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.bigFish.announce.model.vo.Announce;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.reply.model.vo.Reply;
 import com.kh.bigFish.study.model.vo.Study;
@@ -53,5 +55,21 @@ public class StudyDao {
 	
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
 		return sqlSession.insert("studyMapper.insertReply", r);
+	}
+	
+	public int selectSearchListCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("studyMapper.selectSearchListCount", map);	
+	}
+	
+	public ArrayList<Study> selectSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("studyMapper.selectSearchList", map, rowBounds);
+	}
+	
+	public ArrayList<Study> selectSearchList(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("studyMapper.selectSearchList", keyword);
 	}
 }

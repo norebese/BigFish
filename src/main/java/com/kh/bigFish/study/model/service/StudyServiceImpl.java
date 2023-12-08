@@ -1,6 +1,7 @@
 package com.kh.bigFish.study.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -64,5 +65,20 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public int insertReply(Reply r) {
 		return studyDao.insertReply(sqlSession, r);
+	}
+
+	@Override
+	public int selectSearchListCount(HashMap<String, String> map) {
+		return studyDao.selectSearchListCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Study> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		return studyDao.selectSearchList(sqlSession, map, pi);
+	}
+
+	@Override
+	public ArrayList<Study> selectSearchList(String keyword) {
+		return studyDao.selectSearchList(sqlSession, keyword);
 	}
 }

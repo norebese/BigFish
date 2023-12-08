@@ -8,54 +8,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<style>
-
-    .header-box{
-        display: flex;
-        flex-direction: row;
-    }
-    
-    .left_box{
-        background-color: rgb(52, 152, 219);  
-        width: 25%; 
-        height: 286px;
-    }
-    
-    .center_box{
-        display: flex;
-        flex-direction: row;
-        background-color: rgb(59, 175, 252); 
-        width: 100%; 
-        max-width: 1200px;
-        height: 286px;
-        justify-content: space-evenly;
-        align-items: center;
-        
-    }
-    
-    .right_box{
-        background-color: rgb(52, 152, 219); 
-        width: 25%; 
-        height: 286px;
-    }
-    
-    .study-image{
-        color: white;
-        display: flex;
-        justify-content: space-around;
-        align-items: flex-start;
-    }
-    
-    </style>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIG FISH</title>
     <!-- 부트스트랩 css 사용 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-     <!-- CSS-->
-     <link rel="stylesheet" href="<%=contextPath%>/resources/css/freeBoardEnrollForm.css">
     
+<!-- CSS-->
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/studyEnrollForm.css">
+<!-- JS-->
+<script src="<%=contextPath%>/resources/js/studyEnrollForm.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> 
+
 </head>
 <body>
     <jsp:include page="../common/header.jsp" />

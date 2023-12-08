@@ -1,6 +1,7 @@
 package com.kh.bigFish.study.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.bigFish.announce.model.vo.Announce;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
 import com.kh.bigFish.reply.model.vo.Reply;
@@ -107,6 +109,25 @@ public class StudyController {
 			model.addAttribute("errorMsg", "게시글 수정 실패");
 			return "common/errorPage";
 		}
+	}
+	
+	@RequestMapping(value="search.st")
+	public ModelAndView searchStudy(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		PageInfo pi = Pagenation.getPageInfo(studyService.selectSearchListCount(map), currentPage, 5, 5);
+		ArrayList<Study> list = studyService.selectSearchList(map, pi);
+		
+		mv.addObject("pi",pi)
+		  .addObject("list", list)
+		  .addObject("condition", condition)
+		  .addObject("keyword", keyword)
+		  .setViewName("study/studyListView");
+		
+		return mv;
 	}
 
 	@ResponseBody

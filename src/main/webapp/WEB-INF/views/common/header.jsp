@@ -25,11 +25,11 @@
 
 <!-- Latest compiled JavaScript -->
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- jQuery library -->
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- 폰트 Noto Sans KR-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,7 +61,7 @@
 </head>
 <body>
 	<%if(alertMsg != null){ %>
-		<script>
+		
 	<script>
 			alert("<%=alertMsg%>");
 		</script>
@@ -77,10 +77,9 @@
 		</div>
 		<div class="header-menu">
 			<div class="search-area">
-				<input type="text" placeholder="검색어를 입력해 주세요"> <a
-					class="search-btn" href=""> <img
-					style="height: auto; width: 15px; margin-top: 7px;"
-					src="resources/images/search_icon.png" alt="검색버튼">
+				<input type="text" placeholder="검색어를 입력해 주세요"> 
+				<a class="search-btn" onclick="mainSearch();">
+					<img style="height: auto; width: 15px; margin-top: 7px;" src="resources/images/search_icon.png" alt="검색버튼">
 				</a>
 			</div>
 			<a class="menu-link" href="annList.an">공지사항</a> <a class="menu-link"

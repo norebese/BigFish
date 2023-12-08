@@ -7,3 +7,12 @@ function memberMenu(){
         memberMenu.style.display = "flex";
     }
 }
+
+
+function mainSearch() {
+    const input = document.querySelector("keyword")
+    location.href='search.bo?keyword=' + input
+}	
+
+
+			

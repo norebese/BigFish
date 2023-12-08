@@ -51,6 +51,10 @@
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
      
+<!-- CSS-->
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/studyDetailView.css">
+<!-- JS-->
+<script src="<%=contextPath%>/resources/js/studyDetailView.js"></script>
     
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -161,7 +165,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tbody>
             </table>
         </div>
