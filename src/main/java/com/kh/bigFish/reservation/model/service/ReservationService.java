@@ -14,4 +14,8 @@ public interface ReservationService {
 	
 	// 예약 목록 불러오기(멤버기준)
 	ArrayList<Reservation> selectReservationList(int memNo);
+	
+	// 중복체크
+	int jungbokCheck(Reservation R);
+	
 }

@@ -28,6 +28,10 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public ArrayList<Reservation> selectReservationList(int memNo) {
 		return reservationDao.selectReservationList(sqlSession, memNo);
+
+	@Override
+	public int jungbokCheck(Reservation R) {
+		return reservationDao.jungbokCheck(sqlSession, R);
 	}
 
 }

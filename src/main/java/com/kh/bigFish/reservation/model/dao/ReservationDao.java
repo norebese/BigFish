@@ -19,4 +19,8 @@ public class ReservationDao {
 		return sqlSession.selectOne("reservationMapper.selectReservationList", memNo);
 	}
 
+	public int jungbokCheck(SqlSessionTemplate sqlSession, Reservation r) {
+		return sqlSession.selectOne("reservationMapper.jungbokCheck", r);
+	}
+
 }
