@@ -18,8 +18,9 @@
 		<typeAlias type="com.kh.bigFish.freeBoard.model.vo.FreeBoard" alias="FreeBoard"/>
 		<typeAlias type="com.kh.bigFish.attachment.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.bigFish.store.model.vo.Ticket" alias="Ticket"/>
-      	<typeAlias type="com.kh.bigFish.announce.model.vo.Announce" alias="Announce"/>
-      <typeAlias type="com.kh.bigFish.reply.model.vo.Reply" alias="Reply"/>
+     	<typeAlias type="com.kh.bigFish.announce.model.vo.Announce" alias="Announce"/>
+     	<typeAlias type="com.kh.bigFish.reply.model.vo.Reply" alias="Reply"/>
+     	<typeAlias type="com.kh.bigFish.store.model.vo.Slike" alias="Slike"/>
      </typeAliases>
      <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야한다. -->
      

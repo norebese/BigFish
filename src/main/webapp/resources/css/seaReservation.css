@@ -540,89 +540,88 @@ p {
 .category-title{
     font-weight: bold;
 }
+
 .list-box-area{
-    width: 608px;
+    padding-right: 20px;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    position: relative;
+    width: 600px;
     display: block;
     margin-top: 20px;
     background: #fff;
-    border: 1px solid #d5d5d5;
+    border: 2px solid #d5d5d5;
     border-radius: 0.3rem;
-    line-height: 1;
 }
-.list-visual-area{
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    vertical-align: top;
-    border-radius: 0.3rem;
-    background-size: 100% auto;
+.list-img-box{
+    display: flex;
 }
 .img-box{
-    width: 100%;
-    height: 0;
-    padding-left: 0;
-    padding-bottom: 280px;
+    width: 0;
+    height: 165px;
+    padding-left: 317px;
+    overflow: hidden;
+    position: relative;
+    
 }
 .img-box img{
     position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: auto;
-    transform: translate(0, -50%);
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    transform: translate(-57%, 0);
 }
-.cover-area{
-    position: absolute;
-    top: 45%;
-    left: 0;
-    width: 100%;
-    height: 55%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000000);
-}
-.list-box-txt{
-    position: absolute;
-    padding: 20px;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-}
-.list-box-left{
+.list-txt-box{
+    float: left;
+    width: calc(100% - 275px);
+    padding-left: 15px;
     margin: 0;
     padding: 0;
-}
-.fish-kind{
-    background: rgba(38, 99, 226, 0.7);
-    font-size: 14px;
-    color: white;
 }
 .list-name{
-    font-size: 25px;
-    font-weight: 500;
-    color: #fff;
-    margin-top: 7px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 7px;
 }
-.list-address{
-    font-size: 14px;
-    color: #fff;
-    opacity: 0.8;
-    margin-top: 6px;
-}
-.list-box-right{
-    position: absolute;
-    right: 30px;
-    bottom: 0;
-    padding: 20px;
-}
-.live-price{
+.fish-info{
     margin: 0;
-    padding: 0;
 }
-.price{
-    color: #fff;
+.information{
+    font-size: 12px
+}
+.reply{
+    font-size: 12px;
+    color: black;
+}
+.like{
+    font-size: 12px;
+    color: black;
+}
+.address{
+    font-size: 13px;
+    color: #878787;
+    font-weight: bold;
+}
+.price-area{
     font-size: 25px;
     font-weight: bold;
+    color: #000;
+    margin-top: 30px;
     text-align: right;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    width: calc(100% - 290px);
+    padding-right: 20px;
 }
+
+
+
 .goTop{
 	display: flex;
 	
