@@ -1,7 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 <%
 	String contextPath = request.getContextPath();
+	
+	// 네이버 로그인 관련
+ 	String clientId = "nDDTuqLHbp7bBSNPwEfS";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://localhost:8987/bigFish/naverLogin.me", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+    apiURL += "&client_id=" + clientId;
+    apiURL += "&redirect_uri=" + redirectURI;
+    apiURL += "&state=" + state;
+    session.setAttribute("state", state);
+
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -11,10 +28,18 @@
 
 <!-- CSS-->
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/login.css">
-<!-- JS-->
-<script src="<%=contextPath%>/resources/js/login.js"></script>
+
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- 네이버 로그인 API-->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+
+<!-- jQuery library (1.11.3)-->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- JS-->
+<script src="<%=contextPath%>/resources/js/login.js"></script>
 
 
 
@@ -64,8 +89,8 @@
     <div id="personal-naverkakao" class="memberEnroll-btn-container">
     <button onclick="location.href='chooseEnroll.me'" type="button" class="btn btn-secondary" style="width: 450px; ">이메일로 가입하기</button>
       <div class="naverkakao" style="width:450px; height:38px; margin-top: 10px;">
-        <img src="resources/images/login_naver.png" alt="네이버 로그인 아이콘">
-        <img src="resources/images/login_kakao.png" alt="카카오 로그인 아이콘">
+        <a href="<%=apiURL%>"><img src="resources/images/login_naver.png" alt="네이버 로그인 아이콘"></a>
+        <a><img src="resources/images/login_kakao.png" alt="카카오 로그인 아이콘"></a>
       </div>
       <span class="gray-text">로그인 / 회원가입시 이용약관, 개인정보취급방침에 동의하게 됩니다.</span>
       <br><br><br><br><br><br><br><br>
@@ -110,5 +135,6 @@
     <div class="top-line"></div>
 
     <jsp:include page="../common/footer.jsp"/>
+
 </body>
 </html>

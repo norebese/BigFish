@@ -1,0 +1,58 @@
+.announce-ann{
+	color: rgb(59, 175, 252);
+    width: 90%;
+    margin: 10px auto;
+    font-weight: bolder;
+}
+.border-line{
+	border-bottom: 2px solid rgb(204, 204, 204);
+    width: 90%;
+    margin: 10px auto;	
+}
+.ann-title{
+	width: 90%;
+    margin: 10px;
+    margin-left: 70px;
+    font-size: 25px;
+    font-weight: bolder;
+}
+.ann-title-line{
+	border-bottom: 2px solid rgb(204, 204, 204);
+    width: 85%;
+    margin: 10px;
+    margin-left: 70px;
+}
+.ann-date{
+	width: 90%;
+    margin: 10px;
+    margin-left: 105px;
+}
+li::marker {
+  	color: rgb(41, 128, 185);
+}
+.ann-create{
+	background-color: rgb(59, 175, 252);
+	color: white;
+	border-radius: 3px;
+    border: none;
+    width: 85px;
+    height: 35px;
+    position: absolute;
+    margin-left: 1350px;
+    margin-bottom: 100px;
+}
+
+.pagingArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ann-search-area{
+	display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.text{
+	width: 500px;
+}

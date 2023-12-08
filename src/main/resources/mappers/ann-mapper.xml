@@ -8,6 +8,7 @@
  		<result column="ANN_TITLE" property="annTitle" />
  		<result column="ANN_WRITER" property="annWriter" />
  		<result column="ANN_CONTENT" property="annContent" />
+ 		<result column="FILE_NO" property="fileNo"/>
  		<result column="ANN_CREATE_DATE" property="annCreateDate" />
  		<result column="ANN_COUNT" property="annCount" />
  	</resultMap>
@@ -19,11 +20,7 @@
  	</select>
  	
  	<select id="selectList" resultMap="annResult">
- 		SELECT ANN_NO,
- 			   ANN_TITLE,
- 			   ANN_WRITER,
- 			   TO_CHAR(ANN_CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE",
- 			   ANN_COUNT
+ 		SELECT *
  		FROM ANNOUNCE
  		WHERE ANN_STATUS = 'Y'
  		ORDER BY ANN_NO DESC
@@ -35,7 +32,7 @@
  			   		   ANN_NO,
  			   		   ANN_TITLE,
  			   		   ANN_WRITER,
- 			   		   ANN_CONTENT	   
+ 			   		   ANN_CONTENT	  
  			   		 )
  			  VALUES (
  			  		   SEQ_ANN_NO.NEXTVAL,
@@ -53,12 +50,7 @@
  	</update>
  	
  	<select id="selectAnnounce" resultMap="annResult">
- 		SELECT ANN_NO,
- 			   ANN_TITLE,
- 			   ANN_WRITER,
- 			   ANN_CONTENT,
- 			   ANN_COUNT,
- 			   TO_CHAR(ANN_CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+ 		SELECT *
  		  FROM ANNOUNCE
  		 WHERE ANN_STATUS = 'Y'
  		   AND ANN_NO = #{annNo}
@@ -76,4 +68,37 @@
  		   SET ANN_STATUS = 'N'
  	 	 WHERE ANN_NO = #{annNo}
  	</update>
+ 	
+ 	<select id="selectSearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM ANNOUNCE
+		 WHERE ANN_STATUS = 'Y'
+	     <if test="condition == 'annTitle'"> 
+	       AND ANN_TITLE
+	     </if>
+	     <if test="condition == 'annContent'"> 
+	       AND ANN_CONTENT
+	  	 </if>
+		  LIKE '%' || #{keyword} || '%'
+	</select>
+ 	
+ 	<select id="selectSearchList" resultMap="annResult">
+		SELECT ANN_NO
+		      ,ANN_TITLE
+		      ,ANN_COUNT
+		      ,ANN_CREATE_DATE
+		 FROM ANNOUNCE
+		 WHERE ANN_STATUS = 'Y'
+		 <choose>
+		     <when test="condition == 'annTitle'"> 
+		       AND ANN_TITLE
+		     </when>
+		     <otherwise> 
+		       AND ANN_CONTENT
+		  	 </otherwise>
+	  	 </choose>
+		  LIKE '%' || #{keyword} || '%'
+		  ORDER BY ANN_NO DESC
+	</select>
+ 	
 </mapper>

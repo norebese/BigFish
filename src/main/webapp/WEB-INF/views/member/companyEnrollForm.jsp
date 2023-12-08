@@ -77,7 +77,7 @@
 					<td id="checkNickSpace" style="height: 25px;"></td>
 				</tr>
 			</table>
-			<input required name="phone" placeholder="휴대폰 번호를 입력해주세요. (-포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
+			<input required name="phone" placeholder="휴대폰 번호를 입력해주세요. (-미포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
 
 
 			<div class="infoTitle">사업장 정보</div>
@@ -86,7 +86,7 @@
 			<input required name="storePhone" placeholder="사업장 전화번호를 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
 			<table style="width: 40%; margin: 0px auto;">
 				<tr style="width: 100%;">
-					<td><input name="businessNo" id="businessNo" required placeholder="사업자 번호를 입력해주세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
+					<td><input name="businessNo" id="businessNo" required placeholder="사업자 번호를 입력해주세요. (-미포함)" style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
 					<td><button onclick="checkBusinessNo()" type="button" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">사업자 확인</button></td>
 				</tr>
 				<tr>

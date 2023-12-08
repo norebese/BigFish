@@ -12,6 +12,7 @@
 <style>
 
 .header-box{
+		margin-top: 70px;
         display: flex;
         flex-direction: row;
     }
@@ -232,37 +233,30 @@
 				alt="Your Image">
 		</div>
 	</div>
-	<br>
+	<br><br>
 
 	<div class="container">
-
 		<div class="banner"></div>
-
 		<div class="sub">
 			<div style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
 				<h4>학습 동영상</h4>
 			</div>
-			<div class="container text-center" style="flex: 4; overflow: hidden;">
-				<div class="d-flex justify-content-between">
-					<img src="<%=contextPath%>/resources/images/fishing.jpg" alt="Your Image" style="margin-right: 20px; max-width: calc(33.33% - 20px);">
-					<img src="<%=contextPath%>/resources/images/fishing.jpg" alt="Your Image" style="margin-right: 20px; max-width: calc(33.33% - 20px);">
-					<img src="<%=contextPath%>/resources/images/fishing.jpg" alt="Your Image" style="max-width: calc(33.33% - 20px);">
+			<div class="container text-center" >
+				<div>
+					<a href="detail.st?sno=100"><img src="<%=contextPath%>/resources/images/fishingTip.png" style="margin-right: 20px; max-width: calc(33.33% - 20px);"></a> 
+					<a href="detail.st?sno=101"><img src="<%=contextPath%>/resources/images/fishingPrepare.png" style="margin-right: 20px; max-width: calc(33.33% - 20px);"></a>
+					<a href="detail.st?sno=108"><img src="<%=contextPath%>/resources/images/fishingJJi.png" style="max-width: calc(33.33% - 20px);"></a>
 				</div>
 			</div>
 			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
-				<h5>학습 동영상 모두보기 <i class="bi bi-arrow-right"></i></h5>
+				<a href="list.st">학습 동영상 모두보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
 		</div>
-
 		<div class="banner"></div>
-
-
 	</div>
 	<br>
 	<div class="container">
-
 		<div class="banner"></div>
-
 		<div class="sub">
 			<div style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
 				<h4>자유게시판</h4>
@@ -275,7 +269,7 @@
 				</div>
 			</div>
 			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
-				<h5>자유게시판 모두보기 <i class="bi bi-arrow-right"></i></h5>
+				<a href="">자유게시판 모두보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
 		</div>
 
@@ -301,7 +295,7 @@
 				</div>
 			</div>
 			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
-				<h5>민물 실시간 조황 모두보기 <i class="bi bi-arrow-right"></i></h5>
+				<a href="">민물 실시간 조황 모두보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
 		</div>
 

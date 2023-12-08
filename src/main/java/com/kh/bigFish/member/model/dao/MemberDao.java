@@ -48,4 +48,8 @@ public class MemberDao {
 	public int profileImgAreaChange(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("memberMapper.profileImgAreaChange", m);
 	}
+	
+	public Member checkMember(SqlSessionTemplate sqlSession,String memId) {
+		return sqlSession.selectOne("memberMapper.checkMember",memId);
+	}
 }
