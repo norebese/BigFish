@@ -65,6 +65,68 @@ function changeCompany(){
 
 
 
+function findId(){
+    const memNick = document.querySelector("#memNick");
+    const phone = document.querySelector("#phone");
+    const findIdArea = document.querySelector("#findIdArea");
+    const findedIdArea = document.querySelector("#findedIdArea");
+
+    if(findIdArea.style.display==="none"){
+
+        findedIdArea.style.display = "none";  
+        findIdArea.style.display = "flex";
+        
+        findedIdArea.innerHTML = "";
+        return;
+    }
+
+    const sendData = {memNick : memNick.value,
+                        phone : phone.value}
+
+    memberApi.findId(sendData, function(result){
+        findIdArea.style.display = "none";
+        findedIdArea.style.display = "flex";
+
+        if(result==="N"){
+            findedIdArea.innerHTML = "아이디를 찾을 수 없습니다.";   
+        }else{
+            findedIdArea.innerHTML = result;
+        }
+
+    })
+}
+
+
+function findPwd(){
+    const email = document.querySelector("#email");
+    const phonePwd = document.querySelector("#phonePwd");
+    const findPwdArea = document.querySelector("#findPwdArea");
+    const findedPwdArea = document.querySelector("#findedPwdArea");
+
+    if(findPwdArea.style.display==="none"){
+
+        findedPwdArea.style.display = "none";
+        findPwdArea.style.display = "flex";
+
+        findedPwdArea.innerHTML = "";
+        return;
+    }
+
+    const sendData = { memId : email.value,
+                        phone : phonePwd.value}
+
+    memberApi.findPwd(sendData, function(result){
+        findPwdArea.style.display = "none";
+        findedPwdArea.style.display = "flex";
+
+        if(result==="N"){
+            findedPwdArea.innerHTML = "비밀번호를 찾을 수 없습니다."
+        }else{
+            findedPwdArea.innerHTML = "회원님의 이메일로 비밀번호를 보내드렸습니다.<br> 확인하시어 로그인을 진행해주세요."
+        }
+        
+    })
+}
  
 
 

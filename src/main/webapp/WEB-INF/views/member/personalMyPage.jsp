@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -58,7 +59,7 @@
 		<div class="myPageContent">
 			<!-- 프로필 관리 -->
 			<div id="profileWork" style="display: flex; flex-direction: column; align-items: center;">
-				<img id="profileShowArea" width="20%" height="20%" src=${loginUser.memChangeName} alt="">
+				<img id="profileShowArea" width="20%" height="20%" src="${loginUser.memChangeName}" alt="">
 				<label for="profileImg" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사진 선택</label>
 				<input onchange="profileImgChange()" type="file" id="profileImg" style="display: none;">
 				<input id="memChangeName" type="hidden" value="${loginUser.memChangeName}">
@@ -111,12 +112,13 @@
 			</div>
 			<!-- 예약 목록 -->
 			<div id="reservationWork" style="display: none; flex-direction: column; align-items: center;">
-				<!-- 카드 1 -->
+				<c:forEach var="r" items="${reserList}">
+				<!-- 카드 -->
 				<div style="width: 70%; margin-bottom: 30px;" class="card">
-					<div class="card-header" style="padding-bottom: 3px;" onclick="location.href='myReservationDetail'">
+					<div class="card-header" style="padding-bottom: 3px; cursor: pointer;" onclick="location.href='myReservationDetail'">
 						<div style="display: flex; flex-direction: row; justify-content: space-between;">
-							<span style="font-weight: bold;">사이판 민물 낚시터</span>
-							<span style="font-size: 13px;">No. 123</span>
+							<span style="font-weight: bold;">${r.rstoreName}</span>
+							<span style="font-size: 13px;">No. ${r.revNo}</span>
 						</div>
 
 						
@@ -141,36 +143,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- 카드 2 -->
-				<div style="width: 70%; margin-bottom: 30px;" class="card">
-					<div class="card-header" style="padding-bottom: 3px;">
-						<div style="display: flex; flex-direction: row; justify-content: space-between;">
-							<span style="font-weight: bold;">해신 바다 낚시터</span>
-							<span style="font-size: 13px;">No. 122</span>
-						</div>
-
-						
-						<div style="display: flex; flex-direction: row; justify-content: space-between;">
-							<span style="font-size: 13px;">12월 11일(월) | 17:00</span>
-							<span>이용 예정</span>
-						</div>
-					</div>
-					<div class="card-body">
-						<div style="display: flex; flex-direction: row; justify-content: space-between;">
-							<span>1시간 이용권</span>
-							<sapn>35000원</sapn>
-						</div>
-					</div>
-					<div class="card-footer">
-						<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-							<span style="font-size: 13px;">예약한 시간에 도착하지 못할 경우 예약이 취소될 수 있습니다.</span>
-							<sapn>
-								<button class="btn btn-sm btn-primary">1:1 문의</button>
-								<button class="btn btn-sm btn-primary">리뷰 쓰기</button>
-							</sapn>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 

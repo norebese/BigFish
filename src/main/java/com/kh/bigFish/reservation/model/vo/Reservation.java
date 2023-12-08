@@ -26,6 +26,7 @@ public class Reservation {
 	private String revRequest;
 	private String revName;
 	private int revPhone; 
+	private String rstoreName;
 }
 
 
