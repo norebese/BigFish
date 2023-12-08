@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="fishingBoardMapper">
+	<resultMap type="FishingBoard" id="fishingBoardResult">
+		<result column="FISHING_NO" property="fishingNo" />
+		<result column="FISHING_TITLE" property="fishingTitle" />
+		<result column="FISHING_WRITER" property="fishingWriter" />
+		<result column="FISHING_CONTENT" property="fishingContent" />
+		<result column="FISHING_STATUS" property="fishingStatus" />
+		<result column="FISHING_CREATE_DATE"
+			property="fishingCreateDate" />
+		<result column="FISHING_COUNT" property="fishingCount" />
+		<result column="RMEM_NO" property="rmemNo" />
+	</resultMap>
+
+	<!-- 게시글 작성 쿼리문 -->
+	<insert id="insertfishingBoard">
+		INSERT INTO FISHBOARD (
+		FISHING_NO,
+		FISHING_TITLE,
+		FISHING_WRITER,
+		FISHING_CONTENT,
+		FISHING_COUNT,
+		RMEM_NO
+		)
+		VALUES (
+	SEQ_FISH_NO.NEXTVAL,
+		#{fishingTitle},
+		#{fishingWriter},
+		#{fishingContent},
+		#{fishingCount},
+		#{rmemNo}
+		)
+	</insert>
+
+
+
+
+</mapper>

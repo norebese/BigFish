@@ -204,16 +204,16 @@
 					</div>
 				</div>
 				<div class="row h-50">
-					<div class="col h-100">
+					<a href="list.fbo" class="col h-100">
 						<img src="<%=contextPath%>/resources/images/1701241621814.png"
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">자유게시판</p>
-					</div>
-					<div class="col h-100">
+					</a>
+					<a href="list.fibo" class="col h-100">
 						<img src="<%=contextPath%>/resources/images/1701241622143.png"
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">조황게시판</p>
-					</div>
+					</a>
 					<div class="col h-100">
 						<img src="<%=contextPath%>/resources/images/1701241621845.png"
 							alt="Your Image">
