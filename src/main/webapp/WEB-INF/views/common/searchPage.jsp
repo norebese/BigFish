@@ -99,6 +99,13 @@
 				</table>
 			</div>
 
+			<script>
+				window.onload = function() {
+					const opt = document.querySelector("#st-search-area option[value=${keyword}]")
+		        		opt.setAttribute("selected", true);
+				}
+			</script>
+
 			<div class="all-see">
 				<a href="list.st">더보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
