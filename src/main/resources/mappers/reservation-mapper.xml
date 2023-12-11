@@ -21,7 +21,7 @@
  	<insert id="insertReservation" parameterType="Reservation">
  		INSERT INTO RESERVATION (rev_no, rmem_no, rstore_no, rev_date, rev_people, rev_start, rev_end, rev_status, rev_request, rev_name, rev_phone)
 		VALUES
-		(1, 
+		(SEQ_REV_NO.NEXTVAL, 
 		#{rmemNo}, 
 		#{rstoreNo},
 		DEFAULT, 
@@ -33,5 +33,18 @@
 		#{revName}, 
 		#{revPhone})
  	</insert>
+ 	
+ 	<select id="jungbokCheck" resultType="_int">
+		SELECT COALESCE(SUM(r.REV_PEOPLE), 0) AS RESERVED_PEOPLE
+		FROM STORE s
+		LEFT JOIN RESERVATION r ON s.STORE_NO = r.RSTORE_NO
+		WHERE s.STORE_NO = #{rstoreNo}
+		AND r.REV_STATUS = 'Y'
+		AND (
+		    (#{revStart} &gt;= r.REV_START AND #{revStart} &lt; r.REV_END)
+		    OR (#{revEnd} &gt; r.REV_START AND #{revEnd} &lt;= r.REV_END)
+		    OR (#{revStart} &lt;= r.REV_START AND #{revEnd} &gt;= r.REV_END)
+			)
+ 	</select>
  
  </mapper>

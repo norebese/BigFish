@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reservation.model.service.ReservationService;
 import com.kh.bigFish.reservation.model.vo.Reservation;
 import com.kh.bigFish.store.model.vo.Store;
+import com.kh.bigFish.store.model.vo.Ticket;
 
 @Controller
 public class ReservationController {
@@ -29,11 +31,6 @@ public class ReservationController {
 	@Autowired
 	private ReservationService reservationService;
 	
-	@RequestMapping(value="/seaReservation")
-	public String seaReservation() {
-		
-		return "reservation/seaReservation";
-	}
 	@RequestMapping(value="/insertReservationOne")
 	public String insertReservationOne() {
 		
@@ -44,29 +41,14 @@ public class ReservationController {
 		
 		return "reservation/insertReservationTwo";
 	}
-	@RequestMapping(value="/fishReservation")
-	public String fishReservation() {
-		
-		return "reservation/fishReservation";
-	}
+	
 	@RequestMapping(value="reservationDetail")
 	public String reservationDetail() {
 		
 		return "reservation/reservationDetail";
 	}
 	
-	
-	
-	
-	
-//	@RequestMapping("loadTickets")
-//	@ResponseBody
-//	public list<Ticket> loadTickets(){
-//		
-//		
-//		
-//		return Ticket;
-//	}
+
 	
 	@RequestMapping("insertReservation")
 	public void insertReservation(Reservation R , Member M, HttpServletRequest request, HttpServletResponse response, HttpSession session) {

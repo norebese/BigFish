@@ -182,48 +182,48 @@
 		<div class="main">
 			<div class="container-fluid h-100">
 				<div class="row h-50">
-					<div class="col h-100">
+					<a href="seaReservation" class="col h-100" style="text-decoration: none; color: black;">
 						<img src="<%=contextPath%>/resources/images/1701241622228.png"
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">바다 낚시</p>
-					</div>
-					<div class="col h-100">
+					</a>
+					<a href="fishReservation" class="col h-100" style="text-decoration: none; color: black;">
 						<img src="<%=contextPath%>/resources/images/1701241622051.png"
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">민물 낚시</p>
-					</div>
-					<div class="col h-100">
+					</a>
+					<a href="" class="col h-100" style="text-decoration: none; color: black;">
 						<img src="<%=contextPath%>/resources/images/1701241622193.png"
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">낚시 용품</p>
-					</div>
-					<div class="col h-100">
+					</a>
+					<a href="" class="col h-100" style="text-decoration: none; color: black;">
 						<img src="<%=contextPath%>/resources/images/1701241621969.png"
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">어종</p>
-					</div>
+					</a>
 				</div>
 				<div class="row h-50">
-					<div class="col h-100">
+					<a href="" class="col h-100" style="text-decoration: none; color: black;">
 						<img src="<%=contextPath%>/resources/images/1701241621814.png"
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">자유게시판</p>
-					</div>
-					<div class="col h-100">
+					</a>
+					<a href="" class="col h-100" style="text-decoration: none; color: black;">
 						<img src="<%=contextPath%>/resources/images/1701241622143.png"
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">조황게시판</p>
-					</div>
-					<div class="col h-100">
+					</a>
+					<a href="" class="col h-100" style="text-decoration: none; color: black;">
 						<img src="<%=contextPath%>/resources/images/1701241621845.png"
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">예약</p>
-					</div>
-					<div class="col h-100" style="cursor: pointer;">
-						<img onclick="location.href='list.st'" src="<%=contextPath%>/resources/images/1701241621923.png"
-							alt="Your Image" >
+					</a>
+					<a href="" class="col h-100" style="text-decoration: none; color: black;">
+						<img src="<%=contextPath%>/resources/images/1701241621923.png"
+							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">학습동영상</p>
-					</div>
+					</a>
 				</div>
 			</div>
 		</div>

@@ -10,4 +10,6 @@ public interface ReservationService {
 
 	int insertReservation(Reservation R);
 	
+	int jungbokCheck(Reservation R);
+	
 }

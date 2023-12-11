@@ -13,4 +13,8 @@ public class ReservationDao {
 		return sqlSession.insert("reservationMapper.insertReservation", R);
 	}
 
+	public int jungbokCheck(SqlSessionTemplate sqlSession, Reservation r) {
+		return sqlSession.selectOne("reservationMapper.jungbokCheck", r);
+	}
+
 }

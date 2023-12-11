@@ -150,4 +150,23 @@
 	WHERE MEM_NO = #{memNo}
 	</select>
 	
+	<!-- 네이버 로그인 아이디 체크 -->
+	<select id="checkMember" resultMap="memberResult">
+	SELECT MEM_NO,
+        MEM_ID,
+        MEM_PWD,
+        MEM_NICK,
+        PHONE,
+        ADDRESS,
+        ADDRESS_DETAIL,
+        POST_NO,
+        MEM_CREATE_DATE,
+        MEM_STATUS,
+        BUSINESS_STATUS,
+        MEM_ADMIN,
+        MEM_CHANGE_NAME
+	FROM MEMBER
+	WHERE MEM_ID = #{memId}
+	</select>
+	
 </mapper>

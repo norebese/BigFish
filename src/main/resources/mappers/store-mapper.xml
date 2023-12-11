@@ -21,6 +21,8 @@
  		<result column="STORE_KIND" property="storeKind"/>
  		<result column="STORE_FISH_KIND" property="storeFishKind"/>
  		<result column="BUSINESS_NO" property="businessNo"/>
+ 		<result column="LIKE_COUNT" property="likeCount"/>
+ 		<result column="MIN_PRICE" property="minPrice"/>
  	</resultMap>
  	
  	<resultMap type="TicKet" id="ticketResult">
@@ -30,6 +32,12 @@
  		<result column="TICKET_PRICE" property="ticketPrice"/>
  		<result column="TICKET_TIME" property="ticketTime"/>
  	</resultMap>
+ 	
+ 	<resultMap type="Slike" id="slikeResult">
+ 		<result column="RMEM_NO" property="rmemNo"/>
+ 		<result column="RSTORE_NO" property="rstoreNo"/>
+ 		<result column="STORE_GOOD_STATUS" property="storeGoodStatus"/>
+ 	</resultMap>
  
 	<select id="checkBusinessNo" resultType="_int">
 		SELECT COUNT(*)
@@ -37,11 +45,31 @@
 		WHERE BUSINESS_NO = #{businessNo}
  	</select>
 
+	<select id="storeCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM STORE
+		
+	</select>
+	
+	<select id="filteredStoreCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM STORE
+		WHERE LOCATION_BIG = #{locationBig}
+		AND LOCATION_SMALL = #{locationSmall}
+	</select>
+
  	<select id="ajaxStoreList" resultMap="storeResult">
- 		SELECT *
- 		FROM STORE
- 		WHERE LOCATION_BIG = #{locationBig}
- 		AND LOCATION_SMALL = #{locationSmall}
+ 		SELECT S.STORE_NO,
+        S.STORE_ADDRESS,
+        S.STORE_NAME,
+        COUNT(DISTINCT G.RSTORE_NO) AS LIKE_COUNT,
+        COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price
+		FROM STORE S
+		LEFT JOIN STOREGOOD G ON S.STORE_NO = G.RSTORE_NO
+        LEFT JOIN TICKET t ON s.STORE_NO = t.RSTORE_NO
+		WHERE S.LOCATION_BIG = #{locationBig}
+		  AND S.LOCATION_SMALL = #{locationSmall}
+		GROUP BY S.STORE_NO, S.STORE_ADDRESS, S.STORE_NAME
  	</select>
  	
  	<select id="resDetailPage" resultMap="storeResult">
@@ -122,5 +150,126 @@
  						SEQ_STORE_NO.CURRVAL
  						)
  	</insert>
+ 	
+ 	<select id="TicketTime" resultMap="ticketResult">
+		SELECT *
+		FROM TICKET
+		WHERE RSTORE_NO = #{rstoreNo}
+ 	</select>
+ 	
+ 	<insert id="createLikeTable">
+ 		INSERT INTO STOREGOOD (RMEM_NO, RSTORE_NO)
+		VALUES (#{memNo}, #{storeNum})
+ 	</insert>
  
+ 	<select id="checkLikeTable" resultMap="slikeResult">
+ 		SELECT *
+		FROM STOREGOOD
+		WHERE RMEM_NO = #{memNo}
+		AND RSTORE_NO = #{storeNum}
+ 	</select>
+ 	
+ 	<select id="likeResult" resultMap="slikeResult">
+ 		SELECT STORE_GOOD_STATUS
+		FROM STOREGOOD
+		WHERE RMEM_NO = #{rmemNo}
+		AND RSTORE_NO = #{rstoreNo}
+ 	</select>
+ 	
+ 	<update id="storeUpdateLike">
+ 		UPDATE STOREGOOD
+		SET STORE_GOOD_STATUS = #{result}
+		WHERE RSTORE_NO = #{rstoreNo}
+		AND RMEM_NO = #{rmemNo}
+ 	</update>
+ 	
+ 	<select id="storeList" resultMap="storeResult">
+ 		SELECT 
+		    s.STORE_NO,
+		    s.STORE_ADDRESS,
+		    s.STORE_NAME,
+		    COUNT(DISTINCT g.RSTORE_NO) AS like_count,
+		    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price
+		FROM 
+		    STORE s
+		LEFT JOIN 
+		    STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
+		LEFT JOIN 
+		    TICKET t ON s.STORE_NO = t.RSTORE_NO
+		GROUP BY 
+		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME
+		ORDER BY 
+		    like_count DESC
+	</select>
+	
+	<select id="seaStoreCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM STORE
+		WHERE STORE_KIND = 'seaShip'
+        OR STORE_KIND = 'seaSeat'
+	</select>
+	
+	<select id="seaStoreList" resultMap="storeResult">
+ 		SELECT 
+		    s.STORE_NO,
+		    s.STORE_ADDRESS,
+		    s.STORE_NAME,
+		    COUNT(DISTINCT g.RSTORE_NO) AS like_count,
+		    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price
+		FROM 
+		    STORE s
+		LEFT JOIN 
+		    STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
+		LEFT JOIN 
+		    TICKET t ON s.STORE_NO = t.RSTORE_NO
+		WHERE STORE_KIND = 'seaShip'
+		        OR STORE_KIND = 'seaSeat'
+		GROUP BY 
+		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME
+		ORDER BY 
+		    like_count DESC
+	</select>
+ 
+	 <select id="ajaxSeaStoreCount" resultType="_int">
+			SELECT COUNT(*)
+			FROM (SELECT *
+                    FROM STORE
+                    WHERE STORE_KIND = 'seaShip'
+                    OR STORE_KIND = 'seaSeat')
+            WHERE LOCATION_SMALL = #{city1}
+            OR LOCATION_SMALL = #{city2}
+            OR LOCATION_SMALL = #{city3}
+            OR LOCATION_SMALL = #{city4}
+            OR LOCATION_SMALL = #{city5}
+            OR LOCATION_SMALL = #{city6}
+	</select>
+	
+	<select id="ajaxSeaStoreList" resultMap="storeResult">
+ 		SELECT *
+		FROM (SELECT 
+				    s.STORE_NO,
+				    s.STORE_ADDRESS,
+				    s.STORE_NAME,
+				    COUNT(DISTINCT g.RSTORE_NO) AS like_count,
+				    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
+		            s.LOCATION_SMALL
+				FROM 
+				    STORE s
+				LEFT JOIN 
+				    STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
+				LEFT JOIN 
+				    TICKET t ON s.STORE_NO = t.RSTORE_NO
+				WHERE STORE_KIND = 'seaShip'
+				        OR STORE_KIND = 'seaSeat'
+				GROUP BY 
+				    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, s.LOCATION_SMALL
+				ORDER BY 
+				    like_count DESC)
+		WHERE LOCATION_SMALL = #{city1}
+        OR LOCATION_SMALL = #{city2}
+        OR LOCATION_SMALL = #{city3}
+        OR LOCATION_SMALL = #{city4}
+        OR LOCATION_SMALL = #{city5}
+        OR LOCATION_SMALL = #{city6}
+	</select>
  </mapper>
