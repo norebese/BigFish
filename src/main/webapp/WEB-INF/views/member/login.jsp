@@ -35,8 +35,11 @@
 <!-- 네이버 로그인 API-->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 
+<!-- API-->
+<script src="<%=contextPath%>/resources/js/service/member-api.js"></script>
+
 <!-- jQuery library (1.11.3)-->
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- JS-->
 <script src="<%=contextPath%>/resources/js/login.js"></script>
@@ -79,9 +82,9 @@
       
 	    <div id="personal-button" class="login-btn-container">
         <div class="find-idpw">
-          <a style="opacity: 0.5;">아이디 찾기</a>
+          <a data-bs-toggle="modal" data-bs-target="#FindId" style="opacity: 0.5; cursor: pointer;">아이디 찾기</a>
           &nbsp;/&nbsp;
-          <a style="opacity: 0.5;">비밀번호 찾기</a>
+          <a data-bs-toggle="modal" data-bs-target="#FindPwd" style="opacity: 0.5; cursor: pointer;">비밀번호 찾기</a>
         </div>
 	        <button type="submit" class="btn btn-primary" style="width: 450px; margin-bottom: 10px;" onclick="testFunk()">로그인하기</button>
 	    </div>
@@ -119,9 +122,9 @@
       </div>
 	    <div id="company-button" style="display: none;" class="login-btn-container">
         <div class="find-idpw">
-          <a style="opacity: 0.5;">아이디 찾기</a>
+          <a data-bs-toggle="modal" data-bs-target="#FindId" style="opacity: 0.5; cursor: pointer;">아이디 찾기</a>
           &nbsp;/&nbsp;
-          <a style="opacity: 0.5;">비밀번호 찾기</a>
+          <a data-bs-toggle="modal" data-bs-target="#FindPwd" style="opacity: 0.5; cursor: pointer;">비밀번호 찾기</a>
         </div>
 	        <button type="submit" class="btn btn-primary" style="width: 450px; margin-bottom: 10px;" onclick="testFunk()">로그인하기</button>
 	    </div>
@@ -133,6 +136,74 @@
     </div>
     
     <div class="top-line"></div>
+
+<!-- The Modal -->
+<div class="modal" id="FindId">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">아이디 찾기</h4>
+      </div>
+
+      <!-- Modal body -->
+      
+      <div class="modal-body">
+        <div id="findIdArea" style="display: flex; flex-direction: column; margin: 0px auto;">
+        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">닉네임 &nbsp;<input name="memNick" id="memNick" style="width: 60%;" class="form-control" type="text" placeholder="닉네임을 입력하세요."></div>
+        <br>
+        <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">전화번호 <input name="phone" id="phone" style="width: 60%;" class="form-control" type="text" placeholder="전화번호를 입력하세요."></div>
+        </div>
+        <div id="findedIdArea" style="display: none; flex-direction: row; justify-content: center; font-size: 35px;">
+        아이디 표시
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" onclick="findId();" class="btn btn-primary">아이디 찾기</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="FindPwd">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">비밀번호 찾기</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div id="findPwdArea" style="display: flex; flex-direction: column; margin: 0px auto;">
+          <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">이메일(ID) <input name="email" id="email" style="width: 60%;" class="form-control" type="text" placeholder="닉네임을 입력하세요."></div>
+          <br>
+          <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">전화번호 <input name="phone" id="phonePwd" style="width: 60%;" class="form-control" type="text" placeholder="전화번호를 입력하세요."></div>
+          </div>
+          <div id="findedPwdArea" style="display: none; flex-direction: row; justify-content: center; font-size: 20px;">
+            비밀번호 표시
+          </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" onclick="findPwd();" class="btn btn-primary">비밀번호 찾기</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
 
     <jsp:include page="../common/footer.jsp"/>
 

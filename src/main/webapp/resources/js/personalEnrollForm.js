@@ -3,18 +3,21 @@ function checkPwd(){
 
     const pwd = document.querySelector("#pwd");
     const passwordRule = document.querySelector("#passwordRule");
-    const pwdCheckBtn = document.querySelector("#pwdCheck-btn");
+    const passwordRuleOK = document.querySelector("#passwordRuleOK");
+    const enrollBtn = document.querySelector("#enroll-btn");
 
     if(!reg.test(pwd.value)){
+        passwordRuleOK.style.display = "none";
         passwordRule.style.display = "block";
+        enrollBtn.setAttribute("disabled",ture);
         return;
     }
 
     passwordRule.style.display = "none";
+    passwordRuleOK.style.display = "block";
     pwd.setAttribute("readonly",true);
+    enrollBtn.removeAttribute("disabled");
     
-    pwdCheckBtn.setAttribute("disabled",true);
-
 }
 
 function samePwd(){

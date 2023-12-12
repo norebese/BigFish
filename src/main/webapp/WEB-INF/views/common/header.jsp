@@ -74,10 +74,10 @@
 </head>
 <body>
 	<%if(alertMsg != null){ %>
-		<script>
+		
 	<script>
-			alert("<%=alertMsg%>");
-		</script>
+		alert("<%=alertMsg%>");
+	</script>
 	<%session.removeAttribute("alertMsg"); %>
 	<%} %>
 
