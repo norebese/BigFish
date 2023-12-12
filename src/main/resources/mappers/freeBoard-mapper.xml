@@ -107,5 +107,13 @@
 		WHERE FREE_STATUS = 'Y'
 		AND FREE_NO = #{freeNo}
 	</select>
+	
+	<update id="updateFreeBoard">
+	  UPDATE FREEBOARD
+	  		SET FREE_TITLE = #{freeTitle},
+	  			FREE_CONTENT = #{freeContent}
+	  			
+	  	WHERE FREE_NO = #{freeNo}
+  </update>
 
 </mapper>

@@ -25,5 +25,8 @@ public interface FreeBoardService {
 	
 	//게시글 상세조회(select)
 	FreeBoard selectBoard(int freeNo);
+	
+	//게시글 수정 서비스(update)
+	int updateFreeBoard(FreeBoard b);
 
 }

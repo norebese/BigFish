@@ -52,4 +52,10 @@ public class FreeBoardServiceImpl  implements FreeBoardService {
 		// TODO Auto-generated method stub
 		return freeBoardDao.selectBoard(sqlSession, freeNo);
 	}
+
+	@Override
+	public int updateFreeBoard(FreeBoard b) {
+		System.out.println("여기입니다."+b);
+		return freeBoardDao.updateFreeBoard(sqlSession, b);
+	}
 }

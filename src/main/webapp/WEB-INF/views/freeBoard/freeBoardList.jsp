@@ -70,17 +70,31 @@
 			<nav aria-label="Page navigation example"
 				class="d-flex justify-content-center">
 				<ul class="pagination">
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+					<c:choose>
+                		<c:when test="${pi.currentPage eq 1 }">
+                    		<li class="page-item disabled"><a class="page-link"><span aria-hidden="true">&laquo;</span>
 					</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<li class="page-item"><a class="page-link" href="list.fbo?cpage=${pi.currentPage - 1 }"><span aria-hidden="true">&laquo;</span>
 					</a></li>
+                    	</c:otherwise>
+                    </c:choose>
+					
+					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+                   <li class="page-item"><a class="page-link" href="list.fbo?cpage=${p }">${p }</a></li>
+                    </c:forEach>
+					
+					 <c:choose>
+                		<c:when test="${pi.currentPage eq pi.maxPage }">
+                    		<li class="page-item disabled"><a class="page-link"><span aria-hidden="true">&raquo;</span>
+					</a></li>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<li class="page-item"><a class="page-link" href="list.fbo?cpage=${pi.currentPage + 1 }"> <span aria-hidden="true">&raquo;</span>
+					</a></li>
+                    	</c:otherwise>
+                    </c:choose>
 				</ul>
 			</nav>
 

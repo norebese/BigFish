@@ -59,14 +59,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- <tr>
-
-                    <td> <i class="bi bi-person-circle">광주낚시맨</i> </td>
-                    <th>작성일</th>
-                    <td>좋아요:50</td>
-                    <td>조회수:32</td>
-                    <td>2023/0101</td>
-                </tr> -->
+	
 
 
 				<tr>
@@ -82,29 +75,17 @@
 							55 댓글: 5</h6>
 					</div>
 					<div class="col-6 col-md-4">
-						<button type="button" class="btn btn-success" onclick="postFormSubmit(1)">글수정</button>
+						<button type="button" class="btn btn-success" onclick="location.href='freeUpdateForm.bo?bno=${b.freeNo}'">글수정</button>
 						<button type="button" class="btn btn-danger"
-							style="margin-left: 15px;" onclick="postFormSubmit(2)">글삭제</button>
+							style="margin-left: 15px;" onclick="">글삭제</button>
 					</div>
 				</div>
 
 				<form action="" method="post" id="postForm">
-					<input type="hidden" name="bno" value="${b.boardNo}"> <input
+					<input type="hidden" name="bno" value="${b.freeNo}"> <input
 						type="hidden" name="freeContent" value="${b.freeContent}">
 				</form>
-				<script type="text/javascript">
-					function postFormSubmit(num) {
-						if (num === 1) {
-							$("#postForm").attr('action', 'updateForm.fbo');
-							// document.querySelector('#postForm').setAttribute('action','updateForm.bo');
-						} else {
-							$("#postForm").attr('action', 'delete.fbo');
-							// document.querySelector('#postForm').setAttribute('action','delete.bo');
-						}
-						$("#postForm").submit();
-						// document.querySelector('#postForm').submit();
-					}
-				</script>
+				
 
 				<br>
 
@@ -156,5 +137,7 @@
 					<div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
 				</div>
 			</div>
+			
+			
 </body>
 </html>

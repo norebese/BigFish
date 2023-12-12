@@ -122,14 +122,42 @@ public class FreeBoardController {
 		}
 	}
 	
-	@RequestMapping("updateForm.fbo")
-	public String updateForm(int bno, Model model) {
+	
+	
+//	@RequestMapping("freeUpdateForm.bo")
+//	public String updateForm(int bno, Model model) {
+//		
+//		//현재 내가 수정하기를 클릭한 게시글에 대한 정보를 가지고 이동
+//		model.addAttribute("b", freeboardService.selectBoard(bno));
+//		
+//		
+//		return "board/boardEnrollForm";
+//	}
+	
+	@RequestMapping(value="freeUpdateForm.bo")
+	public String AnnEnrollForm(int bno, Model model) {
 		
-		//현재 내가 수정하기를 클릭한 게시글에 대한 정보를 가지고 이동
 		model.addAttribute("b", freeboardService.selectBoard(bno));
 		
+		return "freeBoard/freeBoardUpdateForm";
+	}
+	
+	
+	@RequestMapping("update.fbo")
+	public String updateBoard(FreeBoard b, String filePath, HttpSession session, MultipartFile reUpfile, MultipartFile upfile, Model model) {
+	
+		//b객체 update
+		int result = freeboardService.updateFreeBoard(b);
 		
-		return "board/boardUpdateForm";
+		//성공유무 확인후 페이지 리턴
+		if(result>0) {
+			session.setAttribute("alertMsg", "게시글 수정완료");
+			return "redirect:detail.fbo?bno=" + b.getFreeNo();
+		}else {
+			model.addAttribute("errorMsg", "게시글 작성 실패");
+			return "common/errorMsg";
+		}
+		
 	}
 	
 }

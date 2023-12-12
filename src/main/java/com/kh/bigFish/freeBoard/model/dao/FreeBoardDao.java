@@ -42,4 +42,10 @@ public class FreeBoardDao {
 
 		return sqlSession.selectOne("freeBoardMapper.selectBoard",freeNo);
 	}
+	
+	
+	public int updateFreeBoard(SqlSessionTemplate sqlSession, FreeBoard b) {
+		System.out.println("여기입니다."+b);
+		return sqlSession.update("freeBoardMapper.updateFreeBoard", b);
+	}
 }

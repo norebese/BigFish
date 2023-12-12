@@ -3,7 +3,9 @@ package com.kh.bigFish.fishingBoard.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,10 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.bigFish.announce.model.vo.Announce;
 import com.kh.bigFish.attachment.model.vo.Attachment;
+import com.kh.bigFish.common.model.vo.PageInfo;
+import com.kh.bigFish.common.template.Pagenation;
 import com.kh.bigFish.fishingBoard.model.service.FishingBoardService;
 import com.kh.bigFish.fishingBoard.model.vo.FishingBoard;
 import com.kh.bigFish.member.model.vo.Member;
@@ -26,16 +33,25 @@ public class FishingBoardController {
 	@Autowired
 	private FishingBoardService fishingBoardService;
 
+	
+//	@RequestMapping(value="/list.fibo")
+//	public String freeBoardList() {
+//		
+//		return "fishingBoard/fishingBoardDetailView";
+//	}
+	
 	@RequestMapping("list.fibo")
-	public String fishingBoardList() {
-
-		//		PageInfo pi = Pagenation.getPageInfo(fishboardService.selectListCount(), currentPage, 10, 5);
-		//		
-		//		//ModelAndView는 메서드 체인(이어쓰기) 가능함
-		//		mv.addObject("pi", pi).addObject("list", fishboardService.selectList(pi)).setViewName("freeBoard/freeBoardList");
-		//		System.out.println(mv);
-		return "fishingBoard/fishingBoardEnrollForm";
+	public ModelAndView selectList(@RequestParam(value="cpage", defaultValue="1")int currentPage, ModelAndView mv) {
+		
+				
+		PageInfo pi = Pagenation.getPageInfo(fishingBoardService.selectListCount(), currentPage, 10, 9);
+		System.out.println("12341234"+pi+"1253532151235"+mv);
+		//ModelAndView는 메서드 체인(이어쓰기) 가능함
+		mv.addObject("pi", pi).addObject("list", fishingBoardService.selectList(pi)).setViewName("fishingBoard/fishingBoardList");
+		System.out.println(mv);
+		return mv;
 	}
+	
 
 	@ResponseBody
 	@RequestMapping(value="/fishinguploadImageFile") 
@@ -172,6 +188,103 @@ public class FishingBoardController {
 
 		return changeName;
 	}
+	
+	
+	
+	@RequestMapping("detail.fibo")
+	public String selectBoard(int bno, Model model) {
+	
+		int result = fishingBoardService.increaseCount(bno);
+		
+		if(result>0) {
+			FishingBoard b = fishingBoardService.selectBoard(bno);
+			System.out.println("1234바보"+b);
+			model.addAttribute("b", b);
+			
+			
+			return "fishingBoard/fishingBoardDetailView";
+		}else {
+			model.addAttribute("errorMsg", "게시글 작성 실패");
+			return "common/errorMsg";
+		}
+	}
+	
+	@RequestMapping("enrollForm.fibo")
+	public String enrollForm() {
+		return "fishingBoard/fishingBoardEnrollForm";
+	}
+	
+	
+	@RequestMapping("fishingUpdateForm.fibo")
+	public String updateBoard(FishingBoard b, String filePath, HttpSession session, MultipartFile reUpfile, MultipartFile upfile, Model model) {
+		
+		
+		
+		//새로운 첨부파일 존재유무확인
+		if(!reUpfile.getOriginalFilename().equals("")) {
+			//새로운 첨부파일 서버 업로드
+			String changeName = saveFile(reUpfile, session);
+			
+			//새로운 첨부파일 있다면 => 기존 첨부파일 삭제
+			if(b.getOriginName() != null) {
+			new File(session.getServletContext().getRealPath(b.getChangeName())).delete();
+			}
+			
+			//b객체에 새로운 첨부파일 정보(원본명, 저장경로) 저장
+			b.setOriginName(reUpfile.getOriginalFilename());
+			b.setChangeName("resources/uploadFiles/"+changeName);
+		}
+		//b객체 update
+		int result1 = fishingBoardService.updateBoard(b);
+		int result2 = fishingBoardService.updateFileBoard(b);
+		
+		//성공유무 확인후 페이지 리턴
+		if((result1*result2)>0) {
+			session.setAttribute("alertMsg", "게시글 수정완료");
+			return "redirect:detail.fibo?bno=" + b.getFishingNo();
+		}else {
+			model.addAttribute("errorMsg", "게시글 작성 실패");
+			return "common/errorMsg";
+		}
+		
+	}
+	@RequestMapping(value="fishingUpdateForm.bo")
+	public String AnnEnrollForm(int bno, Model model) {
+		
+		model.addAttribute("b", fishingBoardService.selectBoard(bno));
+		
+		return "fishingBoard/fishingBoardUpdateForm";
+	}
+	
+	@RequestMapping("delete.fibo")
+	public String deleteBoard(int bno, String filePath, HttpSession session, Model model) {
+		System.out.println("1등이다"+bno);
+		int result = fishingBoardService.deleteBoard(bno);
+		
+		session.setAttribute("alertMsg", "게시글 수정완료");
+			return "redirect:list.fibo";
+
+	}
+	
+	@RequestMapping(value="fisearchForm.bo")
+	public ModelAndView searchAnn(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		PageInfo pi = Pagenation.getPageInfo(fishingBoardService.selectSearchListCount(map), currentPage, 10, 5);
+		ArrayList<FishingBoard> list = fishingBoardService.selectSearchList(map, pi);
+		
+		mv.addObject("pi",pi)
+		  .addObject("list", list)
+		  .addObject("condition", condition)
+		  .addObject("keyword", keyword)
+		  .setViewName("announce/announceList");
+		
+		return mv;
+	}
 }
+
 
 

@@ -22,4 +22,7 @@ public class FishingBoard {
 	private Date fishingCreateDate;
 	private int fishingCount;
 	private int rmemNo;
+	private String originName;
+	private String changeName;
+	private String rfishingNo;
 }
