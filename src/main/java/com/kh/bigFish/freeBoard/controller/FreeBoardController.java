@@ -160,4 +160,14 @@ public class FreeBoardController {
 		
 	}
 	
+	@RequestMapping("delete.fbo")
+	public String deleteBoard(int bno, String filePath, HttpSession session, Model model) {
+		
+		int result = freeboardService.deleteBoard(bno);
+		
+		session.setAttribute("alertMsg", "게시글 수정완료");
+			return "redirect:list.fbo";
+
+	}
+	
 }

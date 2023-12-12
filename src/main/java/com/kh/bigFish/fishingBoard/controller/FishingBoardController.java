@@ -258,7 +258,7 @@ public class FishingBoardController {
 	
 	@RequestMapping("delete.fibo")
 	public String deleteBoard(int bno, String filePath, HttpSession session, Model model) {
-		System.out.println("1등이다"+bno);
+		
 		int result = fishingBoardService.deleteBoard(bno);
 		
 		session.setAttribute("alertMsg", "게시글 수정완료");
@@ -280,7 +280,7 @@ public class FishingBoardController {
 		  .addObject("list", list)
 		  .addObject("condition", condition)
 		  .addObject("keyword", keyword)
-		  .setViewName("announce/announceList");
+		  .setViewName("fishingBoard/fishingBoardList");
 		
 		return mv;
 	}

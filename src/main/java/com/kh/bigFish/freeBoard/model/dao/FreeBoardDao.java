@@ -45,7 +45,13 @@ public class FreeBoardDao {
 	
 	
 	public int updateFreeBoard(SqlSessionTemplate sqlSession, FreeBoard b) {
-		System.out.println("여기입니다."+b);
+	
 		return sqlSession.update("freeBoardMapper.updateFreeBoard", b);
+	}
+	
+	
+public int deleteBoard(SqlSessionTemplate sqlSession, int freeNo) {
+		
+		return sqlSession.update("freeBoardMapper.deleteBoard", freeNo);
 	}
 }

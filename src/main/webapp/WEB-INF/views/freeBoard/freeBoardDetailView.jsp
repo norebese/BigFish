@@ -59,7 +59,7 @@
 						</div>
 					</div>
 				</div>
-	
+
 
 
 				<tr>
@@ -74,18 +74,21 @@
 						<h6 align="left" style="margin-bottom: 0px; margin-top: 15px;">좋아요:
 							55 댓글: 5</h6>
 					</div>
+						<c:if test="${loginUser.memNick eq b.freeWriter }">
 					<div class="col-6 col-md-4">
-						<button type="button" class="btn btn-success" onclick="location.href='freeUpdateForm.bo?bno=${b.freeNo}'">글수정</button>
+						<button type="button" class="btn btn-success"
+							onclick="location.href='freeUpdateForm.bo?bno=${b.freeNo}'">글수정</button>
 						<button type="button" class="btn btn-danger"
-							style="margin-left: 15px;" onclick="">글삭제</button>
+							data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+							글삭제</button>
 					</div>
+						</c:if>
 				</div>
 
-				<form action="" method="post" id="postForm">
-					<input type="hidden" name="bno" value="${b.freeNo}"> <input
-						type="hidden" name="freeContent" value="${b.freeContent}">
-				</form>
+			
 				
+			
+
 
 				<br>
 
@@ -137,7 +140,29 @@
 					<div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
 				</div>
 			</div>
-			
-			
+
+			<!-- Modal -->
+			<form method="post" action="delete.fbo" enctype="multipart/form-data">
+				<input type="hidden" value="${b.freeNo}" name="bno">
+				<div class="modal fade" id="staticBackdrop"
+					data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+					aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="staticBackdropLabel">글삭제</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">글을 삭제하실려면 아래 글삭제를 눌러주세요.</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">닫기</button>
+								<button type="submit" class="btn btn-danger">글삭제</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
 </body>
 </html>

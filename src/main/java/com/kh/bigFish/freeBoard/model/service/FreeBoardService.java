@@ -28,5 +28,8 @@ public interface FreeBoardService {
 	
 	//게시글 수정 서비스(update)
 	int updateFreeBoard(FreeBoard b);
+	
+	//게시글 삭제서비스(update)
+	int deleteBoard(int boardNo);
 
 }
