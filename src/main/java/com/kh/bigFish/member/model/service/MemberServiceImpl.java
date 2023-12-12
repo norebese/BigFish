@@ -66,6 +66,11 @@ public class MemberServiceImpl implements MemberService {
 	public int profileImgAreaChange(Member m) {
 		return memberDao.profileImgAreaChange(sqlSession, m);
 	}
+
+	@Override
+	public Member checkMember(String memId) {
+		return memberDao.checkMember(sqlSession, memId);
+	}
 	
 	
 }

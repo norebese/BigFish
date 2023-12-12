@@ -1,12 +1,12 @@
     
-        var buttonElement1 = document.getElementById('hoverImage1');
-        var buttonElement2 = document.getElementById('hoverImage2');
-        var buttonElement3 = document.getElementById('hoverImage3');
-        var buttonElement4 = document.getElementById('hoverImage4');
-        var buttonElement5 = document.getElementById('hoverImage5');
-        var buttonElement6 = document.getElementById('hoverImage6');
-        var buttonElement7 = document.getElementById('hoverImage7');
-        var imageElement = document.getElementById('main-img');
+        let buttonElement1 = document.getElementById('hoverImage1');
+        let buttonElement2 = document.getElementById('hoverImage2');
+        let buttonElement3 = document.getElementById('hoverImage3');
+        let buttonElement4 = document.getElementById('hoverImage4');
+        let buttonElement5 = document.getElementById('hoverImage5');
+        let buttonElement6 = document.getElementById('hoverImage6');
+        let buttonElement7 = document.getElementById('hoverImage7');
+        let imageElement = document.getElementById('main-img');
         
         // 마우스 호버 이벤트 리스너 추가
         buttonElement1.addEventListener('mouseover', function() {
@@ -68,7 +68,7 @@
             document.querySelector('.map-area1').classList.remove('on');
         });
 
-        var prevButtons = document.querySelectorAll('.prev-btn');
+        let prevButtons = document.querySelectorAll('.prev-btn');
         // 이전으로 가기 버튼 클릭 이벤트 리스너 추가
         prevButtons.forEach(function(prevButton) {
             prevButton.addEventListener('click', function() {
@@ -87,7 +87,7 @@
        
 
 
-        var test = document.getElementById('test');
+        let test = document.getElementById('test');
         test.addEventListener('click', function() {
             document.getElementById('testtext').innerText='정보 입니다';
         });
@@ -95,3 +95,47 @@
 		function moveTop(){
             $("html, body").animate({ scrollTop: 0 }, 600);
         }
+        
+        
+    function nextList(date){
+	
+	let showListArea = $("#showList-area2");
+	let Content = '';
+	
+	$.each(date, function (index, store) {
+                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
+				+'<img src="resources/images/shop-example.jpg" alt=""></div>'
+	            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
+	            +'<span class="reply">'
+	            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'
+	            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png" alt="">'+store.likeCount +'</span>'
+	            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
+            });
+	
+	showListArea.append(Content);
+}
+
+
+function updateSeaList(date){
+	
+	let divToUpdate = $('#showList-area');
+	let htmlContent = '';
+	let lastIndex;
+	
+	$.each(date, function (index, store) {
+                htmlContent += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
+				+'<img src="resources/images/shop-example.jpg" alt=""></div>'
+	            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
+	            +'<span class="reply">'
+	            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'
+	            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png" alt="">'+store.likeCount +'</span>'
+	            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';         
+            });
+	
+	divToUpdate.html(htmlContent);
+}
+
+function emptyResult(){
+	let divTarget = $('#showList-area');
+	divTarget.html('<h1>검색 결과가 없습니다</h1>');
+}

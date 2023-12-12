@@ -1,10 +1,5 @@
-<%@page import="com.google.gson.JsonParser"%>
-<%@page import="com.google.gson.Gson"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@page import="com.google.gson.JsonObject"%>
-
 <%
 	String contextPath = request.getContextPath();
 	
@@ -14,12 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>BIG FISH</title>
-
 <!-- CSS-->
-<link rel="stylesheet" href="<%=contextPath%>/resources/css/personalEnrollForm.css">
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/basicPersonalEnrollForm.css">
 
 <!-- JS-->
-<script src="<%=contextPath%>/resources/js/personalEnrollForm.js"></script>
+<script src="<%=contextPath%>/resources/js/basicPersonalEnrollForm.js"></script>
 
 <!-- API-->
 <script src="<%=contextPath%>/resources/js/service/member-api.js"></script>
@@ -32,17 +26,14 @@
 
 <!-- 주소 검색 API (다음카카오)-->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-
 </head>
 <body>
-	<jsp:include page="../common/header.jsp"/>
+<jsp:include page="../common/header.jsp"/>
 	  
 	  
 	<br><br><br><br><br><br>
 	<div class="top-line">
 		<h1 class="head-text" style="color: rgb(59, 175, 252);">일반 회원 가입</h1>
-		<input type="hidden" value="${memberInfo}" id="memberInfo">
 	</div>
 	<br><br>
 
@@ -102,20 +93,7 @@
 	</div>
 
 	<br><br>
-	<script>
-		window.onload = function() {
-		let tmp = JSON.parse(`${memberInfo}`);
-		
-		document.querySelector("#emailId").value = tmp.response.email;
-		document.querySelector("#memNick").value = tmp.response.nickname;
-		document.querySelector("#phone").value = tmp.response.mobile;
-
-		const memberInfo = document.querySelector('#memberInfo');
-		console.log(tmp);
-	}
-
-
-	</script>
 	<jsp:include page="../common/footer.jsp"/>
+
 </body>
 </html>

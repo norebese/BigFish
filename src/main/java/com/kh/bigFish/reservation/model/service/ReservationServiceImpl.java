@@ -24,4 +24,9 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.insertReservation(sqlSession, R);
 	}
 
+	@Override
+	public int jungbokCheck(Reservation R) {
+		return reservationDao.jungbokCheck(sqlSession, R);
+	}
+
 }
