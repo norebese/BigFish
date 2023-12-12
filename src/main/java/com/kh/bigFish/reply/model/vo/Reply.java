@@ -24,6 +24,5 @@ public class Reply {
 	private int rfreeNo;
 	private int rfishingNo;
 	private int rstudyNo;
-	
-	
+	private int rstoreNo;
 }
