@@ -122,6 +122,11 @@ public class StoreServiceImpl implements StoreService{
 	public ArrayList<Store> selectMyStoreList(int memNo) {
 		return storeDao.selectMyStoreList(sqlSession, memNo);
 	}
+
+	@Override
+	public int storeEnroll(Store s) {
+		return storeDao.storeEnroll(sqlSession, s);
+	}
 	
 }
 

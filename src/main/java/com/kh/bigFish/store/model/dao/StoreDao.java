@@ -159,4 +159,8 @@ public class StoreDao {
 	public ArrayList<Store> selectMyStoreList(SqlSessionTemplate sqlSession, int memNo){
 		return (ArrayList)sqlSession.selectList("storeMapper.selectMyStoreList",memNo);
 	}
+	
+	public int storeEnroll(SqlSessionTemplate sqlSession,Store s) {
+		return sqlSession.insert("storeMapper.storeEnroll",s);
+	}
 }
