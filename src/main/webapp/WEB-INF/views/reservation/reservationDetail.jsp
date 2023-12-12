@@ -259,9 +259,12 @@
 			            	</a>
 	            		</li>
 	            		<ul id="pageNBtn" class="pagination">
-					       <c:forEach var="p" begin="${replyPi.startPage }" end="${replyPi.endPage }">
-					       <li class="page-item"><a class="page-link" href="#" onclick="pageReply(${p})">${p}</a></li>
-					       </c:forEach>
+					       <c:forEach var="p" begin="${replyPi.startPage}" end="${replyPi.endPage}">
+						        <c:set var="activeClass" value="${p == replyPi.currentPage ? 'active' : ''}" />
+						        <li class="page-item ${activeClass}">
+						            <a class="page-link" href="#" onclick="pageReply(${p})">${p}</a>
+						        </li>
+						    </c:forEach>
 				       </ul>
 			          <li id="nextBtn" class="page-item" onclick="pageReply('next')">
 				            <a class="page-link" href="#" aria-label="Next">
@@ -344,6 +347,8 @@
 	        	 let startPage = (data.replyPi.startPage);
 	        	 let endPage = (data.replyPi.endPage);
 	        	 let maxPage = (data.replyPi.maxPage);
+	        	 let currentPage = (data.replyPi.currentPage);
+	        	 updatePageBtn(startPage, endPage, currentPage);
 	        	 updateReplyBtn(endPage, maxPage);
 	        	 
          		$(window).scrollTop(scrollTop);
