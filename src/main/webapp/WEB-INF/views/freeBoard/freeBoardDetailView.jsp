@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%String contextPath = request.getContextPath();%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,11 +16,31 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+	
+	<!-- CSS-->
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/freeBoardDetailView.css">
 
 
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
+	 <br><br><br><br><br>
+	<div class="header-box">
+        <div class="left_box"></div>
+        <div class="center_box">
+            <div style="color: white;">
+            <h2>자유게시판</h2>
+            <br>
+                <tr>
+                    <td>자유롭게 소통을 해보세용~!</td>
+                </tr>
+            </div>
+            <div class="study-image" style="color: white;">              
+                <img style="width: 150px;" src="resources/images/1701241590820.png">
+            </div>
+        </div>
+        <div class="right_box"></div>
+    </div>
 
 	<div class="content" align="center">
 		<br> <br>
@@ -77,9 +99,9 @@
 						<c:if test="${loginUser.memNick eq b.freeWriter }">
 					<div class="col-6 col-md-4">
 						<button type="button" class="btn btn-success"
-							onclick="location.href='freeUpdateForm.bo?bno=${b.freeNo}'">글수정</button>
+							onclick="location.href='freeUpdateForm.bo?bno=${b.freeNo}'" style=" background-color: rgb(59, 175, 252);">글수정</button>
 						<button type="button" class="btn btn-danger"
-							data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+							data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-left: 20px;">
 							글삭제</button>
 					</div>
 						</c:if>
@@ -100,7 +122,7 @@
 							<textarea class="form-control" id="content" cols="55" rows="2"
 								style="resize: none; width: 100%; height: 80px;"></textarea>
 							<button class="btn btn-primary" onclick="addReply();"
-								style="height: 80px; width: 120px; margin-left: 10px;">댓글등록</button>
+								style="height: 80px; width: 120px; margin-left: 10px;background-color: rgb(59, 175, 252); ">댓글등록</button>
 						</div>
 					</th>
 				</div>
@@ -150,7 +172,7 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="staticBackdropLabel">글삭제</h1>
+								<h1 class="modal-title fs-5" id="staticBackdropLabel" >글삭제</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
 							</div>
@@ -164,5 +186,7 @@
 					</div>
 				</div>
 			</form>
+			</div>
+			  <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

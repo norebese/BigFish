@@ -20,20 +20,78 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 
+<style>
+.header-box {
+	display: flex;
+	flex-direction: row;
+}
 
+.left_box {
+	background-color: rgb(52, 152, 219);
+	width: 25%;
+	height: 286px;
+}
+
+.center_box {
+	display: flex;
+	flex-direction: row;
+	background-color: rgb(59, 175, 252);
+	width: 100%;
+	max-width: 1200px;
+	height: 286px;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.right_box {
+	background-color: rgb(52, 152, 219);
+	width: 25%;
+	height: 286px;
+}
+
+.study-image {
+	color: white;
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-start;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="header-box">
+		<div class="left_box"></div>
+		<div class="center_box">
+			<div style="color: white;">
+				<h2>조황게시판</h2>
+				<br>
+				<tr>
+					<td>당신의 대물을 자랑하시오!</td>
+				</tr>
+			</div>
+			<div class="study-image" style="color: white;">
+				<img style="width: 150px;" src="resources/images/1701241591278.png">
+			</div>
+		</div>
+		<div class="right_box"></div>
+	</div>
+
 
 	<div class="content" align="center">
-		<br> <br>
+
 		<div class="innerOuter" style="padding: 5% 10%; width: 80%;">
 			<h2 align="left"
 				style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">조황게시판</h2>
 			<br>
 
 
-			<form method="post" action="delete.fibo" enctype="multipart/form-data">
+			<form method="post" action="delete.fibo"
+				enctype="multipart/form-data">
 				<table id="contentArea" algin="center" class="table"
 					style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">
 
@@ -94,7 +152,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 
 						<c:if test="${loginUser.memNick eq b.fishingWriter }">
 							<div class="col-6 col-md-4">
-								<button type="button" class="btn btn-success"
+								<button type="button" class="btn btn-success" style=" background-color: rgb(59, 175, 252);"
 									onclick="location.href='fishingUpdateForm.bo?bno=${b.fishingNo}'">글수정</button>
 
 								<button type="button" class="btn btn-danger"
@@ -176,5 +234,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 					</div>
 				</div>
 			</form>
+		</div>
+		<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
