@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
@@ -16,13 +16,11 @@
 
 <!-- CSS-->
 
-
 <link rel="stylesheet"
 	href="<%=contextPath%>/resources/css/header.css?ver=1">
 
 
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/header.css?ver=1">
-
 
 <!-- Latest compiled and minified CSS -->
 <link
@@ -31,16 +29,14 @@
 
 <!-- Latest compiled JavaScript -->
 <script
-src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- jQuery library -->
 
-
 <script
-src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 
 
 
@@ -59,12 +55,6 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 
-
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 	<!-- summernote 한국어 팩 -->
 <!-- language pack -->
@@ -91,10 +81,9 @@ li::marker {
 </head>
 <body>
 	<%if(alertMsg != null){ %>
-		
 	<script>
-		alert("<%=alertMsg%>");
-	</script>
+			alert("<%=alertMsg%>");
+		</script>
 	<%session.removeAttribute("alertMsg"); %>
 	<%} %>
 
@@ -107,21 +96,12 @@ li::marker {
 		</div>
 		<div class="header-menu">
 			<div class="search-area">
-				<input type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력해 주세요"> 
-				<a class="search-btn" onclick="mainSearch();">
-					<img style="height: auto; width: 15px; margin-top: 7px;" src="resources/images/search_icon.png" alt="검색버튼">
+				<input type="text" placeholder="검색어를 입력해 주세요"> <a
+					class="search-btn" href=""> <img
+					style="height: auto; width: 15px; margin-top: 7px;"
+					src="resources/images/search_icon.png" alt="검색버튼">
 				</a>
 			</div>
-
-			<c:if test="${not empty keyword}">
-			<script>
-				window.onload = function() {
-					const input = document.querySelector("#search-area input[value=${keyword}]");
-					input.setAttribute("selectde", true);
-				}
-			</script>
-			</c:if>
-
 			<a class="menu-link" href="annList.an">공지사항</a> <a class="menu-link"
 				href="faqList.fa">FAQ</a>
 			<c:choose>

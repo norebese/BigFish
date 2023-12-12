@@ -36,8 +36,8 @@ public class ReplyController {
 		
 		int storeReplyCount = replyService.storeReplyCount(R);
 
-		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, rPage, 10, 5);
-		
+		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, rPage, 5, 5);
+		System.out.println(pi);
 		int sNum = st.getStoreNo();
 		ArrayList<Reply> replyList = replyService.storeReplyList(pi, sNum);
 		session.setAttribute("rNum", storeReplyCount);
@@ -64,7 +64,7 @@ public class ReplyController {
 		
 		int storeReplyCount = replyService.storeReplyCount(R);
 		
-		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, 1, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, 1, 5, 5);
 		System.out.println(pi);
 		int sNum = st.getStoreNo();
 		ArrayList<Reply> replyList = replyService.storeReplyList(pi, sNum);
