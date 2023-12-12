@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BIG FISH</title>
 
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/faqEnroll.css">
 
@@ -22,7 +22,7 @@
 	
 	<br><br>
 	<form class="faq-form" action="faqUpdate.fa">
-		<input type="text" class="faq-title" name="faqTitle" value="${f.faqTitle}"  placeholder="제목을 입력해주세요.">
+		<input type="text" class="faq-title form-control" style="width: 63%;" name="faqTitle" value="${f.faqTitle}"  placeholder="제목을 입력해주세요.">
 		<input type="hidden" name="faqNo" value="${f.faqNo }"/>
 		<input type="hidden" value="${loginUser.memId}" name="faqWriter" />
 		<br><br><br>	

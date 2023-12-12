@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BIG FISH</title>
 
 <!-- CSS-->
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/faqList.css">
@@ -25,9 +25,9 @@
 	<div class="faq-area">
 		<div class="collapse-area">
 			<ul>
-				<li class="faq-btn">${f.faqTitle}</li>
+				<li class="faq-btn" style="cursor:pointer;">${f.faqTitle}</li>
 			</ul>
-			<img class="downarrow" src="resources/images/downarrow.png" data-bs-toggle="collapse" data-bs-target="#faq${f.faqNo}">
+			<img class="downarrow" src="resources/images/downarrow.png" style="cursor:pointer;" data-bs-toggle="collapse" data-bs-target="#faq${f.faqNo}">
 		</div>
 		<p class="faq-date">${f.faqCreateDate}</p>
 		<div class="faq-title-line"></div>
@@ -72,7 +72,9 @@
 	<br>
 	
 	<c:if test="${ not empty loginUser }">
-		<button class="btn btn-primary faq-create" onclick="location.href='faqInsertForm.an'">작성하기</button>
+		<div class="faq-btn-area">
+			<button class="btn btn-primary" onclick="location.href='faqInsertForm.an'">작성하기</button>
+		</div>
 	</c:if>
 	
 	<br><br><br><br><br><br>

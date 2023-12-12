@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BIG FISH</title>
 
 <<link
 
@@ -41,7 +41,7 @@
 	<br><br>
 	
 		<form class="faq-form" action="faqInsert.fa">
-			<input type="text" class="faq-title" name="faqTitle" placeholder="제목을 입력해주세요.">
+			<input type="text" class="faq-title form-control"  style="width: 63%;" name="faqTitle" placeholder="제목을 입력해주세요.">
 			<input type="hidden" value="${loginUser.memId}" name="faqWriter" />
 			<br><br><br>
 			<textarea id="summernote" class="faq-content" name="faqContent"></textarea>
