@@ -37,4 +37,10 @@ public interface MemberService {
 	// 네이버 로그인 체크
 	Member checkMember(String memId);
 	
+	// 아이디 찾기
+	Member findId(Member m);
+	
+	// 비밀번호 찾기
+	Member findPwd(Member m);
+	
 }

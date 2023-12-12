@@ -55,7 +55,8 @@
         </div>
         
         <script type="text/javascript">
-
+        let sPage = 1;
+        let city1; let city2 ;let city3 ;let city4 ;let city5 ;let city6;
         	function seaAreaFilter(param1, param2, param3, param4, param5, param6){
         		//document.getElementById("more").style.display = "none";
         		$.ajax({
@@ -70,15 +71,26 @@
                     },
                     dataType: 'json',
                     success: function(data) {
-                    	if (data.length === 0) {
+                    	if (data.list.length === 0) {
+                    		if(document.getElementById("moreA") != null){
+                        		document.getElementById("moreA").style.display = "none";
+                    		}
                             emptyResult();
                         } else{
-                        	updateSeaList(data);
-                        	if(data.length === 5){
-                        		let moreButton2 = $('<button id="moreA" onclick="ajaxSeaAreaMore()">더 보기</button>');
-                                $('#showList-area').append(moreButton2);
+                        	updateSeaList(data.list);
+                        	sPage = 1;
+                        	let moreButton2 = $('<button id="moreA" onclick="ajaxSeaAreaMore()">더 보기</button>');
+                            $('#btn-area').html(moreButton2);
+                        	if(data.count < 5){
+                        		document.getElementById("moreA").style.display = "none";
                         	}
                         }
+                    	city1 = data.cityNames[0];
+                    	city2 = data.cityNames[1];
+                    	city3 = data.cityNames[2];
+                    	city4 = data.cityNames[3];
+                    	city5 = data.cityNames[4];
+                    	city6 = data.cityNames[5];
                     },
                     error: function() {
                     	console.log("ajax 통신 실패");
@@ -86,29 +98,27 @@
                 });
         	}
         	
-        	
         	function ajaxSeaAreaMore(){
+        		sPage++;
         		$.ajax({
                     type: "GET",
                     url: "ajaxSeaAreaMore", 
-                    data: { param1: param1,
-                    	param2: param2,
-                    	param3: param3,
-                    	param4: param4,
-                    	param5: param5,
-                    	param6: param6
+                    data: { param1: city1,
+                    	param2: city2,
+                    	param3: city3,
+                    	param4: city4,
+                    	param5: city5,
+                    	param6: city6,
+                    	sPage: sPage
                     },
                     dataType: 'json',
                     success: function(data) {
-                    	if (data.length === 0) {
-                            emptyResult();
-                        } else{
-                        	updateSeaList(data);
-                        	if(data.length === 5){
-                        		let moreButton2 = $('<button id="moreA" onclick="ajaxSeaListMore()">더 보기</button>');
-                                $('#showList-area').append(moreButton2);
-                        	}
-                        }
+                    	nextListFiltered(data.list);
+                    	let moreButton2 = $('<button id="moreA" onclick="ajaxSeaAreaMore()">더 보기</button>');
+                		$('#btn-area').html(moreButton2);
+                    	if(data.piS.currentPage === data.piS.maxPage){
+                    		document.getElementById("moreA").style.display = "none";
+                    	}
                     },
                     error: function() {
                     	console.log("ajax 통신 실패");
@@ -326,6 +336,9 @@
 		        	</div>
 			    </c:if>
 	          </c:forEach>
+            </div>
+            <div id="btn-area">
+            	
             </div>
             
             <script type="text/javascript">

@@ -21,6 +21,22 @@
 		 FROM STUDY
 		WHERE STUDY_STATUS = 'Y'
 	</select>
+  	
+  	<select id="searchLike" resultType="int">
+		SELECT COUNT(*)
+		 FROM STUDYGOOD
+		WHERE sno = #{sno} AND rmemNo = #{rmemNo}
+	</select>
+	
+	<insert id="createLike">
+		INSERT INTO STUDYGOOD (sno, rmemNo)
+			VALUES (#{sno}, #{rmemNo})
+	</insert>
+	
+	<delete id="deleteLike">
+		DELETE FROM STUDYGOOD
+		WHERE sno = #{sno} AND rmemNo = #{rmemNo}	
+	</delete>
 	
 	<select id="selectList" resultMap="studyResult">
 		SELECT STUDY_NO,
@@ -80,4 +96,50 @@
 		   	   STUDY_LINK = #{studyLink}
 		WHERE STUDY_NO = #{studyNo}
 	</update>
+	
+	<select id="selectSearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM STUDY
+		 WHERE STUDY_STATUS = 'Y'
+	     <if test="condition == 'studyTitle'"> 
+	       AND STUDY_TITLE
+	     </if>
+	     <if test="condition == 'studyContent'"> 
+	       AND STUDY_CONTENT
+	  	 </if>
+		  LIKE '%' || #{keyword} || '%'
+	</select>
+ 	
+ 	<select id="selectSearchList" resultMap="studyResult">
+		SELECT STUDY_NO
+		      ,STUDY_TITLE
+		      ,STUDY_COUNT
+		      ,STUDY_CREATE_DATE
+		 FROM STUDY
+		 WHERE STUDY_STATUS = 'Y'
+		 <choose>
+		     <when test="condition == 'studyTitle'"> 
+		       AND STUDY_TITLE
+		     </when>
+		     <otherwise> 
+		       AND STUDY_CONTENT
+		  	 </otherwise>
+	  	 </choose>
+		  LIKE '%' || #{keyword} || '%'
+		  ORDER BY STUDY_NO DESC
+	</select>
+	
+	<update id="studyUpdateLike">
+ 		UPDATE STUDYGOOD
+		SET STUDY_GOOD_STATUS = #{result}
+		WHERE RSTUDY_NO = #{rstudyNo}
+		AND RMEM_NO = #{rmemNo}
+ 	</update>
+ 	
+	<select id="likeResult" resultMap="studyResult">
+ 		SELECT STUDY_GOOD_STATUS
+		FROM STUDYGOOD
+		WHERE RMEM_NO = #{rmemNo}
+		AND RSTUDY_NO = #{rstudyNo}
+ 	</select>
 </mapper>

@@ -52,4 +52,13 @@ public class MemberDao {
 	public Member checkMember(SqlSessionTemplate sqlSession,String memId) {
 		return sqlSession.selectOne("memberMapper.checkMember",memId);
 	}
+	
+	public Member findId(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.findId",m);
+	}
+	
+	public Member findPwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.findPwd",m);
+	}
+		
 }

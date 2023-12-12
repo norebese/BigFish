@@ -27,10 +27,10 @@
         <script type="text/javascript">
 	        let selectedRegion;
 	    	let selectedCity;
-	    	let dpage = 0;
+	    	let dpage;
         	function ajaxStoreList(){
-        		document.getElementById("more").style.display = "none";
-        		dpage += ${pi.currentPage};
+        		//document.getElementById("more").style.display = "none";
+        		dpage = 1;
         		$.ajax({
                     type: "GET",
                     url: "ajaxStoreList", 
@@ -40,12 +40,18 @@
                     },
                     dataType: 'json',
                     success: function(data) {
-                    	if (data.length === 0) {
+                    	if (data.list.length === 0) {
+                    		if(document.getElementById("moreA") != null){
+                        		document.getElementById("moreA").style.display = "none";
+                    		}
                             emptyResult();
                         } else {
-                        	updateList(data);
-                        	let moreButton = $('<button id="moreA" onclick="ajaxStoreListMore()">더 보기ddd</button>');
-                            $('#moreBtn').append(moreButton);
+                        	updateList(data.list);
+                        	let moreButton = $('<button id="moreA" onclick="ajaxStoreListMore()">더 보기</button>');
+                            $('#moreBtn').html(moreButton);
+                            if(data.storeCount < 5){
+                        		document.getElementById("moreA").style.display = "none";
+                        	}
                         }
                     },
                     error: function() {
@@ -65,8 +71,10 @@
                     },
                     dataType: 'json',
                     success: function(data) {
-                   		nextList(data);
-
+                   		nextList(data.list);
+                   		if(data.piA.currentPage === data.piA.maxPage){
+                    		document.getElementById("moreA").style.display = "none";
+                    	}
                     },
                     error: function() {
                     	console.log("ajax 통신 실패");
