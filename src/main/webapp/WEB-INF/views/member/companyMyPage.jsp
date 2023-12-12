@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -74,10 +75,11 @@
 			</div>
 
 			<div id="businessWork" style="display: none; flex-direction: column; align-items: center;">
+				<c:forEach var="store" items="${storeList}">
 				<!-- 카드 1 -->
 				<div style="width: 70%; margin-bottom: 30px;" class="card">
 					<div class="card-header">
-						<span style="font-weight: bolder;">사이판 민물 낚시터</span>
+						<span style="font-weight: bolder;">${store.storeName}</span>
 					</div>
 					<div class="card-body" style="display: flex; flex-direction: row;">
 						<div style="display: flex; flex-direction: row; justify-content: space-between;">
@@ -85,7 +87,7 @@
 						</div>
 						
 						<div style="display: flex; flex-direction: column;">
-							<span style="font-weight: 500;">사업자 번호 : 123-12-12345</span><br>
+							<span style="font-weight: 500;">사업자 번호 : ${businessNo}</span><br>
 							<span>
 								<button onclick="location.href='storeUpdateForm.sto'" class="btn btn-primary">사업장 수정</button>
 								<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#businessDelete">사업장 삭제</button>
@@ -99,32 +101,7 @@
 						</div>
 					</div>
 				</div>
-
-				<!-- 카드 2 -->
-				<div style="width: 70%; margin-bottom: 30px;" class="card">
-					<div class="card-header">
-						<span style="font-weight: bolder;">해신 바다 낚시터</span>
-					</div>
-					<div class="card-body" style="display: flex; flex-direction: row;">
-						<div style="display: flex; flex-direction: row; justify-content: space-between;">
-							<img style="width: 120px; height: 100px; margin-right: 15px;" src="resources/images/businessSample2.png" alt="">
-						</div>
-						
-							<div style="display: flex; flex-direction: column;">
-								<span style="font-weight: 500;">사업자 번호 : 543-54-54321</span><br>
-								<span>
-									<button onclick="location.href='storeUpdateForm.sto'" class="btn btn-primary">사업장 수정</button>
-									<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#businessDelete">사업장 삭제</button>
-								</span>
-							</div>
-							<div class="form-check form-switch" style="display: flex; flex-direction: column; width: 50%; align-items: flex-end;">
-								<span style="scale: 1.2;">
-									<label class="form-check-label" for="mySwitch">운영 여부</label>
-									<input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
-								</span>
-							</div>
-						</div>
-					</div>
+				</c:forEach>
 
 					<button onclick="location.href='storeEnrollForm.sto'" style="width: 70%;" class="btn btn-primary">사업장 추가</button>
 			</div>

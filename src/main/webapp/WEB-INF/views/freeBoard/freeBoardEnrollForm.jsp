@@ -21,9 +21,6 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 <!-- CSS-->
 <link rel="stylesheet"
 	href="<%=contextPath%>/resources/css/freeBoardEnrollForm.css">
-
-
-
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />

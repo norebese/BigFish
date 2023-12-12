@@ -15,8 +15,14 @@
 <script src="<%=contextPath%>/resources/js/header.js"></script>
 
 <!-- CSS-->
+
+
 <link rel="stylesheet"
 	href="<%=contextPath%>/resources/css/header.css?ver=1">
+
+
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/header.css?ver=1">
+
 
 <!-- Latest compiled and minified CSS -->
 <link
@@ -28,8 +34,15 @@
 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- jQuery library -->
+
+
 <script
 src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
 
 <!-- 폰트 Noto Sans KR-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,8 +76,8 @@ src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<%if(alertMsg != null){ %>
 		
 	<script>
-			alert("<%=alertMsg%>");
-		</script>
+		alert("<%=alertMsg%>");
+	</script>
 	<%session.removeAttribute("alertMsg"); %>
 	<%} %>
 

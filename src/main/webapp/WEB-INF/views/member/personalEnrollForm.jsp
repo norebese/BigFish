@@ -63,7 +63,10 @@
 					<td><button type="button" id="pwdCheck-btn" onclick="checkPwd();" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">비밀번호 확인</button></td>
 				</tr>
 				<tr id="passwordRule" style="display: none;">
-					<td colspan="2"><div class="warning-text" style=" width: 100%; margin: 0px auto; color: red;">&nbsp;비밀번호는 영문, 숫자, 특수문자 조합으로 8~15자여야합니다.</div></td>
+					<td colspan="2"><div class="warning-text" style=" width: 100%; margin: 0px auto; color: #dd2f35;">&nbsp;비밀번호는 영문, 숫자, 특수문자 조합으로 8~15자여야합니다.</div></td>
+				</tr>
+				<tr id="passwordRuleOK" style="display: none;">
+					<td colspan="2"><div class="warning-text" style=" width: 100%; margin: 0px auto; color: #2f9947;">&nbsp;사용 가능한 비밀번호 입니다!</div></td>
 				</tr>
 			
 
@@ -106,9 +109,11 @@
 		window.onload = function() {
 		let tmp = JSON.parse(`${memberInfo}`);
 		
+		let str = tmp.response.mobile.replaceAll("-","");
+
 		document.querySelector("#emailId").value = tmp.response.email;
 		document.querySelector("#memNick").value = tmp.response.nickname;
-		document.querySelector("#phone").value = tmp.response.mobile;
+		document.querySelector("#phone").value = str;
 
 		const memberInfo = document.querySelector('#memberInfo');
 		console.log(tmp);

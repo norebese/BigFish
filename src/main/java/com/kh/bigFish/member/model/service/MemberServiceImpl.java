@@ -71,6 +71,16 @@ public class MemberServiceImpl implements MemberService {
 	public Member checkMember(String memId) {
 		return memberDao.checkMember(sqlSession, memId);
 	}
+
+	@Override
+	public Member findId(Member m) {
+		return memberDao.findId(sqlSession, m);
+	}
+
+	@Override
+	public Member findPwd(Member m) {
+		return memberDao.findPwd(sqlSession, m);
+	}
 	
 	
 }

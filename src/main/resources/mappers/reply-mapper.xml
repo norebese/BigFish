@@ -40,4 +40,39 @@
 		 	#{replyWriter}
 		   )
 	</insert>
+	
+	<insert id="insertReplyStore">
+		INSERT INTO REPLY (
+			 REPLY_NO,
+			 REPLY_CONTENT,
+			 REPLY_WRITER ,
+			 RMEM_NO,
+			 RSTORE_NO
+		     )
+		 VALUES (
+		 	SEQ_REPLY_NO.NEXTVAL,
+		 	#{replyContent},
+		 	#{replyWriter},
+		 	#{rmemNo},
+		 	#{rstoreNo}
+		   )
+	</insert>
+	
+	<select id="storeReplyCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REPLY
+		WHERE RSTORE_NO = #{rstoreNo}
+		AND REPLY_STATUS = 'Y'
+	</select>
+	
+	<select id="storeReplyList" resultMap="replyResult">
+		SELECT REPLY_NO,
+			   REPLY_CONTENT,
+			   REPLY_WRITER,
+			   TO_CHAR(REPLY_CREATE_DATE, 'YYYY-MM-DD') AS REPLY_CREATE_DATE
+		   FROM REPLY
+	     WHERE REPLY_STATUS = 'Y'
+	       AND RSTORE_NO = #{sNum}
+	     ORDER BY REPLY_NO DESC
+	</select>
 </mapper>

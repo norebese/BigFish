@@ -18,6 +18,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,8 @@ import com.google.gson.JsonParser;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.member.model.service.MemberService;
 import com.kh.bigFish.member.model.vo.Member;
+import com.kh.bigFish.reservation.model.service.ReservationService;
+import com.kh.bigFish.reservation.model.vo.Reservation;
 import com.kh.bigFish.store.model.service.StoreService;
 import com.kh.bigFish.store.model.vo.Store;
 import com.kh.bigFish.store.model.vo.Ticket;
@@ -45,6 +49,16 @@ public class MemberController {
 	
 	@Autowired
 	private StoreService storeService;
+	
+	// 메일관련
+	@Autowired
+	private JavaMailSender sender;
+	
+	@Autowired
+	private ReservationService reservationService;
+	
+
+	
 	
 	// 로그인 폼으로 이동
 	@RequestMapping(value="/loginForm.me")
@@ -212,12 +226,33 @@ public class MemberController {
 	}
 	// 개인 회원 마이페이지로 이동
 	@RequestMapping(value="/personalMyPage.me")
-	public String personalMyPage() {
+	public String personalMyPage(HttpSession session,Model model) {
+		
+		Member loginUser =  (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Reservation> reserList = reservationService.selectReservationList(loginUser.getMemNo());
+		
+		
+		session.setAttribute("loginUser", loginUser);
+		model.addAttribute("reserList",reserList);
+		
+		
 		return "member/personalMyPage";
 	}
+	
 	// 사업자 회원 관리페이지로 이동
 	@RequestMapping(value="/companyMyPage.me")
-	public String companyMyPage() {
+	public String companyMyPage(HttpSession session, Model model) {
+		
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Store> storeList = storeService.selectMyStoreList(loginUser.getMemNo());
+		
+		session.setAttribute("loginUser", loginUser);
+		model.addAttribute("storeList", storeList);
+
+		
 		return "member/companyMyPage";
 	}
 	// 개인 회원 예약 목록 자세히 보기로 이동
@@ -297,7 +332,7 @@ public class MemberController {
 			
 			new File(session.getServletContext().getRealPath(memChangeName)).delete();
 			
-			
+			System.out.println(loginUser.getMemChangeName());
 			return loginUser.getMemChangeName();	
 		}else {
 			// 변경 실패
@@ -548,4 +583,71 @@ public class MemberController {
 		}
 	}
 	
+	// 아이디 찾기
+	@ResponseBody
+	@RequestMapping("/findId.me")
+	public String findId(String memNick, String phone) {
+		
+		Member m = new Member();
+		m.setMemNick(memNick);
+		m.setPhone(phone);
+		
+		
+		
+		Member findUser = null;
+		findUser = memberService.findId(m);
+		
+		if(findUser != null) {
+			return findUser.getMemId();
+		}else {
+			return "N";
+		}
+		
+	}
+
+
+	// 비밀번호 찾기
+	@ResponseBody
+	@RequestMapping("/findPwd.me")
+	public String findPwd(String memId, String phone) {
+		
+		Member m = new Member();
+		m.setMemId(memId);
+		m.setPhone(phone);
+		
+		Member findUser = null;
+		findUser = memberService.findPwd(m);
+		
+		if(findUser != null) {
+			
+			// 메시지 세팅
+			SimpleMailMessage message = new SimpleMailMessage();
+			
+			message.setSubject("안녕하세요. BIGFISH입니다.");
+			message.setText("고객님의 비밀번호는 "+findUser.getMemPwd()+"입니다.");
+			
+			// 보낼 곳 세팅
+			String [] to = {findUser.getMemId()};
+			message.setTo(to);
+			
+			// 발송
+			sender.send(message);
+
+			
+			
+			return "Y";
+		}else {
+			return "N";
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+
 }
+
+

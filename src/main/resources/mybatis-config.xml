@@ -16,6 +16,7 @@
 		<typeAlias type="com.kh.bigFish.study.model.vo.Study" alias="Study"/>
 		<typeAlias type="com.kh.bigFish.faq.model.vo.FAQ" alias="FAQ" />
 		<typeAlias type="com.kh.bigFish.freeBoard.model.vo.FreeBoard" alias="FreeBoard"/>
+		<typeAlias type="com.kh.bigFish.fishingBoard.model.vo.FishingBoard" alias="FishingBoard"/>
 		<typeAlias type="com.kh.bigFish.attachment.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.bigFish.store.model.vo.Ticket" alias="Ticket"/>
      	<typeAlias type="com.kh.bigFish.announce.model.vo.Announce" alias="Announce"/>
@@ -36,7 +37,11 @@
 		<mapper resource="/mappers/store-mapper.xml"/>
 		<mapper resource="/mappers/ann-mapper.xml"/>
 		<mapper resource="/mappers/study-mapper.xml"/>
+
+		<mapper resource="/mappers/fishingBoard-mapper.xml"/>
+
 		<mapper resource="/mappers/faq-mapper.xml" />
+
 		<mapper resource="/mappers/freeBoard-mapper.xml"/>
 		<mapper resource="/mappers/reply-mapper.xml"/>
      </mappers>

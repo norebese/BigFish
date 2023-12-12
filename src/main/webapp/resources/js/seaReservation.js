@@ -1,4 +1,4 @@
-    
+  
         let buttonElement1 = document.getElementById('hoverImage1');
         let buttonElement2 = document.getElementById('hoverImage2');
         let buttonElement3 = document.getElementById('hoverImage3');
@@ -84,13 +84,6 @@
             })
         })
 
-       
-
-
-        let test = document.getElementById('test');
-        test.addEventListener('click', function() {
-            document.getElementById('testtext').innerText='정보 입니다';
-        });
 		
 		function moveTop(){
             $("html, body").animate({ scrollTop: 0 }, 600);
@@ -99,28 +92,45 @@
         
     function nextList(date){
 	
-	let showListArea = $("#showList-area2");
-	let Content = '';
+		let showListArea = $("#showList-area2");
+		let Content = '';
+		
+		$.each(date, function (index, store) {
+	                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
+					+'<img src="resources/images/shop-example.jpg" alt=""></div>'
+		            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
+		            +'<span class="reply">'
+		            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'
+		            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png" alt="">'+store.likeCount +'</span>'
+		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
+	            });
+		
+		showListArea.append(Content);
+	}
 	
-	$.each(date, function (index, store) {
-                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
-				+'<img src="resources/images/shop-example.jpg" alt=""></div>'
-	            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
-	            +'<span class="reply">'
-	            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'
-	            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png" alt="">'+store.likeCount +'</span>'
-	            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
-            });
+	function nextListFiltered(date){
 	
-	showListArea.append(Content);
-}
+		let showListArea = $("#showList-area");
+		let Content = '';
+		
+		$.each(date, function (index, store) {
+	                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
+					+'<img src="resources/images/shop-example.jpg" alt=""></div>'
+		            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
+		            +'<span class="reply">'
+		            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'
+		            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png" alt="">'+store.likeCount +'</span>'
+		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
+	            });
+		
+		showListArea.append(Content);
+	}
 
 
 function updateSeaList(date){
 	
 	let divToUpdate = $('#showList-area');
 	let htmlContent = '';
-	let lastIndex;
 	
 	$.each(date, function (index, store) {
                 htmlContent += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'

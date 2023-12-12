@@ -39,6 +39,31 @@ const memberApi = {
                 console.log("ajax 프로필 이미지 변경 통신 실패");
             }
         })
+    },
+
+    findId : function(data, callback){
+        $.ajax({
+            url : "findId.me",
+            data : data,
+            success : function(result){
+                callback(result)
+            },
+            error : function(){
+                console.log("ajax 아이디 찾기 통신 실패");
+            }
+        })
+    },
+    findPwd : function(data, callback){
+        $.ajax({
+            url: "findPwd.me",
+            data : data,
+            success : function(result){
+                callback(result)
+            },
+            error : function(){
+                console.log("ajax 비밀번호 찾기 통신 실패");
+            }
+        })
     }
     
 }

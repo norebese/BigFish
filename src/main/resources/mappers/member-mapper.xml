@@ -169,4 +169,21 @@
 	WHERE MEM_ID = #{memId}
 	</select>
 	
+	<select id="findId" resultMap="memberResult">
+	SELECT MEM_NO,
+		MEM_ID,
+		MEM_NICK,
+		PHONE
+	FROM MEMBER
+	WHERE MEM_NICK = #{memNick} AND PHONE = #{phone}
+	</select>
+	<select id="findPwd" resultMap="memberResult">
+	SELECT MEM_NO,
+		MEM_ID,
+		MEM_PWD,
+		PHONE
+	FROM MEMBER
+	WHERE MEM_ID = #{memId} AND PHONE = #{phone}
+	</select>
+	
 </mapper>
