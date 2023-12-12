@@ -57,6 +57,8 @@ public class MemberController {
 	@Autowired
 	private ReservationService reservationService;
 	
+
+	
 	
 	// 로그인 폼으로 이동
 	@RequestMapping(value="/loginForm.me")
@@ -237,9 +239,20 @@ public class MemberController {
 		
 		return "member/personalMyPage";
 	}
+	
 	// 사업자 회원 관리페이지로 이동
 	@RequestMapping(value="/companyMyPage.me")
-	public String companyMyPage() {
+	public String companyMyPage(HttpSession session, Model model) {
+		
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		ArrayList<Store> storeList = storeService.selectMyStoreList(loginUser.getMemNo());
+		
+		session.setAttribute("loginUser", loginUser);
+		model.addAttribute("storeList", storeList);
+
+		
 		return "member/companyMyPage";
 	}
 	// 개인 회원 예약 목록 자세히 보기로 이동

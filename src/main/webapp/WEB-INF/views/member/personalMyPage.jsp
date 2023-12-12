@@ -123,7 +123,7 @@
 
 						
 						<div style="display: flex; flex-direction: row; justify-content: space-between;">
-							<span style="font-size: 13px;">11월 11일(토) | 11:00</span>
+							<span style="font-size: 13px;">${r.revDate}</span>
 							<span>이용 완료</span>
 						</div>
 					</div>

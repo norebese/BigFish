@@ -16,7 +16,7 @@ public class ReservationDao {
 	}
 	
 	public ArrayList<Reservation> selectReservationList(SqlSessionTemplate sqlSession, int memNo){
-		return sqlSession.selectOne("reservationMapper.selectReservationList", memNo);
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationList", memNo);
 	}
 
 	public int jungbokCheck(SqlSessionTemplate sqlSession, Reservation r) {
