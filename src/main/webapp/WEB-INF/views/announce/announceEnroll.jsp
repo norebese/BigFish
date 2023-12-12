@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BIG FISH</title>
 <link
 
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -37,7 +37,7 @@
 	<br><br>
 	
 		<form class="ann-form" action="annUpdate.an">
-			<input type="text" class="ann-title" value="${a.annTitle}" name="annTitle" />
+			<input type="text" class="ann-title form-control" style="width: 63%;" value="${a.annTitle}" required name="annTitle" />
 			<input type="hidden" name="annNo" value="${a.annNo }"/>
 			<input  type="hidden" value="${loginUser.memId}" name="annWriter" />
 			

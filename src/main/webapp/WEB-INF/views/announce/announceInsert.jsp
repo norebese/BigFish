@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Big Fish</title>
+<title>BIG FISH</title>
 <link
 
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -37,7 +37,7 @@
 	<br><br>
 	
 	<form class="ann-form" action="annInsert.an" >
-			<input type="text" class="ann-title" name="annTitle" placeholder="제목을 입력해주세요.">
+			<input type="text" class="ann-title form-control" style="width: 65%;" name="annTitle" required placeholder="제목을 입력해주세요.">
 			<input type="hidden" value="${loginUser.memId}" name="annWriter" />
 			<br><br><br>
 			<textarea id="summernote"  class="ann-content" name="annContent" placeholder="내용을 입력해주세요. "></textarea>
@@ -95,11 +95,12 @@
 
             callbacks : { //여기 부분이 이미지를 첨부하는 부분
                 onImageUpload : function(files) {
-                    console.log(files);
                     for (let i = files.length - 1; i >= 0; i--) {
                         uploadSummernoteImageFile(files[i]);
+						// 변수를 만들어주고 거기에 String형태로 파일경로를 쭉 담아주기
                     }
                 }
+				// 이 부분에서 이미지 삭제 함수 호출(실제 파일 삭제)
             }
         };
 
@@ -120,6 +121,8 @@
                 }
             });
         }
+
+		// 호출된 함수 deleteSummernoteImageFile(실제 파일 삭제)
     });
     </script>
 

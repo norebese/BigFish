@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BIG FISH</title>
 
 <!-- CSS-->
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/announceDetail.css">
@@ -31,10 +31,10 @@
 		<br><br>
 		
 		<c:if test="${ not empty loginUser }">
-			<div class="btn-area">
+			<div class="ann-btn-area">
 				<a class="btn btn-primary" onClick="annList()">목록으로</a>
 				<a class="btn btn-primary" onclick="location.href='annUpdateForm.an?ano=${a.annNo}'">수정하기</a>
-				<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>
+				<a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</a>
 			</div>
 		</c:if>
 	</div>
@@ -60,7 +60,7 @@
 			      <!-- Modal footer -->
 			      <div class="modal-footer">
 			        <a class="btn btn-danger" data-bs-dismiss="modal" onclick="location.href='annDelete.an?ano=${a.annNo}'">예</a>
-			        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">아니오</button>
+			        <a type="button" class="btn btn-primary" data-bs-dismiss="modal">아니오</a>
 			      </div>
 			
 			    </div>

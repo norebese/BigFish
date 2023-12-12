@@ -175,13 +175,17 @@ function updateReplyList(date){
 	divToUpdate.html(htmlContent);
 }
 
-function updatePageBtn(startPage, endPage){
+function updatePageBtn(startPage, endPage, currentPage){
 	let liToUpdate = $('#pageNBtn');
 	liToUpdate.empty();
 	let buttonsHTML = '';
 
 	for (let p = startPage; p <= endPage; p++) {
-        buttonsHTML += '<li class="page-item"><a class="page-link" href="#1" onclick="pageReply(' + p + ')">' + p + '</a></li>';
+        buttonsHTML += '<li class="page-item';
+        if (p === currentPage) {
+            buttonsHTML += ' active';
+        }
+        buttonsHTML += '"><a class="page-link" href="#' + p + '" onclick="pageReply(' + p + ')">' + p + '</a></li>';
     }
     
     liToUpdate.html(buttonsHTML);
@@ -195,11 +199,12 @@ function updateReplyBtn(endPage, maxPage){
 	}else if(rPage == 1){
 		document.getElementById("prevBtn").style.display = "none";
 		document.getElementById("nextBtn").style.display = "block";
-	}else if(rPage == endPage){
+	}else if(rPage == maxPage){
 		document.getElementById("prevBtn").style.display = "block";
 		document.getElementById("nextBtn").style.display = "none";
 	}else{
 		document.getElementById("prevBtn").style.display = "block";
 		document.getElementById("nextBtn").style.display = "block";
 	}
+	
 }

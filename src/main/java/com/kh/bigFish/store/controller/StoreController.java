@@ -253,7 +253,7 @@ public class StoreController {
 		Reply R = new Reply();
 		R.setRstoreNo(storeNum);
 		int storeReplyCount = replyService.storeReplyCount(R);
-		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, 1, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, 1, 5, 5);
 		
 		ArrayList<Reply> replyList = replyService.storeReplyList(pi, storeNum);
 		

@@ -128,7 +128,8 @@ public class AnnounceController {
 		
 		return mv;
 	}
-	
+		
+		// 이경로는 DB에 저장되는 경로이고 더미데이터가 저장될 더미 이미지 경로로 받아줘야할 새로운 컨트롤러가 필요.
 		@ResponseBody
 		@RequestMapping(value="/uploadImageFile")
 		public String saveFile(MultipartFile upfile,HttpSession session, String path) {
@@ -161,5 +162,8 @@ public class AnnounceController {
 			return ("/resources/uploadFiles/" + changeName);
 
 		}
-
+		
+		//ResponseBody,@RequestMapping으로 더미 이미지 삭제
+		
+		
 }
