@@ -14,5 +14,3 @@ function mainSearch() {
     location.href='search.bo?keyword=' + input
 }	
 
-
-			

@@ -97,7 +97,7 @@ public class FreeBoardController {
 	@RequestMapping("list.fbo")
 	public ModelAndView selectList(@RequestParam(value="cpage", defaultValue="1")int currentPage, ModelAndView mv) {
 				
-		PageInfo pi = Pagenation.getPageInfo(freeboardService.selectListCount(), currentPage, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(freeboardService.selectListCount(), currentPage, 5, 10);
 		
 		//ModelAndView는 메서드 체인(이어쓰기) 가능함
 		mv.addObject("pi", pi).addObject("list", freeboardService.selectList(pi)).setViewName("freeBoard/freeBoardList");
