@@ -117,6 +117,11 @@ public class StoreServiceImpl implements StoreService{
 			String City5, String City6) {
 		return storeDao.ajaxSeaAreaMore(sqlSession, pi, City1, City2, City3, City4, City5, City6);
 	}
+
+	@Override	
+	public ArrayList<Store> selectMyStoreList(int memNo) {
+		return storeDao.selectMyStoreList(sqlSession, memNo);
+	}
 	
 }
 

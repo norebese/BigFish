@@ -155,4 +155,8 @@ public class StoreDao {
 	    params.put("city6", city6);
 		return (ArrayList)sqlSession.selectList("storeMapper.ajaxSeaStoreList", params, rowBounds);
 	}
+
+	public ArrayList<Store> selectMyStoreList(SqlSessionTemplate sqlSession, int memNo){
+		return (ArrayList)sqlSession.selectList("storeMapper.selectMyStoreList",memNo);
+	}
 }

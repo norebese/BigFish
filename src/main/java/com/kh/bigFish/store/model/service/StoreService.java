@@ -52,6 +52,8 @@ public interface StoreService {
 	ArrayList<Store> ajaxSeaStoreList(PageInfo pi, String City1, String City2, String City3, String City4, String City5, String City6);
 	
 	ArrayList<Store> ajaxSeaAreaMore(PageInfo pi, String City1, String City2, String City3, String City4, String City5, String City6);
+	
+	ArrayList<Store> selectMyStoreList(int memNo);
 }
 
 
