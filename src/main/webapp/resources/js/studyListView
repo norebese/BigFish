@@ -1,0 +1,4 @@
+window.onload = function () {
+    const opt = document.querySelector("#st-search-area option[value=${condition}]")
+    opt.setAttribute("selected", true);
+}
