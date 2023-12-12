@@ -17,6 +17,7 @@
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6cb0689f4fc5c9ee2e6c1f73a2fa5d1&libraries=services"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -231,39 +232,44 @@
 
         <div class="reply-area">
             <div class="reply-line">
-                <h6 style="text-align: left; margin-bottom: 10px;">댓글 (3)</h6>
+                <h6 id="replyNum" style="text-align: left; margin-bottom: 10px;">댓글 (${replyCount})</h6>
             </div>
             
-            <div class="container" style="border-bottom: solid 2px rgb(204,204,204); ">
-                <div class="row">
-                    <div class="col-sm" style="display: flex; align-items: center;">
-                        <i class="bi bi-person" style="font-size: 40px;"></i>
-                        <span >임영웅</span>
-                    </div>
-                    <div class="col-md-8" style="display: flex; align-items: center;">네 아마 안될거 같네요.</div>
-                    <div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
-                </div>
-            </div>
-            <div class="container" style="border-bottom: solid 2px rgb(204,204,204); ">
-                <div class="row">
-                    <div class="col-sm" style="display: flex; align-items: center;">
-                        <i class="bi bi-person" style="font-size: 40px;"></i>
-                        <span >임영웅</span>
-                    </div>
-                    <div class="col-md-8" style="display: flex; align-items: center;">네 아마 안될거 같네요.</div>
-                    <div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
-                </div>
+            <div id="showReplyArea">
+            	<c:forEach var="rl" items="${replyList}" varStatus="loopStatus">
+		            <div class="container" style="border-bottom: solid 2px rgb(204,204,204); ">
+		                <div class="row">
+		                    <div class="col-sm" style="display: flex; align-items: center;">
+		                        <i class="bi bi-person" style="font-size: 40px;"></i>
+		                        <span >${rl.replyWriter}</span>
+		                    </div>
+		                    <div class="col-md-8" style="display: flex; align-items: center;">${rl.replyContent}</div>
+		                    <div class="col-sm" style="display: flex; align-items: center;">${rl.replyCreateDate}</div>
+		                </div>
+		            </div>
+	            </c:forEach>
             </div>
             
-            <div class="container" style="border-bottom: solid 2px rgb(204,204,204); ">
-                <div class="row">
-                    <div class="col-sm" style="display: flex; align-items: center;">
-                        <i class="bi bi-person" style="font-size: 40px;"></i>
-                        <span >임영웅</span>
-                    </div>
-                    <div class="col-md-8" style="display: flex; align-items: center;">네 아마 안될거 같네요.</div>
-                    <div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
-                </div>
+            <div>
+		    	<nav aria-label="Page navigation example"  class="d-flex justify-content-center" style="margin-top: 20px;">
+			        <ul class="pagination">
+           				<li id="prevBtn" class="page-item" onclick="pageReply('prev')" style="display: none;">
+			            	<a class="page-link" href="#" aria-label="Previous">
+			              		<span aria-hidden="true">&laquo;</span>
+			            	</a>
+	            		</li>
+	            		<ul id="pageNBtn" class="pagination">
+					       <c:forEach var="p" begin="${replyPi.startPage }" end="${replyPi.endPage }">
+					       <li class="page-item"><a class="page-link" href="#" onclick="pageReply(${p})">${p}</a></li>
+					       </c:forEach>
+				       </ul>
+			          <li id="nextBtn" class="page-item" onclick="pageReply('next')">
+				            <a class="page-link" href="#" aria-label="Next">
+				              <span aria-hidden="true">&raquo;</span>
+				            </a>
+			          </li>
+			        </ul>
+			      </nav>
             </div>
 
             <div style="border-top: solid 2px rgb(204,204,204);  padding-bottom: 15px; margin-top: 50px;">
@@ -271,7 +277,7 @@
                 <th colspan="2">
                     <div style="display: flex; align-items: center;">
                         <textarea class="form-control" id="content" cols="55" rows="2" style="resize:none; width:100%; height: 80px;"></textarea>
-                        <button class="btn btn-primary" onclick="addReply();" style="height: 80px; width:120px; margin-left: 10px;">댓글등록</button>
+                        <button class="btn btn-primary" onclick="addReply();" <%= (loginUser == null) ? "disabled style='background:gray; height: 80px; width:120px; margin-left: 10px;'" : "" %> style="height: 80px; width:120px; margin-left: 10px;">댓글등록</button>
                     </div>
                 </th>
             </div>
@@ -312,6 +318,65 @@
     <div class="pad"></div>
     
     <script>
+    let rPage = 1;
+    function pageReply(num){
+    	let scrollTop = $(window).scrollTop();
+    	if(num === 'prev'){
+    		rPage--;
+    		if(rPage<=0){
+    			rPage = 1;
+    		}
+    	}else if(num === 'next'){
+    		rPage++;
+    	}else{
+    		rPage = num;
+    	}
+    	
+		$.ajax({
+	           type: "GET",
+	           url: "ajaxPageReply", 
+	           data: { 
+	        	   rPage: rPage,
+	           },
+	           dataType: 'json',
+	           success: function(data) {
+	        	 updateReplyList(data.replyList);
+	        	 let startPage = (data.replyPi.startPage);
+	        	 let endPage = (data.replyPi.endPage);
+	        	 let maxPage = (data.replyPi.maxPage);
+	        	 updateReplyBtn(endPage, maxPage);
+	        	 
+         		$(window).scrollTop(scrollTop);
+	           },
+	           error: function() {
+	           	console.log("ajax 통신 실패");
+	           }
+	       });
+    }
+    
+    function addReply(){
+    	let contentValue = document.getElementById('content').value;
+		$.ajax({
+	           type: "GET",
+	           url: "ajaxAddReply",
+	           data: { 
+	        	 contentValue: contentValue,
+	           },
+	           dataType: 'json',
+	           success: function(data) {
+	        	 updateReplyList(data.replyList);
+	        	 document.getElementById('content').value = '';
+	        	 let startPage = (data.replyPi.startPage);
+	        	 let endPage = (data.replyPi.endPage);
+	        	 updatePageBtn(startPage, endPage);
+	        	 document.getElementById('replyNum').innerHTML = '댓글 ('+(data.rNum)+')';
+	           },
+	           error: function() {
+	           	console.log("ajax 통신 실패");
+	           }
+	       });
+    }
+    
     function updateLike(){
     	let likeImg = document.getElementById('like-logo');
    		$.ajax({
@@ -349,7 +414,6 @@
             },
             dataType: 'json',
             success: function(data) {
-            	console.log(data);
             	updateTicket(data);
             },
             error: function() {

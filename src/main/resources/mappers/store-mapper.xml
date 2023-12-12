@@ -272,4 +272,5 @@
         OR LOCATION_SMALL = #{city5}
         OR LOCATION_SMALL = #{city6}
 	</select>
+	
  </mapper>
