@@ -104,6 +104,40 @@
                     <td style="font-size: 0.8rem; width: 15%;">좋아요: ${s.studyGoodStatus}</td>  
             </table>
 
+            <div id="like-logo" onclick="updateLike()">
+	            <c:choose>
+	            <c:when test="${StudyGood.studyGoodStatus eq 'Y'}">
+	            	<img align="right" style="width: 25px;" src="<%=contextPath%>/resources/images/heart-filled.png">
+	            </c:when>
+	            <c:otherwise>
+	            	<img align="right" style="width: 25px; " src="<%=contextPath%>/resources/images/heart-notfill.png">
+	            </c:otherwise>
+	            </c:choose>
+            </div>
+
+            <script>
+            function updateLike(){
+                let likeImg = document.getElementById('like-logo');
+                $.ajax({
+                    type: "GET",
+                    url: "ajaxUpdateLike", 
+                    success: function(data) {
+                        console.log(data);
+                            if(data == 'Y'){
+                                likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-filled.png">'
+                            }else{
+                                likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-notfill.png">'
+                            }
+                            console.log("ajax 통신 성공");
+                    },
+                    error: function() {
+                        console.log("ajax 통신 실패");
+                    }
+                });
+                
+            }
+            </script>
+
             <br>
 
             <tr>

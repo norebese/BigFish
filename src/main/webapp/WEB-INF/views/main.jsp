@@ -219,7 +219,7 @@
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">예약</p>
 					</a>
-					<a href="" class="col h-100" style="text-decoration: none; color: black;">
+					<a href="list.st" class="col h-100" style="text-decoration: none; color: black;">
 						<img src="<%=contextPath%>/resources/images/1701241621923.png"
 							alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">학습동영상</p>

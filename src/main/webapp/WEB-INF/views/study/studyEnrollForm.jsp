@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     
 <!-- CSS-->
-<link rel="stylesheet" href="<%=contextPath%>/resources/css/studyEnrollForm.css">
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/studyUpdateForm.css">
 <!-- JS-->
 <script src="<%=contextPath%>/resources/js/studyEnrollForm.js"></script>
 <!-- Latest compiled and minified CSS -->

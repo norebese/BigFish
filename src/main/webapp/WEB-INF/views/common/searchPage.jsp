@@ -85,26 +85,25 @@
 				</div>
 				<table class="study_table">
 					<thead>
-						<tr>
-							<td>제목</td>
-						</tr>
+						<tr>		
+							<td>
+								<a onclick="location.href='detail.st?sno=108'" style="cursor: pointer;">광어</a>
+							</td>
+						</tr>							
 					</thead>
+					
 					<tbody>
 						<c:forEach var="s" items="${list}">
-							<tr onclick="location.href='detail.st?sno=${s.studyNo}'">
-								<td>${s.studyTitle}</td>
-							</tr>
-						</c:forEach>
+						<tr>
+							<td>
+								<a onclick="location.href='detail.st?sno=${s.studyNo}'">${s.studyTitle}</a>
+							</td>
+						</tr>
+					</c:forEach>
 					</tbody>
+					
 				</table>
 			</div>
-
-			<script>
-				window.onload = function() {
-					const opt = document.querySelector("#st-search-area option[value=${keyword}]")
-		        		opt.setAttribute("selected", true);
-				}
-			</script>
 
 			<div class="all-see">
 				<a href="list.st">더보기 <i class="bi bi-arrow-right"></i></a>
