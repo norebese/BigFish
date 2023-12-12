@@ -4,7 +4,11 @@ function showProfile(){
     const buttonProfile = document.querySelector("#buttonProfile");
     const buttonBusiness = document.querySelector("#buttonBusiness");
     const sample1Work = document.querySelector("#sample1Work");
-    const buttonSample1 = document.querySelector("#buttonSample1");
+    const btns = document.getElementsByClassName("businessButton");
+
+    for(let btn of btns){
+        btn.style.background = "rgb(59, 175, 252)";
+    }
 
     profileWork.style.display = "flex";
     businessWork.style.display = "none";
@@ -12,7 +16,8 @@ function showProfile(){
 
     buttonProfile.style.background = "rgb(28, 134, 204)";
     buttonBusiness.style.background = "rgb(59, 175, 252)";
-    buttonSample1.style.background = "rgb(59, 175, 252)";
+    
+    
 }
 
 function showBusiness(){
@@ -21,7 +26,11 @@ function showBusiness(){
     const buttonProfile = document.querySelector("#buttonProfile");
     const buttonBusiness = document.querySelector("#buttonBusiness");
     const sample1Work = document.querySelector("#sample1Work");
-    const buttonSample1 = document.querySelector("#buttonSample1");
+    const btns = document.getElementsByClassName("businessButton");
+
+    for(let btn of btns){
+        btn.style.background = "rgb(59, 175, 252)";
+    }
 
     profileWork.style.display = "none";
     businessWork.style.display = "flex";
@@ -29,20 +38,26 @@ function showBusiness(){
 
     buttonProfile.style.background = "rgb(59, 175, 252)";
     buttonBusiness.style.background = "rgb(28, 134, 204)";
-    buttonSample1.style.background = "rgb(59, 175, 252)";
+
 }
 
 function showSample1(){
+
     const profileWork = document.querySelector("#profileWork");
     const businessWork = document.querySelector("#businessWork");
     const buttonProfile = document.querySelector("#buttonProfile");
     const buttonBusiness = document.querySelector("#buttonBusiness");
     const sample1Work = document.querySelector("#sample1Work");
-    const buttonSample1 = document.querySelector("#buttonSample1");
+    const btns = document.getElementsByClassName("businessButton");
+    const buttonSample1 = this.event.target;
 
     profileWork.style.display = "none";
     businessWork.style.display = "none";
     sample1Work.style.display = "flex";
+
+    for(let btn of btns){
+        btn.style.background = "rgb(59, 175, 252)";
+    }
 
     buttonProfile.style.background = "rgb(59, 175, 252)";
     buttonBusiness.style.background = "rgb(59, 175, 252)";
@@ -50,6 +65,9 @@ function showSample1(){
 
 }
 
+function loadBusinessAjax(){
+
+}
 
 
 window.onload = function () { buildCalendar(); }    // 웹 페이지가 로드되면 buildCalendar 실행
