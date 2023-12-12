@@ -3,22 +3,21 @@ function checkPwd(){
 
     const pwd = document.querySelector("#pwd");
     const passwordRule = document.querySelector("#passwordRule");
-    const pwdCheckBtn = document.querySelector("#pwdCheck-btn");
+    const passwordRuleOK = document.querySelector("#passwordRuleOK");
     const enrollBtn = document.querySelector("#enroll-btn");
 
     if(!reg.test(pwd.value)){
+        passwordRuleOK.style.display = "none";
         passwordRule.style.display = "block";
+        enrollBtn.setAttribute("disabled",ture);
         return;
     }
 
-    passwordRule.style.display = "block";
-    passwordRule.style.color = "#2f9947";
-    passwordRule.innerHTML = "&nbsp;사용 가능한 비밀번호입니다.";
-    
-    
-    
+    passwordRule.style.display = "none";
+    passwordRuleOK.style.display = "block";
+    pwd.setAttribute("readonly",true);
     enrollBtn.removeAttribute("disabled");
-
+    
 }
 
 function samePwd(){
@@ -257,7 +256,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     충북: ["제천시", "청주시", "충주시", "괴산군","보은군", "옥천군", "음성군", "진천군"],
 
-    충남: ["대전 서구", "대전 중구", "공주시", "계롱시", "논산시", "서산시", "아산시", "천안시", "금산군", "당진시", "부여군", "서천군", "예산군", "세종특별자치시"],
+    충남: ["대전 서구", "대전 중구", "공주시", "계롱시", "논산시", "서산시", "아산시", "천안시", "금산군", "당진시", "부여군", "서천군", "예산군", "세종특별자치시", "태안군"],
 
     전라: ["광주 광산구", "광주 동구", "광주 서구", "익산시", "전주시", "정읍시", "완주군", "임실군", "나주시", "장성군", "속화초"],
 

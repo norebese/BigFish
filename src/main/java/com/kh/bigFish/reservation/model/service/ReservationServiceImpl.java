@@ -1,6 +1,7 @@
 package com.kh.bigFish.reservation.model.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,10 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.insertReservation(sqlSession, R);
 	}
 
+	@Override
+	public ArrayList<Reservation> selectReservationList(int memNo) {
+		return reservationDao.selectReservationList(sqlSession, memNo);
+	}
 	@Override
 	public int jungbokCheck(Reservation R) {
 		return reservationDao.jungbokCheck(sqlSession, R);

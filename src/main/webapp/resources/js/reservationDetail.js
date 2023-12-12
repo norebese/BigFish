@@ -159,3 +159,47 @@ function updateTicket(date){
 	
 	ToUpdate.html(htmlContent);
 }
+
+function updateReplyList(date){
+	let divToUpdate = $('#showReplyArea');
+	let htmlContent = '';
+	
+	$.each(date, function (index, reply) {
+                htmlContent += '<div class="container" style="border-bottom: solid 2px rgb(204,204,204);">'
+	            +'<div class="row"><div class="col-sm" style="display: flex; align-items: center;">'
+	            +'<i class="bi bi-person" style="font-size: 40px;"></i><span >'+reply.replyWriter+'</span></div>'
+	            +'<div class="col-md-8" style="display: flex; align-items: center;">'+reply.replyContent+'</div>'
+	            +'<div class="col-sm" style="display: flex; align-items: center;">'+reply.replyCreateDate+'</div></div></div>';
+            });
+	
+	divToUpdate.html(htmlContent);
+}
+
+function updatePageBtn(startPage, endPage){
+	let liToUpdate = $('#pageNBtn');
+	liToUpdate.empty();
+	let buttonsHTML = '';
+
+	for (let p = startPage; p <= endPage; p++) {
+        buttonsHTML += '<li class="page-item"><a class="page-link" href="#1" onclick="pageReply(' + p + ')">' + p + '</a></li>';
+    }
+    
+    liToUpdate.html(buttonsHTML);
+}
+
+function updateReplyBtn(endPage, maxPage){
+
+	if(maxPage == 1){
+		document.getElementById("prevBtn").style.display = "none";
+		document.getElementById("nextBtn").style.display = "none";
+	}else if(rPage == 1){
+		document.getElementById("prevBtn").style.display = "none";
+		document.getElementById("nextBtn").style.display = "block";
+	}else if(rPage == endPage){
+		document.getElementById("prevBtn").style.display = "block";
+		document.getElementById("nextBtn").style.display = "none";
+	}else{
+		document.getElementById("prevBtn").style.display = "block";
+		document.getElementById("nextBtn").style.display = "block";
+	}
+}

@@ -272,4 +272,25 @@
         OR LOCATION_SMALL = #{city5}
         OR LOCATION_SMALL = #{city6}
 	</select>
+	
+	<select id="selectMyStoreList" resultMap="storeResult">
+		SELECT STORE_NO,
+			RMEM_NO,
+			LOCATION_BIG,
+			LOCATION_SMALL,
+			STORE_ADDRESS,
+			STORE_ADDRESS_DETAIL,
+			STORE_POST_NO,
+			STORE_NAME,
+			STORE_PHONE,
+			MAX_MEMBER,
+			STORE_WEEKDAY,
+			STORE_WEEKEND,
+			STORE_GROUP,
+			STORE_KIND,
+			STORE_FISH_KIND,
+			BUSINESS_NO
+		FROM STORE
+		WHERE RMEM_NO = #{memNo}	
+	</select>
  </mapper>

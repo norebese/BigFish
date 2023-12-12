@@ -1,6 +1,7 @@
 package com.kh.bigFish.study.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,6 +12,7 @@ import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.reply.model.vo.Reply;
 import com.kh.bigFish.study.model.dao.StudyDao;
 import com.kh.bigFish.study.model.vo.Study;
+import com.kh.bigFish.study.model.vo.StudyGood;
 
 @Service
 public class StudyServiceImpl implements StudyService {
@@ -65,4 +67,57 @@ public class StudyServiceImpl implements StudyService {
 	public int insertReply(Reply r) {
 		return studyDao.insertReply(sqlSession, r);
 	}
+
+	@Override
+	public int selectSearchListCount(HashMap<String, String> map) {
+		return studyDao.selectSearchListCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Study> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		return studyDao.selectSearchList(sqlSession, map, pi);
+	}
+
+	@Override
+	public ArrayList<Study> selectSearchList(String keyword) {
+		return studyDao.selectSearchList(sqlSession, keyword);
+	}
+
+	@Override
+	public int searchGood(StudyGood studyGoodStatus) {
+		return studyDao.searchGood(sqlSession, studyGoodStatus);
+	}
+
+	@Override
+	public int createLike(StudyGood studyGoodStatus) {
+		return studyDao.createLike(sqlSession, studyGoodStatus);
+	}
+
+	@Override
+	public int deleteLike(StudyGood studyGoodStatus) {
+		return studyDao.deleteLike(sqlSession, studyGoodStatus);
+	}
+
+	
+	@Override
+	public StudyGood likeResult(StudyGood sg) {
+		return studyDao.likeResult(sqlSession, sg);
+	}
+
+	@Override
+	public int studyUpdateLike(StudyGood sg, String result) {
+		return studyDao.studyUpdateLike(sqlSession, sg, result);
+	}
+
+	
+	@Override
+	public StudyGood checkLikeTable(int memNo, int sno) {
+		return studyDao.checkLikeTable(sqlSession, memNo, sno);
+	}
+
+	@Override
+	public int createLikeTable(int memNo, int sno) {
+		return studyDao.createLikeTable(sqlSession, memNo, sno);
+	}
+	
 }

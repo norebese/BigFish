@@ -16,6 +16,7 @@
  		<result column="REV_REQUEST" property="revRequest"/>
  		<result column="REV_NAME" property="revName"/>
  		<result column="REV_PHONE" property="revPhone"/>
+ 		<result column="STORE_NAME" property="rstoreName"/>
  	</resultMap>
  
  	<insert id="insertReservation" parameterType="Reservation">
@@ -34,6 +35,25 @@
 		#{revPhone})
  	</insert>
  	
+
+ 	<select id="selectReservationList" resultMap="reservationResult">
+ 		SELECT R.REV_NO,
+ 			R.RMEM_NO,
+ 			R.RSTORE_NO,
+ 			R.REV_DATE,
+ 			R.REV_PEOPLE,
+ 			R.REV_START,
+ 			R.REV_END,
+ 			R.REV_STATUS,
+ 			R.REV_REQUEST,
+ 			R.REV_NAME,
+ 			R.REV_PHONE,
+ 			S.STORE_NAME
+ 		FROM RESERVATION R
+ 		LEFT JOIN STORE S ON R.RSTORE_NO = S.STORE_NO
+ 		WHERE R.RMEM_NO = #{memNo} 	
+	</select>
+
  	<select id="jungbokCheck" resultType="_int">
 		SELECT COALESCE(SUM(r.REV_PEOPLE), 0) AS RESERVED_PEOPLE
 		FROM STORE s

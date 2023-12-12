@@ -100,7 +100,7 @@
 					<select id="selectbox" name="condition" onchange=""
 						class="form-select pt-1 mt-4">
 						<option value="fiTitle">제목</option>
-						<option value="fiContent">작성자</option>
+						<option value="fiwriter">작성자</option>
 					</select>
 				</div>
 				<div class="text" style="margin-right: 10px;">

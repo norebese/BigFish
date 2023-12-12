@@ -115,5 +115,11 @@
 	  			
 	  	WHERE FREE_NO = #{freeNo}
   </update>
+  
+  <update id="deleteBoard">
+	  UPDATE FREEBOARD
+	  		SET FREE_STATUS = 'N'
+	  	WHERE FREE_NO = #{freeNo}
+  </update>
 
 </mapper>
