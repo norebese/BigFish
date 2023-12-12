@@ -1,4 +1,4 @@
-package com.kh.bigFish.study.model.vo;
+package com.kh.bigFish.search.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +11,6 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class StudyGood {
-	private int rmemNo;
-	private int rstudyNo;
-	private String studyGoodStatus;
-	
-	
+public class Search {
+	private String keyword;
 }

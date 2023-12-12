@@ -140,15 +140,15 @@
 	  	WHERE FISHING_NO = #{fishingNo}
   </update>
   
-  <select id="selectSearchListCount">
+  <select id="selectSearchListCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM FISHBOARD
 		 WHERE FISHING_STATUS = 'Y'
-	     <if test="condition == 'fishingTitle'"> 
+	     <if test="condition == 'fiTitle'"> 
 	       AND FISHING_TITLE
 	     </if>
-	     <if test="condition == 'fishingContent'"> 
-	       AND FISHING_CONTENT
+	     <if test="condition == 'fiwriter'"> 
+	       AND FISHING_WRITER
 	  	 </if>
 		  LIKE '%' || #{keyword} || '%'
 	</select>
@@ -161,7 +161,7 @@
 		 FROM FISHBOARD
 		 WHERE FISHING_STATUS = 'Y'
 		 <choose>
-		     <when test="condition == 'fishingTitle'"> 
+		     <when test="condition == 'fiTitle'"> 
 		       AND FISHING_TITLE
 		     </when>
 		     <otherwise> 

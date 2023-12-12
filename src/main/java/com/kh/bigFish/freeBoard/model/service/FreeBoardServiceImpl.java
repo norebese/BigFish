@@ -55,7 +55,12 @@ public class FreeBoardServiceImpl  implements FreeBoardService {
 
 	@Override
 	public int updateFreeBoard(FreeBoard b) {
-		System.out.println("여기입니다."+b);
+	
 		return freeBoardDao.updateFreeBoard(sqlSession, b);
+	}
+
+	@Override
+	public int deleteBoard(int boardNo) {
+		return freeBoardDao.deleteBoard(sqlSession, boardNo);
 	}
 }
