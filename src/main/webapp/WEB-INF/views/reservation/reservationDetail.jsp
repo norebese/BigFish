@@ -177,7 +177,7 @@
 				                        <option>01:00</option>
 				                    </select>
 				                </div>
-				               	<div>
+				               	<div class="option-list-area">
 				                	<ul class="option-list">
 				                		<div id="showTicket-area">
 					                		
@@ -237,17 +237,21 @@
             
             <div id="showReplyArea">
             	<c:forEach var="rl" items="${replyList}" varStatus="loopStatus">
-		            <div class="container" style="border-bottom: solid 2px rgb(204,204,204); ">
+		            <div class="" style="border-bottom: solid 2px rgb(204,204,204); ">
 		                <div class="row">
 		                    <div class="col-sm" style="display: flex; align-items: center;">
 		                        <i class="bi bi-person" style="font-size: 40px;"></i>
 		                        <span >${rl.replyWriter}</span>
 		                    </div>
 		                    <div class="col-md-8" style="display: flex; align-items: center;">${rl.replyContent}</div>
-		                    <div class="col-sm" style="display: flex; align-items: center;">${rl.replyCreateDate}</div>
+		                    <div class="col-sm" style="display: flex; align-items: center;">${rl.replyCreateDate}
+			                    <c:if test="${rl.rmemNo eq loginUser.memNo}">
+			                    <span id="dltBtn" onclick="dltReply('${rl.replyNo}')">삭제</span>
+			                    </c:if>
+		                    </div>
 		                </div>
 		            </div>
-	            </c:forEach>
+	            </c:forEach>    
             </div>
             
             <div>
@@ -266,16 +270,27 @@
 						        </li>
 						    </c:forEach>
 				       </ul>
-			          <li id="nextBtn" class="page-item" onclick="pageReply('next')">
-				            <a class="page-link" href="#" aria-label="Next">
-				              <span aria-hidden="true">&raquo;</span>
-				            </a>
-			          </li>
+				       <c:choose>
+				       <c:when test="${replyPi.maxPage eq 1 or replyPi.maxPage eq 0}">
+				          <li id="nextBtn" class="page-item" onclick="pageReply('next')" style="display: none;">
+					            <a class="page-link" href="#" aria-label="Next">
+					              <span aria-hidden="true">&raquo;</span>
+					            </a>
+				          </li>
+			          </c:when>
+			          <c:otherwise>
+			          		<li id="nextBtn" class="page-item" onclick="pageReply('next')">
+					            <a class="page-link" href="#" aria-label="Next">
+					              <span aria-hidden="true">&raquo;</span>
+					            </a>
+				          </li>
+			          </c:otherwise>
+			          </c:choose>
 			        </ul>
 			      </nav>
             </div>
 
-            <div style="border-top: solid 2px rgb(204,204,204);  padding-bottom: 15px; margin-top: 50px;">
+            <div>
                 
                 <th colspan="2">
                     <div style="display: flex; align-items: center;">
@@ -321,6 +336,33 @@
     <div class="pad"></div>
     
     <script>
+    let memNum = <%= (loginUser != null) ? loginUser.getMemNo() : 0%>;
+    function dltReply(rNum){
+    	$.ajax({
+	           type: "GET",
+	           url: "ajaxDltReply",
+	           data: { 
+	        	   rNum: rNum,
+	           },
+	           dataType: 'json',
+	           success: function(data) {
+	        	 alert('댓글이 삭제되었습니다.');
+	        	 updateReplyList(data.replyList, memNum);
+	        	 document.getElementById('content').value = '';
+	        	 let startPage = (data.replyPi.startPage);
+	        	 let endPage = (data.replyPi.endPage);
+	        	 let maxPage = (data.replyPi.maxPage);
+	        	 let currentPage = (data.replyPi.currentPage);
+	        	 updatePageBtn(startPage, endPage, currentPage);
+	        	 updateReplyBtn(endPage, maxPage, currentPage);
+	        	 document.getElementById('replyNum').innerHTML = '댓글 ('+(data.rNum)+')';
+	           },
+	           error: function() {
+	           	console.log("ajax 통신 실패");
+	           }
+	       });
+    }
+    
     let rPage = 1;
     function pageReply(num){
     	let scrollTop = $(window).scrollTop();
@@ -343,13 +385,13 @@
 	           },
 	           dataType: 'json',
 	           success: function(data) {
-	        	 updateReplyList(data.replyList);
+	        	 updateReplyList(data.replyList, memNum);
 	        	 let startPage = (data.replyPi.startPage);
 	        	 let endPage = (data.replyPi.endPage);
 	        	 let maxPage = (data.replyPi.maxPage);
 	        	 let currentPage = (data.replyPi.currentPage);
 	        	 updatePageBtn(startPage, endPage, currentPage);
-	        	 updateReplyBtn(endPage, maxPage);
+	        	 updateReplyBtn(endPage, maxPage, currentPage);
 	        	 
          		$(window).scrollTop(scrollTop);
 	           },
@@ -369,11 +411,14 @@
 	           },
 	           dataType: 'json',
 	           success: function(data) {
-	        	 updateReplyList(data.replyList);
+	        	 updateReplyList(data.replyList, memNum);
 	        	 document.getElementById('content').value = '';
 	        	 let startPage = (data.replyPi.startPage);
 	        	 let endPage = (data.replyPi.endPage);
-	        	 updatePageBtn(startPage, endPage);
+	        	 let maxPage = (data.replyPi.maxPage);
+	        	 let currentPage = (data.replyPi.currentPage);
+	        	 updatePageBtn(startPage, endPage, currentPage);
+	        	 updateReplyBtn(endPage, maxPage, currentPage);
 	        	 document.getElementById('replyNum').innerHTML = '댓글 ('+(data.rNum)+')';
 	           },
 	           error: function() {

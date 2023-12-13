@@ -108,7 +108,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 
 			</table>
 			<br>
-			<button type="submit" class="btn btn-primary" style="width: 100%;">게시글
+			<button type="submit" class="btn btn-primary" style="width: 100%;  background-color: rgb(59, 175, 252);">게시글
 				수정</button>
 			</form>
 

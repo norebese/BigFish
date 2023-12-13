@@ -104,7 +104,7 @@
 						style="flex: 0 0 33%; text-align: center; margin-bottom: 40px;"
 						onclick="location.href='detail.fibo?bno=${b.fishingNo}'">
 						<img src="<%=contextPath%>${b.changeName}" alt="Your Image"
-							style="width: 80%; height: 80%; object-fit: cover; cursor: pointer;">
+							style="width: 80%; height: 80%; object-fit: contain; cursor: pointer;">
 						<h6 style="font-weight: 800;">${b.fishingTitle}</h6>
 						<!-- 이 밑에 p태그는 나중에 기능개발할때 구체적으로 작성하면 좋겠습니다. -->
 						<p>글쓴이:${b.fishingWriter} 좋아요:9</p>
@@ -163,6 +163,8 @@
 						<option value="fiTitle">제목</option>
 						<option value="fiwriter">작성자</option>
 					</select>
+					 <input type="hidden" value="${b.originName}" name="originName">
+					  <input type="hidden" value="${b.changeName}" name="changeName">
 				</div>
 				<div class="text" style="margin-right: 10px;">
 					<input type="text" class="form-control" name="keyword"

@@ -3,7 +3,9 @@ package com.kh.bigFish.freeBoard.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
+import com.kh.bigFish.fishingBoard.model.vo.FishingBoard;
 import com.kh.bigFish.freeBoard.model.service.FreeBoardService;
 import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
 
@@ -168,6 +171,34 @@ public class FreeBoardController {
 		session.setAttribute("alertMsg", "게시글 수정완료");
 			return "redirect:list.fbo";
 
+	}
+	
+	@RequestMapping(value="fsearchForm.bo")
+	public ModelAndView searchAnn(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,String originName,String changeName,ModelAndView mv) {
+		
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		map.put("changeName",changeName);
+		map.put("originName",originName);
+	
+		
+		
+		PageInfo pi = Pagenation.getPageInfo(freeboardService.selectSearchListCount(map), currentPage, 5, 10);
+
+		ArrayList<FreeBoard> list = freeboardService.selectSearchList(map, pi);
+		System.out.println("바보입니까?"+list);
+		mv.addObject("pi",pi)
+		  .addObject("list", list)
+		  .addObject("condition", condition)
+		  .addObject("keyword", keyword)
+		  .addObject("changeName", changeName)
+		  .addObject("originName", originName)
+		  .setViewName("freeBoard/freeBoardList");
+		System.out.println("나좀보소오~"+mv);
+		
+		return mv;
 	}
 	
 }

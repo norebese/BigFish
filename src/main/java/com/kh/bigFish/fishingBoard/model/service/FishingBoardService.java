@@ -29,16 +29,21 @@ public interface FishingBoardService {
 
 	//게시글 수정 서비스(update)
 	int updateBoard(FishingBoard b);
-	
+
 	//게시글 수정 서비스(update)
 	int updateFileBoard(FishingBoard b);
-	
+
 	//게시글 삭제서비스(update)
-		int deleteBoard(int boardNo);
-		
-		//게시글 검색서비스(update)
-		int selectSearchListCount(HashMap<String, String> map);
-		ArrayList<FishingBoard> selectSearchList(HashMap<String, String> map, PageInfo pi);
+	int deleteBoard(int boardNo);
+
+	//게시글 검색서비스(update)
+	int selectSearchListCount(HashMap<String, String> map);
+
+	ArrayList<FishingBoard> selectSearchList(HashMap<String, String> map, PageInfo pi);
+	
+
+	//최근작성된 board 3개 가져오기
+		ArrayList<FishingBoard> selectmainList();
 
 
 }
