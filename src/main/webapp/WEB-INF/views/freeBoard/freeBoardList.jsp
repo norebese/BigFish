@@ -157,14 +157,16 @@
 			</nav>
 
 
-			<form id="searchForm" action="" method="get" align="center">
+			<form id="searchForm" action="fsearchForm.bo" method="get" align="center">
 				<div class="select" style="margin: none;">
-					<select id="selectbox" name="selectbox" onchange=""
+					<select id="selectbox" name="condition" onchange=""
 						class="form-select pt-1 mt-4">
-						<option value="A">글쓴이</option>
-						<option value="B">내용</option>
+						<option value="fTitle">제목</option>
+						<option value="fwriter">글쓴이</option>
 
 					</select>
+					 <input type="hidden" value="${b.originName}" name="originName">
+					  <input type="hidden" value="${b.changeName}" name="changeName">
 				</div>
 				<div class="text">
 					<input type="text" class="form-control" name="keyword"

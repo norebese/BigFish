@@ -113,8 +113,8 @@ String alertMsg = (String) session.getAttribute("alertMsg");
  
 </div>
 <input type="file" id="upfile" class="form-control-file border"
-       name="reUpfile" style="float: left;" onchange="uploadFile(this)"></input>
-        <img id="yourImageContainer" style="width: 520px;" src="<%=contextPath%>${b.changeName}" alt="Your Image"> 
+       name="reUpfile" style="float: left;" onchange="uploadFile(this)"></input><br>
+      
 							<input type="hidden" name="originName" value="${b.originName }">
 							<input type="hidden" name="changeName" value="${b.changeName }">
 							<input type="hidden" id="title" value="${loginUser.memNick}"
@@ -128,12 +128,13 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 						<div
 							style="flex: 1; display: flex; margin-right: 20px; margin-top: 20px;">
 							<!-- 이미지를 감싸는 div -->
-							<div style="height: 100%; margin-bottom: 20px;">
+							
+							   <img id="yourImageContainer" style="width: 520px;" src="<%=contextPath%>${b.changeName}" alt="Your Image">
+
+<div style="height: 100%; margin-bottom: 20px;">
 								<!-- 실제로는 이미지의 경로를 적어주세요. -->
 								<img id="yourImageContainer">
 							</div>
-
-
 
 						</div>
 						<div>
