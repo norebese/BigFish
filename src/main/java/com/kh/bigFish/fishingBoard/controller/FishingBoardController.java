@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.bigFish.announce.model.vo.Announce;
+import com.google.gson.Gson;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
@@ -139,7 +138,7 @@ public class FishingBoardController {
 		Attachment at = new Attachment();
 		b.setRmemNo(Mem.getMemNo());	
 		at.setOriginName(upfile.getOriginalFilename());
-		at.setChangeName("resources/uploadFiles/"+changeName);
+		at.setChangeName("/resources/uploadFiles/"+changeName);
 
 
 
@@ -232,7 +231,7 @@ public class FishingBoardController {
 			
 			//b객체에 새로운 첨부파일 정보(원본명, 저장경로) 저장
 			b.setOriginName(reUpfile.getOriginalFilename());
-			b.setChangeName("resources/uploadFiles/"+changeName);
+			b.setChangeName("/resources/uploadFiles/"+changeName);
 		}
 		//b객체 update
 		int result1 = fishingBoardService.updateBoard(b);
@@ -258,7 +257,7 @@ public class FishingBoardController {
 	
 	@RequestMapping("delete.fibo")
 	public String deleteBoard(int bno, String filePath, HttpSession session, Model model) {
-		System.out.println("1등이다"+bno);
+		
 		int result = fishingBoardService.deleteBoard(bno);
 		
 		session.setAttribute("alertMsg", "게시글 수정완료");
@@ -267,22 +266,36 @@ public class FishingBoardController {
 	}
 	
 	@RequestMapping(value="fisearchForm.bo")
-	public ModelAndView searchAnn(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {
+	public ModelAndView searchAnn(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,String originName,String changeName,ModelAndView mv) {
+		
 		
 		HashMap<String, String> map = new HashMap<>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
+		map.put("changeName",changeName);
+		map.put("originName",originName);
 		
-		PageInfo pi = Pagenation.getPageInfo(fishingBoardService.selectSearchListCount(map), currentPage, 10, 5);
+		
+		PageInfo pi = Pagenation.getPageInfo(fishingBoardService.selectSearchListCount(map), currentPage, 5, 9);
 		ArrayList<FishingBoard> list = fishingBoardService.selectSearchList(map, pi);
-		
+		System.out.println(list);
 		mv.addObject("pi",pi)
 		  .addObject("list", list)
 		  .addObject("condition", condition)
 		  .addObject("keyword", keyword)
-		  .setViewName("announce/announceList");
+		  .addObject("changeName", changeName)
+		  .addObject("originName", originName)
+		  .setViewName("fishingBoard/fishingBoardList");
+		
 		
 		return mv;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="mainList.fibo", produces="application/json; charset=UTF-8")
+	public String ajaxTopBoardList() {
+		return new Gson().toJson(fishingBoardService.selectmainList());
 	}
 }
 

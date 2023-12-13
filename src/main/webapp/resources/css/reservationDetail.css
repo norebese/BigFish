@@ -15,6 +15,7 @@
     margin-right: 100px;
     border-bottom: 1px solid;
     min-width: 100vh;
+    justify-content: center;
 }
 
 .carousel-inner img{
@@ -46,7 +47,6 @@
     margin-top: 60px;
     margin-left: 100px;
     margin-right: 100px;
-    border-bottom: 1px solid;
     min-width: 100vh;
 }
 .tab-area{
@@ -94,6 +94,7 @@
 .map-area{
     display: flex;
     border-bottom: 1px solid;
+    justify-content: center;
 }
 .kakao-map{
    height: 600px; 
@@ -117,6 +118,10 @@
     margin-top: 50px;
     margin-bottom: 30px;
     border-bottom: 1px solid;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .price-title{
     font-size: 40px;
@@ -136,6 +141,12 @@ th, td {
 }
 .choice-area{
 	margin-left: 50px;
+}
+.option-list-area{
+	height: 80%;
+    width: 100%;
+    overflow: scroll;
+    margin-top: 10px;
 }
 .option-list{
 	height: 200px;
@@ -266,4 +277,11 @@ th, td {
 }
 #like-logo img{
 	height: 100%;
+}
+#dltBtn{
+	margin-left: 40px;
+    text-wrap: nowrap;
+    font-size: 14px;
+    color: red;
+    cursor: pointer;
 }

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.bigFish.common.model.vo.PageInfo;
-import com.kh.bigFish.faq.dao.FAQDao;
+import com.kh.bigFish.faq.model.dao.FAQDao;
 import com.kh.bigFish.faq.model.vo.FAQ;
 
 @Service

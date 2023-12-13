@@ -1,6 +1,7 @@
 package com.kh.bigFish.freeBoard.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class FreeBoardServiceImpl  implements FreeBoardService {
 
 	@Override
 	public int updateFreeBoard(FreeBoard b) {
-		System.out.println("여기입니다."+b);
+	
 		return freeBoardDao.updateFreeBoard(sqlSession, b);
 	}
 
@@ -63,5 +64,19 @@ public class FreeBoardServiceImpl  implements FreeBoardService {
 	@Override
 	public ArrayList<FreeBoard> selectFreeList(String keyword) {
 		return freeBoardDao.selectFreeList(sqlSession, keyword);
+
+	@Override
+	public int deleteBoard(int boardNo) {
+		return freeBoardDao.deleteBoard(sqlSession, boardNo);
+	}
+
+	@Override
+	public int selectSearchListCount(HashMap<String, String> map) {
+		return freeBoardDao.selectSearchListCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<FreeBoard> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		return freeBoardDao.selectSearchList(sqlSession, map, pi);
 	}
 }

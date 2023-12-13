@@ -39,7 +39,7 @@
 
   .naverkakao{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
   }
 
   .naverkakao img{
@@ -51,7 +51,7 @@
     transition-timing-function: ease-out;
   }
   .naverkakao a{
-    width: 40%;
+    width: 50%;
   }
 
 

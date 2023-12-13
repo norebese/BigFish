@@ -7,9 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.bigFish.announce.dao.AnnDao;
+import com.kh.bigFish.announce.model.dao.AnnDao;
 import com.kh.bigFish.announce.model.vo.Announce;
-import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 
 @Service
@@ -56,5 +55,4 @@ public class AnnServiceImpl implements AnnService {
 	public ArrayList<Announce> selectSearchList(HashMap<String, String> map, PageInfo pi) {
 		return annDao.selectSearchList(sqlSession, map, pi);
 	}
-
 }

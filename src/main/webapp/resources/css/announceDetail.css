@@ -38,14 +38,14 @@
     align-items: flex-start;
     flex-direction: column;
 }
-.btn-area{
+.ann-btn-area{
 	width: 40%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     margin: 10px auto;
 }
-.btn-area > button, a {
-	width: 130px;
-	height: 40px;
+.ann-btn-area > .btn{
+	width:130px;
+	height: 40px;	
 }

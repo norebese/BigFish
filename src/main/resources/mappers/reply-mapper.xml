@@ -69,10 +69,18 @@
 		SELECT REPLY_NO,
 			   REPLY_CONTENT,
 			   REPLY_WRITER,
-			   TO_CHAR(REPLY_CREATE_DATE, 'YYYY-MM-DD') AS REPLY_CREATE_DATE
+			   TO_CHAR(REPLY_CREATE_DATE, 'YYYY-MM-DD') AS REPLY_CREATE_DATE,
+			   RMEM_NO
 		   FROM REPLY
 	     WHERE REPLY_STATUS = 'Y'
 	       AND RSTORE_NO = #{sNum}
 	     ORDER BY REPLY_NO DESC
 	</select>
+	
+	<update id="deleteReply">
+		UPDATE REPLY
+		SET reply_status = 'N'
+		WHERE reply_no = #{rNum}
+	</update>
+	
 </mapper>

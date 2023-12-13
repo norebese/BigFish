@@ -31,11 +31,69 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<style>
+.header-box {
+	display: flex;
+	flex-direction: row;
+}
+
+.left_box {
+	background-color: rgb(52, 152, 219);
+	width: 25%;
+	height: 286px;
+}
+
+.center_box {
+	display: flex;
+	flex-direction: row;
+	background-color: rgb(59, 175, 252);
+	width: 100%;
+	max-width: 1200px;
+	height: 286px;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.right_box {
+	background-color: rgb(52, 152, 219);
+	width: 25%;
+	height: 286px;
+}
+
+.study-image {
+	color: white;
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-start;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="header-box">
+		<div class="left_box"></div>
+		<div class="center_box">
+			<div style="color: white;">
+				<h2>조황게시판</h2>
+				<br>
+				<tr>
+					<td>당신의 대물을 자랑하시오!</td>
+				</tr>
+			</div>
+			<div class="study-image" style="color: white;">
+				<img style="width: 150px;" src="resources/images/1701241591278.png">
+			</div>
+		</div>
+		<div class="right_box"></div>
+	</div>
+
 	<div class="content">
-		<br> <br>
+
 		<div class="innerOuter">
 			<h2 align="left"
 				style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">조황게시판
@@ -48,37 +106,41 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 
 						<div>
 							<input type="text" id="title" class="form-control"
-								style="margin-bottom: 20px;" value="${b.fishingTitle}" name="fishingTitle" required
-								placeholder="제목을 입력해주세요" ></input> <label for="upfile"></label>
-							</th> <input type="file" id="upfile" class="form-control-file border"
-								name="reUpfile" required style="float: left;" onchange="uploadFile(this)" required></input>
-								현재 업로드된 썸네일사진 : 
-                            <a href="${b.changeName }" download="${b.originName }">${b.originName }</a>
-                            <input type="hidden" name="originName" value="${b.originName }">
-                            <input type="hidden" name="changeName" value="${b.changeName }">
-								<input type="hidden" id="title"
-							value="${loginUser.memNick}" name="fishingWriter"
-							placeholder="제목을 작성해주세요." required>
+								style="margin-bottom: 20px;" value="${b.fishingTitle}"
+								name="fishingTitle" required placeholder="제목을 입력해주세요"></input>
+							<label for="upfile"></label>
+							</th> <div style="height: 100%; margin-bottom: 20px;">
+ 
+</div>
+<input type="file" id="upfile" class="form-control-file border"
+       name="reUpfile" style="float: left;" onchange="uploadFile(this)"></input><br>
+      
+							<input type="hidden" name="originName" value="${b.originName }">
+							<input type="hidden" name="changeName" value="${b.changeName }">
+							<input type="hidden" id="title" value="${loginUser.memNick}"
+								name="fishingWriter" placeholder="제목을 작성해주세요." required>
 							<input type="hidden" id="title" class="form-control"
-						value="${b.fishingNo}" style="margin-bottom: 20px;" name="fishingNo"
-						required>
+								value="${b.fishingNo}" style="margin-bottom: 20px;"
+								name="fishingNo" required>
 						</div>
 
 
 						<div
 							style="flex: 1; display: flex; margin-right: 20px; margin-top: 20px;">
 							<!-- 이미지를 감싸는 div -->
-							<div style="height: 100%; margin-bottom: 20px;">
+							
+							   <img id="yourImageContainer" style="width: 520px;" src="<%=contextPath%>${b.changeName}" alt="Your Image">
+
+<div style="height: 100%; margin-bottom: 20px;">
 								<!-- 실제로는 이미지의 경로를 적어주세요. -->
 								<img id="yourImageContainer">
 							</div>
 
-
-
 						</div>
 						<div>
 							<td id="content"></td>
-						<textarea id="summernote" name="fishingContent"style="resize: none; margin-bottom: 20px; height: 100%;">${b.fishingContent}</textarea>
+							<textarea id="summernote" name="fishingContent"
+								style="resize: none; margin-bottom: 20px; height: 100%;">${b.fishingContent}</textarea>
 						</div>
 					</table>
 					<br>
@@ -170,7 +232,22 @@ String alertMsg = (String) session.getAttribute("alertMsg");
                 document.getElementById("yourImageContainer").src = "";
               }
 	    }
+		
+		function uploadFile(input) {
+			  if (input.files && input.files[0]) {
+			    let reader = new FileReader();
+			    reader.onload = function(e) {
+			      document.getElementById('yourImageContainer').src = e.target.result;
+			    };
+			    reader.readAsDataURL(input.files[0]);
+			  } else if ("${b.changeName}" !== "") {
+			    document.getElementById('yourImageContainer').src = "<%=contextPath%>/${b.changeName}";
+			  } else {
+			    document.getElementById("yourImageContainer").src = "";
+			  }
+			}
 	</script>
+	<jsp:include page="../common/footer.jsp" />
 </body>
 
 </html>

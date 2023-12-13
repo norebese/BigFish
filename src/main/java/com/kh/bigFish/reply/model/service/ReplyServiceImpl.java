@@ -34,4 +34,9 @@ public class ReplyServiceImpl implements ReplyService{
 		return replyDao.storeReplyList(sqlSession, pi, sNum);
 	}
 
+	@Override
+	public int deleteReply(int rNum) {
+		return replyDao.deleteReply(sqlSession, rNum);
+	}
+
 }

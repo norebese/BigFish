@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Big Fish</title>
+<title>BIG FISH</title>
 <link
 
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -37,20 +37,21 @@
 	<br><br>
 	
 	<form class="ann-form" action="annInsert.an" >
-			<input type="text" class="ann-title" name="annTitle" placeholder="제목을 입력해주세요.">
+			<input type="text" class="ann-title form-control" style="width: 65%;" name="annTitle" required placeholder="제목을 입력해주세요.">
 			<input type="hidden" value="${loginUser.memId}" name="annWriter" />
+			<input type="hidden" value="" name="deleteImgs" />
 			<br><br><br>
 			<textarea id="summernote"  class="ann-content" name="annContent" placeholder="내용을 입력해주세요. "></textarea>
 			<br><br>
-			<button class="btn btn-primary ann-button">게시글 등록</button>
+			<button class="btn btn-primary ann-button" onclick="imgFilter()">게시글 등록</button>
 	</form>
 
 	<script>
 
     // onImageUpload callback
-
+	let imgList = [];
+	
     $(document).ready(function() {
-
 
         let toolbar = [
 
@@ -95,11 +96,12 @@
 
             callbacks : { //여기 부분이 이미지를 첨부하는 부분
                 onImageUpload : function(files) {
-                    console.log(files);
                     for (let i = files.length - 1; i >= 0; i--) {
                         uploadSummernoteImageFile(files[i]);
                     }
+
                 }
+				// 이 부분에서 이미지 삭제 함수 호출(실제 파일 삭제)
             }
         };
 
@@ -116,11 +118,27 @@
                 enctype : 'multipart/form-data',
                 processData : false,
                 success : function(data) {
+				   imgList.push(data);
                    $("#summernote").summernote("insertImage","/bigFish" + data);
+					console.log(imgList)
                 }
             });
         }
     });
+
+
+	function imgFilter(){
+		const contents = $("#summernote").val();
+		const deleteImgLIst = [];
+		
+		for (let img of imgList) {
+			if(!contents.includes(img))
+				deleteImgLIst.push(img);
+		}
+		console.log(deleteImgLIst.toString())
+		
+		document.querySelector("input[name=deleteImgs]").value = deleteImgLIst.toString();
+	}
     </script>
 
 

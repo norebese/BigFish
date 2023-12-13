@@ -62,8 +62,17 @@ public class AnnounceController {
 	}
 	
 	@RequestMapping(value="annInsert.an")
-	public String AnnInsert(Announce a, HttpSession session, Model model) {;
-				
+	public String AnnInsert(Announce a, String deleteImgs, HttpSession session, Model model) {;
+		System.out.println(deleteImgs);
+		
+		String[] imgs = deleteImgs.split(",");
+		
+		 for (String imgPath : imgs) {
+		        // 파일 객체 생성
+		        new File(session.getServletContext().getRealPath(imgPath)).delete();
+		        
+		    }
+			
 		int annResult = annService.InsertAnn(a);
 		
 		if (annResult > 0) {					
@@ -128,10 +137,11 @@ public class AnnounceController {
 		
 		return mv;
 	}
-	
+		
+		
 		@ResponseBody
 		@RequestMapping(value="/uploadImageFile")
-		public String saveFile(MultipartFile upfile,HttpSession session, String path) {
+		public String saveFile(MultipartFile upfile, HttpSession session, String path) {
 
 			//원래 파일명
 			String originName = upfile.getOriginalFilename();
@@ -158,8 +168,10 @@ public class AnnounceController {
 				e.printStackTrace();
 			}
 			
-			return ("/resources/uploadFiles/" + changeName);
-
+			changeName = "/resources/uploadFiles/" + changeName;
+			return changeName;
+			
 		}
-
+		
+		
 }

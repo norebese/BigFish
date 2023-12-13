@@ -107,7 +107,7 @@
 		WHERE FREE_STATUS = 'Y'
 		AND FREE_NO = #{freeNo}
 	</select>
-	
+
 	<update id="updateFreeBoard">
 	  UPDATE FREEBOARD
 	  		SET FREE_TITLE = #{freeTitle},
@@ -125,5 +125,51 @@
   		AND FREE_TITLE LIKE '%' || #{keyword} || '%'
   		AND ROWNUM &lt;= 2
   	</select>
+
+		UPDATE FREEBOARD
+		SET FREE_TITLE = #{freeTitle},
+		FREE_CONTENT = #{freeContent}
+
+		WHERE FREE_NO = #{freeNo}
+	</update>
+
+	<update id="deleteBoard">
+		UPDATE FREEBOARD
+		SET FREE_STATUS = 'N'
+		WHERE FREE_NO = #{freeNo}
+	</update>
+
+	<select id="selectSearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM FREEBOARD
+		WHERE FREE_STATUS = 'Y'
+		<if test="condition == 'fTitle'">
+			AND FREE_TITLE
+		</if>
+		<if test="condition == 'fwriter'">
+			AND FREE_WRITER
+		</if>
+		LIKE '%' || #{keyword} || '%'
+	</select>
+
+	<select id="selectSearchList" resultMap="freeBoardResult">
+		SELECT FREE_NO
+       ,FREE_TITLE
+       ,FREE_COUNT
+       ,FREE_WRITER
+       ,FREE_CREATE_DATE
+FROM FREEBOARD 
+WHERE FREE_STATUS = 'Y'
+		<choose>
+			<when test="condition == 'fTitle'">
+				AND FREE_TITLE
+			</when>
+			<otherwise>
+				AND FREE_WRITER
+			</otherwise>
+		</choose>
+		LIKE '%' || #{keyword} || '%'
+		ORDER BY FREE_NO DESC
+	</select>
 
 </mapper>
