@@ -159,4 +159,48 @@ public class StoreDao {
 	public ArrayList<Store> selectMyStoreList(SqlSessionTemplate sqlSession, int memNo){
 		return (ArrayList)sqlSession.selectList("storeMapper.selectMyStoreList",memNo);
 	}
+
+	public int ajaxSeaStoreCountF(SqlSessionTemplate sqlSession, String city1, String city2, String city3, String city4,
+			String city5, String city6, int filterNum) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("city1", city1);
+	    params.put("city2", city2);
+	    params.put("city3", city3);
+	    params.put("city4", city4);
+	    params.put("city5", city5);
+	    params.put("city6", city6);
+	    params.put("filterNum", filterNum);
+	    if(city1 =="") {
+	    	return sqlSession.selectOne("storeMapper.ajaxSeaStoreCountFA", params);
+	    }else {
+	    	return sqlSession.selectOne("storeMapper.ajaxSeaStoreCountFB", params);
+	    }
+	}
+
+	public ArrayList<Store> ajaxStoreKindFilter(SqlSessionTemplate sqlSession, PageInfo pi, String city1, String city2,
+			String city3, String city4, String city5, String city6, int filterNum) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		Map<String, Object> params = new HashMap<>();
+	    params.put("city1", city1);
+	    params.put("city2", city2);
+	    params.put("city3", city3);
+	    params.put("city4", city4);
+	    params.put("city5", city5);
+	    params.put("city6", city6);
+	    params.put("filterNum", filterNum);
+	    
+	    if(city1 =="") {
+	    	return (ArrayList)sqlSession.selectList("storeMapper.ajaxStoreKindFilterA", params, rowBounds);
+	    }else {
+	    	return (ArrayList)sqlSession.selectList("storeMapper.ajaxStoreKindFilterB", params, rowBounds);
+	    }
+	}
+	
+	public int storeEnroll(SqlSessionTemplate sqlSession,Store s) {
+		return sqlSession.insert("storeMapper.storeEnroll",s);
+
+	}
 }

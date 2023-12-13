@@ -37,11 +37,8 @@
 		<mapper resource="/mappers/store-mapper.xml"/>
 		<mapper resource="/mappers/ann-mapper.xml"/>
 		<mapper resource="/mappers/study-mapper.xml"/>
-
 		<mapper resource="/mappers/fishingBoard-mapper.xml"/>
-
 		<mapper resource="/mappers/faq-mapper.xml" />
-
 		<mapper resource="/mappers/freeBoard-mapper.xml"/>
 		<mapper resource="/mappers/reply-mapper.xml"/>
      </mappers>

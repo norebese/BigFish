@@ -103,7 +103,7 @@
 	                        <p class="fish-info">
 	                            <span class="reply">
 	                                <img style="height: 12px;" src="<%=contextPath%>/resources/images/reply.png" alt="">
-	                                22
+	                                ${sl.replyCount}
 	                            </span>
 	                            <span class="like">
 	                                <img style="height: 12px;" src="<%=contextPath%>/resources/images/like.png" alt="">

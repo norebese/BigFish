@@ -1,10 +1,13 @@
 package com.kh.bigFish.store.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +22,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
 import com.kh.bigFish.member.model.vo.Member;
@@ -54,6 +59,103 @@ public class StoreController {
 	public String storeUpdateForm() {
 		return "store/storeUpdateForm";
 	}
+	
+	@RequestMapping("storeEnroll")
+	public String storeEnroll(Store s, String[] StoreFishKindArray,
+						String[] ticketNameArray, int[] ticketPriceArray, int[] ticketTimeArray, 
+						String[] storeWeekdayArray, String[] storeWeekendArray,
+						HttpSession session, MultipartFile[] upfile, Model model) {
+		
+		ArrayList<Attachment> attArray = new ArrayList<Attachment>();
+		ArrayList<Ticket> ticArray = new ArrayList<Ticket>();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		s.setRmemNo(loginUser.getMemNo());
+		s.setStoreWeekday(String.join(" ~ ", storeWeekdayArray));
+		s.setStoreWeekend(String.join(" ~ ", storeWeekendArray));
+		s.setStoreFishKind(String.join("/", StoreFishKindArray));
+		
+		for(int i=0; i<ticketNameArray.length; i++) {
+			Ticket tic = new Ticket();
+			
+			tic.setTicketName(ticketNameArray[i]);
+			tic.setTicketPrice(ticketPriceArray[i]);
+			tic.setTicketTime(ticketTimeArray[i]);
+			
+			ticArray.add(tic);
+		}
+		
+		for(MultipartFile fi : upfile) {
+			String changeName = saveFile(fi, session,"/resources/uploadFiles/");
+			//해당 객체 객체배열에 set 해줘야함
+			
+			Attachment att = new Attachment();
+			att.setOriginName(fi.getOriginalFilename());
+			att.setChangeName(changeName);
+			att.setFilePath(session.getServletContext().getRealPath("/resources/uploadFiles/"));
+			
+			attArray.add(att);
+		}
+		
+		int storeResult = storeService.storeEnroll(s);
+		
+		if(storeResult>0) {
+			
+			// Ticket 삽입
+			for(Ticket t : ticArray) {
+				storeService.insertTicket(t);
+			}
+			
+			// Attachment 삽입
+			for(Attachment a : attArray) {
+				storeService.insertAttachment(a);
+			}
+			
+			session.setAttribute("alertMsg", "회원가입에 성공했습니다.");
+			return "redirect:/companyMyPage.me";
+			
+		}else {
+		   // 매장 추가 실패
+			model.addAttribute("errorMsg","게시글 작성 실패");
+			return "common/errorPage";
+			
+		}
+		
+		
+		
+	}
+	
+	// 파일 이름 변경용 메서드
+		public String saveFile(MultipartFile upfile, HttpSession session, String path) {
+			//파일명 수정 후 서버 업로드 시키기("이미지저장용 (2).jpg" => 20231109102712345.jpg)
+			//년월일시분초 + 랜덤숫자 5개 + 확장자
+			
+			//원래 파일명
+			String originName = upfile.getOriginalFilename();
+			
+			//시간정보 (년월일시분초)
+			String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+			
+			//랜덤숫자 5자리
+			int ranNum = (int)(Math.random() * 90000) + 10000;
+			
+			//확장자
+			String ext = originName.substring(originName.lastIndexOf(".")+1);
+			
+			//변경된이름
+			String changeName = currentTime + ranNum +"."+ ext;
+			
+			//첨부파일 저장할 폴더의 물리적인 경우
+			String savePath = session.getServletContext().getRealPath(path);
+			
+			try {
+				upfile.transferTo(new File(savePath + changeName));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return changeName;
+		}
 	
 	// 사업자 번호 중복체크
 	@ResponseBody
@@ -151,7 +253,7 @@ public class StoreController {
 		Reply R = new Reply();
 		R.setRstoreNo(storeNum);
 		int storeReplyCount = replyService.storeReplyCount(R);
-		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, 1, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, 1, 5, 5);
 		
 		ArrayList<Reply> replyList = replyService.storeReplyList(pi, storeNum);
 		
@@ -321,7 +423,30 @@ public class StoreController {
 		return result;
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="ajaxStoreKindFilter", produces="application/json; charset=UTF-8")
+	public Map<String, Object> ajaxStoreKindFilter(HttpServletRequest request, HttpSession session) {
+		Map<String, Object> result = new HashMap<>();
+		String City1 = request.getParameter("param1");
+		String City2 = request.getParameter("param2");
+		String City3 = request.getParameter("param3");
+		String City4 = request.getParameter("param4");
+		String City5 = request.getParameter("param5");
+		String City6 = request.getParameter("param6");
+		int sfPage = Integer.parseInt(request.getParameter("sfPage"));
+		int filterNum = Integer.parseInt(request.getParameter("selectedOption"));
+		
+		int ajaxSeaStoreCountF = storeService.ajaxSeaStoreCountF(City1, City2, City3, City4, City5, City6, filterNum);
+		
+		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCountF, sfPage, 10, 5);
+		
+		ArrayList<Store> list = storeService.ajaxStoreKindFilter(piS, City1, City2, City3, City4, City5, City6, filterNum);
+		result.put("list", list);
+		result.put("count", ajaxSeaStoreCountF);
+	    result.put("piS", piS);
+		
+	    return result;
+	}
 	
 	
 

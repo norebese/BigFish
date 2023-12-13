@@ -36,8 +36,7 @@ public class ReplyController {
 		
 		int storeReplyCount = replyService.storeReplyCount(R);
 
-		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, rPage, 10, 5);
-		
+		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, rPage, 5, 5);
 		int sNum = st.getStoreNo();
 		ArrayList<Reply> replyList = replyService.storeReplyList(pi, sNum);
 		session.setAttribute("rNum", storeReplyCount);
@@ -64,8 +63,8 @@ public class ReplyController {
 		
 		int storeReplyCount = replyService.storeReplyCount(R);
 		
-		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, 1, 10, 5);
-		System.out.println(pi);
+		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, 1, 5, 5);
+		
 		int sNum = st.getStoreNo();
 		ArrayList<Reply> replyList = replyService.storeReplyList(pi, sNum);
 		session.setAttribute("rNum", storeReplyCount);
@@ -78,6 +77,29 @@ public class ReplyController {
 		return result;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="ajaxDltReply", produces="application/json; charset=UTF-8")
+	public Map<String, Object> ajaxDltReply(Reply R,HttpServletRequest request, HttpSession session) {
+		Map<String, Object> result = new HashMap<>();
+		int rNum = Integer.parseInt(request.getParameter("rNum"));
+		Store st = (Store) session.getAttribute("st");
+		
+		int deleteReply = replyService.deleteReply(rNum);
+		
+		R.setRstoreNo(st.getStoreNo());
+		int storeReplyCount = replyService.storeReplyCount(R);
+		
+		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, 1, 5, 5);
+		
+		int sNum = st.getStoreNo();
+		ArrayList<Reply> replyList = replyService.storeReplyList(pi, sNum);
+		
+		result.put("replyList", replyList);
+	    result.put("rNum", storeReplyCount);
+	    result.put("replyPi", pi);
+	    
+		return result;
+	}
 	
 	
 }

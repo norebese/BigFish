@@ -54,6 +54,30 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
+
+
+	<!-- summernote 한국어 팩 -->
+<!-- language pack -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.min.js"
+	integrity="sha256-y2bkXLA0VKwUx5hwbBKnaboRThcu7YOFyuYarJbCnoQ=" crossorigin="anonymous"></script>	
+
+<style>
+.offcanvas-header{
+	background-color: rgb(59, 175, 252);;
+	color: white;
+}
+.offcanvas-body{
+	display: flex;
+    flex-direction: column;
+}
+.btn-close{
+	color: white;
+}
+li::marker {
+  	color: rgb(41, 128, 185);
+}
+</style>
+
 </head>
 <body>
 	<%if(alertMsg != null){ %>
@@ -105,9 +129,41 @@
 				<a href="logout.me" style="text-decoration: none; color: black;">로그아웃</a>
 			</div>
 		</div>
-		<div class="menu-btn">
-			<img style="height: 30px; width: 30px;"
-				src="resources/images/menubar.png" alt="메뉴바">
+		
+		<div class="menu-btn">		
+				<!-- Offcanvas Sidebar -->
+			<div class="offcanvas offcanvas-end" style="width: 255px;" id="demo">
+			  <div class="offcanvas-header">
+			    <h3 class="offcanvas-title">더보기 메뉴</h3>
+			    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+			  </div>
+			  <br><br>
+			  <div class="offcanvas-body">
+			
+			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">바다 낚시</a>
+			  		<br>
+			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">민물 낚시</a>
+			  		<br>
+			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">낚시 용품</a>
+			  		<br>
+			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">어종</a>
+			  		<br>
+			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">자유 게시판</a>
+			  		<br>
+			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">조황 게시판</a>
+			  		<br>
+			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">예약</a>
+			  		<br>
+			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">학습 동영상</a>
+			  	
+			  </div>
+			</div>
+			
+			<!-- Button to open the offcanvas sidebar -->
+			<button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+			 <img style="height: 30px; width: 30px;"
+				src="resources/images/menubar.png">
+</button>
 		</div>
 	</div>
 

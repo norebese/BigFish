@@ -15,8 +15,11 @@
 <!-- JS-->
 <script src="<%=contextPath%>/resources/js/companyMyPage.js"></script>
 
-<!-- API-->
+<!-- memberAPI-->
 <script src="<%=contextPath%>/resources/js/service/member-api.js"></script>
+
+<!-- storeAPI-->
+<script src="<%=contextPath%>/resources/js/service/store-api.js"></script>
 
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -37,15 +40,18 @@
 	<br>  
 	  
 	<div class="myPage">
-		<div class="myPageMenuList">
+		<div class="myPageMenuList" id="myPageMenuList">
 			<button id="buttonProfile" onclick="showProfile()" style="width: 100%; border: none; background: rgb(28, 134, 204);" class="btn btn-secondary">프로필 관리</button><br><br>
 			<button id="buttonBusiness" onclick="showBusiness()" style="width: 100%; border: none; background: rgb(59, 175, 252);" class="btn btn-secondary">사업장 관리</button><br><br>
-			<button id="buttonSample1" onclick="showSample1()" style="width: 100%; border: none; background: rgb(59, 175, 252); " class="btn btn-secondary">사이판 민물 낚시터</button><br><br>
+			<c:forEach var="store" items="${storeList}">
+				<button id="buttonSample1" onclick="showSample1()" style="width: 100%; border: none; background: rgb(59, 175, 252); " class="btn btn-secondary businessButton">${store.storeName }</button><br><br>
+			</c:forEach>
 			
 		</div>
 		<div class="myPageContent">
 			<div id="profileWork" style="display: flex; flex-direction: column; align-items: center;">
 				<img id="profileShowArea" width="20%" height="20%" src=${loginUser.memChangeName} alt="">
+				<br>
 				<label for="profileImg" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사진 선택</label>
 				<input onchange="profileImgChange()" type="file" id="profileImg" style="display: none;">
 				<input id="memChangeName" type="hidden" value="${loginUser.memChangeName}">
@@ -87,10 +93,11 @@
 						</div>
 						
 						<div style="display: flex; flex-direction: column;">
-							<span style="font-weight: 500;">사업자 번호 : ${businessNo}</span><br>
+							<span style="font-weight: 500;">사업자 번호 : ${store.businessNo}</span><br>
 							<span>
-								<button onclick="location.href='storeUpdateForm.sto'" class="btn btn-primary">사업장 수정</button>
-								<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#businessDelete">사업장 삭제</button>
+								<button onclick="location.href='storeUpdateForm.sto'" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">1:1 문의</button>
+								<button onclick="location.href='storeUpdateForm.sto'" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 수정</button>
+								<button class="btn btn-danger" data-bs-toggle="modal" style="border: none;" data-bs-target="#businessDelete">사업장 삭제</button>
 							</span>
 						</div>
 						<div class="form-check form-switch" style="display: flex; flex-direction: column; width: 50%; align-items: flex-end;">
@@ -103,7 +110,7 @@
 				</div>
 				</c:forEach>
 
-					<button onclick="location.href='storeEnrollForm.sto'" style="width: 70%;" class="btn btn-primary">사업장 추가</button>
+					<button onclick="location.href='storeEnrollForm.sto'" style="width: 70%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 추가</button>
 			</div>
 
 			<div id="sample1Work" style="display: none; flex-direction: column;">

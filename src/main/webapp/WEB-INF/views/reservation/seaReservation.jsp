@@ -56,7 +56,7 @@
         
         <script type="text/javascript">
         let sPage = 1;
-        let city1; let city2 ;let city3 ;let city4 ;let city5 ;let city6;
+        let city1 = ''; let city2 = ''; let city3 = ''; let city4 = ''; let city5 = ''; let city6 = '';
         	function seaAreaFilter(param1, param2, param3, param4, param5, param6){
         		//document.getElementById("more").style.display = "none";
         		$.ajax({
@@ -310,7 +310,7 @@
 	                        <p class="fish-info">
 	                            <span class="reply">
 	                                <img style="height: 12px;" src="<%=contextPath%>/resources/images/reply.png" alt="">
-	                                22
+	                                ${ssl.replyCount}
 	                            </span>
 	                            <span class="like">
 	                                <img style="height: 12px;" src="<%=contextPath%>/resources/images/like.png" alt="">
@@ -365,16 +365,74 @@
 		               }
 		           });
 		   	}
+		    let sfPage;
+		    function storeKindFilter(selectedOption){
+		    	sfPage = 1; 
+		   		$.ajax({
+		               type: "GET",
+		               url: "ajaxStoreKindFilter",
+		               data: {param1: city1,
+	                    	param2: city2,
+	                    	param3: city3,
+	                    	param4: city4,
+	                    	param5: city5,
+	                    	param6: city6,
+		            	   	selectedOption: selectedOption,
+		            	   	sfPage: sfPage
+						},
+		               dataType: 'json',
+		               success: function(data) {
+		            	updateSeaList(data.list);
+		            	let moreButton3 = $('<button id="moreA" onclick="storeKindFilterMore(\'' + selectedOption + '\')">더 보기</button>');
+                		$('#btn-area').html(moreButton3);
+                    	if(data.piS.currentPage === data.piS.maxPage){
+                    		document.getElementById("moreA").style.display = "none";
+                    	}
+		               },
+		               error: function() {
+		               	console.log("ajax 통신 실패");
+		               }
+		           });
+		   	}
+		    
+		    function storeKindFilterMore(selectedOption){
+		    	sfPage++; 
+		   		$.ajax({
+		               type: "GET",
+		               url: "ajaxStoreKindFilter",
+		               data: {param1: city1,
+	                    	param2: city2,
+	                    	param3: city3,
+	                    	param4: city4,
+	                    	param5: city5,
+	                    	param6: city6,
+		            	   	selectedOption: selectedOption,
+		            	   	sfPage: sfPage
+						},
+		               dataType: 'json',
+		               success: function(data) {
+		            	nextListFiltered(data.list);
+		            	let moreButton3 = $('<button id="moreA" onclick="storeKindFilterMore(\'' + selectedOption + '\')">더 보기</button>');
+                		$('#btn-area').html(moreButton3);
+                    	if(data.piS.currentPage === data.piS.maxPage){
+                    		document.getElementById("moreA").style.display = "none";
+                    	}
+		               },
+		               error: function() {
+		               	console.log("ajax 통신 실패");
+		               }
+		           });
+		   	}
 		    </script>
             
         </div>
         <div class="filter-area">
-                  <select class="form-select" aria-label="Default select example" style="width: 200px; margin-top: 100px;">
-                    <option selected>전체</option>
-                    <option value="1">바다 배</option>
-                    <option value="2">바다 좌대</option>
-                  </select>
-            </div>
+              <select id="sortStore" class="form-select" aria-label="Default select example" style="width: 200px;">
+                <option selected value="3">전체</option>
+                <option value="1">바다 배</option>
+                <option value="2">바다 좌대</option>
+              </select>
+        </div>
         <div class="goTop" onclick="moveTop()">
         	<img alt="" src="위로가기">
         	
