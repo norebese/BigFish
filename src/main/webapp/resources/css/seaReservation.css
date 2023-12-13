@@ -213,7 +213,7 @@ p {
     top: 2px;
     right: 2px;
     z-index: 11;
-    background: url(/bigfish/resources/images/prev-btn-icon.png);
+    background: url(/bigFish/resources/images/prev-btn-icon.png);
     cursor: pointer;
     border: none;
 }
