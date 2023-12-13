@@ -10,44 +10,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+.header-box {
+	margin-top: 70px;
+	display: flex;
+	flex-direction: row;
+}
 
-.header-box{
-		margin-top: 70px;
-        display: flex;
-        flex-direction: row;
-    }
-    
-    .left_box{
-        background-color: rgb(52, 152, 219);  
-        width: 25%; 
-        height: 286px;
-    }
-    
-    .centerbox{
-        display: flex;
-        flex-direction: row;
-        background-color: rgb(59, 175, 252); 
-        width: 100%; 
-        max-width: 1200px;
-        height: 286px;
-        justify-content: space-evenly;
-        align-items: center;
-        
-    }
-    
-    .right_box{
-        background-color: rgb(52, 152, 219); 
-        width: 25%; 
-        height: 286px;
-    }
+.left_box {
+	background-color: rgb(52, 152, 219);
+	width: 25%;
+	height: 286px;
+}
+
+.centerbox {
+	display: flex;
+	flex-direction: row;
+	background-color: rgb(59, 175, 252);
+	width: 100%;
+	max-width: 1200px;
+	height: 286px;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.right_box {
+	background-color: rgb(52, 152, 219);
+	width: 25%;
+	height: 286px;
+}
+
 .container {
 	display: flex;
-  justify-content: space-between;
-  width: 100%;
-  box-sizing: border-box; /* 추가: border와 padding이 width에 포함되도록 설정 */
-
-  /* 중앙 정렬을 위한 부분을 flex로 대체 */
-  align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	box-sizing: border-box; /* 추가: border와 padding이 width에 포함되도록 설정 */
+	/* 중앙 정렬을 위한 부분을 flex로 대체 */
+	align-items: center;
 }
 
 .main {
@@ -110,17 +108,17 @@
 	margin: auto; /* 이미지를 가운데 정렬하기 위해 추가 */
 	margin-top: 30px;
 }
-.center_box{
-        display: flex;
-        flex-direction: row;
-        background-color: rgb(59, 175, 252); 
-        width: 100%; 
-        max-width: 1200px;
-        height: 286px;
-        justify-content: space-evenly;
-        align-items: center;
-        
-    }
+
+.center_box {
+	display: flex;
+	flex-direction: row;
+	background-color: rgb(59, 175, 252);
+	width: 100%;
+	max-width: 1200px;
+	height: 286px;
+	justify-content: space-evenly;
+	align-items: center;
+}
 
 .sub>div {
 	flex: 1;
@@ -151,28 +149,28 @@
 </head>
 
 <body>
-    <jsp:include page="common/header.jsp"/>
-<br>
+	<jsp:include page="common/header.jsp" />
+	<br>
 
 
-<div class="header-box">
-	<div class="left_box"></div>
-	<div class="centerbox">
-		<div style="color: white;">
-		<h2>학습동영상</h2>
-		<br>
-			<tr>
-				<td>낚시에 대한 새로운 지식을 배워보세요!</td>
-			</tr>
+	<div class="header-box">
+		<div class="left_box"></div>
+		<div class="centerbox">
+			<div style="color: white;">
+				<h2>학습동영상</h2>
+				<br>
+				<tr>
+					<td>낚시에 대한 새로운 지식을 배워보세요!</td>
+				</tr>
+			</div>
+			<div class="study-image" style="color: white;">
+				<img style="width: 150px;" src="resources/images/study.png">
+			</div>
 		</div>
-		<div class="study-image" style="color: white;">              
-			<img style="width: 150px;" src="resources/images/study.png">
-		</div>
+		<div class="right_box"></div>
 	</div>
-	<div class="right_box"></div>
-</div>
-	
-</div>
+
+	</div>
 	<div class="container">
 		<div class="banner">
 			<img src="<%=contextPath%>/resources/images/banner.png"
@@ -182,51 +180,49 @@
 		<div class="main">
 			<div class="container-fluid h-100">
 				<div class="row h-50">
-					<a href="seaReservation" class="col h-100" style="text-decoration: none; color: black;">
-						<img src="<%=contextPath%>/resources/images/1701241622228.png"
-							alt="Your Image">
+					<a href="seaReservation" class="col h-100"
+						style="text-decoration: none; color: black;"> <img
+						src="<%=contextPath%>/resources/images/1701241622228.png"
+						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">바다 낚시</p>
-					</a>
-					<a href="fishReservation" class="col h-100" style="text-decoration: none; color: black;">
-						<img src="<%=contextPath%>/resources/images/1701241622051.png"
-							alt="Your Image">
+					</a> <a href="fishReservation" class="col h-100"
+						style="text-decoration: none; color: black;"> <img
+						src="<%=contextPath%>/resources/images/1701241622051.png"
+						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">민물 낚시</p>
-					</a>
-					<a href="" class="col h-100" style="text-decoration: none; color: black;">
-						<img src="<%=contextPath%>/resources/images/1701241622193.png"
-							alt="Your Image">
+					</a> <a href="" class="col h-100"
+						style="text-decoration: none; color: black;"> <img
+						src="<%=contextPath%>/resources/images/1701241622193.png"
+						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">낚시 용품</p>
-					</a>
-					<a href="" class="col h-100" style="text-decoration: none; color: black;">
-						<img src="<%=contextPath%>/resources/images/1701241621969.png"
-							alt="Your Image">
+					</a> <a href="" class="col h-100"
+						style="text-decoration: none; color: black;"> <img
+						src="<%=contextPath%>/resources/images/1701241621969.png"
+						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">어종</p>
 					</a>
 				</div>
 				<div class="row h-50">
 
-					<a href="list.fbo" class="col h-100" style="text-decoration: none; color: black;">
-						<img src="<%=contextPath%>/resources/images/1701241621814.png"
-							alt="Your Image">
+					<a href="list.fbo" class="col h-100"
+						style="text-decoration: none; color: black;"> <img
+						src="<%=contextPath%>/resources/images/1701241621814.png"
+						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">자유게시판</p>
-					</a>
-
-					<a href="list.fibo" class="col h-100" style="text-decoration: none; color: black;">
-
-						<img src="<%=contextPath%>/resources/images/1701241622143.png"
-							alt="Your Image">
+					</a> <a href="list.fibo" class="col h-100"
+						style="text-decoration: none; color: black;"> <img
+						src="<%=contextPath%>/resources/images/1701241622143.png"
+						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">조황게시판</p>
-					</a>
-
-					<a href="" class="col h-100" style="text-decoration: none; color: black;">
-
-						<img src="<%=contextPath%>/resources/images/1701241621845.png"
-							alt="Your Image">
+					</a> <a href="" class="col h-100"
+						style="text-decoration: none; color: black;"> <img
+						src="<%=contextPath%>/resources/images/1701241621845.png"
+						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">예약</p>
-					</a>
-					<a href="list.st" class="col h-100" style="text-decoration: none; color: black;">
-						<img src="<%=contextPath%>/resources/images/1701241621923.png"
-							alt="Your Image">
+					</a> <a href="list.st" class="col h-100"
+						style="text-decoration: none; color: black;"> <img
+						src="<%=contextPath%>/resources/images/1701241621923.png"
+						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">학습동영상</p>
 					</a>
 				</div>
@@ -238,19 +234,27 @@
 				alt="Your Image">
 		</div>
 	</div>
-	<br><br>
+	<br>
+	<br>
 
 	<div class="container">
 		<div class="banner"></div>
 		<div class="sub">
-			<div style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
+			<div
+				style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
 				<h4>학습 동영상</h4>
 			</div>
-			<div class="container text-center" >
+			<div class="container text-center">
 				<div>
-					<a href="detail.st?sno=100"><img src="<%=contextPath%>/resources/images/fishingTip.png" style="margin-right: 20px; max-width: calc(33.33% - 20px);"></a> 
-					<a href="detail.st?sno=101"><img src="<%=contextPath%>/resources/images/fishingPrepare.png" style="margin-right: 20px; max-width: calc(33.33% - 20px);"></a>
-					<a href="detail.st?sno=108"><img src="<%=contextPath%>/resources/images/fishingJJi.png" style="max-width: calc(33.33% - 20px);"></a>
+					<a href="detail.st?sno=100"><img
+						src="<%=contextPath%>/resources/images/fishingTip.png"
+						style="margin-right: 20px; max-width: calc(33.33% - 20px);"></a>
+					<a href="detail.st?sno=101"><img
+						src="<%=contextPath%>/resources/images/fishingPrepare.png"
+						style="margin-right: 20px; max-width: calc(33.33% - 20px);"></a>
+					<a href="detail.st?sno=108"><img
+						src="<%=contextPath%>/resources/images/fishingJJi.png"
+						style="max-width: calc(33.33% - 20px);"></a>
 				</div>
 			</div>
 			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
@@ -263,18 +267,19 @@
 	<div class="container">
 		<div class="banner"></div>
 		<div class="sub">
-			<div style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
-				<h4>자유게시판</h4>
+			<div
+				style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
+				<h4>조황게시판</h4>
 			</div>
-			<div class="container text-center" style="flex: 4; overflow: hidden;">
+			<div class="container text-center1" style="flex: 4; overflow: hidden;">
 				<div class="d-flex justify-content-between">
-					<img src="<%=contextPath%>/resources/images/fishing.jpg" alt="Your Image" style="margin-right: 20px; max-width: calc(33.33% - 20px);">
-					<img src="<%=contextPath%>/resources/images/fishing.jpg" alt="Your Image" style="margin-right: 20px; max-width: calc(33.33% - 20px);">
-					<img src="<%=contextPath%>/resources/images/fishing.jpg" alt="Your Image" style="max-width: calc(33.33% - 20px);">
+					<div class="row" id="fishBoardList" >
+						
+					</div>
 				</div>
 			</div>
 			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
-				<a href="">자유게시판 모두보기 <i class="bi bi-arrow-right"></i></a>
+				<a href="list.fibo">조황게시판 모두보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
 		</div>
 
@@ -287,25 +292,94 @@
 		<div class="banner"></div>
 
 		<div class="sub">
-			<div style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
-				<h4>민물 실시간 조황</h4>
+			<div
+				style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
+				<h4>자유게시판</h4>
 			</div>
 			<div class="container text-center" style="flex: 4; overflow: hidden;">
-				<div class="d-flex justify-content-between">
-					<img src="<%=contextPath%>/resources/images/fishing.jpg" alt="Your Image" style="margin-right: 20px; max-width: calc(33.33% - 20px);">
-					<img src="<%=contextPath%>/resources/images/fishing.jpg" alt="Your Image" style="margin-right: 20px; max-width: calc(33.33% - 20px);">
-					<img src="<%=contextPath%>/resources/images/fishing.jpg" alt="Your Image" style="max-width: calc(33.33% - 20px);">
+					<div class="d-flex justify-content-between">
+					<div class="row">
+						<div class="col-4">
+							<div style="height: 80%;">
+								<img src="<%=contextPath%>/resources/images/fishing.jpg"
+									alt="Your Image" style="max-width: 100%; height: 100%;">
+							</div>
+							<!-- p태그 부분: 높이의 20% -->
+							<div style="height: 20%;">
+								<p>제목부분</p>
+							</div>
+						</div>
+						<div class="col-4">
+							<div style="height: 80%;">
+								<img src="<%=contextPath%>/resources/images/fishing.jpg"
+									alt="Your Image" style="max-width: 100%; height: 100%;">
+							</div>
+							<!-- p태그 부분: 높이의 20% -->
+							<div style="height: 20%;">
+								<p>제목부분</p>
+							</div>
+						</div>
+						<div class="col-4">
+							<div style="height: 80%;">
+								<img src="<%=contextPath%>/resources/images/fishing.jpg"
+									alt="Your Image" style="max-width: 100%; height: 100%;">
+							</div>
+							<!-- p태그 부분: 높이의 20% -->
+							<div style="height: 20%;">
+								<p>제목부분</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
-				<a href="">민물 실시간 조황 모두보기 <i class="bi bi-arrow-right"></i></a>
+
+				<a href="list.fbo">자유게시판 모두보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
 		</div>
 
 		<div class="banner"></div>
+		
+		<script>
+		$(function(){
+			topBoardList();
+		})
+		
+		function topBoardList(){
+			$.ajax({
+				url: "mainList.fibo",
+				success: function(data){
+					console.log(data)
+					 drawBoardRow(data)
+				},
+				error: function(){
+					console.log("ajax 실패")
+				}
+			})
+		}
+		
+		function drawBoardRow(data) {
+			console.log(data)
+		    for (let rowData of data) {
+		        // 각각의 게시물을 추가하는 부분입니다.
+		        document.getElementById("fishBoardList").innerHTML +=
+		        	'<a href="detail.fibo?bno='+rowData.fishingNo+'" class="col-4" style="text-decoration: none; color: black;">'+
+						'<div style="height: 80%;">'+
+							'<img src="<%=contextPath%>'+ rowData.changeName + 
+								'"alt="Your Image" style="width: 238px; height: 164px; object-fit: contain; cursor: pointer;">' +
+						'</div>'+
+						<!-- p태그 부분: 높이의 20% -->
+						'<div style="height: 20%;">'+
+							'<p>'+rowData.fishingTitle+'</p>'+
+						'</div>'+
+					'</a>'
+						
+		    }
+		}
+	</script>
 
 
 	</div>
-<jsp:include page="common/footer.jsp"/>
+	<jsp:include page="common/footer.jsp" />
 </body>
 </html>
