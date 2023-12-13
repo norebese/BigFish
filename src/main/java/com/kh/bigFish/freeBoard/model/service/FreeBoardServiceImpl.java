@@ -58,4 +58,10 @@ public class FreeBoardServiceImpl  implements FreeBoardService {
 		System.out.println("여기입니다."+b);
 		return freeBoardDao.updateFreeBoard(sqlSession, b);
 	}
+
+	//통합검색을 위해 만든 것 -고이환-
+	@Override
+	public ArrayList<FreeBoard> selectFreeList(String keyword) {
+		return freeBoardDao.selectFreeList(sqlSession, keyword);
+	}
 }

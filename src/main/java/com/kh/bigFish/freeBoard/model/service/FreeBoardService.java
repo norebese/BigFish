@@ -29,4 +29,7 @@ public interface FreeBoardService {
 	//게시글 수정 서비스(update)
 	int updateFreeBoard(FreeBoard b);
 
+	//통합검색을 위해 만든 것 -고이환-
+	ArrayList<FreeBoard> selectFreeList(String keyword);
+
 }

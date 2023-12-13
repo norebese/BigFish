@@ -48,4 +48,9 @@ public class FreeBoardDao {
 		System.out.println("여기입니다."+b);
 		return sqlSession.update("freeBoardMapper.updateFreeBoard", b);
 	}
+
+	//통합검색을 위해 만든 것 -고이환-
+	public ArrayList<FreeBoard> selectFreeList(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("freeBoardMapper.selectFreeList", keyword);
+	}
 }
