@@ -13,4 +13,6 @@ public interface ReplyService {
 	
 	ArrayList<Reply> storeReplyList(PageInfo pi, int sNum);
 	
+	int deleteReply(int rNum);
+	
 }

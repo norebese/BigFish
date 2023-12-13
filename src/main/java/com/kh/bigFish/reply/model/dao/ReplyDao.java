@@ -28,6 +28,10 @@ public class ReplyDao {
 				
 		return (ArrayList)sqlSession.selectList("replyMapper.storeReplyList", sNum, rowBounds);
 	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, int rNum) {
+		return sqlSession.update("replyMapper.deleteReply", rNum);
+	}
 	
 	
 
