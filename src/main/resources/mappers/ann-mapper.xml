@@ -101,6 +101,4 @@
 		  ORDER BY ANN_NO DESC
 	</select>
 	
-	
- 	
 </mapper>
