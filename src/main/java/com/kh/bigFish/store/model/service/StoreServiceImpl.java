@@ -122,6 +122,18 @@ public class StoreServiceImpl implements StoreService{
 	public ArrayList<Store> selectMyStoreList(int memNo) {
 		return storeDao.selectMyStoreList(sqlSession, memNo);
 	}
+
+	@Override
+	public int ajaxSeaStoreCountF(String City1, String City2, String City3, String City4, String City5, String City6,
+			int filterNum) {
+		return storeDao.ajaxSeaStoreCountF(sqlSession, City1, City2, City3, City4, City5, City6, filterNum);
+	}
+
+	@Override
+	public ArrayList<Store> ajaxStoreKindFilter(PageInfo pi, String City1, String City2, String City3, String City4,
+			String City5, String City6, int filterNum) {
+		return storeDao.ajaxStoreKindFilter(sqlSession, pi, City1, City2, City3, City4, City5, City6, filterNum);
+	}
 	
 }
 
