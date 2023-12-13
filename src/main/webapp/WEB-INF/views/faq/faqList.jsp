@@ -8,80 +8,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-	
-</head>
-<style>
-.faq-fa{
-	color: rgb(59, 175, 252);
-    width: 90%;
-    margin: 10px auto;
-    font-weight: bolder;
-}
-.border-line{
-	border-bottom: 2px solid rgb(204, 204, 204);
-    width: 85%;
-    margin: 10px;
-    margin-left: 70px;
-}
-.faq-area{
-	display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: center;
-    margin: 10px;
-    margin-left: 70px;
-}
-.faq-create{
-	background-color: rgb(59, 175, 252);
-	color: white;
-	border-radius: 3px;
-    border: none;
-    width: 85px;
-    height: 35px;
-    position: absolute;
-    margin-left: 1350px;
-    margin-bottom: 100px;
-}
-.faq-title-line{
-	border-bottom: 2px solid rgb(204, 204, 204);
-	width: 90%;
-    margin: 10px 10px;	
-}
-.faq-date{
-    margin-left: 34px;
-}
-li::marker {
-  	color: rgb(41, 128, 185);
-}
-.faq-btn{
-	border:none;
-	font-size: 25px;
-    background-color: white;
-    font-weight: bolder;
-}
-.faq-content{
-	 margin-left: 34px;
-}
-.enroll-btn{
-	background-color: rgb(59, 175, 252);
-	color: white;
-	border-radius: 3px;
-    border: none;
-	margin-left: 1200px;
-}
-.downarrow{
-	width:40px;
-	height:40px;
-}
+<title>BIG FISH</title>
 
-.collapse-area{
-	display: flex;
-    width: 90%;
-    justify-content: space-between;
-    height: 35px;
-}
-</style>
+<!-- CSS-->
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/faqList.css">
+
+</head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
 	<br><br><br><br>
@@ -93,9 +25,9 @@ li::marker {
 	<div class="faq-area">
 		<div class="collapse-area">
 			<ul>
-				<li class="faq-btn">${f.faqTitle}</li>
+				<li class="faq-btn" style="cursor:pointer;">${f.faqTitle}</li>
 			</ul>
-			<img class="downarrow" src="resources/images/downarrow.png" data-bs-toggle="collapse" data-bs-target="#faq${f.faqNo}">
+			<img class="downarrow" src="resources/images/downarrow.png" style="cursor:pointer;" data-bs-toggle="collapse" data-bs-target="#faq${f.faqNo}">
 		</div>
 		<p class="faq-date">${f.faqCreateDate}</p>
 		<div class="faq-title-line"></div>
@@ -140,7 +72,9 @@ li::marker {
 	<br>
 	
 	<c:if test="${ not empty loginUser }">
-		<button class="btn btn-primary faq-create" onclick="location.href='faqInsertForm.an'">작성하기</button>
+		<div class="faq-btn-area">
+			<button class="btn btn-primary" onclick="location.href='faqInsertForm.an'">작성하기</button>
+		</div>
 	</c:if>
 	
 	<br><br><br><br><br><br>

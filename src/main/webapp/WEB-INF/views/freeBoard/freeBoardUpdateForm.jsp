@@ -20,10 +20,68 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <!-- CSS-->
 <link rel="stylesheet"
-	href="<%=contextPath%>/resources/css/freeBoardEnrollForm.css">
+	href="<%=contextPath%>/resources/css/freeBoardUpdateForm.css">
+	<style>
+
+.header-box{
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.left_box{
+    background-color: rgb(52, 152, 219);  
+    width: 25%; 
+    height: 286px;
+}
+
+.center_box{
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(59, 175, 252); 
+    width: 100%; 
+    max-width: 1200px;
+    height: 286px;
+    justify-content: space-evenly;
+    align-items: center;
+    
+}
+
+.right_box{
+    background-color: rgb(52, 152, 219); 
+    width: 25%; 
+    height: 286px;
+}
+
+.study-image{
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+</style>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
+		 <br><br><br><br><br>
+		<div class="header-box">
+        <div class="left_box"></div>
+        <div class="center_box">
+            <div style="color: white;">
+            <h2>자유게시판</h2>
+            <br>
+                <tr>
+                    <td>자유롭게 소통을 해보세용~!</td>
+                </tr>
+            </div>
+            <div class="study-image" style="color: white;">              
+                <img style="width: 150px;" src="resources/images/1701241590820.png">
+            </div>
+        </div>
+        <div class="right_box"></div>
+    </div>
+    
 	<div class="content">
 		<br> <br>
 		<div class="innerOuter">
@@ -124,5 +182,6 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 					}
 				});
 	</script>
+	  <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

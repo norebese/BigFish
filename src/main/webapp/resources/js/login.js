@@ -14,8 +14,9 @@ function changePersonal(){
     companyInput.style.display = 'none';
     companyButton.style.display = 'none';
     companyNaverkakao.style.display = 'none';
-    personalBtn.classList.replace('btn-secondary','btn-primary');
-    companyBtn.classList.replace('btn-primary','btn-secondary');
+    personalBtn.style.background = '#3baffc';
+    companyBtn.style.background = '#6c757d';
+
     
 }
 
@@ -30,9 +31,9 @@ function changeCompany(){
     const companyNaverkakao = document.querySelector("#company-naverkakao");
 
     
+    companyBtn.style.background = '#3baffc';
+    personalBtn.style.background = '#6c757d';
 
-    personalBtn.classList.replace('btn-primary','btn-secondary');
-    companyBtn.classList.replace('btn-secondary','btn-primary');
     personalInput.style.display = 'none';
     personalButton.style.display = 'none';
     personalNaverkakao.style.display = 'none';

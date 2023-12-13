@@ -1,4 +1,4 @@
-package com.kh.bigFish.announce.dao;
+package com.kh.bigFish.announce.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;

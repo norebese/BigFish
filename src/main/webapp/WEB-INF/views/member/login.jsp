@@ -54,8 +54,8 @@
     <div class="top-line"></div>
     <br><br><br><br>
     <div align="center">
-        <button id="personal-login" onclick="changePersonal();" type="button" class="btn btn-primary btn-sm">개인회원</button>
-        <button id="company-login" onclick="changeCompany();" type="button" class="btn btn-secondary btn-sm">기업회원</button>
+        <button id="personal-login" style="background-color: #3baffc; border: none;" onclick="changePersonal();" type="button" class="btn btn-primary btn-sm">개인회원</button>
+        <button id="company-login"  style="border: none;"onclick="changeCompany();" type="button" class="btn btn-secondary btn-sm">기업회원</button>
     </div>
     <br>
     <!-- 개인회원 로그인-->
@@ -86,14 +86,14 @@
           &nbsp;/&nbsp;
           <a data-bs-toggle="modal" data-bs-target="#FindPwd" style="opacity: 0.5; cursor: pointer;">비밀번호 찾기</a>
         </div>
-	        <button type="submit" class="btn btn-primary" style="width: 450px; margin-bottom: 10px;" onclick="testFunk()">로그인하기</button>
+	        <button type="submit" class="btn btn-primary" style="background: #3baffc; border: none; width: 450px; margin-bottom: 10px;" onclick="testFunk()">로그인하기</button>
 	    </div>
     </form>
     <div id="personal-naverkakao" class="memberEnroll-btn-container">
     <button onclick="location.href='chooseEnroll.me'" type="button" class="btn btn-secondary" style="width: 450px; ">이메일로 가입하기</button>
       <div class="naverkakao" style="width:450px; height:38px; margin-top: 10px;">
-        <a href="<%=apiURL%>"><img src="resources/images/login_naver.png" alt="네이버 로그인 아이콘"></a>
-        <a><img src="resources/images/login_kakao.png" alt="카카오 로그인 아이콘"></a>
+        <a href="<%=apiURL%>"><img style="width: 100%;" src="resources/images/login_naver.png" alt="네이버 로그인 아이콘"></a>
+        
       </div>
       <span class="gray-text">로그인 / 회원가입시 이용약관, 개인정보취급방침에 동의하게 됩니다.</span>
       <br><br><br><br><br><br><br><br>
@@ -126,7 +126,7 @@
           &nbsp;/&nbsp;
           <a data-bs-toggle="modal" data-bs-target="#FindPwd" style="opacity: 0.5; cursor: pointer;">비밀번호 찾기</a>
         </div>
-	        <button type="submit" class="btn btn-primary" style="width: 450px; margin-bottom: 10px;" onclick="testFunk()">로그인하기</button>
+	        <button type="submit" class="btn btn-primary" style="background: #3baffc; border: none; width: 450px; margin-bottom: 10px;" onclick="testFunk()">로그인하기</button>
 	    </div>
     </form>
     <div id="company-naverkakao" style="display: none;" class="memberEnroll-btn-container">

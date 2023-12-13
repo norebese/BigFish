@@ -135,5 +135,10 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.ajaxStoreKindFilter(sqlSession, pi, City1, City2, City3, City4, City5, City6, filterNum);
 	}
 	
+	@Override
+	public int storeEnroll(Store s) {
+		return storeDao.storeEnroll(sqlSession, s);
+	}
+	
 }
 

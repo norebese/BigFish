@@ -197,6 +197,10 @@ public class StoreDao {
 	    }else {
 	    	return (ArrayList)sqlSession.selectList("storeMapper.ajaxStoreKindFilterB", params, rowBounds);
 	    }
-	    
+	}
+	
+	public int storeEnroll(SqlSessionTemplate sqlSession,Store s) {
+		return sqlSession.insert("storeMapper.storeEnroll",s);
+
 	}
 }
