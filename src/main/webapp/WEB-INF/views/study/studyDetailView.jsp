@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BIG FISH</title>
 <style>
 
 .header-box{
@@ -158,6 +158,7 @@
                     <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteStudy">글 삭제</a>
                 </div>
                 </c:if>
+                <div style="margin-left: 52%;"><button class="btn btn-secondary" onclick="location.href='list.st'">목록으로</button></div>
                 <form action="" method="post" id="postForm">
                     <input type="hidden" name="sno" value="${s.studyNo}">
                 </form>
@@ -226,7 +227,7 @@
                     let str = "";
                     for (reply of list){
                         str += ("<tr>" + 
-                                    "<td>" + reply.reply + "</td>" +
+                                    "<td>" + reply.replyWriter + "</td>" +
                                     "<td>" + reply.replyContent + "</td>" +
                                     "<td>" + reply.replyCreateDate + "</td>" +
                                 "</tr>")

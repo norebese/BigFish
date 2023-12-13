@@ -35,7 +35,7 @@ public class StudyController {
 	
 	@RequestMapping(value="/list.st")
 	public ModelAndView selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv) {
-		PageInfo pi = Pagenation.getPageInfo(studyService.selectListCount(), currentPage, 5, 5);
+		PageInfo pi = Pagenation.getPageInfo(studyService.selectListCount(), currentPage, 10, 5);
 		
 		mv.addObject("pi", pi)
 		  .addObject("list", studyService.selectList(pi))
@@ -64,6 +64,7 @@ public class StudyController {
 	
 	@RequestMapping(value="/detail.st")
 	public String selectStudy(int sno, Model model, HttpSession session) {
+		
 		int result = studyService.increaseCount(sno);
 		
 		if(result > 0) {
@@ -117,9 +118,8 @@ public class StudyController {
 	@RequestMapping("UpdateLike")
 	public void updateLike(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 
-		System.out.println(session);
-		
 		StudyGood sg = new StudyGood();
+		System.out.println(sg);
 		Study st = (Study) session.getAttribute("st");
 		Member Mem = (Member) session.getAttribute("loginUser");
 		int studyNum = st.getStudyNo();

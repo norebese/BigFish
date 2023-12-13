@@ -96,12 +96,12 @@ li::marker {
 		</div>
 		<div class="header-menu">
 			<div class="search-area">
-				<input type="text" placeholder="검색어를 입력해 주세요"> <a
-					class="search-btn" href=""> <img
-					style="height: auto; width: 15px; margin-top: 7px;"
-					src="resources/images/search_icon.png" alt="검색버튼">
+				<input type="text" id="keyword" name="keyword" placeholder="검색어를 입력해 주세요"> 
+				<a class="search-btn" onclick="mainSearch();">
+					<img style="height: auto; width: 15px; margin-top: 7px; cursor: pointer;" src="resources/images/search_icon.png" alt="검색버튼">
 				</a>
 			</div>
+
 			<a class="menu-link" href="annList.an">공지사항</a> <a class="menu-link"
 				href="faqList.fa">FAQ</a>
 			<c:choose>

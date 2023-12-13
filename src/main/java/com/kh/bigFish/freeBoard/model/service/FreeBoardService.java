@@ -40,4 +40,7 @@ public interface FreeBoardService {
 		ArrayList<FreeBoard> selectSearchList(HashMap<String, String> map, PageInfo pi);
 
 
+	//통합검색을 위해 만든 것 -고이환-
+	ArrayList<FreeBoard> selectFreeList(String keyword);
+
 }
