@@ -127,13 +127,28 @@
 									
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
 										<span style="font-size: 13px;">${r.revDate}</span>
-										<span>이용 완료</span>
+										<span>
+											<c:choose>
+												<c:when test="${r.revStatus eq 'WAITREV'}">
+												예약 대기
+												</c:when>
+												<c:when test="${r.revStatus eq 'OKREV'}">
+												예약 완료
+												</c:when>
+												<c:when test="${r.revStatus eq 'CANCELREV'}">
+												예약 취소
+												</c:when>
+												<c:when test="${r.revStatus eq 'DONEREV'}">
+												이용 완료
+												</c:when>
+											</c:choose>
+										</span>
 									</div>
 								</div>
 								<div class="card-body">
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
-										<span>1시간 이용권</span>
-										<span>24000원</span>
+										<span>${r.rticketName}</span>
+										<span>${r.rticketPrice * r.revPeople}원</span>
 									</div>
 								</div>
 								<div class="card-footer">

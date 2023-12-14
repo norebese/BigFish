@@ -18,6 +18,9 @@
  		<result column="REV_NAME" property="revName"/>
  		<result column="REV_PHONE" property="revPhone"/>
  		<result column="STORE_NAME" property="rstoreName"/>
+        <result column="TICKET_NAME" property="rticketName"/>
+        <result column="TICKET_PRICE" property="rticketPrice"/>
+        <result column="TICKET_TIME" property="rticketTime"/>    
  	</resultMap>
  
  	<insert id="insertReservation" parameterType="Reservation">
@@ -50,9 +53,13 @@
  			R.REV_REQUEST,
  			R.REV_NAME,
  			R.REV_PHONE,
- 			S.STORE_NAME
+ 			S.STORE_NAME,
+            T.TICKET_NAME,
+            T.TICKET_PRICE,
+            T.TICKET_TIME
  		FROM RESERVATION R
  		LEFT JOIN STORE S ON R.RSTORE_NO = S.STORE_NO
+ 		LEFT JOIN TICKET T ON R.RTICKET_NO = T.TICKET_NO
  		WHERE R.RMEM_NO = #{memNo} 	
 	</select>
 

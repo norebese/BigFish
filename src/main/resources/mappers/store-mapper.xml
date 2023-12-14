@@ -64,7 +64,7 @@
 		FROM STORE
 		WHERE (STORE_KIND = 'FreshSeat'
 		        OR STORE_KIND = 'FreshCafe')
-		AND STORE_STATUS = 'op'
+		AND STORE_STATUS = 'open'
 	</select>
 	
 	<select id="filteredStoreCount" resultType="_int">
@@ -72,7 +72,7 @@
 		FROM STORE
 		WHERE LOCATION_BIG = #{locationBig}
 		AND LOCATION_SMALL = #{locationSmall}
-		AND STORE_STATUS = 'op'
+		AND STORE_STATUS = 'open'
 	</select>
 
  	<select id="ajaxStoreList" resultMap="storeResult">
@@ -86,7 +86,7 @@
         LEFT JOIN TICKET t ON s.STORE_NO = t.RSTORE_NO
 		WHERE S.LOCATION_BIG = #{locationBig}
 		  AND S.LOCATION_SMALL = #{locationSmall}
-		  AND STORE_STATUS = 'op'
+		  AND STORE_STATUS = 'open'
 		GROUP BY S.STORE_NO, S.STORE_ADDRESS, S.STORE_NAME
  	</select>
  	
@@ -94,7 +94,7 @@
  		SELECT *
  		FROM STORE
  		WHERE STORE_NO = #{num}
- 		AND STORE_STATUS = 'op'
+ 		AND STORE_STATUS = 'open'
  	</select>
 
  	<insert id="insertStore">
@@ -220,7 +220,7 @@
 		    REPLY r ON s.STORE_NO = r.RSTORE_NO
 		WHERE STORE_KIND = 'FreshSeat'
 		        OR STORE_KIND = 'FreshCafe'
-		AND STORE_STATUS = 'op'
+		AND STORE_STATUS = 'open'
 		GROUP BY 
 		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME
 		ORDER BY 
@@ -232,7 +232,7 @@
 		FROM STORE
 		WHERE STORE_KIND = 'seaShip'
         OR STORE_KIND = 'seaSeat'
-        AND STORE_STATUS = 'op'
+        AND STORE_STATUS = 'open'
 	</select>
 	
 	<select id="seaStoreList" resultMap="storeResult">
@@ -253,7 +253,7 @@
 		    REPLY r ON s.STORE_NO = r.RSTORE_NO
 		WHERE STORE_KIND = 'seaShip'
 		        OR STORE_KIND = 'seaSeat'
-		AND STORE_STATUS = 'op'
+		AND STORE_STATUS = 'open'
 		GROUP BY 
 		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME
 		ORDER BY 
@@ -272,7 +272,7 @@
             OR LOCATION_SMALL = #{city4}
             OR LOCATION_SMALL = #{city5}
             OR LOCATION_SMALL = #{city6}
-            AND STORE_STATUS = 'op'
+            AND STORE_STATUS = 'open'
 	</select>
 	
 	<select id="ajaxSeaStoreList" resultMap="storeResult">
@@ -295,7 +295,7 @@
 		    		REPLY r ON s.STORE_NO = r.RSTORE_NO    
 				WHERE (s.STORE_KIND = 'seaShip'
 				        OR s.STORE_KIND = 'seaSeat')
-				AND s.STORE_STATUS = 'op'
+				AND s.STORE_STATUS = 'open'
 				GROUP BY 
 				    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, s.LOCATION_SMALL
 				ORDER BY 
@@ -343,7 +343,7 @@
         WHERE (STORE_KIND = 'seaShip'
         OR STORE_KIND = 'seaSeat')
         </if>
-        AND STORE_STATUS = 'op'
+        AND STORE_STATUS = 'open'
 	</select>
 	
 	<select id="ajaxSeaStoreCountFB" resultType="_int">
@@ -367,7 +367,7 @@
             OR LOCATION_SMALL = #{city4}
             OR LOCATION_SMALL = #{city5}
             OR LOCATION_SMALL = #{city6}
-            AND STORE_STATUS = 'op'
+            AND STORE_STATUS = 'open'
 	</select>
 	
 	<select id="ajaxStoreKindFilterA" resultMap="storeResult">
@@ -398,7 +398,7 @@
                 OR STORE_KIND = 'seaSeat'
                 </if>
 		        )
-		AND STORE_STATUS = 'op'
+		AND STORE_STATUS = 'open'
 		GROUP BY 
 		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME
 		ORDER BY 
@@ -435,7 +435,7 @@
                     OR s.STORE_KIND = 'seaSeat'
                     </if>
 				        )
-				AND s.STORE_STATUS = 'op'
+				AND s.STORE_STATUS = 'open'
 				GROUP BY 
 				    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, s.LOCATION_SMALL
 				ORDER BY 
@@ -575,7 +575,7 @@
 	SELECT COUNT(*)
 	FROM STORE
 	WHERE BUSINESS_NO = #{businessNo} 
-			AND STORE_STATUS = 'op' 
+			AND STORE_STATUS = 'open' 
 			OR STORE_STATUS = 'stopOpen'
 	</select>
 	

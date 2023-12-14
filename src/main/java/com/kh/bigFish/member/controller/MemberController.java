@@ -230,8 +230,8 @@ public class MemberController {
 	public String personalMyPage(HttpSession session,Model model) {
 		
 		Member loginUser =  (Member)session.getAttribute("loginUser");
-		
 		ArrayList<Reservation> reserList = reservationService.selectReservationList(loginUser.getMemNo());
+		
 		
 		
 		session.setAttribute("loginUser", loginUser);
