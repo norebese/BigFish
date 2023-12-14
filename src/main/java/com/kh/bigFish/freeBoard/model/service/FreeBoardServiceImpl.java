@@ -64,7 +64,8 @@ public class FreeBoardServiceImpl  implements FreeBoardService {
 	@Override
 	public ArrayList<FreeBoard> selectFreeList(String keyword) {
 		return freeBoardDao.selectFreeList(sqlSession, keyword);
-
+	}
+	
 	@Override
 	public int deleteBoard(int boardNo) {
 		return freeBoardDao.deleteBoard(sqlSession, boardNo);
