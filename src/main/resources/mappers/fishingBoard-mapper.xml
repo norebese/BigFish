@@ -176,6 +176,17 @@ WHERE F.FISHING_STATUS = 'Y'
 		  ORDER BY FISHING_NO DESC
 	</select>
 	
+
+	<!-- 통합 검색을 위해 만든 것 -고이환- -->
+	<select id="selectFishingList" resultMap="fishingBoardResult">
+		SELECT FISHING_NO,
+			   FISHING_TITLE
+		  FROM FISHBOARD  
+		WHERE FISHING_STATUS = 'Y'
+		AND FISHING_TITLE LIKE '%' || #{keyword} || '%'
+		 	AND ROWNUM &lt;= 2
+	</select>
+	
 	 <select id="selectmainList" resultMap="fishingBoardResult">
 	SELECT *
 FROM (
@@ -198,6 +209,5 @@ FROM (
 WHERE
     ROWNUM BETWEEN 1 AND 3
   </select>
-
 
 </mapper>

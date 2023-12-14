@@ -6,8 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIG FISH</title>
@@ -104,7 +102,6 @@
                 
                 </ul>
             </div>
-            
 
 			<form class="st-search-area" id="searchForm" action="search.st" method="get" align="center">
                 <div class="select" style="margin: none;">
@@ -114,7 +111,7 @@
                     </select>
                 </div>
                 <div class="text">
-                    <input type="text" class="form-control" name="keyword" style="margin-top: 24px;">
+                    <input type="text" class="form-control" name="keyword" value="${keyword}" style="margin-top: 24px;">
                 </div>
                 <button type="submit" class="searchBtn btn btn-secondary"
                     style="margin-top: 28px;">검색</button>
