@@ -39,18 +39,19 @@
 	<form class="ann-form" action="annInsert.an" >
 			<input type="text" class="ann-title form-control" style="width: 65%;" name="annTitle" required placeholder="제목을 입력해주세요.">
 			<input type="hidden" value="${loginUser.memId}" name="annWriter" />
+			<input type="hidden" value="" name="deleteImgs" />
 			<br><br><br>
 			<textarea id="summernote"  class="ann-content" name="annContent" placeholder="내용을 입력해주세요. "></textarea>
 			<br><br>
-			<button class="btn btn-primary ann-button">게시글 등록</button>
+			<button class="btn btn-primary ann-button" onclick="imgFilter()">게시글 등록</button>
 	</form>
 
 	<script>
 
     // onImageUpload callback
-
+	let imgList = [];
+	
     $(document).ready(function() {
-
 
         let toolbar = [
 
@@ -97,8 +98,8 @@
                 onImageUpload : function(files) {
                     for (let i = files.length - 1; i >= 0; i--) {
                         uploadSummernoteImageFile(files[i]);
-						// 변수를 만들어주고 거기에 String형태로 파일경로를 쭉 담아주기
                     }
+
                 }
 				// 이 부분에서 이미지 삭제 함수 호출(실제 파일 삭제)
             }
@@ -117,13 +118,27 @@
                 enctype : 'multipart/form-data',
                 processData : false,
                 success : function(data) {
+				   imgList.push(data);
                    $("#summernote").summernote("insertImage","/bigFish" + data);
+					console.log(imgList)
                 }
             });
         }
-
-		// 호출된 함수 deleteSummernoteImageFile(실제 파일 삭제)
     });
+
+
+	function imgFilter(){
+		const contents = $("#summernote").val();
+		const deleteImgLIst = [];
+		
+		for (let img of imgList) {
+			if(!contents.includes(img))
+				deleteImgLIst.push(img);
+		}
+		console.log(deleteImgLIst.toString())
+		
+		document.querySelector("input[name=deleteImgs]").value = deleteImgLIst.toString();
+	}
     </script>
 
 

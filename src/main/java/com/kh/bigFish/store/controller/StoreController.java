@@ -524,7 +524,30 @@ public class StoreController {
 		return result;
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="ajaxStoreKindFilter", produces="application/json; charset=UTF-8")
+	public Map<String, Object> ajaxStoreKindFilter(HttpServletRequest request, HttpSession session) {
+		Map<String, Object> result = new HashMap<>();
+		String City1 = request.getParameter("param1");
+		String City2 = request.getParameter("param2");
+		String City3 = request.getParameter("param3");
+		String City4 = request.getParameter("param4");
+		String City5 = request.getParameter("param5");
+		String City6 = request.getParameter("param6");
+		int sfPage = Integer.parseInt(request.getParameter("sfPage"));
+		int filterNum = Integer.parseInt(request.getParameter("selectedOption"));
+		
+		int ajaxSeaStoreCountF = storeService.ajaxSeaStoreCountF(City1, City2, City3, City4, City5, City6, filterNum);
+		
+		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCountF, sfPage, 10, 5);
+		
+		ArrayList<Store> list = storeService.ajaxStoreKindFilter(piS, City1, City2, City3, City4, City5, City6, filterNum);
+		result.put("list", list);
+		result.put("count", ajaxSeaStoreCountF);
+	    result.put("piS", piS);
+		
+	    return result;
+	}
 	
 	
 

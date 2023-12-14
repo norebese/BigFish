@@ -55,6 +55,10 @@ public interface StoreService {
 	
 	ArrayList<Store> selectMyStoreList(int memNo);
 	
+	int ajaxSeaStoreCountF(String City1, String City2, String City3, String City4, String City5, String City6, int filterNum);
+	
+	ArrayList<Store> ajaxStoreKindFilter(PageInfo pi, String City1, String City2, String City3, String City4, String City5, String City6, int filterNum);
+	
 	int storeEnroll(Store s);
 	
 	Store getStoreInfo(int storeNo);

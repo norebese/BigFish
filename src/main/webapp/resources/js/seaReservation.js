@@ -149,3 +149,8 @@ function emptyResult(){
 	let divTarget = $('#showList-area');
 	divTarget.html('<h1>검색 결과가 없습니다</h1>');
 }
+
+document.getElementById("sortStore").addEventListener("change", function() {
+    let selectedOption = this.value;
+    storeKindFilter(selectedOption);
+  });

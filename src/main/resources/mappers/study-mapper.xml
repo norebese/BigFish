@@ -21,22 +21,6 @@
 		 FROM STUDY
 		WHERE STUDY_STATUS = 'Y'
 	</select>
-  	
-  	<select id="searchLike" resultType="int">
-		SELECT COUNT(*)
-		 FROM STUDYGOOD
-		WHERE sno = #{sno} AND rmemNo = #{rmemNo}
-	</select>
-	
-	<insert id="createLike">
-		INSERT INTO STUDYGOOD (sno, rmemNo)
-			VALUES (#{sno}, #{rmemNo})
-	</insert>
-	
-	<delete id="deleteLike">
-		DELETE FROM STUDYGOOD
-		WHERE sno = #{sno} AND rmemNo = #{rmemNo}	
-	</delete>
 	
 	<select id="selectList" resultMap="studyResult">
 		SELECT STUDY_NO,
@@ -141,5 +125,26 @@
 		FROM STUDYGOOD
 		WHERE RMEM_NO = #{rmemNo}
 		AND RSTUDY_NO = #{rstudyNo}
+ 	</select>
+ 	
+ 	<insert id="createLikeTable">
+ 		INSERT INTO STUDYGOOD (RMEM_NO, RSTUDY_NO)
+		VALUES (#{memNo}, #{studyNum})
+ 	</insert>
+ 
+ 	<select id="checkLikeTable" resultMap="studyResult">
+ 		SELECT *
+		FROM STUDYGOOD
+		WHERE RMEM_NO = #{memNo}
+		AND RSTUDY_NO = #{studyNum}
+ 	</select>
+ 	
+ 	<select id="selectStudyList" resultMap="studyResult">
+ 		SELECT STUDY_NO,
+ 			   STUDY_TITLE
+ 		   FROM STUDY
+ 		 WHERE STUDY_STATUS = 'Y'	
+ 		 AND STUDY_TITLE LIKE '%' || #{keyword} || '%'
+         AND ROWNUM &lt;= 2 
  	</select>
 </mapper>

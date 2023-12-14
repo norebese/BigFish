@@ -154,23 +154,60 @@
 	</select>
  	
  	<select id="selectSearchList" resultMap="fishingBoardResult">
-		SELECT FISHING_NO
-		      ,FISHING_TITLE
-		      ,FISHING_COUNT
-		      ,FISHING_CREATE_DATE
-		 FROM FISHBOARD
-		 WHERE FISHING_STATUS = 'Y'
+		 SELECT F.FISHING_NO
+      ,F.FISHING_TITLE
+      ,F.FISHING_COUNT
+      ,F.FISHING_WRITER
+      ,F.FISHING_CREATE_DATE
+      ,A.ORIGIN_NAME
+      ,A.CHANGE_NAME
+FROM FISHBOARD F
+JOIN ATTACHMENT A ON F.FISHING_NO = A.RFISHING_NO
+WHERE F.FISHING_STATUS = 'Y'
 		 <choose>
 		     <when test="condition == 'fiTitle'"> 
 		       AND FISHING_TITLE
 		     </when>
 		     <otherwise> 
-		       AND FISHING_COUNT
+		       AND FISHING_WRITER
 		  	 </otherwise>
 	  	 </choose>
 		  LIKE '%' || #{keyword} || '%'
 		  ORDER BY FISHING_NO DESC
 	</select>
+	
 
+	<!-- 통합 검색을 위해 만든 것 -고이환- -->
+	<select id="selectFishingList" resultMap="fishingBoardResult">
+		SELECT FISHING_NO,
+			   FISHING_TITLE
+		  FROM FISHBOARD  
+		WHERE FISHING_STATUS = 'Y'
+		AND FISHING_TITLE LIKE '%' || #{keyword} || '%'
+		 	AND ROWNUM &lt;= 2
+	</select>
+	
+	 <select id="selectmainList" resultMap="fishingBoardResult">
+	SELECT *
+FROM (
+    SELECT
+        FB.FISHING_NO,
+        AT.CHANGE_NAME,
+        FB.FISHING_TITLE,
+        FB.FISHING_WRITER,
+        FB.FISHING_COUNT,
+        TO_CHAR(FB.FISHING_CREATE_DATE, 'YYYY-MM-DD') AS "FISHING_CREATE_DATE"
+    FROM
+        FISHBOARD FB
+    JOIN
+        ATTACHMENT AT ON FB.FISHING_NO = AT.RFISHING_NO
+    WHERE
+        FISHING_STATUS = 'Y'
+    ORDER BY
+        FB.FISHING_NO DESC
+)
+WHERE
+    ROWNUM BETWEEN 1 AND 3
+  </select>
 
 </mapper>
