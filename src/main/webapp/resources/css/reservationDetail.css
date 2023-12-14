@@ -1,3 +1,9 @@
+.carousel-inner{
+    transition: transform 0.5s ease-in-out;
+}
+.carousel-item {
+    display: flex; /* flex 속성 추가 */
+}
 
 .header-area{
     z-index: 999;
@@ -215,6 +221,8 @@ th, td {
     border-bottom: 1px solid;
 }
 .info-title{
+	display: flex;
+	justify-content: space-between;
     margin-top: 20px;
     font-size: 30px;
 }

@@ -20,6 +20,7 @@
  		<result column="STORE_GROUP" property="storeGroup"/>
  		<result column="STORE_KIND" property="storeKind"/>
  		<result column="STORE_FISH_KIND" property="storeFishKind"/>
+ 		<result column="RESERVATION_DETAIL" property="reservationDetail"/>
  		<result column="BUSINESS_NO" property="businessNo"/>
  		<result column="STORE_STATUS" property="storeStatus"/>
  		<result column="LIKE_COUNT" property="likeCount"/>
@@ -50,7 +51,9 @@
 	<select id="storeCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM STORE
-		WHERE STORE_STATUS = 'op'
+		WHERE (STORE_KIND = 'FreshSeat'
+		        OR STORE_KIND = 'FreshCafe')
+		AND STORE_STATUS = 'op'
 	</select>
 	
 	<select id="filteredStoreCount" resultType="_int">
@@ -267,15 +270,18 @@
 				    s.STORE_NO,
 				    s.STORE_ADDRESS,
 				    s.STORE_NAME,
-				    COUNT(DISTINCT g.RSTORE_NO) AS like_count,
+				    COUNT(DISTINCT CASE WHEN g.STORE_GOOD_STATUS = 'Y' THEN g.RSTORE_NO END) AS like_count,
 				    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
-		            s.LOCATION_SMALL
+		            s.LOCATION_SMALL,
+		            COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count
 				FROM 
 				    STORE s
 				LEFT JOIN 
 				    STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
 				LEFT JOIN 
 				    TICKET t ON s.STORE_NO = t.RSTORE_NO
+				LEFT JOIN 
+		    		REPLY r ON s.STORE_NO = r.RSTORE_NO    
 				WHERE (s.STORE_KIND = 'seaShip'
 				        OR s.STORE_KIND = 'seaSeat')
 				AND s.STORE_STATUS = 'op'
@@ -393,15 +399,18 @@
 				    s.STORE_NO,
 				    s.STORE_ADDRESS,
 				    s.STORE_NAME,
-				    COUNT(DISTINCT g.RSTORE_NO) AS like_count,
+				    COUNT(DISTINCT CASE WHEN g.STORE_GOOD_STATUS = 'Y' THEN g.RSTORE_NO END) AS like_count,
 				    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
-		            s.LOCATION_SMALL
+		            s.LOCATION_SMALL,
+		            COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count
 				FROM 
 				    STORE s
 				LEFT JOIN 
 				    STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
 				LEFT JOIN 
 				    TICKET t ON s.STORE_NO = t.RSTORE_NO
+				LEFT JOIN 
+		    		REPLY r ON s.STORE_NO = r.RSTORE_NO
 				WHERE (
 					<if test="filterNum == 1"> 
                      s.STORE_KIND = 'seaShip'
@@ -465,4 +474,25 @@
  						#{businessNo}
  				)
 	</insert>
+	<select id="myStoreList" resultMap="storeResult">
+		SELECT *
+		FROM STORE
+		JOIN MEMBER ON RMEM_NO = MEM_NO
+		WHERE RMEM_NO = #{memNo}
+	</select>
+	<select id="detailInfo" resultType="string">
+		SELECT RESERVATION_DETAIL
+		FROM STORE
+		WHERE STORE_NO = #{storeNum}
+	</select>
+	<update id="updateDetailInfo">
+		UPDATE STORE
+		SET reservation_detail = #{info}
+		WHERE STORE_NO = #{storeNum}
+	</update>
+	<select id="selectedTicket" resultMap="ticketResult">
+		SELECT *
+		FROM TICKET
+		WHERE TICKET_NO = #{ticketNo}
+	</select>
  </mapper>

@@ -57,7 +57,8 @@ public class ReservationController {
 		String month = request.getParameter("month");
 		String day = request.getParameter("day");
 		String time = request.getParameter("time");
-		String endTime = request.getParameter("endTime");
+		int ticketNo =Integer.parseInt(request.getParameter("ticketNo"));
+		int ticketTime =Integer.parseInt(request.getParameter("ticketTime"));
 		int numPeople = Integer.parseInt(request.getParameter("numPeople"));
 
 		String dateTimeString = String.format("%s-%s-%s %s", year, month, day, time);
@@ -65,16 +66,18 @@ public class ReservationController {
 		LocalDateTime localDateTime = LocalDateTime.parse(dateTimeString, formatter);
 		String formattedDateTime = localDateTime.format(formatter);
 		
-		String dateTimeStringE = String.format("%s-%s-%s %s", year, month, day, endTime);
-		DateTimeFormatter formatterE = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		LocalDateTime localDateTimeE = LocalDateTime.parse(dateTimeStringE, formatterE);
-		String formattedDateTimeE = localDateTimeE.format(formatterE);
-        
+		LocalDateTime updatedDateTime = localDateTime.plusHours(ticketTime);
+		String formattedDateTimeE = updatedDateTime.format(formatter);
+		
+		R.setRticketNo(ticketNo);
 		R.setRmemNo(Mem.getMemNo());
 		R.setRevStart(formattedDateTime);
 		R.setRevEnd(formattedDateTimeE);
 		R.setRevPeople(numPeople);
+		
+		Ticket tk = reservationService.selectedTicket(ticketNo);
         
+		session.setAttribute("tk", tk);
 		session.setAttribute("M", Mem);
         session.setAttribute("R", R);
 	}

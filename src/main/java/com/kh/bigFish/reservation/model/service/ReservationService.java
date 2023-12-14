@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import com.kh.bigFish.reservation.model.vo.Reservation;
+import com.kh.bigFish.store.model.vo.Ticket;
 
 public interface ReservationService {
 	
@@ -17,5 +18,7 @@ public interface ReservationService {
 	
 	// 중복체크
 	int jungbokCheck(Reservation R);
+	
+	Ticket selectedTicket(int ticketNo);
 	
 }

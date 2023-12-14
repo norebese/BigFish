@@ -203,4 +203,20 @@ public class StoreDao {
 		return sqlSession.insert("storeMapper.storeEnroll",s);
 
 	}
+
+	public ArrayList<Store> myStoreList(SqlSessionTemplate sqlSession, int memNo) {
+		return (ArrayList)sqlSession.selectList("storeMapper.myStoreList", memNo);
+	}
+
+	public String detailInfo(SqlSessionTemplate sqlSession, int storeNum) {
+		return sqlSession.selectOne("storeMapper.detailInfo", storeNum);
+	}
+
+	public int updateDetailInfo(SqlSessionTemplate sqlSession, int storeNum, String info) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("storeNum", storeNum);
+	    params.put("info", info);
+		
+		return sqlSession.update("storeMapper.updateDetailInfo", params);
+	}
 }

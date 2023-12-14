@@ -179,7 +179,7 @@ public class StoreController {
 		
 		int storeCount = storeService.storeCount();
 		
-		PageInfo pi = Pagenation.getPageInfo(storeCount, currentPage, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(storeCount, currentPage, 10, 6);
 		
 		ArrayList<Store> storeList = storeService.storeList(pi);
 //		for (Store store : storeList) {
@@ -193,16 +193,20 @@ public class StoreController {
 	
 	@ResponseBody
 	@RequestMapping(value="fishReservationAddPage", produces="application/json; charset=UTF-8")
-	public ArrayList<Store> fishReservationAddPage(HttpServletRequest request) {
-		
+	public Map<String, Object> fishReservationAddPage(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
 		int Page =Integer.parseInt(request.getParameter("cpage"));
 		int storeCount = storeService.storeCount();
 		
-		PageInfo pi = Pagenation.getPageInfo(storeCount, Page, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(storeCount, Page, 10, 6);
 		
 		ArrayList<Store> storeList = storeService.storeList(pi);
 		
-		return storeList;
+		result.put("list", storeList);
+	    result.put("storeCount", storeCount);
+	    result.put("pi", pi);
+		
+		return result;
 	}
 	
 	@ResponseBody
@@ -218,7 +222,7 @@ public class StoreController {
 		
 		int storeCount = storeService.filteredStoreCount(S);
 		
-		PageInfo piA = Pagenation.getPageInfo(storeCount, Page, 10, 5);
+		PageInfo piA = Pagenation.getPageInfo(storeCount, Page, 10, 6);
 		
 		ArrayList<Store> list = storeService.ajaxStoreList(S, piA);
 		
@@ -326,9 +330,7 @@ public class StoreController {
 			R.setRstoreNo(s.getStoreNo());
 			R.setRevStart(startTime);
 			R.setRevEnd(endTime);
-			System.out.println(R);
 			int jungbok = reservationService.jungbokCheck(R);
-			System.out.println("jungbok :"+jungbok);
 			
 		    ticket.setAmount(pAmount - jungbok);
 		}
@@ -341,7 +343,7 @@ public class StoreController {
 		
 		int seaStoreCount = storeService.seaStoreCount();
 		
-		PageInfo pi = Pagenation.getPageInfo(seaStoreCount, currentPage, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(seaStoreCount, currentPage, 10, 6);
 		
 		ArrayList<Store> seaStoreList = storeService.seaStoreList(pi);
 //		for (Store store : seaStoreList) {
@@ -355,16 +357,19 @@ public class StoreController {
 	
 	@ResponseBody
 	@RequestMapping(value="seaReservationAddPage", produces="application/json; charset=UTF-8")
-	public ArrayList<Store> seaReservationAddPage(HttpServletRequest request) {
-		
+	public Map<String, Object> seaReservationAddPage(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
 		int currentPage =Integer.parseInt(request.getParameter("cpage"));
 		int seaStoreCount = storeService.seaStoreCount();
 		
-		PageInfo pi = Pagenation.getPageInfo(seaStoreCount, currentPage, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(seaStoreCount, currentPage, 10, 6);
 		
 		ArrayList<Store> seaStoreList = storeService.seaStoreList(pi);
 		
-		return seaStoreList;
+		result.put("seaStoreList", seaStoreList);
+	    result.put("pi", pi);
+		
+		return result;
 	}
 	
 	@ResponseBody
@@ -380,7 +385,7 @@ public class StoreController {
 		
 		int ajaxSeaStoreCount = storeService.ajaxSeaStoreCount(City1, City2, City3, City4, City5, City6);
 		
-		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCount, 1, 10, 5);
+		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCount, 1, 10, 6);
 		
 		ArrayList<Store> list = storeService.ajaxSeaStoreList(piS, City1, City2, City3, City4, City5, City6);
 		
@@ -393,7 +398,7 @@ public class StoreController {
 		cityNames.add(City6);
 		
 		result.put("list", list);
-	    result.put("count", ajaxSeaStoreCount);
+	    result.put("piS", piS);
 	    result.put("cityNames", cityNames);
 		
 		return result;
@@ -413,7 +418,7 @@ public class StoreController {
 		
 		int ajaxSeaStoreCount = storeService.ajaxSeaStoreCount(City1, City2, City3, City4, City5, City6);
 		
-		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCount, sPage, 10, 5);
+		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCount, sPage, 10, 6);
 		
 		ArrayList<Store> list = storeService.ajaxSeaAreaMore(piS, City1, City2, City3, City4, City5, City6);
 		
@@ -438,7 +443,7 @@ public class StoreController {
 		
 		int ajaxSeaStoreCountF = storeService.ajaxSeaStoreCountF(City1, City2, City3, City4, City5, City6, filterNum);
 		
-		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCountF, sfPage, 10, 5);
+		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCountF, sfPage, 10, 6);
 		
 		ArrayList<Store> list = storeService.ajaxStoreKindFilter(piS, City1, City2, City3, City4, City5, City6, filterNum);
 		result.put("list", list);
@@ -448,6 +453,37 @@ public class StoreController {
 	    return result;
 	}
 	
-	
+	@RequestMapping(value="/storeRegisterPage")
+	public String storeRegisterPage(HttpSession session) {
+		Member Mem = (Member) session.getAttribute("loginUser");
+		int MemNo = Mem.getMemNo();
+		
+		ArrayList<Store> list = storeService.myStoreList(MemNo);
+				
+		session.setAttribute("myStoreList", list);
+		
+		return "store/storeRegisterPage";
+	}
 
+	@ResponseBody
+	@RequestMapping(value="ajaxGetDetailInfo", produces="text/plain; charset=UTF-8")
+	public String ajaxGetDetailInfo(HttpServletRequest request){
+		int storeNum = Integer.parseInt(request.getParameter("storeNum"));
+		String detailInfo = storeService.detailInfo(storeNum);
+		return detailInfo;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="ajaxUpdateDetailInfo" )
+	public Map<String, Object> ajaxUpdateDetailInfo(HttpServletRequest request){
+		Map<String, Object> result = new HashMap<>();
+		int storeNum = Integer.parseInt(request.getParameter("storeNum"));
+		String info = request.getParameter("infoVal");
+		
+		int updateDetailInfo = storeService.updateDetailInfo(storeNum, info);
+		
+		result.put("info", updateDetailInfo);
+		
+		return result;
+	}
 }

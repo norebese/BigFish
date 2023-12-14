@@ -5,6 +5,8 @@
    	let numPeople;
 	let isChecked;
 	let dateClicked;
+    let ticketNo;
+    let ticketTime;
 
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -91,7 +93,7 @@ function showDateAlert() {
     $(".form-select").val('');
 }
 
-function handleCheckboxClick(clickedCheckboxId) {
+function handleCheckboxClick(clickedCheckboxId, num) {
     isChecked = 'checkOk';
     // 모든 체크박스에 대해 반복
     $(".myCheckbox").each(function() {
@@ -100,13 +102,17 @@ function handleCheckboxClick(clickedCheckboxId) {
             $(this).prop("checked", false);
         }else{
         	$(this).prop("checked", true);
-        	let ticketTime = this.value
-        	let selectedTimeDt = new Date("2023-01-01 " + selectedTime);
-			selectedTimeDt.setMinutes(selectedTimeDt.getMinutes() + ticketTime * 60);
-		    endTime = `${selectedTimeDt.getHours().toString().padStart(2, '0')}:${selectedTimeDt.getMinutes().toString().padStart(2, '0')}`;
+        	ticketNo = this.value
+        	ticketTime = num;
+        	let [selectedHours, selectedMinutes] = selectedTime.split(":").map(Number);
+        	let selectedTimeDt = new Date(Date.UTC(2023, 0, 1, selectedHours, selectedMinutes));
+        	selectedTimeDt.setHours(selectedTimeDt.getHours() + num);
+        	endTime = `${selectedTimeDt.getUTCHours().toString().padStart(2, '0')}:${selectedTimeDt.getUTCMinutes().toString().padStart(2, '0')}`;
+
 			console.log("selectedTime: "+selectedTime);
-            console.log("ticketTime: "+ticketTime);
+            console.log("ticketNo: "+ticketNo);
             console.log("endTime: "+endTime);
+            console.log("num: "+num);
         }
         
     });
@@ -142,7 +148,7 @@ function updateTicket(date){
 	$.each(date, function (index, ticket) {
                 htmlContent += '<li class="option-item"><label style="display: flex; cursor: pointer;" id="checkboxLabel'+ticket.ticketNo+'" data-bs-toggle="modal" data-bs-target="#myModal'+ticket.ticketNo+'">'
         		+'<div class="checkbox-icon"><label for="myCheckbox'+ticket.ticketNo+'"><input type="checkbox" id="myCheckbox'+ticket.ticketNo+'" class="myCheckbox" data-target="#checkboxLabel'+ticket.ticketNo
-                +`" onclick="handleCheckboxClick('myCheckbox` + ticket.ticketNo+ `')" value="`+ticket.ticketNo+'">'
+                +`" onclick="handleCheckboxClick('myCheckbox` + ticket.ticketNo+`','`+ticket.ticketTime+ `')" value="`+ticket.ticketNo+'">'
         		+'</label></div><div class="option-info"><div class="info-text"><div class="boucher-title">'+ticket.ticketName+'</div>'
         		+'<div class="info-content"><span>남은 수량 : '+ticket.amount+' <br></span><span>가격 : '+ticket.ticketPrice+'<br></span><span>이용가능 시간 :</span>'
         		+'<span class="timeval">'+ticket.ticketTime+'</span><span>hr</span></div></div></div></label><div class="modal" id="myModal'+ticket.ticketNo+'">'
@@ -214,3 +220,4 @@ function updateReplyBtn(endPage, maxPage, currentPage){
 	}
 	
 }
+
