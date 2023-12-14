@@ -84,22 +84,6 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public int searchGood(StudyGood studyGoodStatus) {
-		return studyDao.searchGood(sqlSession, studyGoodStatus);
-	}
-
-	@Override
-	public int createLike(StudyGood studyGoodStatus) {
-		return studyDao.createLike(sqlSession, studyGoodStatus);
-	}
-
-	@Override
-	public int deleteLike(StudyGood studyGoodStatus) {
-		return studyDao.deleteLike(sqlSession, studyGoodStatus);
-	}
-
-	
-	@Override
 	public StudyGood likeResult(StudyGood sg) {
 		return studyDao.likeResult(sqlSession, sg);
 	}
@@ -109,7 +93,6 @@ public class StudyServiceImpl implements StudyService {
 		return studyDao.studyUpdateLike(sqlSession, sg, result);
 	}
 
-	
 	@Override
 	public StudyGood checkLikeTable(int memNo, int sno) {
 		return studyDao.checkLikeTable(sqlSession, memNo, sno);
@@ -118,6 +101,11 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public int createLikeTable(int memNo, int sno) {
 		return studyDao.createLikeTable(sqlSession, memNo, sno);
+	}
+
+	@Override
+	public ArrayList<Study> selectStudyList(String keyword) {
+		return studyDao.selectStudyList(sqlSession, keyword);
 	}
 	
 }

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
@@ -56,15 +57,115 @@ public class StoreController {
 	}
 	
 	@RequestMapping(value="/storeUpdateForm.sto")
-	public String storeUpdateForm() {
+	public String storeUpdateForm(Store s, Model model) {
+		
+		Store storeInfo = storeService.getStoreInfo(s.getStoreNo());
+		ArrayList<Ticket> ticketArr = storeService.getAllTicketInfo(s.getStoreNo());
+		ArrayList<Attachment> attArr = storeService.getStoreAtt(s.getStoreNo());
+		
+		// 주중 영업 시간 가공
+		String weekdayStart = storeInfo.getStoreWeekday().substring(0, 5);
+		String weekdayEnd = storeInfo.getStoreWeekday().substring(8);
+		// 주말 영업 시간 가공
+		String weekendStart = storeInfo.getStoreWeekend().substring(0, 5);
+		String weekendEnd = storeInfo.getStoreWeekend().substring(8);
+
+		String fishKindArr = storeInfo.getStoreFishKind();
+		
+		
+	
+		
+		
+		model.addAttribute("storeInfo", storeInfo);
+		model.addAttribute("weekdayStart",weekdayStart);
+		model.addAttribute("weekdayEnd",weekdayEnd);
+		model.addAttribute("weekendStart",weekendStart);
+		model.addAttribute("weekendEnd",weekendEnd);
+		model.addAttribute("fishKindArr", fishKindArr);
+		model.addAttribute("ticketArr", new Gson().toJson(ticketArr));
+		model.addAttribute("attArr", new Gson().toJson(attArr));
+		
 		return "store/storeUpdateForm";
+	}
+	
+	@RequestMapping("storeUpdate")
+	public String storeUpdate(HttpSession session, Store s,String[] StoreFishKindArray,
+								String[] ticketNameArray, int[] ticketPriceArray, int[] ticketTimeArray, 
+								String[] storeWeekdayArray, String[] storeWeekendArray, Model model,
+								MultipartFile[] upfile) {
+		
+		
+		
+		
+		System.out.println(s);
+
+
+		
+		ArrayList<Attachment> attArray = new ArrayList<Attachment>();
+		ArrayList<Ticket> ticArray = new ArrayList<Ticket>();
+		
+		s.setStoreWeekday(String.join(" ~ ", storeWeekdayArray));
+		s.setStoreWeekend(String.join(" ~ ", storeWeekendArray));
+		s.setStoreFishKind(String.join("/", StoreFishKindArray));
+		
+		for(int i=0; i<ticketNameArray.length; i++) {
+			Ticket tic = new Ticket();
+			
+			tic.setTicketName(ticketNameArray[i]);
+			tic.setTicketPrice(ticketPriceArray[i]);
+			tic.setTicketTime(ticketTimeArray[i]);
+			
+			ticArray.add(tic);
+		}
+		
+		if(!upfile[0].getOriginalFilename().equals("") ||
+			!upfile[1].getOriginalFilename().equals("")||
+			!upfile[2].getOriginalFilename().equals("")||
+			!upfile[3].getOriginalFilename().equals("")||
+			!upfile[4].getOriginalFilename().equals("")||
+			!upfile[5].getOriginalFilename().equals("")||
+			!upfile[6].getOriginalFilename().equals("")) {
+			
+				for(MultipartFile fi : upfile) {
+					String changeName = saveFile(fi, session,"/resources/uploadFiles/");
+					
+					
+					Attachment att = new Attachment();
+					att.setOriginName(fi.getOriginalFilename());
+					att.setChangeName(changeName);
+					att.setFilePath(session.getServletContext().getRealPath("/resources/uploadFiles/"));
+					
+					attArray.add(att);
+				}
+			
+			
+		}
+		
+		int storeResult = storeService.updateStore(s);
+		
+		if(storeResult>0) {
+			
+			
+			
+			session.setAttribute("alertMsg", "사업장 수정에 성공했습니다.");
+			return "redirect:/companyMyPage.me";
+		} else {
+			
+			
+			
+			model.addAttribute("errorMsg","게시글 작성 실패");
+			return "common/errorPage";
+		}
+		
+		
+		
 	}
 	
 	@RequestMapping("storeEnroll")
 	public String storeEnroll(Store s, String[] StoreFishKindArray,
-						String[] ticketNameArray, int[] ticketPriceArray, int[] ticketTimeArray, 
-						String[] storeWeekdayArray, String[] storeWeekendArray,
-						HttpSession session, MultipartFile[] upfile, Model model) {
+								String[] ticketNameArray, int[] ticketPriceArray, int[] ticketTimeArray, 
+								String[] storeWeekdayArray, String[] storeWeekendArray,
+								HttpSession session, MultipartFile[] upfile, Model model) {
 		
 		ArrayList<Attachment> attArray = new ArrayList<Attachment>();
 		ArrayList<Ticket> ticArray = new ArrayList<Ticket>();

@@ -172,7 +172,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 								<textarea class="form-control" id="content" cols="55" rows="2"
 									style="resize: none; width: 100%; height: 80px;"></textarea>
 								<button class="btn btn-primary" onclick="addReply();"
-									style="height: 80px; width: 120px; margin-left: 10px;">댓글등록</button>
+									style="height: 80px; width: 120px; margin-left: 10px;  background-color: rgb(59, 175, 252);">댓글등록</button>
 							</div>
 						</th>
 					</div>

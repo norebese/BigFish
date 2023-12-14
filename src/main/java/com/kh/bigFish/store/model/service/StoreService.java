@@ -66,6 +66,14 @@ public interface StoreService {
 	String detailInfo(int storeNum);
 	
 	int updateDetailInfo(int storeNum, String info);
+	
+	Store getStoreInfo(int storeNo);
+	
+	ArrayList<Ticket> getAllTicketInfo(int rstoreNo);
+	
+	ArrayList<Attachment> getStoreAtt(int rstoreNo);
+	
+	int updateStore(Store s);
 }
 
 

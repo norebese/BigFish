@@ -1,9 +1,11 @@
 package com.kh.bigFish.freeBoard.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
+import com.kh.bigFish.fishingBoard.model.vo.FishingBoard;
 import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
 
 
@@ -31,5 +33,14 @@ public interface FreeBoardService {
 	
 	//게시글 삭제서비스(update)
 	int deleteBoard(int boardNo);
+	
+	//게시글 검색서비스(update)
+		int selectSearchListCount(HashMap<String, String> map);
+
+		ArrayList<FreeBoard> selectSearchList(HashMap<String, String> map, PageInfo pi);
+
+
+	//통합검색을 위해 만든 것 -고이환-
+	ArrayList<FreeBoard> selectFreeList(String keyword);
 
 }

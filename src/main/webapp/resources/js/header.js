@@ -10,7 +10,8 @@ function memberMenu(){
 
 
 function mainSearch() {
-    const input = document.querySelector("keyword")
-    location.href='search.bo?keyword=' + input
+    const input = document.querySelector("#keyword")
+    
+    location.href='search.bo?keyword=' + input.value;
 }	
 

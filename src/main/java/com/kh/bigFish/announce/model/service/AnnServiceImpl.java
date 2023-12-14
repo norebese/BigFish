@@ -55,5 +55,4 @@ public class AnnServiceImpl implements AnnService {
 	public ArrayList<Announce> selectSearchList(HashMap<String, String> map, PageInfo pi) {
 		return annDao.selectSearchList(sqlSession, map, pi);
 	}
-
 }

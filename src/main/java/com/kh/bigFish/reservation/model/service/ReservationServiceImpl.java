@@ -40,4 +40,9 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.selectedTicket(sqlSession, ticketNo);
 	}
 
+	@Override
+	public Reservation getReservationService(int revNo) {
+		return reservationDao.getReservationService(sqlSession, revNo);
+	}
+
 }
