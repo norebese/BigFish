@@ -18,4 +18,7 @@ public interface ReservationService {
 	// 중복체크
 	int jungbokCheck(Reservation R);
 	
+	// 특정 예약 정보 가져오기
+	Reservation getReservationService(int revNo);
+	
 }

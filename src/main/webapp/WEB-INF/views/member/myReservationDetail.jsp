@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BIG FISH</title>
 
 <!-- CSS-->
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/personalMyPage.css">
@@ -72,12 +72,12 @@
 
 	  <div>
 	  	<div class="res-info">
-		  	<span style="font-weight:bold; font-size:15px; color:rgb(190, 190, 190);)">no.13212378</span> <br>
-		  	<span style="font-size:17px; font-weight:bold;">해신 바다 낚시터</span>
+		  	<span style="font-weight:bold; font-size:15px; color:rgb(190, 190, 190);">No. ${rev.revNo}</span> <br>
+		  	<span style="font-size:17px; font-weight:bold;">${store.storeName}</span>
 	  	</div>
 	  	<div class="border-line"></div>
 	  	<div class="res-info">
-		  	일정: 11.06토 ㅣ 오전 09:30 <br>
+		  	일정: ${rev.revStart} <br>
 		  	서비스명: 1시간 이용권
 		</div>
 		<br><br>
@@ -125,19 +125,15 @@
 	  		<div class="res-info-bottom">
 	  			<div style="display:flex; flex-direction: row;">
 	  				<div style="width:70px">판매자</div>
-	  				<div style="width:300px"><span>해신 바다 낚시터</span></div>
-	  			</div>
-	  			<div style="display:flex; flex-direction: row;">
-	  				<div style="width:70px">대표자명</div>
-	  				<div style="width:300px"><span>홍길동</span></div>
+	  				<div style="width:300px"><span>${store.storeName}</span></div>
 	  			</div>
 	  			<div style="display:flex; flex-direction: row;">
 	  				<div style="width:70px">주소</div>
-	  				<div style="width:600px"><span>서울 특별시 용산구 원효로1가 39-1, 1층(서울특별시 용산구 원효로 261, 1층)</span></div>
+	  				<div style="width:600px"><span>${store.storeAddress}, ${store.storeAddressDetail}</span></div>
 	  			</div>
 	  			<div style="display:flex; flex-direction: row;">
 	  				<div style="width:70px">연락처</div>
-	  				<div style="width:300px"><span>02-1231-3244</span></div>
+	  				<div style="width:300px"><span>${store.storePhone}</span></div>
 	  			</div>
 	  		</div>
 
@@ -150,15 +146,11 @@
 	  		<div class="res-info-bottom">
 	  			<div style="display:flex; flex-direction: row;">
 	  				<div style="width:60px">예약자</div>
-	  				<div style="width:300px"><span>김길동</span></div>
+	  				<div style="width:300px"><span>${rev.revName}</span></div>
 	  			</div>
 	  			<div style="display:flex; flex-direction: row;">
 	  				<div style="width:60px">연락처</div>
-	  				<div style="width:300px"><span>010-3495-3837</span></div>
-	  			</div>
-	  			<div style="display:flex; flex-direction: row;">
-	  				<div style="width:60px">이메일</div>
-	  				<div style="width:600px"><span>ehddls1029@nada.com</span></div>
+	  				<div style="width:300px"><span>${rev.revPhone}</span></div>
 	  			</div>
 	  		</div>
 
