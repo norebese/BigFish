@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -63,15 +66,13 @@ public class AnnounceController {
 	
 	@RequestMapping(value="annInsert.an")
 	public String AnnInsert(Announce a, String deleteImgs, HttpSession session, Model model) {;
-		System.out.println(deleteImgs);
 		
+		// 이미지를 저장확정 안할시 삭제한 이미지를 폴더에서 삭제하는 코드
 		String[] imgs = deleteImgs.split(",");
-		
+		System.out.println(deleteImgs);
 		 for (String imgPath : imgs) {
-		        // 파일 객체 생성
 		        new File(session.getServletContext().getRealPath(imgPath)).delete();
-		        
-		    }
+		}
 			
 		int annResult = annService.InsertAnn(a);
 		
@@ -93,21 +94,57 @@ public class AnnounceController {
 	}
 	
 	@RequestMapping(value="annUpdate.an")
-	public String updateAnn(Announce a, HttpSession session, Model model) {
+	public String updateAnn(Announce a, String deleteImgs, HttpSession session, Model model) {
 		
-		int result = annService.updateAnnounce(a);
+		Announce ann = annService.selectAnnounce(a.getAnnNo());
 		
-		if(result > 0) {
-			session.setAttribute("alertMsg", "게시글 수정 완료");
-			return "redirect:annDetail.an?ano=" + a.getAnnNo();
-		} else {
-			model.addAttribute("errorMsg", "게시글 삭제 실패");
-			return "common/errorPage";
-		}
+	    String annContent = ann.getAnnContent();
+	    String newAnnContent = a.getAnnContent();
+	    
+	    // annContent에서 이미지 파일 경로 추출
+	    List<String> imgPaths = extractImgPathsFromContent(annContent);
+	    List<String> newImgPaths = extractImgPathsFromContent(newAnnContent);
+	    System.out.println(deleteImgs);
+	    // 이미지를 저장확정 안할시 삭제한 이미지를 폴더에서 삭제하는 코드
+	    String[] imgs = deleteImgs.split(",");
+	    for (String imgPath : imgs) {
+	        new File(session.getServletContext().getRealPath(imgPath)).delete();
+	    }
+	    
+	    // 파일 삭제
+	    for (String imgPath : imgPaths) {
+	    	if (newImgPaths.indexOf(imgPath) == -1) {
+	            new File(session.getServletContext().getRealPath(imgPath)).delete();
+	        }
+	    }
+	    
+	    int result = annService.updateAnnounce(a);
+	    
+	    if (result > 0) {
+	        session.setAttribute("alertMsg", "게시글 수정 완료");
+	        return "redirect:annDetail.an?ano=" + a.getAnnNo();
+	    } else {
+	        model.addAttribute("errorMsg", "게시글 수정 실패");
+	        return "common/errorPage";
+	    }
 	}
 	
 	@RequestMapping(value="annDelete.an")
 	public String deleteAnn(int ano, HttpSession session, Model model) {
+		
+		Announce ann = annService.selectAnnounce(ano);
+		String annContent = ann.getAnnContent();
+		
+	    // annContent에서 이미지 파일 경로 추출
+	    List<String> imgPaths = extractImgPathsFromContent(annContent);
+
+	    // 파일 삭제
+	    for (String imgPath : imgPaths) {
+	  
+	         new File(session.getServletContext().getRealPath(imgPath)).delete();
+	         
+	    }
+		
 		int result = annService.deleteAnn(ano);
 		
 		if(result > 0) {
@@ -118,6 +155,25 @@ public class AnnounceController {
 			return "common/errorPage";
 		}
 	}
+	
+	private List<String> extractImgPathsFromContent(String annContent) {
+	    List<String> imgPaths = new ArrayList<>();
+
+	    // 이미지 경로 추출
+	    int startIndex = annContent.indexOf("<img");
+	    System.out.println(startIndex);
+	    while (startIndex != -1) {
+	        int srcIndex = annContent.indexOf("src=", startIndex);
+	        int startQuoteIndex = annContent.indexOf("\"", srcIndex);	      
+	        int endQuoteIndex = annContent.indexOf("\"", startQuoteIndex + 1);
+	        String imgPath = annContent.substring(startQuoteIndex + 9, endQuoteIndex); // +9인 이유는 +1에다가 /bigFish라는 contextPath제거
+	        imgPaths.add(imgPath);
+	        startIndex = annContent.indexOf("<img", endQuoteIndex);
+	    }
+
+	    return imgPaths;
+	} 
+	
 	
 	@RequestMapping(value="searchAnn.an")
 	public ModelAndView searchAnn(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {
