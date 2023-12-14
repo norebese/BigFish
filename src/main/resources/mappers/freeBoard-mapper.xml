@@ -126,13 +126,6 @@
   		AND ROWNUM &lt;= 2
   	</select>
 
-		UPDATE FREEBOARD
-		SET FREE_TITLE = #{freeTitle},
-		FREE_CONTENT = #{freeContent}
-
-		WHERE FREE_NO = #{freeNo}
-	</update>
-
 	<update id="deleteBoard">
 		UPDATE FREEBOARD
 		SET FREE_STATUS = 'N'
