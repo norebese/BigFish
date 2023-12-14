@@ -38,6 +38,17 @@
  		<result column="RSTORE_NO" property="rstoreNo"/>
  		<result column="STORE_GOOD_STATUS" property="storeGoodStatus"/>
  	</resultMap>
+ 	
+ 	<resultMap type="Attachment" id="attachmentResult">
+ 		<result column="FILE_NO" property="fileNo"/>
+ 		<result column="ORIGIN_NAME" property="originName"/>
+ 		<result column="CHANGE_NAME" property="changeName"/>
+ 		<result column="FILE_PATH" property="filePath"/>
+ 		<result column="UPLOAD_DATE" property="uploadDate"/>
+ 		<result column="FILE_LEVEL" property="fileLevel"/>
+ 		<result column="FILE_STATUS" property="fileStatus"/>
+ 		<result column="RSTORE_NO" property="rstoreNo"/>
+ 	</resultMap>
  
 	<select id="checkBusinessNo" resultType="_int">
 		SELECT COUNT(*)
@@ -332,4 +343,59 @@
  						#{businessNo}
  				)
 	</insert>
+	
+	<select id="getStoreInfo" resultMap="storeResult">
+	SELECT STORE_NO,
+		RMEM_NO,
+		LOCATION_BIG,
+		LOCATION_SMALL,
+		STORE_ADDRESS,
+		STORE_ADDRESS_DETAIL,
+		STORE_POST_NO,
+		STORE_NAME,
+		STORE_PHONE,
+		MAX_MEMBER,
+		STORE_WEEKDAY,
+		STORE_WEEKEND,
+		STORE_GROUP,
+		STORE_KIND,
+		STORE_FISH_KIND,
+		BUSINESS_NO
+	FROM STORE
+	WHERE STORE_NO = #{storeNo}
+	</select>
+	
+	<select id="getAllTicketInfo" resultMap="ticketResult">
+	SELECT TICKET_NO, 
+		TICKET_NAME, 
+		TICKET_PRICE, 
+		TICKET_TIME
+	FROM TICKET
+	WHERE RSTORE_NO = #{rstoreNo}
+	</select>
+	
+	<select id="getStoreAtt" resultMap="attachmentResult">
+	SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, UPLOAD_DATE, FILE_LEVEL, FILE_STATUS, RSTORE_NO
+	FROM ATTACHMENT
+	WHERE RSTORE_NO = #{rstoreNo} AND ORIGIN_NAME LIKE '%.%'
+	</select>
+	
+	<update id="updateStore">
+	UPDATE STORE
+	SET STORE_NAME = #{storeName},
+		STORE_PHONE = #{storePhone},
+		BUSINESS_NO = #{businessNo},
+		STORE_KIND = #{storeKind},
+		LOCATION_BIG = #{locationBig},
+		LOCATION_SMALL = #{locationSmall},
+		STORE_POST_NO = #{storePostNo},
+		STORE_ADDRESS = #{storeAddress},
+		STORE_ADDRESS_DETAIL = #{storeAddressDetail},
+		STORE_GROUP = #{storeGroup},
+		STORE_WEEKDAY = #{storeWeekday},
+		STORE_WEEKEND = #{storeWeekend},
+		STORE_FISH_KIND = #{storeFishKind},
+		MAX_MEMBER = #{maxMember}
+	WHERE STORE_NO = #{storeNo}
+	</update>
  </mapper>

@@ -257,7 +257,14 @@ public class MemberController {
 	}
 	// 개인 회원 예약 목록 자세히 보기로 이동
 	@RequestMapping(value="/myReservationDetail")
-	public String myReservationDetail() {
+	public String myReservationDetail(int revNo, Model model) {
+		
+		Reservation rev = reservationService.getReservationService(revNo);
+		Store store = storeService.getStoreInfo(rev.getRstoreNo());
+		
+		model.addAttribute("rev",rev);
+		model.addAttribute("store",store);
+		
 		return "member/myReservationDetail";
 	}
 	
@@ -350,7 +357,7 @@ public class MemberController {
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "회원가입에 성공했습니다.");
-			
+			 
 			return "redirect:/";
 		}else {
 			model.addAttribute("errorMsg","게시글 작성 실패");
@@ -370,6 +377,8 @@ public class MemberController {
 										String[] ticketNameArray, int[] ticketPriceArray, int[] ticketTimeArray, 
 										String[] storeWeekdayArray, String[] storeWeekendArray,
 										HttpSession session, MultipartFile[] upfile, Model model) {
+		
+		
 		
 		
 		ArrayList<Attachment> attArray = new ArrayList<Attachment>();

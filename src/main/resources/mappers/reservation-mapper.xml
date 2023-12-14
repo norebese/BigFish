@@ -66,5 +66,21 @@
 		    OR (#{revStart} &lt;= r.REV_START AND #{revEnd} &gt;= r.REV_END)
 			)
  	</select>
+ 	
+ 	<select id="getReservationService" resultMap="reservationResult">
+ 	SELECT REV_NO,
+ 		RMEM_NO,
+ 		RSTORE_NO,
+ 		REV_DATE,
+ 		REV_PEOPLE,
+ 		REV_START,
+ 		REV_END,
+ 		REV_STATUS,
+ 		REV_REQUEST,
+ 		REV_NAME,
+ 		REV_PHONE
+ 	FROM RESERVATION
+ 	WHERE REV_NO = #{revNo}
+ 	</select>
  
  </mapper>

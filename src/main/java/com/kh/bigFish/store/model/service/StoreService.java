@@ -56,6 +56,14 @@ public interface StoreService {
 	ArrayList<Store> selectMyStoreList(int memNo);
 	
 	int storeEnroll(Store s);
+	
+	Store getStoreInfo(int storeNo);
+	
+	ArrayList<Ticket> getAllTicketInfo(int rstoreNo);
+	
+	ArrayList<Attachment> getStoreAtt(int rstoreNo);
+	
+	int updateStore(Store s);
 }
 
 

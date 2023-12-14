@@ -22,5 +22,9 @@ public class ReservationDao {
 	public int jungbokCheck(SqlSessionTemplate sqlSession, Reservation r) {
 		return sqlSession.selectOne("reservationMapper.jungbokCheck", r);
 	}
+	
+	public Reservation getReservationService(SqlSessionTemplate sqlSession,int revNo) {
+		return sqlSession.selectOne("reservationMapper.getReservationService", revNo);
+	}
 
 }
