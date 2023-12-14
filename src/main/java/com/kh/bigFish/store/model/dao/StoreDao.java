@@ -203,4 +203,22 @@ public class StoreDao {
 		return sqlSession.insert("storeMapper.storeEnroll",s);
 
 	}
+	
+	public Store getStoreInfo(SqlSessionTemplate sqlSession,int storeNo) {
+		return sqlSession.selectOne("storeMapper.getStoreInfo",storeNo);
+	}
+	
+	public ArrayList<Ticket> getAllTicketInfo(SqlSessionTemplate sqlSession, int rstoreNo){
+		return (ArrayList)sqlSession.selectList("storeMapper.getAllTicketInfo", rstoreNo);
+	}
+	
+	public ArrayList<Attachment> getStoreAtt(SqlSessionTemplate sqlSession, int rstoreNo){
+		return (ArrayList)sqlSession.selectList("storeMapper.getStoreAtt", rstoreNo);
+	}
+	
+	public int updateStore(SqlSessionTemplate sqlSession, Store s) {
+		return sqlSession.update("storeMapper.updateStore",s);
+	}
+	
+
 }

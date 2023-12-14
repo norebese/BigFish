@@ -139,6 +139,28 @@ public class StoreServiceImpl implements StoreService{
 	public int storeEnroll(Store s) {
 		return storeDao.storeEnroll(sqlSession, s);
 	}
+
+	@Override
+	public Store getStoreInfo(int storeNo) {
+		return storeDao.getStoreInfo(sqlSession, storeNo);
+	}
+
+	@Override
+	public ArrayList<Ticket> getAllTicketInfo(int rstoreNo) {
+		return storeDao.getAllTicketInfo(sqlSession, rstoreNo);
+	}
+
+	@Override
+	public ArrayList<Attachment> getStoreAtt(int rstoreNo) {
+		return storeDao.getStoreAtt(sqlSession, rstoreNo);
+	}
+
+	@Override
+	public int updateStore(Store s) {
+		return storeDao.updateStore(sqlSession, s);
+	}
+
+
 	
 }
 

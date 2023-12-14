@@ -118,7 +118,7 @@
 						<c:forEach var="r" items="${reserList}">
 						<!-- 카드 -->
 							<div style="width: 70%; margin-bottom: 30px;" class="card">
-								<div class="card-header" style="padding-bottom: 3px; cursor: pointer;" onclick="location.href='myReservationDetail'">
+								<div class="card-header" style="padding-bottom: 3px; cursor: pointer;" onclick="location.href='myReservationDetail?revNo=${r.revNo}'">
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
 										<span style="font-weight: bold;">${r.rstoreName}</span>
 										<span style="font-size: 13px;">No. ${r.revNo}</span>
@@ -198,7 +198,7 @@
 	</div>
 
 
-	  <br><br>
+	  <br><br><br><br><br><br><br>
 	  <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

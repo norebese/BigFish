@@ -95,9 +95,12 @@
 						<div style="display: flex; flex-direction: column;">
 							<span style="font-weight: 500;">사업자 번호 : ${store.businessNo}</span><br>
 							<span>
-								<button onclick="location.href='storeUpdateForm.sto'" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">1:1 문의</button>
-								<button onclick="location.href='storeUpdateForm.sto'" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 수정</button>
-								<button class="btn btn-danger" data-bs-toggle="modal" style="border: none;" data-bs-target="#businessDelete">사업장 삭제</button>
+								<form action="storeUpdateForm.sto" method="post">
+								<input type="hidden" name="storeNo" value="${store.storeNo}">
+								<button type="button" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">1:1 문의</button>
+								<button type="submit" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 수정</button>
+								<button type="button" class="btn btn-danger" data-bs-toggle="modal" style="border: none;" data-bs-target="#businessDelete">사업장 삭제</button>
+								</form>
 							</span>
 						</div>
 						<div class="form-check form-switch" style="display: flex; flex-direction: column; width: 50%; align-items: flex-end;">
