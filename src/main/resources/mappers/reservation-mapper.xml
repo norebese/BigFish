@@ -8,6 +8,7 @@
  		<result column="REV_NO" property="revNo"/>
  		<result column="RMEM_NO" property="rmemNo"/>
  		<result column="RSTORE_NO" property="rstoreNo"/>
+ 		<result column="RTICKET_NO" property="rticketNo"/>
  		<result column="REV_DATE" property="revDate"/>
  		<result column="REV_PEOPLE" property="revPeople"/>
  		<result column="REV_START" property="revStart"/>
@@ -20,11 +21,12 @@
  	</resultMap>
  
  	<insert id="insertReservation" parameterType="Reservation">
- 		INSERT INTO RESERVATION (rev_no, rmem_no, rstore_no, rev_date, rev_people, rev_start, rev_end, rev_status, rev_request, rev_name, rev_phone)
+ 		INSERT INTO RESERVATION (rev_no, rmem_no, rstore_no, rticket_no, rev_date, rev_people, rev_start, rev_end, rev_status, rev_request, rev_name, rev_phone)
 		VALUES
 		(SEQ_REV_NO.NEXTVAL, 
 		#{rmemNo}, 
 		#{rstoreNo},
+		#{rticketNo},
 		DEFAULT, 
 		#{revPeople}, 
 		TO_DATE(#{revStart}, 'YYYY-MM-DD HH24:MI'), 

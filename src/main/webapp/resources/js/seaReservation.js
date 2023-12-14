@@ -92,16 +92,16 @@
         
     function nextList(date){
 	
-		let showListArea = $("#showList-area2");
+		let showListArea = $("#showList-area");
 		let Content = '';
 		
 		$.each(date, function (index, store) {
 	                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
-					+'<img src="resources/images/shop-example.jpg" alt=""></div>'
+					+'<img src="resources/images/shop-example.jpg"></div>'
 		            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 		            +'<span class="reply">'
-		            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'
-		            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png" alt="">'+store.likeCount +'</span>'
+		            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'
+		            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+store.likeCount +'</span>'
 		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
 	            });
 		
@@ -115,11 +115,11 @@
 		
 		$.each(date, function (index, store) {
 	                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
-					+'<img src="resources/images/shop-example.jpg" alt=""></div>'
+					+'<img src="resources/images/shop-example.jpg"></div>'
 		            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 		            +'<span class="reply">'
-		            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'
-		            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png" alt="">'+store.likeCount +'</span>'
+		            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'
+		            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+store.likeCount +'</span>'
 		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
 	            });
 		
@@ -134,11 +134,11 @@ function updateSeaList(date){
 	
 	$.each(date, function (index, store) {
                 htmlContent += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
-				+'<img src="resources/images/shop-example.jpg" alt=""></div>'
+				+'<img src="resources/images/shop-example.jpg"></div>'
 	            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 	            +'<span class="reply">'
-	            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'
-	            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png" alt="">'+store.likeCount +'</span>'
+	            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'
+	            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+store.likeCount +'</span>'
 	            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';         
             });
 	

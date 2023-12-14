@@ -141,6 +141,21 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
+	public ArrayList<Store> myStoreList(int MemNo) {
+		return storeDao.myStoreList(sqlSession, MemNo);
+	}
+
+	@Override
+	public String detailInfo(int storeNum) {
+		return storeDao.detailInfo(sqlSession, storeNum);
+	}
+
+	@Override
+	public int updateDetailInfo(int storeNum, String info) {
+		return storeDao.updateDetailInfo(sqlSession, storeNum, info);
+	}
+
+	@Override
 	public Store getStoreInfo(int storeNo) {
 		return storeDao.getStoreInfo(sqlSession, storeNo);
 	}

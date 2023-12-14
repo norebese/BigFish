@@ -131,3 +131,7 @@ function nextList(date){
 	
 	showListArea.append(Content);
 }
+
+function moveTop(){
+            $("html, body").animate({ scrollTop: 0 }, 600);
+}
