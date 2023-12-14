@@ -236,5 +236,16 @@ public class StoreDao {
 		return sqlSession.update("storeMapper.updateStore",s);
 	}
 	
+	public int updateStoreStatus(SqlSessionTemplate sqlSession, Store s) {
+		return sqlSession.update("storeMapper.updateStoreStatus",s);
+	}
+	
+	public int checkBusinessNoForDelete(SqlSessionTemplate sqlSession, String businessNo) {
+		return sqlSession.selectOne("storeMapper.checkBusinessNoForDelete",businessNo);
+	}
+	
+	public int businessDelete(SqlSessionTemplate sqlSession, String businessNo) {
+		return sqlSession.update("storeMapper.businessDelete",businessNo);
+	}
 
 }

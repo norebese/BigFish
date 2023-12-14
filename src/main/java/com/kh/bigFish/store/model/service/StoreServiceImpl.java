@@ -175,6 +175,21 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.updateStore(sqlSession, s);
 	}
 
+	@Override
+	public int updateStoreStatus(Store s) {
+		return storeDao.updateStoreStatus(sqlSession, s);
+	}
+
+	@Override
+	public int checkBusinessNoForDelete(String businessNo) {
+		return storeDao.checkBusinessNoForDelete(sqlSession, businessNo);
+	}
+
+	@Override
+	public int businessDelete(String businessNo) {
+		return storeDao.businessDelete(sqlSession, businessNo);
+	}
+
 
 	
 }
