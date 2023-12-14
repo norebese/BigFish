@@ -183,3 +183,59 @@ function profileImgChange(){
     
 
 }
+
+// 사업 상태 변경
+function updateStoreStatus(ev, storeName){
+    
+    console.log(storeName);
+    console.log(ev.dataset.storeNo);
+    console.log(ev.dataset.storeStatus);
+
+    sendData = {storeNo : ev.dataset.storeNo,
+                storeStatus : ev.dataset.storeStatus};
+
+    storeApi.updateStoreStatus(sendData, function(result){
+        if(result>0){
+            alert(storeName+" 사업장의 상태 변경에 성공했습니다.");
+            if(ev.dataset.storeStatus==="open"){
+                ev.dataset.storeStatus="stopOpen";
+            }else{
+                ev.dataset.storeStatus="open";
+            }
+        }else{
+            alert(storeName+" 사업장의 상태 변경에 실패했습니다.");
+        }
+    })
+    
+}
+
+function checkBusinessNoForDelete(){
+
+    const deleteBusinessInput = document.querySelector("#deleteBusinessInput");
+    const deleteBusinessArea = document.querySelector("#deleteBusinessArea");
+    const deleteBusinessBtn = document.querySelector("#deleteBusinessBtn");
+    
+
+    sendData = {businessNo : deleteBusinessInput.value};
+
+    storeApi.checkBusinessNoForDelete(sendData, function(result){
+        if(result==="Y"){
+            console.log("사업자 번호 일치");
+            deleteBusinessArea.innerHTML = "삭제 버튼을 누를 경우 사업장이 삭제됩니다.";
+            deleteBusinessArea.style.display = "flex";
+            deleteBusinessBtn.removeAttribute("disabled");
+        }else{
+            console.log("사업자 번호 불일치");
+            deleteBusinessArea.innerHTML = "삭제할 사업장의 사업자 번호를 정확히 입력해야합니다.";
+            deleteBusinessArea.style.display = "flex";
+            deleteBusinessBtn.setAttribute("disabled",true);
+        }
+    })
+
+}
+
+function businessDelete(){
+    const deleteBusinessInput = document.querySelector("#deleteBusinessInput");
+
+    location.href = "businessDelete?businessNo="+deleteBusinessInput.value;
+}

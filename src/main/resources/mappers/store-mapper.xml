@@ -318,7 +318,8 @@
 			STORE_GROUP,
 			STORE_KIND,
 			STORE_FISH_KIND,
-			BUSINESS_NO
+			BUSINESS_NO,
+			STORE_STATUS
 		FROM STORE
 		WHERE RMEM_NO = #{memNo}	
 	</select>
@@ -493,7 +494,8 @@
 		STORE_GROUP,
 		STORE_KIND,
 		STORE_FISH_KIND,
-		BUSINESS_NO
+		BUSINESS_NO,
+		STORE_STATUS
 	FROM STORE
 	WHERE STORE_NO = #{storeNo}
 	</select>
@@ -531,4 +533,25 @@
 		MAX_MEMBER = #{maxMember}
 	WHERE STORE_NO = #{storeNo}
 	</update>
+	
+	<update id="updateStoreStatus">
+	UPDATE STORE
+	SET STORE_STATUS = #{storeStatus}
+	WHERE STORE_NO = #{storeNo}
+	</update>
+	
+	<select id="checkBusinessNoForDelete" resultType="_int">
+	SELECT COUNT(*)
+	FROM STORE
+	WHERE BUSINESS_NO = #{businessNo} 
+			AND STORE_STATUS = 'op' 
+			OR STORE_STATUS = 'stopOpen'
+	</select>
+	
+	<update id="businessDelete">
+	UPDATE STORE
+	SET STORE_STATUS = 'DeleteOpen'
+	WHERE BUSINESS_NO = #{businessNo}
+	</update>
+	
  </mapper>

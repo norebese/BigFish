@@ -68,6 +68,12 @@ public interface StoreService {
 	ArrayList<Attachment> getStoreAtt(int rstoreNo);
 	
 	int updateStore(Store s);
+	
+	int updateStoreStatus(Store s);
+	
+	int checkBusinessNoForDelete(String businessNo);
+	
+	int businessDelete(String businessNo);
 }
 
 
