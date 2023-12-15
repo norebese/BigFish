@@ -82,6 +82,8 @@ public interface StoreService {
 	
 	int businessDelete(String businessNo);
 	
+	ArrayList<Attachment> storePhoto(int storeNum);
+	
 	Ticket getTicketInfo(int rticketNo);
 	
 }

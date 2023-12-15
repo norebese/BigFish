@@ -251,4 +251,8 @@ public class StoreDao {
 	}
 	
 
+	public ArrayList<Attachment> storePhoto(SqlSessionTemplate sqlSession, int storeNum) {
+		return (ArrayList)sqlSession.selectList("storeMapper.storePhoto", storeNum);
+	}
+
 }

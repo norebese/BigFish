@@ -14,6 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BIG FISH</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -34,15 +35,11 @@
         <div class="photo-area">
         	<div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
 			  <div class="carousel-inner">
-			    <div class="carousel-item active">
-			      <img src="<%=contextPath%>/resources/images/ex1.jpg" class="d-block w-100" alt="...">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="<%=contextPath%>/resources/images/ex2.jpg" class="d-block w-100" alt="...">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="<%=contextPath%>/resources/images/shop-example.jpg" class="d-block w-100" alt="...">
-			    </div>
+			  <c:forEach var="photo" items="${storePhoto}" varStatus="loopStatus">
+				    <div class="carousel-item${loopStatus.first ? ' active' : ''}">
+				      <img src="<%=contextPath%>${photo.filePath }${photo.changeName }" class="d-block w-100">
+				    </div>
+			    </c:forEach>
 			  </div>
 			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
 			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
