@@ -32,7 +32,7 @@
 
     <div class="photo-info">
         <div class="photo-area">
-        	<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        	<div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">
 			      <img src="<%=contextPath%>/resources/images/ex1.jpg" class="d-block w-100" alt="...">
@@ -44,11 +44,11 @@
 			      <img src="<%=contextPath%>/resources/images/shop-example.jpg" class="d-block w-100" alt="...">
 			    </div>
 			  </div>
-			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
 			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Previous</span>
 			  </button>
-			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
 			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 			    <span class="visually-hidden">Next</span>
 			  </button>
@@ -57,7 +57,18 @@
         
         <div class="info-area">
             <p class="bkind">
-                ${st.storeKind }
+            	<c:if test="${st.storeKind eq 'seaShip'}">
+    				선상 낚시
+				</c:if>
+				<c:if test="${st.storeKind eq 'seaSeat'}">
+    				바다 좌대
+				</c:if>
+				<c:if test="${st.storeKind eq 'FreshSeat'}">
+    				좌대
+				</c:if>
+				<c:if test="${st.storeKind eq 'FreshCafe'}">
+    				낚시 카페
+				</c:if>
             </p>
             <p class="bname">
                 ${st.storeName }
@@ -181,7 +192,7 @@
 			<c:set var="fishKindsSize" value="${fn:length(fishKinds)}" />
 
             <div class="fishkind-area">
-                <span class="price-title">주요 어종!</span>
+                <span class="price-title">주요 어종</span>
                 <span style="color: green;"><c:out value="${fishKindsSize}" />종</span>
 
                 <div style="display: flex; margin-left: 10px;">
@@ -210,16 +221,60 @@
             <div class="detail-information">
                 <p class="info-title">상세 정보
                 <c:if test="${st.rmemNo eq loginUser.memNo}">
-                <a href="storeRegisterPage">
-                	<button class="btn btn-primary">수정하기</button>
+                <a onclick="changeToTextarea()">
+                	<button id="updateBtn" class="btn btn-primary">수정하기</button>
+                	<button id="saveBtn" onclick="updateDetailInfo('${st.storeNo}')" class="btn btn-primary" style="display: none;">저장하기</button>
                 </a>
                 </c:if>
                 </p>
                 <div class="detail-info">
-                    <p>${st.reservationDetail }</p>
+                    <p id="rDetail">${st.reservationDetail }</p>
+                    <textarea class="form-control" id="updateRDetail" cols="55" rows="2" style="resize:none; width:100%; height: 80px; display: none;"></textarea>
                 </div>
             </div>
         </div>
+        
+        <script type="text/javascript">
+	        let rDetail = document.getElementById('rDetail');
+	        let updateRDetail = document.getElementById('updateRDetail');
+	        let updateBtn = document.getElementById('updateBtn');
+	        let saveBtn = document.getElementById('saveBtn');
+	        function changeToTextarea() {
+	        	updateRDetail.innerText = rDetail.innerText;
+	        	rDetail.style.display = 'none';
+	        	updateRDetail.style.display = 'block';
+	        	updateBtn.style.display = 'none';
+	        	saveBtn.style.display = 'block';
+	        }
+	        
+	        function updateDetailInfo(storeNo){
+	    		let infoVal = document.getElementById('updateRDetail').value;
+	       		$.ajax({
+	                   type: "GET",
+	                   url: "ajaxUpdateDetailInfo",
+	                   data: {
+	                	   storeNum: storeNo,
+	                	   infoVal: infoVal
+	    				},
+	    				dataType: 'json',
+	                   success: function(data) {
+	                	   if(data.info > 0){
+	                		   alert('업데이트 성공');
+	                		   rDetail.innerText = data.detail;
+		           	        rDetail.style.display = 'block';
+		           	        updateRDetail.style.display = 'none';
+		           	        updateBtn.style.display = 'block';
+		           	        saveBtn.style.display = 'none';
+	                	   }else{
+	                		   alert('업데이트 실패');
+	                	   }
+	                   },
+	                   error: function() {
+	                   	console.log("ajax 통신 실패");
+	                   }
+	               });
+	       	}
+        </script>
 
         <div class="reply-area">
             <div class="reply-line">

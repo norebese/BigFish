@@ -69,7 +69,7 @@ public class AnnounceController {
 		
 		// 이미지를 저장확정 안할시 삭제한 이미지를 폴더에서 삭제하는 코드
 		String[] imgs = deleteImgs.split(",");
-		System.out.println(deleteImgs);
+
 		 for (String imgPath : imgs) {
 		        new File(session.getServletContext().getRealPath(imgPath)).delete();
 		}
@@ -161,7 +161,7 @@ public class AnnounceController {
 
 	    // 이미지 경로 추출
 	    int startIndex = annContent.indexOf("<img");
-	    System.out.println(startIndex);
+
 	    while (startIndex != -1) {
 	        int srcIndex = annContent.indexOf("src=", startIndex);
 	        int startQuoteIndex = annContent.indexOf("\"", srcIndex);	      
