@@ -39,4 +39,24 @@ public class ReplyServiceImpl implements ReplyService{
 		return replyDao.deleteReply(sqlSession, rNum);
 	}
 
+	@Override
+	public int insertFreeReply(Reply R) {
+		return replyDao.insertFreeReply(sqlSession, R);
+	}
+
+	@Override
+	public int freeReplyCount(Reply R) {
+		return replyDao.freeReplyCount(sqlSession, R);
+	}
+
+	@Override
+	public int deleteFreeReply(int rNum) {
+		return replyDao.deleteFreeReply(sqlSession, rNum);
+	}
+
+	@Override
+	public ArrayList<Reply> freeReplyList(PageInfo pi, int sNum) {
+		return replyDao.freeReplyList(sqlSession, pi, sNum);
+	}
+
 }
