@@ -190,6 +190,11 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.businessDelete(sqlSession, businessNo);
 	}
 
+	@Override
+	public Ticket getTicketInfo(int rticketNo) {
+		return storeDao.getTicketInfo(sqlSession, rticketNo);
+	}
+
 
 	
 }

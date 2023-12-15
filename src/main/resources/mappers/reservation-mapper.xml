@@ -87,9 +87,45 @@
  		REV_STATUS,
  		REV_REQUEST,
  		REV_NAME,
- 		REV_PHONE
+ 		REV_PHONE,
+ 		RTICKET_NO
  	FROM RESERVATION
  	WHERE REV_NO = #{revNo}
  	</select>
- 
+ 	
+ 	<select id="getMyStoreReservationList" resultMap="reservationResult">
+ 	 		SELECT R.REV_NO,
+ 			R.RMEM_NO,
+ 			R.RSTORE_NO,
+ 			R.REV_DATE,
+ 			R.REV_PEOPLE,
+ 			R.REV_START,
+ 			R.REV_END,
+ 			R.REV_STATUS,
+ 			R.REV_REQUEST,
+ 			R.REV_NAME,
+ 			R.REV_PHONE,
+ 			S.STORE_NAME,
+            T.TICKET_NAME,
+            T.TICKET_PRICE,
+            T.TICKET_TIME
+ 		FROM RESERVATION R
+ 		LEFT JOIN STORE S ON R.RSTORE_NO = S.STORE_NO
+ 		LEFT JOIN TICKET T ON R.RTICKET_NO = T.TICKET_NO
+ 		WHERE R.RSTORE_NO = #{rstoreNo} AND R.REV_START LIKE '%'||#{choiceDate}||'%'
+ 		ORDER BY R.REV_NO DESC
+ 	</select>
+ 	
+ 	<update id="okReservation">
+ 	UPDATE RESERVATION
+ 	SET REV_STATUS = 'OKREV'
+ 	WHERE REV_NO = #{revNo}
+ 	</update>
+ 	
+ 	<update id="cancelReservation">
+ 	UPDATE RESERVATION
+ 	SET REV_STATUS = 'CANCELREV'
+ 	WHERE REV_NO = #{revNo}
+ 	</update>
+ 	
  </mapper>
