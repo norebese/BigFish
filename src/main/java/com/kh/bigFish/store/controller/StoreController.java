@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -554,6 +555,55 @@ public class StoreController {
 	    return result;
 	}
 	
+
+	@ResponseBody
+	@RequestMapping("updateStoreStatus")
+	public String updateStoreStatus(String storeNo, String storeStatus) {
+		
+		System.out.println(storeNo);
+		System.out.println(storeStatus);
+		
+		Store s = new Store();
+		s.setStoreNo(Integer.parseInt(storeNo));
+		
+		if(storeStatus.equals("open")) {
+			s.setStoreStatus("stopOpen");
+		}else {
+			s.setStoreStatus("open");
+		}
+		
+		int updateResult = storeService.updateStoreStatus(s);
+		
+		return updateResult+"";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("checkBusinessNoForDelete")
+	public String checkBusinessNoForDelete(String businessNo) {
+		
+		int result = storeService.checkBusinessNoForDelete(businessNo);
+		
+		if(result>0) {
+			return "Y";
+		}else {
+			return "N";
+		}
+		
+		
+	}
+	
+	@RequestMapping("businessDelete")
+	public String businessDelete(String businessNo) {
+		
+		int result = storeService.businessDelete(businessNo);
+		
+		
+		return "redirect:/companyMyPage.me";
+	}
+
+		
+
 	@RequestMapping(value="/storeRegisterPage")
 	public String storeRegisterPage(HttpSession session) {
 		Member Mem = (Member) session.getAttribute("loginUser");
@@ -582,3 +632,4 @@ public class StoreController {
 		return result;
 	}
 }
+

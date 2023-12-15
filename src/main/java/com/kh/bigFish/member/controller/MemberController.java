@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.bigFish.attachment.model.vo.Attachment;
@@ -229,8 +230,8 @@ public class MemberController {
 	public String personalMyPage(HttpSession session,Model model) {
 		
 		Member loginUser =  (Member)session.getAttribute("loginUser");
-		
 		ArrayList<Reservation> reserList = reservationService.selectReservationList(loginUser.getMemNo());
+		
 		
 		
 		session.setAttribute("loginUser", loginUser);
