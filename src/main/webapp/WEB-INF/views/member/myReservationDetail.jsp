@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -26,7 +27,7 @@
 }
 .border-line{
 	border-bottom: 2px solid rgb(204, 204, 204);
-    width: 50%;
+    width: 55%;
     margin: 20px auto;	
 }
 .border-line-bottom{
@@ -36,8 +37,8 @@
 }
 .btn-area{
 	display: flex;
-    justify-content: space-between;
-    width: 30%;
+    justify-content: center;
+    width: 40%;
     margin-left: 570px;
     
 }
@@ -77,13 +78,12 @@
 	  	</div>
 	  	<div class="border-line"></div>
 	  	<div class="res-info">
-		  	일정: ${rev.revStart} <br>
-		  	서비스명: 1시간 이용권
+		  	일정: ${rev.revStart} ~ ${rev.revEnd} <br>
+		  	서비스명: ${tic.ticketName}
 		</div>
 		<br><br>
 		<div class="btn-area">
-			<button class="btn btn-secondary">다시 예약</button> 
-			<button class="btn btn-secondary">리뷰 쓰기</button>
+			<button class="btn btn-secondary" onclick="location.href='resDetailPage?storeNumber=${store.storeNo}'">다시 예약</button> 
 		</div>
 	  </div>
 	  <br>
@@ -95,23 +95,22 @@
 	  	<div class="border-line-bottom"></div>
 	  	<div class="res-info-bottom">
 	  		<div style="display:flex; flex-direction: column;">
-	  			<div style="display:flex; justify-content:space-between">
-	  				<span>1시간이용권</span>
-	  				<span>25000원</span>
-	  			</div>
-
-	  			<div style="display:flex; justify-content:space-between">
-	  				<span>1시간이용권</span>
-	  				<span>25000원</span>
-	  			</div>
+				<c:forEach var="i" begin="1" end="${rev.revPeople}">
+		  			<div style="display:flex; justify-content:space-between">
+		  				<span>${tic.ticketName}</span>
+		  				<span>${tic.ticketPrice}원</span>
+		  			</div>
+					<br>
+				</c:forEach>
 	  		</div>
+			
 	  	</div>
 	  	<div class="border-line-bottom"></div>
 	  	<div class="res-info-bottom">
 	  		<div style="display:flex; flex-direction: column;">
 	  			<div style="display:flex; justify-content:space-between">
 	  				<span>합계</span>
-	  				<span>50,000원</span>
+	  				<span>${tic.ticketPrice * rev.revPeople}원</span>
 	  			</div>
 	  		</div>
 	  	</div>

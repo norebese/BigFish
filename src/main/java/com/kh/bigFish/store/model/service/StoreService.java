@@ -1,12 +1,13 @@
 package com.kh.bigFish.store.model.service;
 
 
+import java.util.ArrayList;
+
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.store.model.vo.Slike;
 import com.kh.bigFish.store.model.vo.Store;
 import com.kh.bigFish.store.model.vo.Ticket;
-import java.util.ArrayList;
 
 
 public interface StoreService {
@@ -80,6 +81,9 @@ public interface StoreService {
 	int checkBusinessNoForDelete(String businessNo);
 	
 	int businessDelete(String businessNo);
+	
+	Ticket getTicketInfo(int rticketNo);
+	
 }
 
 
