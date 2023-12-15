@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
+import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
 import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reply.model.service.ReplyService;
 import com.kh.bigFish.reply.model.vo.Reply;
@@ -93,6 +94,63 @@ public class ReplyController {
 		
 		int sNum = st.getStoreNo();
 		ArrayList<Reply> replyList = replyService.storeReplyList(pi, sNum);
+		
+		result.put("replyList", replyList);
+	    result.put("rNum", storeReplyCount);
+	    result.put("replyPi", pi);
+	    
+		return result;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="ajaxAddFreeReply", produces="application/json; charset=UTF-8")
+	public Map<String, Object> ajaxAddFreeReply(Reply R,HttpServletRequest request, HttpSession session,int freeNo) {
+		Map<String, Object> result = new HashMap<>();
+		Member Mem = (Member) session.getAttribute("loginUser");
+		
+		
+		String contentValue = (String) request.getParameter("contentValue");
+		
+		R.setReplyWriter(Mem.getMemNick());
+		R.setRmemNo(Mem.getMemNo());
+		R.setReplyContent(contentValue);
+		R.setRfreeNo(freeNo);
+		
+		int insertReply = replyService.insertFreeReply(R);
+		
+		int insertFreeReply = replyService.freeReplyCount(R);
+		
+		PageInfo pi = Pagenation.getPageInfo(insertFreeReply, 1, 5, 5);
+		
+//		int sNum = st.getStoreNo();
+//		ArrayList<Reply> replyList = replyService.storeReplyList(pi, sNum);
+		session.setAttribute("rNum", insertFreeReply);
+		session.setAttribute("replyPi", pi);
+		
+//		result.put("replyList", replyList);
+	    result.put("rNum", insertFreeReply);
+	    result.put("replyPi", pi);
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="ajaxDltFreeReply", produces="application/json; charset=UTF-8")
+	public Map<String, Object> ajaxDltReply(Reply R,HttpServletRequest request, HttpSession session,int freeNo) {
+		Map<String, Object> result = new HashMap<>();
+		int rNum = Integer.parseInt(request.getParameter("rNum"));
+		Store st = (Store) session.getAttribute("st");
+		
+		
+		int deleteReply = replyService.deleteFreeReply(rNum);
+		
+		R.setRfreeNo(freeNo);
+		int storeReplyCount = replyService.freeReplyCount(R);
+		
+		PageInfo pi = Pagenation.getPageInfo(storeReplyCount, 1, 5, 5);
+		
+		int sNum = freeNo;
+		ArrayList<Reply> replyList = replyService.freeReplyList(pi, sNum);
 		
 		result.put("replyList", replyList);
 	    result.put("rNum", storeReplyCount);

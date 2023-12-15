@@ -116,7 +116,6 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 								<div
 									style="display: flex; align-items: center; justify-content: flex-end;">
 
-									<p style="margin: 0; margin-right: 10px; white-space: nowrap;">좋아요:50</p>
 									<p style="margin: 0; margin-right: 10px; white-space: nowrap;">조회수:${b.fishingCount}</p>
 									<p style="margin: 0; white-space: nowrap;">작성일:${b.fishingCreateDate}</p>
 								</div>
@@ -146,15 +145,32 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 
 					<div class="row">
 						<div class="col-md-8">
-							<h6 align="left" style="margin-bottom: 0px; margin-top: 15px;">좋아요:
-								55 댓글: 5</h6>
+							<h6 align="left" style="margin-bottom: 0px; margin-top: 15px;">
+								
+								<div id="like-logo" onclick="updateLike()"
+									style="display: inline-block; margin-right: 15px;">
+									<c:choose>
+										<c:when test="${Flike.storeGoodStatus eq 'Y'}">
+											<img style="height: 19px;"
+												src="<%=contextPath%>/resources/images/heart-filled.png">
+										</c:when>
+										<c:otherwise>
+											<img style="height: 19px;"
+												src="<%=contextPath%>/resources/images/heart-notfill.png">
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<span style="margin-right: 15px;">55</span>
+								<span style="margin-right: 15px;">댓글 5</span>
+							</h6>
 						</div>
 
-						<c:if test="${loginUser.memNick eq b.fishingWriter }">
+						<c:if test="${loginUser.memNick eq b.fishingWriter}">
 							<div class="col-6 col-md-4">
-								<button type="button" class="btn btn-success" style=" background-color: rgb(59, 175, 252);"
-									onclick="location.href='fishingUpdateForm.bo?bno=${b.fishingNo}'">글수정</button>
-
+								<button type="button" class="btn btn-success"
+									style="background-color: rgb(59, 175, 252);"
+									onclick="location.href='fishingUpdateForm.bo?bno=${b.fishingNo}'">글수정
+								</button>
 								<button type="button" class="btn btn-danger"
 									data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 									글삭제</button>
@@ -172,7 +188,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 								<textarea class="form-control" id="content" cols="55" rows="2"
 									style="resize: none; width: 100%; height: 80px;"></textarea>
 								<button class="btn btn-primary" onclick="addReply();"
-									style="height: 80px; width: 120px; margin-left: 10px;  background-color: rgb(59, 175, 252);">댓글등록</button>
+									style="height: 80px; width: 120px; margin-left: 10px; background-color: rgb(59, 175, 252);">댓글등록</button>
 							</div>
 						</th>
 					</div>

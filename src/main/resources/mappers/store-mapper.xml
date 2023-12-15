@@ -620,4 +620,12 @@
 	WHERE BUSINESS_NO = #{businessNo}
 	</update>
 	
+	<select id="getTicketInfo" resultMap="ticketResult">
+	SELECT TICKET_NAME,
+			TICKET_PRICE,
+			TICKET_TIME
+	FROM TICKET
+	WHERE TICKET_NO = #{rticketNo}
+	</select>
+	
  </mapper>

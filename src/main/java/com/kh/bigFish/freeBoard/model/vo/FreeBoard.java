@@ -25,6 +25,7 @@ public class FreeBoard {
 	private int rmemNo;
 	private String OriginName;
 	private String ChangeName;
+	private int likeCount;
 	
 	
 }

@@ -31,6 +31,7 @@ public class Reservation {
 	private String rticketName;
 	private int rticketPrice;
 	private int rticketTime;
+	private String choiceDate;
 }
 
 

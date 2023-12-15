@@ -194,6 +194,11 @@ public class StoreServiceImpl implements StoreService{
 	public ArrayList<Attachment> storePhoto(int storeNum) {
 		return storeDao.storePhoto(sqlSession, storeNum);
 	}
+	
+	@Override
+	public Ticket getTicketInfo(int rticketNo) {
+		return storeDao.getTicketInfo(sqlSession, rticketNo);
+	}
 
 
 	
