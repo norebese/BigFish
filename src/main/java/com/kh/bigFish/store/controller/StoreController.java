@@ -565,14 +565,6 @@ public class StoreController {
 		
 		return "store/storeRegisterPage";
 	}
-
-	@ResponseBody
-	@RequestMapping(value="ajaxGetDetailInfo", produces="text/plain; charset=UTF-8")
-	public String ajaxGetDetailInfo(HttpServletRequest request){
-		int storeNum = Integer.parseInt(request.getParameter("storeNum"));
-		String detailInfo = storeService.detailInfo(storeNum);
-		return detailInfo;
-	}
 	
 	@ResponseBody
 	@RequestMapping(value="ajaxUpdateDetailInfo" )
@@ -582,8 +574,10 @@ public class StoreController {
 		String info = request.getParameter("infoVal");
 		
 		int updateDetailInfo = storeService.updateDetailInfo(storeNum, info);
+		String detailInfo = storeService.detailInfo(storeNum);
 		
 		result.put("info", updateDetailInfo);
+		result.put("detail", detailInfo);
 		
 		return result;
 	}
