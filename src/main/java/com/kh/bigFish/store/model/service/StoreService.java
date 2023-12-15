@@ -80,6 +80,8 @@ public interface StoreService {
 	int checkBusinessNoForDelete(String businessNo);
 	
 	int businessDelete(String businessNo);
+	
+	ArrayList<Attachment> storePhoto(int storeNum);
 }
 
 

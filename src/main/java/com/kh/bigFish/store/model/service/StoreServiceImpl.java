@@ -190,6 +190,11 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.businessDelete(sqlSession, businessNo);
 	}
 
+	@Override
+	public ArrayList<Attachment> storePhoto(int storeNum) {
+		return storeDao.storePhoto(sqlSession, storeNum);
+	}
+
 
 	
 }

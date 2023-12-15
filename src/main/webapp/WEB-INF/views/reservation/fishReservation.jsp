@@ -103,7 +103,7 @@
 		            <a class="list-box-area" href="resDetailPage?storeNumber=${sl.storeNo}">
 		                <div class="list-img-box">
 		                    <div class="img-box">
-		                        <img src="<%=contextPath%>/resources/images/shop-example.jpg" alt="">
+		                        <img src="<%=contextPath%>/resources/uploadFiles/${sl.thumbnailImg}">
 		                    </div>
 		                    <div class="list-txt-box">
 		                        <p class="list-name">
@@ -234,7 +234,7 @@
                 <div for="selectCity" style="font-size: 18px;">도시</div>
 
                 <select id="selectCity" class="form-select" aria-label="Default select example">
-
+					
                     <!-- 도시 목록은 JavaScript를 통해 동적으로 추가됩니다. -->
 
                 </select>

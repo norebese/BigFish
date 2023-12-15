@@ -24,17 +24,16 @@
  	</resultMap>
  
  	<insert id="insertReservation" parameterType="Reservation">
- 		INSERT INTO RESERVATION (rev_no, rmem_no, rstore_no, rticket_no, rev_date, rev_people, rev_start, rev_end, rev_status, rev_request, rev_name, rev_phone)
+ 		INSERT INTO RESERVATION (rev_no, rmem_no, rstore_no, rticket_no, rev_date, rev_people, rev_start, rev_end, rev_request, rev_name, rev_phone)
 		VALUES
 		(SEQ_REV_NO.NEXTVAL, 
-		#{rmemNo}, 
+		#{rmemNo},
 		#{rstoreNo},
 		#{rticketNo},
 		DEFAULT, 
 		#{revPeople}, 
 		TO_DATE(#{revStart}, 'YYYY-MM-DD HH24:MI'), 
 		TO_DATE(#{revEnd}, 'YYYY-MM-DD HH24:MI'), 
-		'N', 
 		#{revRequest}, 
 		#{revName}, 
 		#{revPhone})
@@ -68,7 +67,8 @@
 		FROM STORE s
 		LEFT JOIN RESERVATION r ON s.STORE_NO = r.RSTORE_NO
 		WHERE s.STORE_NO = #{rstoreNo}
-		AND r.REV_STATUS = 'Y'
+		AND (r.REV_STATUS = 'WAITREV'
+		OR r.REV_STATUS = 'OKREV')
 		AND (
 		    (#{revStart} &gt;= r.REV_START AND #{revStart} &lt; r.REV_END)
 		    OR (#{revEnd} &gt; r.REV_START AND #{revEnd} &lt;= r.REV_END)

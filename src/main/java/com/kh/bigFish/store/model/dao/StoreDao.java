@@ -248,4 +248,8 @@ public class StoreDao {
 		return sqlSession.update("storeMapper.businessDelete",businessNo);
 	}
 
+	public ArrayList<Attachment> storePhoto(SqlSessionTemplate sqlSession, int storeNum) {
+		return (ArrayList)sqlSession.selectList("storeMapper.storePhoto", storeNum);
+	}
+
 }
