@@ -8,11 +8,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.bigFish.store.model.vo.Slike;
-import com.kh.bigFish.store.model.vo.Store;
-
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
+import com.kh.bigFish.store.model.vo.Slike;
 import com.kh.bigFish.store.model.vo.Store;
 import com.kh.bigFish.store.model.vo.Ticket;
 
@@ -247,5 +245,10 @@ public class StoreDao {
 	public int businessDelete(SqlSessionTemplate sqlSession, String businessNo) {
 		return sqlSession.update("storeMapper.businessDelete",businessNo);
 	}
+	
+	public Ticket getTicketInfo(SqlSessionTemplate sqlSession, int rticketNo) {
+		return sqlSession.selectOne("storeMapper.getTicketInfo", rticketNo);
+	}
+	
 
 }

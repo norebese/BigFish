@@ -156,7 +156,7 @@
 										<span style="font-size: 13px;">예약한 시간에 도착하지 못할 경우 예약이 취소될 수 있습니다.</span>
 										<span>
 											<button class="btn btn-sm btn-primary">1:1 문의</button>
-											<button class="btn btn-sm btn-primary">리뷰 쓰기</button>
+											<button class="btn btn-sm btn-primary" onclick="location.href='resDetailPage?storeNumber=${r.rstoreNo}'">예약 바로가기</button>
 										</span>
 									</div>
 								</div>

@@ -45,4 +45,20 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.getReservationService(sqlSession, revNo);
 	}
 
+	@Override
+	public ArrayList<Reservation> getMyStoreReservationList(Reservation r) {
+		return reservationDao.getMyStoreReservationList(sqlSession, r);
+	}
+
+	@Override
+	public int okReservation(int revNo) {
+		return reservationDao.okReservation(sqlSession, revNo);
+	}
+
+	@Override
+	public int cancelReservation(int revNo) {
+		return reservationDao.cancelReservation(sqlSession, revNo);
+	}
+	
+	
 }
