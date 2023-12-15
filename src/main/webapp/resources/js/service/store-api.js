@@ -23,7 +23,31 @@ const storeApi = {
                 callback(result)
             },
             error : function(){
-                console.log("ajax 닉네임 중복 체크 통신 실패");
+                console.log("ajax 사업자 번호 중복 체크 통신 실패");
+            }
+        })
+    },
+    updateStoreStatus : function(data,callback){
+        $.ajax({
+            url : "updateStoreStatus",
+            data : data,
+            success : function(result){
+                callback(result)
+            },
+            error : function(){
+                console.log("ajax storeStatus 변경 실패");
+            }
+        })
+    },
+    checkBusinessNoForDelete : function(data,callback){
+        $.ajax({
+            url : "checkBusinessNoForDelete",
+            data : data,
+            success : function(result){
+                callback(result)
+            },
+            error : function(){
+                console.log("ajax 데이터베이스 사업자 확인 실패");
             }
         })
     }

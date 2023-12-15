@@ -22,7 +22,7 @@
     <form action="confirmReservation" method="post">
     	<div class="section">
 	        <div>
-	            <img src="<%=contextPath%>/resources/images/profile.png" style="height: 30px; width: 30px;">
+	            <img src="<%=contextPath%>/${M.memChangeName }" style="height: 30px; width: 30px;">
 	            <span style="font-weight: bold;">예약자 정보</span>
 	        </div>
 	        <div class="name-phone">
@@ -32,9 +32,6 @@
 	        <div class="input-area">
 	            <input name="revName" type="text" placeholder="이름을 입력해주세요" value="${M.memNick }">
 	            <input name="revPhone" style="margin-left: 85px;" type="text" placeholder="전화번호를 입력해주세요" value="${M.phone }">
-	            <div style="margin-left: 10px;">
-	                <button type="button" class="btn btn-primary btn-sm">인증하기</button>
-	            </div>
 	        </div>
 	    </div>
 	    <div class="section">
@@ -46,7 +43,7 @@
 	    <div class="section">
 	        <span style="font-weight: bold;">예약상품</span>
 	        <div style="margin-top: 50px;">
-	            <span>선택된 이용권 정보 이번페이지에서 넘겨받아야함</span>
+	            <span>이용권 이름: ${tk.ticketName }</span>
 	        </div>
 	    </div>
 	    <div class="section">

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.bigFish.reservation.model.vo.Reservation;
+import com.kh.bigFish.store.model.vo.Ticket;
 
 @Repository
 public class ReservationDao {
@@ -25,6 +26,10 @@ public class ReservationDao {
 	
 	public Reservation getReservationService(SqlSessionTemplate sqlSession,int revNo) {
 		return sqlSession.selectOne("reservationMapper.getReservationService", revNo);
+	}
+
+	public Ticket selectedTicket(SqlSessionTemplate sqlSession, int ticketNo) {
+		return sqlSession.selectOne("storeMapper.selectedTicket", ticketNo);
 	}
 
 }

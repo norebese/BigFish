@@ -61,6 +61,12 @@ public interface StoreService {
 	
 	int storeEnroll(Store s);
 	
+	ArrayList<Store> myStoreList(int MemNo);
+	
+	String detailInfo(int storeNum);
+	
+	int updateDetailInfo(int storeNum, String info);
+	
 	Store getStoreInfo(int storeNo);
 	
 	ArrayList<Ticket> getAllTicketInfo(int rstoreNo);
@@ -68,6 +74,12 @@ public interface StoreService {
 	ArrayList<Attachment> getStoreAtt(int rstoreNo);
 	
 	int updateStore(Store s);
+	
+	int updateStoreStatus(Store s);
+	
+	int checkBusinessNoForDelete(String businessNo);
+	
+	int businessDelete(String businessNo);
 }
 
 

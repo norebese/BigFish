@@ -14,20 +14,14 @@
 <head>
 <meta charset="UTF-8">
 <title>BIG FISH</title>
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6cb0689f4fc5c9ee2e6c1f73a2fa5d1&libraries=services"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<link rel="stylesheet" href="<%=contextPath%>/resources/css/reservationDetail.css">
 	<link rel="stylesheet" href="<%=contextPath%>/resources/css/insertReservationOne.css">
 	<script src="<%=contextPath%>/resources/js/insertReservationOne.js"></script>
 	<script src="<%=contextPath%>/resources/js/reservationDetail.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body onload="buildCalendar(), init()">
 
@@ -38,41 +32,43 @@
 
     <div class="photo-info">
         <div class="photo-area">
-            <div id="demo" class="carousel slide" data-bs-ride="carousel">
-
-                <!-- Indicators/dots -->
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-                  <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-                  <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-                </div>
-              
-                <!-- The slideshow/carousel -->
-                <div class="carousel-inner">
-                  <div class="carousel-item active">
-                    <img src="<%=contextPath%>/resources/images/ex1.jpg" alt="" class="d-block w-100">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="<%=contextPath%>/resources/images/ex2.jpg" alt="" class="d-block w-100">
-                  </div>
-                  <div class="carousel-item">
-                    <img src="<%=contextPath%>/resources/images/shop-example.jpg" alt="" class="d-block w-100">
-                  </div>
-                </div>
-              
-                <!-- Left and right controls/icons -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-                  <span class="carousel-control-next-icon"></span>
-                </button>
-            </div>
+        	<div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
+			  <div class="carousel-inner">
+			    <div class="carousel-item active">
+			      <img src="<%=contextPath%>/resources/images/ex1.jpg" class="d-block w-100" alt="...">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="<%=contextPath%>/resources/images/ex2.jpg" class="d-block w-100" alt="...">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="<%=contextPath%>/resources/images/shop-example.jpg" class="d-block w-100" alt="...">
+			    </div>
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
         </div>
         
         <div class="info-area">
             <p class="bkind">
-                ${st.storeKind }
+            	<c:if test="${st.storeKind eq 'seaShip'}">
+    				선상 낚시
+				</c:if>
+				<c:if test="${st.storeKind eq 'seaSeat'}">
+    				바다 좌대
+				</c:if>
+				<c:if test="${st.storeKind eq 'FreshSeat'}">
+    				좌대
+				</c:if>
+				<c:if test="${st.storeKind eq 'FreshCafe'}">
+    				낚시 카페
+				</c:if>
             </p>
             <p class="bname">
                 ${st.storeName }
@@ -196,7 +192,7 @@
 			<c:set var="fishKindsSize" value="${fn:length(fishKinds)}" />
 
             <div class="fishkind-area">
-                <span class="price-title">주요 어종!</span>
+                <span class="price-title">주요 어종</span>
                 <span style="color: green;"><c:out value="${fishKindsSize}" />종</span>
 
                 <div style="display: flex; margin-left: 10px;">
@@ -223,12 +219,62 @@
                 </div>
             </div>
             <div class="detail-information">
-                <p class="info-title">상세 정보</p>
+                <p class="info-title">상세 정보
+                <c:if test="${st.rmemNo eq loginUser.memNo}">
+                <a onclick="changeToTextarea()">
+                	<button id="updateBtn" class="btn btn-primary">수정하기</button>
+                	<button id="saveBtn" onclick="updateDetailInfo('${st.storeNo}')" class="btn btn-primary" style="display: none;">저장하기</button>
+                </a>
+                </c:if>
+                </p>
                 <div class="detail-info">
-                    <p>최고의 서비스를 제공하겠습니다.</p>
+                    <p id="rDetail">${st.reservationDetail }</p>
+                    <textarea class="form-control" id="updateRDetail" cols="55" rows="2" style="resize:none; width:100%; height: 80px; display: none;"></textarea>
                 </div>
             </div>
         </div>
+        
+        <script type="text/javascript">
+	        let rDetail = document.getElementById('rDetail');
+	        let updateRDetail = document.getElementById('updateRDetail');
+	        let updateBtn = document.getElementById('updateBtn');
+	        let saveBtn = document.getElementById('saveBtn');
+	        function changeToTextarea() {
+	        	updateRDetail.innerText = rDetail.innerText;
+	        	rDetail.style.display = 'none';
+	        	updateRDetail.style.display = 'block';
+	        	updateBtn.style.display = 'none';
+	        	saveBtn.style.display = 'block';
+	        }
+	        
+	        function updateDetailInfo(storeNo){
+	    		let infoVal = document.getElementById('updateRDetail').value;
+	       		$.ajax({
+	                   type: "GET",
+	                   url: "ajaxUpdateDetailInfo",
+	                   data: {
+	                	   storeNum: storeNo,
+	                	   infoVal: infoVal
+	    				},
+	    				dataType: 'json',
+	                   success: function(data) {
+	                	   if(data.info > 0){
+	                		   alert('업데이트 성공');
+	                		   rDetail.innerText = data.detail;
+		           	        rDetail.style.display = 'block';
+		           	        updateRDetail.style.display = 'none';
+		           	        updateBtn.style.display = 'block';
+		           	        saveBtn.style.display = 'none';
+	                	   }else{
+	                		   alert('업데이트 실패');
+	                	   }
+	                   },
+	                   error: function() {
+	                   	console.log("ajax 통신 실패");
+	                   }
+	               });
+	       	}
+        </script>
 
         <div class="reply-area">
             <div class="reply-line">
@@ -271,7 +317,7 @@
 						    </c:forEach>
 				       </ul>
 				       <c:choose>
-				       <c:when test="${replyPi.maxPage eq 1 or replyPi.maxPage eq 0}">
+				       <c:when test="(${replyPi.maxPage eq 1 or replyPi.maxPage eq 0})">
 				          <li id="nextBtn" class="page-item" onclick="pageReply('next')" style="display: none;">
 					            <a class="page-link" href="#" aria-label="Next">
 					              <span aria-hidden="true">&raquo;</span>
@@ -497,8 +543,9 @@
             		month: month,
             		day: day,
             		time: selectedTime,
-            		endTime: endTime,
-            		numPeople: numPeople
+            		numPeople: numPeople,
+            		ticketNo: ticketNo,
+            		ticketTime: ticketTime
             },
             success: function(response) {
             	console.log("예약 정보 전송 성공");
