@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.freeBoard.model.dao.FreeBoardDao;
+import com.kh.bigFish.freeBoard.model.vo.Flike;
 import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
 
 @Service
@@ -74,4 +75,37 @@ public class FreeBoardServiceImpl  implements FreeBoardService {
 	public ArrayList<FreeBoard> selectSearchList(HashMap<String, String> map, PageInfo pi) {
 		return freeBoardDao.selectSearchList(sqlSession, map, pi);
 	}
+
+	@Override
+	public ArrayList<FreeBoard> selectmainList() {
+		 ArrayList<FreeBoard> arr =freeBoardDao.selectmainList(sqlSession);
+		
+		return arr;
+	}
+
+	@Override
+	public Flike checkLikeTable(int memNo, int rfreeNo) {
+		return freeBoardDao.checkLikeTable(sqlSession, memNo, rfreeNo);
+	}
+
+	@Override
+	public int createLikeTable(int memNo, int bno) {
+		return freeBoardDao.createLikeTable(sqlSession, memNo, bno);
+	}
+
+	@Override
+	public Flike likeResult(Flike fr) {
+		return freeBoardDao.likeResult(sqlSession, fr);
+	}
+
+	@Override
+	public int freeUpdateLike(Flike fr, String result) {
+		return freeBoardDao.freeUpdateLike(sqlSession, fr, result);
+	}
+
+	@Override
+	public int freeGoodCount(int bno) {
+		return freeBoardDao.freeGoodCount(sqlSession, bno);
+	}
+
 }

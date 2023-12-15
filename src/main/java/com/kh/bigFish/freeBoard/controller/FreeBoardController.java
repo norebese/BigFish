@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.bigFish.attachment.model.vo.Attachment;
+import com.google.gson.Gson;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
-import com.kh.bigFish.fishingBoard.model.vo.FishingBoard;
 import com.kh.bigFish.freeBoard.model.service.FreeBoardService;
+import com.kh.bigFish.freeBoard.model.vo.Flike;
 import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
+import com.kh.bigFish.member.model.vo.Member;
+import com.kh.bigFish.store.model.vo.Slike;
+import com.kh.bigFish.store.model.vo.Store;
 
 
 @Controller
@@ -109,14 +114,29 @@ public class FreeBoardController {
 	}
 	
 	@RequestMapping("detail.fbo")
-	public String selectBoard(int bno, Model model) {
-	
+	public String selectBoard(int bno, Model model ,HttpServletRequest request, HttpSession session) {
+		Member Mem = (Member) session.getAttribute("loginUser");
+		int likeNo =freeboardService.freeGoodCount(bno);
 		int result = freeboardService.increaseCount(bno);
+	
+		System.out.println("59595959"+likeNo);
+		
+		Flike checkLikeTable = new Flike();
+		
+		if(Mem != null) {
+			int memNo = Mem.getMemNo();
+			
+			checkLikeTable = freeboardService.checkLikeTable(memNo, bno);
+			System.out.println("12341234"+checkLikeTable);
+			if(checkLikeTable==null) {
+				int createLikeTable = freeboardService.createLikeTable(memNo, bno);
+			}
+		}
 	
 		if(result>0) {
 			FreeBoard b = freeboardService.selectBoard(bno);
 			model.addAttribute("b", b);
-			
+			 model.addAttribute("likeNo", likeNo);
 			
 			return "freeBoard/freeBoardDetailView";
 		}else {
@@ -188,7 +208,6 @@ public class FreeBoardController {
 		PageInfo pi = Pagenation.getPageInfo(freeboardService.selectSearchListCount(map), currentPage, 5, 10);
 
 		ArrayList<FreeBoard> list = freeboardService.selectSearchList(map, pi);
-		System.out.println("바보입니까?"+list);
 		mv.addObject("pi",pi)
 		  .addObject("list", list)
 		  .addObject("condition", condition)
@@ -196,9 +215,47 @@ public class FreeBoardController {
 		  .addObject("changeName", changeName)
 		  .addObject("originName", originName)
 		  .setViewName("freeBoard/freeBoardList");
-		System.out.println("나좀보소오~"+mv);
 		
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="mainList.fbo", produces="application/json; charset=UTF-8")
+	public String ajaxfreeBoardList() {
+		return new Gson().toJson(freeboardService.selectmainList());
+	}
+	
+	@RequestMapping("ajaxUpdateFreeLike")
+	public void ajaxUpdateLike(HttpServletRequest request, HttpSession session, HttpServletResponse response, int freeNo) {
+		Flike fr = new Flike();
+		
+		
+		Store s = (Store) session.getAttribute("st");
+		Member Mem = (Member) session.getAttribute("loginUser");
+		System.out.println(Mem);
+		
+		fr.setRmemNo(Mem.getMemNo());
+		fr.setRfreeNo(freeNo);
+		System.out.println("1"+fr);
+		Flike likeResult = freeboardService.likeResult(fr);
+		System.out.println("2"+likeResult);
+
+		String result = null;
+
+		
+		if(likeResult.getFreeGoodStatus().equals("N")) {
+			result = "Y";
+		}else {
+			result = "N";
+		}
+		System.out.println(result);
+		int storeUpdateLike = freeboardService.freeUpdateLike(fr, result);
+		
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
