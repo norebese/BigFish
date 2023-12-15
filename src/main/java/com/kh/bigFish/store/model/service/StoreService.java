@@ -60,6 +60,26 @@ public interface StoreService {
 	ArrayList<Store> ajaxStoreKindFilter(PageInfo pi, String City1, String City2, String City3, String City4, String City5, String City6, int filterNum);
 	
 	int storeEnroll(Store s);
+	
+	ArrayList<Store> myStoreList(int MemNo);
+	
+	String detailInfo(int storeNum);
+	
+	int updateDetailInfo(int storeNum, String info);
+	
+	Store getStoreInfo(int storeNo);
+	
+	ArrayList<Ticket> getAllTicketInfo(int rstoreNo);
+	
+	ArrayList<Attachment> getStoreAtt(int rstoreNo);
+	
+	int updateStore(Store s);
+	
+	int updateStoreStatus(Store s);
+	
+	int checkBusinessNoForDelete(String businessNo);
+	
+	int businessDelete(String businessNo);
 }
 
 

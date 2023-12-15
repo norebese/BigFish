@@ -100,17 +100,8 @@ public class StudyDao {
 		return sqlSession.insert("studyMapper.createLikeTable", params);
 	}
 	
-	public int searchGood(SqlSessionTemplate sqlSession, StudyGood studyGoodStatus) {
-		return sqlSession.selectOne("studyMapper.searchGood", studyGoodStatus);
+	public ArrayList<Study> selectStudyList(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("studyMapper.selectStudyList", keyword);
 	}
 
-	public int createLike(SqlSessionTemplate sqlSession, StudyGood studyGoodStatus) {
-		return sqlSession.insert("studyMapper.createLike", studyGoodStatus);
-	}
-
-	public int deleteLike(SqlSessionTemplate sqlSession, StudyGood studyGoodStatus) {
-		return sqlSession.update("studyMapper.deleteLike", studyGoodStatus);
-	}
-	
-	
 }

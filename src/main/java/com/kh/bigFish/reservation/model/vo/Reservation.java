@@ -18,6 +18,7 @@ public class Reservation {
 	private int revNo;
 	private int rmemNo;
 	private int rstoreNo;
+	private int rticketNo;
 	private Date revDate;
 	private int revPeople;
 	private String revStart;
@@ -27,6 +28,9 @@ public class Reservation {
 	private String revName;
 	private int revPhone; 
 	private String rstoreName;
+	private String rticketName;
+	private int rticketPrice;
+	private int rticketTime;
 }
 
 

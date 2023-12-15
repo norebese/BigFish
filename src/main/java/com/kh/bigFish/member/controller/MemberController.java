@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.bigFish.attachment.model.vo.Attachment;
@@ -229,8 +230,8 @@ public class MemberController {
 	public String personalMyPage(HttpSession session,Model model) {
 		
 		Member loginUser =  (Member)session.getAttribute("loginUser");
-		
 		ArrayList<Reservation> reserList = reservationService.selectReservationList(loginUser.getMemNo());
+		
 		
 		
 		session.setAttribute("loginUser", loginUser);
@@ -257,7 +258,14 @@ public class MemberController {
 	}
 	// 개인 회원 예약 목록 자세히 보기로 이동
 	@RequestMapping(value="/myReservationDetail")
-	public String myReservationDetail() {
+	public String myReservationDetail(int revNo, Model model) {
+		
+		Reservation rev = reservationService.getReservationService(revNo);
+		Store store = storeService.getStoreInfo(rev.getRstoreNo());
+		
+		model.addAttribute("rev",rev);
+		model.addAttribute("store",store);
+		
 		return "member/myReservationDetail";
 	}
 	
@@ -350,7 +358,7 @@ public class MemberController {
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "회원가입에 성공했습니다.");
-			
+			 
 			return "redirect:/";
 		}else {
 			model.addAttribute("errorMsg","게시글 작성 실패");
@@ -370,6 +378,8 @@ public class MemberController {
 										String[] ticketNameArray, int[] ticketPriceArray, int[] ticketTimeArray, 
 										String[] storeWeekdayArray, String[] storeWeekendArray,
 										HttpSession session, MultipartFile[] upfile, Model model) {
+		
+		
 		
 		
 		ArrayList<Attachment> attArray = new ArrayList<Attachment>();

@@ -44,9 +44,14 @@
 			<button id="buttonProfile" onclick="showProfile()" style="width: 100%; border: none; background: rgb(28, 134, 204);" class="btn btn-secondary">프로필 관리</button><br><br>
 			<button id="buttonBusiness" onclick="showBusiness()" style="width: 100%; border: none; background: rgb(59, 175, 252);" class="btn btn-secondary">사업장 관리</button><br><br>
 			<c:forEach var="store" items="${storeList}">
-				<button id="buttonSample1" onclick="showSample1()" style="width: 100%; border: none; background: rgb(59, 175, 252); " class="btn btn-secondary businessButton">${store.storeName }</button><br><br>
+				<c:choose>
+					<c:when test="${store.storeStatus eq 'DeleteOpen'}">
+					</c:when>
+					<c:otherwise>
+						<button id="buttonSample1" onclick="showSample1()" style="width: 100%; border: none; background: rgb(59, 175, 252); " class="btn btn-secondary businessButton">${store.storeName }</button><br><br>
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
-			
 		</div>
 		<div class="myPageContent">
 			<div id="profileWork" style="display: flex; flex-direction: column; align-items: center;">
@@ -82,32 +87,48 @@
 
 			<div id="businessWork" style="display: none; flex-direction: column; align-items: center;">
 				<c:forEach var="store" items="${storeList}">
-				<!-- 카드 1 -->
-				<div style="width: 70%; margin-bottom: 30px;" class="card">
-					<div class="card-header">
-						<span style="font-weight: bolder;">${store.storeName}</span>
-					</div>
-					<div class="card-body" style="display: flex; flex-direction: row;">
-						<div style="display: flex; flex-direction: row; justify-content: space-between;">
-							<img style="width: 120px; height: 100px; margin-right: 15px;" src="resources/images/businessSample.png" alt="">
-						</div>
-						
-						<div style="display: flex; flex-direction: column;">
-							<span style="font-weight: 500;">사업자 번호 : ${store.businessNo}</span><br>
-							<span>
-								<button onclick="location.href='storeUpdateForm.sto'" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">1:1 문의</button>
-								<button onclick="location.href='storeUpdateForm.sto'" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 수정</button>
-								<button class="btn btn-danger" data-bs-toggle="modal" style="border: none;" data-bs-target="#businessDelete">사업장 삭제</button>
-							</span>
-						</div>
-						<div class="form-check form-switch" style="display: flex; flex-direction: column; width: 50%; align-items: flex-end;">
-							<span style="scale: 1.2;">
-								<label class="form-check-label" for="mySwitch">운영 여부</label>
-								<input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
-							</span>
-						</div>
-					</div>
-				</div>
+					<!-- 카드 1 -->
+					<c:choose>
+						<c:when test="${store.storeStatus eq 'DeleteOpen'}">
+						</c:when>
+						<c:otherwise>
+							<div style="width: 70%; margin-bottom: 30px;" class="card">
+								<div class="card-header">
+									<span style="font-weight: bolder;">${store.storeName}</span>
+								</div>
+								<div class="card-body" style="display: flex; flex-direction: row;">
+									<div style="display: flex; flex-direction: row; justify-content: space-between;">
+										<img style="width: 120px; height: 100px; margin-right: 15px;" src="resources/images/businessSample.png" alt="">
+									</div>
+									
+									<div style="display: flex; flex-direction: column;">
+										<span style="font-weight: 500;">사업자 번호 : ${store.businessNo}</span><br>
+										<span>
+											<form action="storeUpdateForm.sto" method="post">
+											<input type="hidden" name="storeNo" value="${store.storeNo}">
+											<button type="button" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">1:1 문의</button>
+											<button type="submit" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 수정</button>
+											<button type="button" class="btn btn-danger" data-bs-toggle="modal" style="border: none;" data-bs-target="#businessDelete">사업장 삭제</button>
+											</form>
+										</span>
+									</div>
+									<div class="form-check form-switch" style="display: flex; flex-direction: column; width: 50%; align-items: flex-end;">
+										<span style="scale: 1.2;">
+											<label class="form-check-label" for="mySwitch${store.storeNo}">운영 여부</label>
+											<c:choose>
+												<c:when test="${store.storeStatus eq 'open'}">
+												<input class="form-check-input" onchange="updateStoreStatus(this, '${store.storeName}')" type="checkbox" id="mySwitch${store.storeNo}" name="darkmode" data-store-status="open" data-store-No="${store.storeNo}" value="yes" checked>
+												</c:when>
+												<c:otherwise>
+												<input class="form-check-input" onchange="updateStoreStatus(this, '${store.storeName}')" type="checkbox" id="mySwitch${store.storeNo}" name="darkmode" data-store-status="stopOpen" data-store-No="${store.storeNo}" value="yes">
+												</c:otherwise>
+											</c:choose>
+										</span>
+									</div>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 
 					<button onclick="location.href='storeEnrollForm.sto'" style="width: 70%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 추가</button>
@@ -251,13 +272,17 @@
 	
 			<!-- Modal body -->
 			<div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
-			사업자 번호를 정확히 입력한 후 삭제 버튼을 눌러주세요.<br><br>
-			<input class="form-control" type="text" placeholder="사업자 번호를 입력해주세요.">
+				사업자 번호를 정확히 입력한 후 삭제 버튼을 눌러주세요.<br><br>
+				<div style="display: flex; flex-direction: row;">
+					<input class="form-control" id="deleteBusinessInput" type="text" placeholder="사업자 번호를 입력해주세요.">&nbsp;
+					<button type="button" onclick="checkBusinessNoForDelete()" style="width: 50%;" class="btn btn-primary btn-sm">사업자 번호 확인</button>
+				</div>
+				<div style="display: none; color: #dd2f35;" id="deleteBusinessArea"></div>
 			</div>
 	
 			<!-- Modal footer -->
 			<div class="modal-footer">
-			<button disabled type="button" class="btn btn-danger">사업장 삭제</button>
+			<button disabled id="deleteBusinessBtn" type="button" onclick="businessDelete()" class="btn btn-danger">사업장 삭제</button>
 			<button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
 			</div>
 	
@@ -268,6 +293,7 @@
 	  
 	  <br><br>
 	  <jsp:include page="../common/footer.jsp"/>
+
 </body>
 </html>
 

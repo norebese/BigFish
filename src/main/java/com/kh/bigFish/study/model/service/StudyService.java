@@ -54,10 +54,5 @@ public interface StudyService {
 
 	int createLikeTable(int memNo, int sno);
 	 
-	
-	int searchGood(StudyGood studyGoodStatus);
-
-	int createLike(StudyGood studyGoodStatus);
-
-	int deleteLike(StudyGood studyGoodStatus);
+	ArrayList<Study> selectStudyList(String keyword);
 }

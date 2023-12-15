@@ -61,6 +61,12 @@ public class FreeBoardServiceImpl  implements FreeBoardService {
 		return freeBoardDao.updateFreeBoard(sqlSession, b);
 	}
 
+	//통합검색을 위해 만든 것 -고이환-
+	@Override
+	public ArrayList<FreeBoard> selectFreeList(String keyword) {
+		return freeBoardDao.selectFreeList(sqlSession, keyword);
+	}
+	
 	@Override
 	public int deleteBoard(int boardNo) {
 		return freeBoardDao.deleteBoard(sqlSession, boardNo);

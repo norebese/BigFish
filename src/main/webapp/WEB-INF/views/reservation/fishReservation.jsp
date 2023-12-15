@@ -41,15 +41,18 @@
                     dataType: 'json',
                     success: function(data) {
                     	if (data.list.length === 0) {
-                    		if(document.getElementById("moreA") != null){
-                        		document.getElementById("moreA").style.display = "none";
+                    		if(document.getElementById("more") != null){
+                        		document.getElementById("more").style.display = "none";
                     		}
                             emptyResult();
                         } else {
                         	updateList(data.list);
-                        	let moreButton = $('<button id="moreA" onclick="ajaxStoreListMore()">더 보기</button>');
-                            $('#moreBtn').html(moreButton);
-                            if(data.storeCount < 5){
+                        	let moreButton3 = $(`<button id="moreA" onclick="ajaxStoreListMore()">더 보기 +`
+            						+`<span>`+data.piA.currentPage+`</span>`
+            						+`<span style="color: rgba(96,96,96,.5)">/ `+data.piA.maxPage+`</span>`
+            						+`</button>`);
+                        	$('#moreBtn').html(moreButton3);
+                        	if(data.piA.currentPage === data.piA.maxPage){
                         		document.getElementById("moreA").style.display = "none";
                         	}
                         }
@@ -72,7 +75,12 @@
                     dataType: 'json',
                     success: function(data) {
                    		nextList(data.list);
-                   		if(data.piA.currentPage === data.piA.maxPage){
+                   		let moreButton3 = $(`<button id="moreA" onclick="ajaxStoreListMore()">더 보기 +`
+        						+`<span>`+data.piA.currentPage+`</span>`
+        						+`<span style="color: rgba(96,96,96,.5)">/ `+data.piA.maxPage+`</span>`
+        						+`</button>`);
+                    	$('#moreBtn').html(moreButton3);
+                    	if(data.piA.currentPage === data.piA.maxPage){
                     		document.getElementById("moreA").style.display = "none";
                     	}
                     },
@@ -82,63 +90,74 @@
                 });
         	}
         </script>
-        
-        <div class="shop-list">
-            <div class="filter-area">
-                <div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="width: 300px; margin-bottom: 30px;">지역별</button>
-                </div>
-            </div>
-            <div id="showList-area">
-            <c:forEach var="sl" items="${storeList}">
-	            <a class="list-box-area" href="resDetailPage?storeNumber=${sl.storeNo}">
-	                <div class="list-img-box">
-	                    <div class="img-box">
-	                        <img src="<%=contextPath%>/resources/images/shop-example.jpg" alt="">
-	                    </div>
-	                    <div class="list-txt-box">
-	                        <p class="list-name">
-	                            	${sl.storeName}
-	                        </p>
-	                        <p class="fish-info">
-	                            <span class="reply">
-	                                <img style="height: 12px;" src="<%=contextPath%>/resources/images/reply.png" alt="">
-	                                ${sl.replyCount}
-	                            </span>
-	                            <span class="like">
-	                                <img style="height: 12px;" src="<%=contextPath%>/resources/images/like.png" alt="">
-	                                ${sl.likeCount}
-	                            </span>
-	                        </p>
-	                        <p class="address">
-	                            <span>${sl.storeAddress}</span>
-	                        </p>
-	                        <div class="price-area">
-	                            <p>
-	                                ${sl.minPrice}
-	                                <span>원</span>
-	                            </p>
-	                        </div>
-	                    </div>
+        <div class="shop-section">
+	        <div class="shop-list">
+	            <div class="filter-area">
+	            	<p style="text-wrap: nowrap;">카테고리 제목</p>
+	                <div class="insertFilter">
+	                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="width: 300px; height: 50px;">지역별</button>
 	                </div>
-	            </a>
-	          </c:forEach>
-            </div>
-        </div>
-        <div class="insert-btn">
-        	<div id="moreBtn">
-        		<button id="more" onclick="addpage()">더 보기</button>
-        	</div>
-            <button id="insert" type="button" class="btn btn-primary" style="width: 300px;">등록하기</button>
+	            </div>
+	            <div id="showList-area">
+	            <c:forEach var="sl" items="${storeList}">
+		            <a class="list-box-area" href="resDetailPage?storeNumber=${sl.storeNo}">
+		                <div class="list-img-box">
+		                    <div class="img-box">
+		                        <img src="<%=contextPath%>/resources/images/shop-example.jpg" alt="">
+		                    </div>
+		                    <div class="list-txt-box">
+		                        <p class="list-name">
+		                            	${sl.storeName}
+		                        </p>
+		                        <p class="fish-info">
+		                            <span class="reply">
+		                                <img style="height: 12px;" src="<%=contextPath%>/resources/images/reply.png" alt="">
+		                                ${sl.replyCount}
+		                            </span>
+		                            <span class="like">
+		                                <img style="height: 12px;" src="<%=contextPath%>/resources/images/like.png" alt="">
+		                                ${sl.likeCount}
+		                            </span>
+		                        </p>
+		                        <p class="address">
+		                            <span>${sl.storeAddress}</span>
+		                        </p>
+		                        <div class="price-area">
+		                            <p>
+		                                ${sl.minPrice}
+		                                <span>원</span>
+		                            </p>
+		                        </div>
+		                    </div>
+		                </div>
+		            </a>
+		          </c:forEach>
+	            </div>
+	            <div class="insert-btn">
+			        <c:if test="${pi.maxPage > 1}">
+			        	<div id="moreBtn">
+			        		<button id="more" onclick="addpage()">더 보기 +
+					        		<span>${pi.currentPage}</span>
+					        		<span style="color: rgba(96,96,96,.5)">/ ${pi.maxPage}</span>
+				        	</button>
+			        	</div>
+			        </c:if>
+		        </div>
+	        </div>
         </div>
         
+        <div class="goTop" onclick="moveTop()">
+	    	<a class="topBtn">
+	    		<img class="topBtnImg" src="<%=contextPath%>/resources/images/go-top.png">
+	    	</a>
+	    </div>
     </div>
+    
     <jsp:include page="../common/footer.jsp"/>
     
     <script type="text/javascript">
     let cpage = 1;
     function addpage(){
-    	document.getElementById("more").style.display = "none";
     	cpage += ${pi.currentPage};
    		$.ajax({
                type: "GET",
@@ -148,12 +167,15 @@
 				},
                dataType: 'json',
                success: function(data) {
-            	nextList(data);
-            	if(cpage != ${pi.maxPage}){
-            		document.getElementById("more").style.display = "block";
-            	}else{
-					document.getElementById("more").style.display = "none";
-				}
+            	nextList(data.list);
+            	let moreButton3 = $(`<button id="moreA" onclick="addpage()">더 보기 +`
+						+`<span>`+data.pi.currentPage+`</span>`
+						+`<span style="color: rgba(96,96,96,.5)">/ `+data.pi.maxPage+`</span>`
+						+`</button>`);
+            	$('#moreBtn').html(moreButton3);
+            	if(data.pi.currentPage === data.pi.maxPage){
+            		document.getElementById("moreA").style.display = "none";
+					}
                },
                error: function() {
                	console.log("ajax 통신 실패");

@@ -79,8 +79,16 @@ public ArrayList<FishingBoard> selectSearchList(SqlSessionTemplate sqlSession, H
 	RowBounds rowBounds = new RowBounds(offset, limit);
 	return (ArrayList)sqlSession.selectList("fishingBoardMapper.selectSearchList", map, rowBounds);
 }
+
+	//통합검색을 위해 만든 것 -고이환-
+    public ArrayList<FishingBoard> selectFishingList(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("fishingBoardMapper.selectFishingList", keyword);
+    }
+   
+
 public ArrayList<FishingBoard> selectmainList(SqlSessionTemplate sqlSession) {
 	return (ArrayList)sqlSession.selectList("fishingBoardMapper.selectmainList");
 }
+
 
 }

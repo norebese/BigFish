@@ -44,6 +44,7 @@ public interface FreeBoardService {
 
 
 
+
 	//최근작성된 board 3개 가져오기
 	ArrayList<FreeBoard> selectmainList();
 
@@ -54,4 +55,9 @@ public interface FreeBoardService {
 	Flike likeResult(Flike fr);
 	
 	int freeUpdateLike(Flike fr, String result);
+
+	//통합검색을 위해 만든 것 -고이환-
+	ArrayList<FreeBoard> selectFreeList(String keyword);
+
+
 }

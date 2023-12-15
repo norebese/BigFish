@@ -2,6 +2,7 @@ package com.kh.bigFish.announce.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -56,5 +57,6 @@ public class AnnDao {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return (ArrayList)sqlSession.selectList("annMapper.selectSearchList", map, rowBounds);
 	}
+
 }
 	

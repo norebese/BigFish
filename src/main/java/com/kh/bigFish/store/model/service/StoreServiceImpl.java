@@ -139,6 +139,58 @@ public class StoreServiceImpl implements StoreService{
 	public int storeEnroll(Store s) {
 		return storeDao.storeEnroll(sqlSession, s);
 	}
+
+	@Override
+	public ArrayList<Store> myStoreList(int MemNo) {
+		return storeDao.myStoreList(sqlSession, MemNo);
+	}
+
+	@Override
+	public String detailInfo(int storeNum) {
+		return storeDao.detailInfo(sqlSession, storeNum);
+	}
+
+	@Override
+	public int updateDetailInfo(int storeNum, String info) {
+		return storeDao.updateDetailInfo(sqlSession, storeNum, info);
+	}
+
+	@Override
+	public Store getStoreInfo(int storeNo) {
+		return storeDao.getStoreInfo(sqlSession, storeNo);
+	}
+
+	@Override
+	public ArrayList<Ticket> getAllTicketInfo(int rstoreNo) {
+		return storeDao.getAllTicketInfo(sqlSession, rstoreNo);
+	}
+
+	@Override
+	public ArrayList<Attachment> getStoreAtt(int rstoreNo) {
+		return storeDao.getStoreAtt(sqlSession, rstoreNo);
+	}
+
+	@Override
+	public int updateStore(Store s) {
+		return storeDao.updateStore(sqlSession, s);
+	}
+
+	@Override
+	public int updateStoreStatus(Store s) {
+		return storeDao.updateStoreStatus(sqlSession, s);
+	}
+
+	@Override
+	public int checkBusinessNoForDelete(String businessNo) {
+		return storeDao.checkBusinessNoForDelete(sqlSession, businessNo);
+	}
+
+	@Override
+	public int businessDelete(String businessNo) {
+		return storeDao.businessDelete(sqlSession, businessNo);
+	}
+
+
 	
 }
 

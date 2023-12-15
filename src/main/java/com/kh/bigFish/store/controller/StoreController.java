@@ -19,11 +19,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
@@ -56,15 +58,115 @@ public class StoreController {
 	}
 	
 	@RequestMapping(value="/storeUpdateForm.sto")
-	public String storeUpdateForm() {
+	public String storeUpdateForm(Store s, Model model) {
+		
+		Store storeInfo = storeService.getStoreInfo(s.getStoreNo());
+		ArrayList<Ticket> ticketArr = storeService.getAllTicketInfo(s.getStoreNo());
+		ArrayList<Attachment> attArr = storeService.getStoreAtt(s.getStoreNo());
+		
+		// 주중 영업 시간 가공
+		String weekdayStart = storeInfo.getStoreWeekday().substring(0, 5);
+		String weekdayEnd = storeInfo.getStoreWeekday().substring(8);
+		// 주말 영업 시간 가공
+		String weekendStart = storeInfo.getStoreWeekend().substring(0, 5);
+		String weekendEnd = storeInfo.getStoreWeekend().substring(8);
+
+		String fishKindArr = storeInfo.getStoreFishKind();
+		
+		
+	
+		
+		
+		model.addAttribute("storeInfo", storeInfo);
+		model.addAttribute("weekdayStart",weekdayStart);
+		model.addAttribute("weekdayEnd",weekdayEnd);
+		model.addAttribute("weekendStart",weekendStart);
+		model.addAttribute("weekendEnd",weekendEnd);
+		model.addAttribute("fishKindArr", fishKindArr);
+		model.addAttribute("ticketArr", new Gson().toJson(ticketArr));
+		model.addAttribute("attArr", new Gson().toJson(attArr));
+		
 		return "store/storeUpdateForm";
+	}
+	
+	@RequestMapping("storeUpdate")
+	public String storeUpdate(HttpSession session, Store s,String[] StoreFishKindArray,
+								String[] ticketNameArray, int[] ticketPriceArray, int[] ticketTimeArray, 
+								String[] storeWeekdayArray, String[] storeWeekendArray, Model model,
+								MultipartFile[] upfile) {
+		
+		
+		
+		
+		System.out.println(s);
+
+
+		
+		ArrayList<Attachment> attArray = new ArrayList<Attachment>();
+		ArrayList<Ticket> ticArray = new ArrayList<Ticket>();
+		
+		s.setStoreWeekday(String.join(" ~ ", storeWeekdayArray));
+		s.setStoreWeekend(String.join(" ~ ", storeWeekendArray));
+		s.setStoreFishKind(String.join("/", StoreFishKindArray));
+		
+		for(int i=0; i<ticketNameArray.length; i++) {
+			Ticket tic = new Ticket();
+			
+			tic.setTicketName(ticketNameArray[i]);
+			tic.setTicketPrice(ticketPriceArray[i]);
+			tic.setTicketTime(ticketTimeArray[i]);
+			
+			ticArray.add(tic);
+		}
+		
+		if(!upfile[0].getOriginalFilename().equals("") ||
+			!upfile[1].getOriginalFilename().equals("")||
+			!upfile[2].getOriginalFilename().equals("")||
+			!upfile[3].getOriginalFilename().equals("")||
+			!upfile[4].getOriginalFilename().equals("")||
+			!upfile[5].getOriginalFilename().equals("")||
+			!upfile[6].getOriginalFilename().equals("")) {
+			
+				for(MultipartFile fi : upfile) {
+					String changeName = saveFile(fi, session,"/resources/uploadFiles/");
+					
+					
+					Attachment att = new Attachment();
+					att.setOriginName(fi.getOriginalFilename());
+					att.setChangeName(changeName);
+					att.setFilePath(session.getServletContext().getRealPath("/resources/uploadFiles/"));
+					
+					attArray.add(att);
+				}
+			
+			
+		}
+		
+		int storeResult = storeService.updateStore(s);
+		
+		if(storeResult>0) {
+			
+			
+			
+			session.setAttribute("alertMsg", "사업장 수정에 성공했습니다.");
+			return "redirect:/companyMyPage.me";
+		} else {
+			
+			
+			
+			model.addAttribute("errorMsg","게시글 작성 실패");
+			return "common/errorPage";
+		}
+		
+		
+		
 	}
 	
 	@RequestMapping("storeEnroll")
 	public String storeEnroll(Store s, String[] StoreFishKindArray,
-						String[] ticketNameArray, int[] ticketPriceArray, int[] ticketTimeArray, 
-						String[] storeWeekdayArray, String[] storeWeekendArray,
-						HttpSession session, MultipartFile[] upfile, Model model) {
+								String[] ticketNameArray, int[] ticketPriceArray, int[] ticketTimeArray, 
+								String[] storeWeekdayArray, String[] storeWeekendArray,
+								HttpSession session, MultipartFile[] upfile, Model model) {
 		
 		ArrayList<Attachment> attArray = new ArrayList<Attachment>();
 		ArrayList<Ticket> ticArray = new ArrayList<Ticket>();
@@ -179,7 +281,7 @@ public class StoreController {
 		
 		int storeCount = storeService.storeCount();
 		
-		PageInfo pi = Pagenation.getPageInfo(storeCount, currentPage, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(storeCount, currentPage, 10, 6);
 		
 		ArrayList<Store> storeList = storeService.storeList(pi);
 //		for (Store store : storeList) {
@@ -193,16 +295,20 @@ public class StoreController {
 	
 	@ResponseBody
 	@RequestMapping(value="fishReservationAddPage", produces="application/json; charset=UTF-8")
-	public ArrayList<Store> fishReservationAddPage(HttpServletRequest request) {
-		
+	public Map<String, Object> fishReservationAddPage(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
 		int Page =Integer.parseInt(request.getParameter("cpage"));
 		int storeCount = storeService.storeCount();
 		
-		PageInfo pi = Pagenation.getPageInfo(storeCount, Page, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(storeCount, Page, 10, 6);
 		
 		ArrayList<Store> storeList = storeService.storeList(pi);
 		
-		return storeList;
+		result.put("list", storeList);
+	    result.put("storeCount", storeCount);
+	    result.put("pi", pi);
+		
+		return result;
 	}
 	
 	@ResponseBody
@@ -218,7 +324,7 @@ public class StoreController {
 		
 		int storeCount = storeService.filteredStoreCount(S);
 		
-		PageInfo piA = Pagenation.getPageInfo(storeCount, Page, 10, 5);
+		PageInfo piA = Pagenation.getPageInfo(storeCount, Page, 10, 6);
 		
 		ArrayList<Store> list = storeService.ajaxStoreList(S, piA);
 		
@@ -326,9 +432,7 @@ public class StoreController {
 			R.setRstoreNo(s.getStoreNo());
 			R.setRevStart(startTime);
 			R.setRevEnd(endTime);
-			System.out.println(R);
 			int jungbok = reservationService.jungbokCheck(R);
-			System.out.println("jungbok :"+jungbok);
 			
 		    ticket.setAmount(pAmount - jungbok);
 		}
@@ -341,7 +445,7 @@ public class StoreController {
 		
 		int seaStoreCount = storeService.seaStoreCount();
 		
-		PageInfo pi = Pagenation.getPageInfo(seaStoreCount, currentPage, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(seaStoreCount, currentPage, 10, 6);
 		
 		ArrayList<Store> seaStoreList = storeService.seaStoreList(pi);
 //		for (Store store : seaStoreList) {
@@ -355,16 +459,19 @@ public class StoreController {
 	
 	@ResponseBody
 	@RequestMapping(value="seaReservationAddPage", produces="application/json; charset=UTF-8")
-	public ArrayList<Store> seaReservationAddPage(HttpServletRequest request) {
-		
+	public Map<String, Object> seaReservationAddPage(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
 		int currentPage =Integer.parseInt(request.getParameter("cpage"));
 		int seaStoreCount = storeService.seaStoreCount();
 		
-		PageInfo pi = Pagenation.getPageInfo(seaStoreCount, currentPage, 10, 5);
+		PageInfo pi = Pagenation.getPageInfo(seaStoreCount, currentPage, 10, 6);
 		
 		ArrayList<Store> seaStoreList = storeService.seaStoreList(pi);
 		
-		return seaStoreList;
+		result.put("seaStoreList", seaStoreList);
+	    result.put("pi", pi);
+		
+		return result;
 	}
 	
 	@ResponseBody
@@ -380,7 +487,7 @@ public class StoreController {
 		
 		int ajaxSeaStoreCount = storeService.ajaxSeaStoreCount(City1, City2, City3, City4, City5, City6);
 		
-		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCount, 1, 10, 5);
+		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCount, 1, 10, 6);
 		
 		ArrayList<Store> list = storeService.ajaxSeaStoreList(piS, City1, City2, City3, City4, City5, City6);
 		
@@ -393,7 +500,7 @@ public class StoreController {
 		cityNames.add(City6);
 		
 		result.put("list", list);
-	    result.put("count", ajaxSeaStoreCount);
+	    result.put("piS", piS);
 	    result.put("cityNames", cityNames);
 		
 		return result;
@@ -413,7 +520,7 @@ public class StoreController {
 		
 		int ajaxSeaStoreCount = storeService.ajaxSeaStoreCount(City1, City2, City3, City4, City5, City6);
 		
-		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCount, sPage, 10, 5);
+		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCount, sPage, 10, 6);
 		
 		ArrayList<Store> list = storeService.ajaxSeaAreaMore(piS, City1, City2, City3, City4, City5, City6);
 		
@@ -438,7 +545,7 @@ public class StoreController {
 		
 		int ajaxSeaStoreCountF = storeService.ajaxSeaStoreCountF(City1, City2, City3, City4, City5, City6, filterNum);
 		
-		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCountF, sfPage, 10, 5);
+		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCountF, sfPage, 10, 6);
 		
 		ArrayList<Store> list = storeService.ajaxStoreKindFilter(piS, City1, City2, City3, City4, City5, City6, filterNum);
 		result.put("list", list);
@@ -448,6 +555,81 @@ public class StoreController {
 	    return result;
 	}
 	
-	
 
+	@ResponseBody
+	@RequestMapping("updateStoreStatus")
+	public String updateStoreStatus(String storeNo, String storeStatus) {
+		
+		System.out.println(storeNo);
+		System.out.println(storeStatus);
+		
+		Store s = new Store();
+		s.setStoreNo(Integer.parseInt(storeNo));
+		
+		if(storeStatus.equals("open")) {
+			s.setStoreStatus("stopOpen");
+		}else {
+			s.setStoreStatus("open");
+		}
+		
+		int updateResult = storeService.updateStoreStatus(s);
+		
+		return updateResult+"";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("checkBusinessNoForDelete")
+	public String checkBusinessNoForDelete(String businessNo) {
+		
+		int result = storeService.checkBusinessNoForDelete(businessNo);
+		
+		if(result>0) {
+			return "Y";
+		}else {
+			return "N";
+		}
+		
+		
+	}
+	
+	@RequestMapping("businessDelete")
+	public String businessDelete(String businessNo) {
+		
+		int result = storeService.businessDelete(businessNo);
+		
+		
+		return "redirect:/companyMyPage.me";
+	}
+
+		
+
+	@RequestMapping(value="/storeRegisterPage")
+	public String storeRegisterPage(HttpSession session) {
+		Member Mem = (Member) session.getAttribute("loginUser");
+		int MemNo = Mem.getMemNo();
+		
+		ArrayList<Store> list = storeService.myStoreList(MemNo);
+				
+		session.setAttribute("myStoreList", list);
+		
+		return "store/storeRegisterPage";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="ajaxUpdateDetailInfo" )
+	public Map<String, Object> ajaxUpdateDetailInfo(HttpServletRequest request){
+		Map<String, Object> result = new HashMap<>();
+		int storeNum = Integer.parseInt(request.getParameter("storeNum"));
+		String info = request.getParameter("infoVal");
+		
+		int updateDetailInfo = storeService.updateDetailInfo(storeNum, info);
+		String detailInfo = storeService.detailInfo(storeNum);
+		
+		result.put("info", updateDetailInfo);
+		result.put("detail", detailInfo);
+		
+		return result;
+	}
 }
+

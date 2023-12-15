@@ -8,6 +8,7 @@
  		<result column="REV_NO" property="revNo"/>
  		<result column="RMEM_NO" property="rmemNo"/>
  		<result column="RSTORE_NO" property="rstoreNo"/>
+ 		<result column="RTICKET_NO" property="rticketNo"/>
  		<result column="REV_DATE" property="revDate"/>
  		<result column="REV_PEOPLE" property="revPeople"/>
  		<result column="REV_START" property="revStart"/>
@@ -17,14 +18,18 @@
  		<result column="REV_NAME" property="revName"/>
  		<result column="REV_PHONE" property="revPhone"/>
  		<result column="STORE_NAME" property="rstoreName"/>
+        <result column="TICKET_NAME" property="rticketName"/>
+        <result column="TICKET_PRICE" property="rticketPrice"/>
+        <result column="TICKET_TIME" property="rticketTime"/>    
  	</resultMap>
  
  	<insert id="insertReservation" parameterType="Reservation">
- 		INSERT INTO RESERVATION (rev_no, rmem_no, rstore_no, rev_date, rev_people, rev_start, rev_end, rev_status, rev_request, rev_name, rev_phone)
+ 		INSERT INTO RESERVATION (rev_no, rmem_no, rstore_no, rticket_no, rev_date, rev_people, rev_start, rev_end, rev_status, rev_request, rev_name, rev_phone)
 		VALUES
 		(SEQ_REV_NO.NEXTVAL, 
 		#{rmemNo}, 
 		#{rstoreNo},
+		#{rticketNo},
 		DEFAULT, 
 		#{revPeople}, 
 		TO_DATE(#{revStart}, 'YYYY-MM-DD HH24:MI'), 
@@ -48,9 +53,13 @@
  			R.REV_REQUEST,
  			R.REV_NAME,
  			R.REV_PHONE,
- 			S.STORE_NAME
+ 			S.STORE_NAME,
+            T.TICKET_NAME,
+            T.TICKET_PRICE,
+            T.TICKET_TIME
  		FROM RESERVATION R
  		LEFT JOIN STORE S ON R.RSTORE_NO = S.STORE_NO
+ 		LEFT JOIN TICKET T ON R.RTICKET_NO = T.TICKET_NO
  		WHERE R.RMEM_NO = #{memNo} 	
 	</select>
 
@@ -65,6 +74,22 @@
 		    OR (#{revEnd} &gt; r.REV_START AND #{revEnd} &lt;= r.REV_END)
 		    OR (#{revStart} &lt;= r.REV_START AND #{revEnd} &gt;= r.REV_END)
 			)
+ 	</select>
+ 	
+ 	<select id="getReservationService" resultMap="reservationResult">
+ 	SELECT REV_NO,
+ 		RMEM_NO,
+ 		RSTORE_NO,
+ 		REV_DATE,
+ 		REV_PEOPLE,
+ 		REV_START,
+ 		REV_END,
+ 		REV_STATUS,
+ 		REV_REQUEST,
+ 		REV_NAME,
+ 		REV_PHONE
+ 	FROM RESERVATION
+ 	WHERE REV_NO = #{revNo}
  	</select>
  
  </mapper>

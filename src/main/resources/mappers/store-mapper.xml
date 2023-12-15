@@ -20,6 +20,7 @@
  		<result column="STORE_GROUP" property="storeGroup"/>
  		<result column="STORE_KIND" property="storeKind"/>
  		<result column="STORE_FISH_KIND" property="storeFishKind"/>
+ 		<result column="RESERVATION_DETAIL" property="reservationDetail"/>
  		<result column="BUSINESS_NO" property="businessNo"/>
  		<result column="STORE_STATUS" property="storeStatus"/>
  		<result column="LIKE_COUNT" property="likeCount"/>
@@ -40,6 +41,17 @@
  		<result column="RSTORE_NO" property="rstoreNo"/>
  		<result column="STORE_GOOD_STATUS" property="storeGoodStatus"/>
  	</resultMap>
+ 	
+ 	<resultMap type="Attachment" id="attachmentResult">
+ 		<result column="FILE_NO" property="fileNo"/>
+ 		<result column="ORIGIN_NAME" property="originName"/>
+ 		<result column="CHANGE_NAME" property="changeName"/>
+ 		<result column="FILE_PATH" property="filePath"/>
+ 		<result column="UPLOAD_DATE" property="uploadDate"/>
+ 		<result column="FILE_LEVEL" property="fileLevel"/>
+ 		<result column="FILE_STATUS" property="fileStatus"/>
+ 		<result column="RSTORE_NO" property="rstoreNo"/>
+ 	</resultMap>
  
 	<select id="checkBusinessNo" resultType="_int">
 		SELECT COUNT(*)
@@ -50,7 +62,9 @@
 	<select id="storeCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM STORE
-		WHERE STORE_STATUS = 'op'
+		WHERE (STORE_KIND = 'FreshSeat'
+		        OR STORE_KIND = 'FreshCafe')
+		AND STORE_STATUS = 'open'
 	</select>
 	
 	<select id="filteredStoreCount" resultType="_int">
@@ -58,7 +72,7 @@
 		FROM STORE
 		WHERE LOCATION_BIG = #{locationBig}
 		AND LOCATION_SMALL = #{locationSmall}
-		AND STORE_STATUS = 'op'
+		AND STORE_STATUS = 'open'
 	</select>
 
  	<select id="ajaxStoreList" resultMap="storeResult">
@@ -72,7 +86,7 @@
         LEFT JOIN TICKET t ON s.STORE_NO = t.RSTORE_NO
 		WHERE S.LOCATION_BIG = #{locationBig}
 		  AND S.LOCATION_SMALL = #{locationSmall}
-		  AND STORE_STATUS = 'op'
+		  AND STORE_STATUS = 'open'
 		GROUP BY S.STORE_NO, S.STORE_ADDRESS, S.STORE_NAME
  	</select>
  	
@@ -80,7 +94,7 @@
  		SELECT *
  		FROM STORE
  		WHERE STORE_NO = #{num}
- 		AND STORE_STATUS = 'op'
+ 		AND STORE_STATUS = 'open'
  	</select>
 
  	<insert id="insertStore">
@@ -206,7 +220,7 @@
 		    REPLY r ON s.STORE_NO = r.RSTORE_NO
 		WHERE STORE_KIND = 'FreshSeat'
 		        OR STORE_KIND = 'FreshCafe'
-		AND STORE_STATUS = 'op'
+		AND STORE_STATUS = 'open'
 		GROUP BY 
 		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME
 		ORDER BY 
@@ -218,7 +232,7 @@
 		FROM STORE
 		WHERE STORE_KIND = 'seaShip'
         OR STORE_KIND = 'seaSeat'
-        AND STORE_STATUS = 'op'
+        AND STORE_STATUS = 'open'
 	</select>
 	
 	<select id="seaStoreList" resultMap="storeResult">
@@ -239,7 +253,7 @@
 		    REPLY r ON s.STORE_NO = r.RSTORE_NO
 		WHERE STORE_KIND = 'seaShip'
 		        OR STORE_KIND = 'seaSeat'
-		AND STORE_STATUS = 'op'
+		AND STORE_STATUS = 'open'
 		GROUP BY 
 		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME
 		ORDER BY 
@@ -258,7 +272,7 @@
             OR LOCATION_SMALL = #{city4}
             OR LOCATION_SMALL = #{city5}
             OR LOCATION_SMALL = #{city6}
-            AND STORE_STATUS = 'op'
+            AND STORE_STATUS = 'open'
 	</select>
 	
 	<select id="ajaxSeaStoreList" resultMap="storeResult">
@@ -267,18 +281,21 @@
 				    s.STORE_NO,
 				    s.STORE_ADDRESS,
 				    s.STORE_NAME,
-				    COUNT(DISTINCT g.RSTORE_NO) AS like_count,
+				    COUNT(DISTINCT CASE WHEN g.STORE_GOOD_STATUS = 'Y' THEN g.RSTORE_NO END) AS like_count,
 				    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
-		            s.LOCATION_SMALL
+		            s.LOCATION_SMALL,
+		            COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count
 				FROM 
 				    STORE s
 				LEFT JOIN 
 				    STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
 				LEFT JOIN 
 				    TICKET t ON s.STORE_NO = t.RSTORE_NO
+				LEFT JOIN 
+		    		REPLY r ON s.STORE_NO = r.RSTORE_NO    
 				WHERE (s.STORE_KIND = 'seaShip'
 				        OR s.STORE_KIND = 'seaSeat')
-				AND s.STORE_STATUS = 'op'
+				AND s.STORE_STATUS = 'open'
 				GROUP BY 
 				    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, s.LOCATION_SMALL
 				ORDER BY 
@@ -307,7 +324,8 @@
 			STORE_GROUP,
 			STORE_KIND,
 			STORE_FISH_KIND,
-			BUSINESS_NO
+			BUSINESS_NO,
+			STORE_STATUS
 		FROM STORE
 		WHERE RMEM_NO = #{memNo}	
 	</select>
@@ -325,7 +343,7 @@
         WHERE (STORE_KIND = 'seaShip'
         OR STORE_KIND = 'seaSeat')
         </if>
-        AND STORE_STATUS = 'op'
+        AND STORE_STATUS = 'open'
 	</select>
 	
 	<select id="ajaxSeaStoreCountFB" resultType="_int">
@@ -349,7 +367,7 @@
             OR LOCATION_SMALL = #{city4}
             OR LOCATION_SMALL = #{city5}
             OR LOCATION_SMALL = #{city6}
-            AND STORE_STATUS = 'op'
+            AND STORE_STATUS = 'open'
 	</select>
 	
 	<select id="ajaxStoreKindFilterA" resultMap="storeResult">
@@ -380,7 +398,7 @@
                 OR STORE_KIND = 'seaSeat'
                 </if>
 		        )
-		AND STORE_STATUS = 'op'
+		AND STORE_STATUS = 'open'
 		GROUP BY 
 		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME
 		ORDER BY 
@@ -393,15 +411,18 @@
 				    s.STORE_NO,
 				    s.STORE_ADDRESS,
 				    s.STORE_NAME,
-				    COUNT(DISTINCT g.RSTORE_NO) AS like_count,
+				    COUNT(DISTINCT CASE WHEN g.STORE_GOOD_STATUS = 'Y' THEN g.RSTORE_NO END) AS like_count,
 				    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
-		            s.LOCATION_SMALL
+		            s.LOCATION_SMALL,
+		            COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count
 				FROM 
 				    STORE s
 				LEFT JOIN 
 				    STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
 				LEFT JOIN 
 				    TICKET t ON s.STORE_NO = t.RSTORE_NO
+				LEFT JOIN 
+		    		REPLY r ON s.STORE_NO = r.RSTORE_NO
 				WHERE (
 					<if test="filterNum == 1"> 
                      s.STORE_KIND = 'seaShip'
@@ -414,7 +435,7 @@
                     OR s.STORE_KIND = 'seaSeat'
                     </if>
 				        )
-				AND s.STORE_STATUS = 'op'
+				AND s.STORE_STATUS = 'open'
 				GROUP BY 
 				    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, s.LOCATION_SMALL
 				ORDER BY 
@@ -465,4 +486,103 @@
  						#{businessNo}
  				)
 	</insert>
+	
+	<select id="myStoreList" resultMap="storeResult">
+		SELECT *
+		FROM STORE
+		JOIN MEMBER ON RMEM_NO = MEM_NO
+		WHERE RMEM_NO = #{memNo}
+	</select>
+	<select id="detailInfo" resultType="string">
+		SELECT RESERVATION_DETAIL
+		FROM STORE
+		WHERE STORE_NO = #{storeNum}
+	</select>
+	<update id="updateDetailInfo">
+		UPDATE STORE
+		SET reservation_detail = #{info}
+		WHERE STORE_NO = #{storeNum}
+	</update>
+	<select id="selectedTicket" resultMap="ticketResult">
+		SELECT *
+		FROM TICKET
+		WHERE TICKET_NO = #{ticketNo}
+	</select>
+	
+	<select id="getStoreInfo" resultMap="storeResult">
+	SELECT STORE_NO,
+		RMEM_NO,
+		LOCATION_BIG,
+		LOCATION_SMALL,
+		STORE_ADDRESS,
+		STORE_ADDRESS_DETAIL,
+		STORE_POST_NO,
+		STORE_NAME,
+		STORE_PHONE,
+		MAX_MEMBER,
+		STORE_WEEKDAY,
+		STORE_WEEKEND,
+		STORE_GROUP,
+		STORE_KIND,
+		STORE_FISH_KIND,
+		BUSINESS_NO,
+		STORE_STATUS
+	FROM STORE
+	WHERE STORE_NO = #{storeNo}
+	</select>
+	
+	<select id="getAllTicketInfo" resultMap="ticketResult">
+	SELECT TICKET_NO, 
+		TICKET_NAME, 
+		TICKET_PRICE, 
+		TICKET_TIME
+	FROM TICKET
+	WHERE RSTORE_NO = #{rstoreNo}
+	</select>
+	
+	<select id="getStoreAtt" resultMap="attachmentResult">
+	SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, UPLOAD_DATE, FILE_LEVEL, FILE_STATUS, RSTORE_NO
+	FROM ATTACHMENT
+	WHERE RSTORE_NO = #{rstoreNo} AND ORIGIN_NAME LIKE '%.%'
+	</select>
+	
+	<update id="updateStore">
+	UPDATE STORE
+	SET STORE_NAME = #{storeName},
+		STORE_PHONE = #{storePhone},
+		BUSINESS_NO = #{businessNo},
+		STORE_KIND = #{storeKind},
+		LOCATION_BIG = #{locationBig},
+		LOCATION_SMALL = #{locationSmall},
+		STORE_POST_NO = #{storePostNo},
+		STORE_ADDRESS = #{storeAddress},
+		STORE_ADDRESS_DETAIL = #{storeAddressDetail},
+		STORE_GROUP = #{storeGroup},
+		STORE_WEEKDAY = #{storeWeekday},
+		STORE_WEEKEND = #{storeWeekend},
+		STORE_FISH_KIND = #{storeFishKind},
+		MAX_MEMBER = #{maxMember}
+	WHERE STORE_NO = #{storeNo}
+	</update>
+	
+	<update id="updateStoreStatus">
+	UPDATE STORE
+	SET STORE_STATUS = #{storeStatus}
+	WHERE STORE_NO = #{storeNo}
+	</update>
+	
+	<select id="checkBusinessNoForDelete" resultType="_int">
+	SELECT COUNT(*)
+	FROM STORE
+	WHERE BUSINESS_NO = #{businessNo} 
+			AND STORE_STATUS = 'open' 
+			OR STORE_STATUS = 'stopOpen'
+	</select>
+	
+	<update id="businessDelete">
+	UPDATE STORE
+	SET STORE_STATUS = 'DeleteOpen'
+	WHERE BUSINESS_NO = #{businessNo}
+	</update>
+	
  </mapper>

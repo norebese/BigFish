@@ -83,12 +83,10 @@ public class FishingBoardServiceImpl  implements FishingBoardService{
 	public ArrayList<FishingBoard> selectmainList() {
 		return fishingBoardDao.selectmainList(sqlSession);
 	}
-
 	
-
-
-
-
-
-
+	//통합검색을 위해 만든 것 -고이환-
+	@Override
+	public ArrayList<FishingBoard> selectFishingList(String keyword) {
+		return fishingBoardDao.selectFishingList(sqlSession, keyword);
+	}
 }

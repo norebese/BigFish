@@ -115,12 +115,22 @@
 	</select>
 
 	<update id="updateFreeBoard">
-		UPDATE FREEBOARD
-		SET FREE_TITLE = #{freeTitle},
-		FREE_CONTENT = #{freeContent}
-
-		WHERE FREE_NO = #{freeNo}
-	</update>
+	  UPDATE FREEBOARD
+	  		SET FREE_TITLE = #{freeTitle},
+	  			FREE_CONTENT = #{freeContent}
+	  			
+	  	WHERE FREE_NO = #{freeNo}
+  </update>
+  	
+  	<!-- 통합 검색을 위해 만든 것 -고이환- -->
+  	<select id="selectFreeList" resultMap="freeBoardResult">
+  		SELECT FREE_NO,
+  			   FREE_TITLE
+  		  FROM FREEBOARD
+  		WHERE FREE_STATUS = 'Y'
+  		AND FREE_TITLE LIKE '%' || #{keyword} || '%'
+  		AND ROWNUM &lt;= 2
+  	</select>
 
 	<update id="deleteBoard">
 		UPDATE FREEBOARD
