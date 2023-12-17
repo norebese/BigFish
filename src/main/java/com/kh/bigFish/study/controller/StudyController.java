@@ -3,6 +3,7 @@ package com.kh.bigFish.study.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
 import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reply.model.vo.Reply;
+import com.kh.bigFish.store.model.vo.Store;
 import com.kh.bigFish.study.model.service.StudyService;
 import com.kh.bigFish.study.model.vo.Study;
 import com.kh.bigFish.study.model.vo.StudyGood;
@@ -63,7 +65,23 @@ public class StudyController {
 	}
 	
 	@RequestMapping(value="/detail.st")
-	public String selectStudy(int sno, Model model, HttpSession session) {
+	public String selectStudy(int sno, Model model, HttpSession session, HttpServletRequest request) {
+//		Member Mem = (Member) session.getAttribute("loginUser");
+//		int studyNo = Integer.parseInt(request.getParameter("studyNo"));
+//		Study st = studyService.stDetailPage(studyNo);
+//		StudyGood checkLikeTable = new StudyGood();
+//		
+//		if(Mem != null) {
+//			int memNo = Mem.getPostNo();
+//			
+//			checkLikeTable = studyService.checkLikeTable(memNo, studyNo);
+//			
+//			if(checkLikeTable == null) {
+//				int createLikeTable = studyService.createLikeTable(memNo, studyNo);
+//			}
+//		}
+//		
+//		session.setAttribute("StudyGood", checkLikeTable);
 		
 		int result = studyService.increaseCount(sno);
 		
@@ -115,14 +133,15 @@ public class StudyController {
 		}
 	}
 	
-	@RequestMapping("UpdateLike")
+	@RequestMapping("updateLike")
 	public void updateLike(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 
 		StudyGood sg = new StudyGood();
 		System.out.println(sg);
-		Study st = (Study) session.getAttribute("st");
+		Study s = (Study) session.getAttribute("s");
 		Member Mem = (Member) session.getAttribute("loginUser");
-		int studyNum = st.getStudyNo();
+		System.out.println(Mem);
+		int studyNum = s.getStudyNo();
 		
 		sg.setRmemNo(Mem.getMemNo());
 		sg.setRstudyNo(studyNum);
@@ -130,7 +149,7 @@ public class StudyController {
 		String result = null;
 		
 		if(likeResult.getStudyGoodStatus().equals("N")) {
-			result = "Y";
+			result = "Y"; 
 		}else {
 			result = "N";
 		}
@@ -144,31 +163,57 @@ public class StudyController {
 		}
 	}
 	
-	/*
-	@PostMapping("/like.st")
-	@ResponseBody
-	public String updateGood(@RequestBody StudyGood studyGoodStatus) {
-		// JSON으로 값이 들어오기 때문에 @RequestBody와 커맨드 객체를 사용해서 JSON 타입을 객첼 변경 
-		System.out.println("/snsBoard/like : POST ");
-		System.out.println("좋아요 기능 값을 가져오는지 확인 : " + studyGoodStatus);
-		
-		// 좋아요 버튼은 버튼이 하나임으로 버튼을 클릭 유무에 따라 좋아요 선택 및 취소를 뜻
-		
-		int result = studyService.searchGood(studyGoodStatus);
-		// 좋아요를 눌렀다면 1이 오고 좋아요를 누르지 않았다면 0이 옴 
-		
-		if(result == 0) {
-			// 좋아요를 누르지 않았다면 해당 정보를 db에 저장 
-			studyService.createLike(studyGoodStatus);
-			return "like";
+	// 좋아요 클릭했다 뗐다 하기
+		@RequestMapping("toggleLike") 
+		public Map<String, Object> toggleLike(HttpSession session, Member memId) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			Member loginUser = (Member) session.getAttribute("sessionUser");
+			memId.setMemId(loginUser.getMemId());
+			
+			studyService.toggleLike(memId);
+			
+			map.put("result", "success");
+			
+			return map;
 		}
-		else {
-			// 좋아요를 눌렀으므로 db에서 해당 값 삭제 
-			studyService.deleteLike(studyGoodStatus);
-			return "delete";
+		
+		// 고객이 하나의 상품에 대하여 좋아요를 하였는지 체크
+		@RequestMapping("checkLikeProductByCustomer") 
+		public Map<String, Object> checkLikeProductByCustomer(HttpSession session, Member memId) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			Member loginUser = (Member) session.getAttribute("sessionUser");
+			
+			if (loginUser == null) {
+				map.put("result", "fail");
+				map.put("reason", "로그인이 되어있지 않습니다.");
+				return map;
+			}
+			
+			memId.setMemId(loginUser.getMemId());
+			
+			map.put("result", "success");
+			map.put("checkLikeProductByCustomer", studyService.checkLikeProductByCustomer(memId));
+			
+			return map;
+			
 		}
-	}
-	*/
+		
+		// 상품 좋아요 개수 체크
+		@RequestMapping("getTotalLikeProductId")
+		public Map<String, Object> getTotalLikeProductId(int studyNo) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("result", "success");
+			
+			map.put("count", studyService.getTotalLikeProductId(studyNo));
+			
+			return map;
+		}
 	
 	@RequestMapping(value="search.st")
 	public ModelAndView searchStudy(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {
@@ -210,4 +255,12 @@ public class StudyController {
 			return "fail";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="mainList.st", produces="application/json; charset=UTF-8")
+	public String ajaxTopStudyList() {
+		System.out.println("s");
+		return new Gson().toJson(studyService.selectmainList());
+	}
 }
+

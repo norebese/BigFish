@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.bigFish.common.model.vo.PageInfo;
+import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reply.model.vo.Reply;
 import com.kh.bigFish.study.model.vo.Study;
 import com.kh.bigFish.study.model.vo.StudyGood;
@@ -102,6 +103,18 @@ public class StudyDao {
 	
 	public ArrayList<Study> selectStudyList(SqlSessionTemplate sqlSession, String keyword) {
 		return (ArrayList)sqlSession.selectList("studyMapper.selectStudyList", keyword);
+	}
+
+	public ArrayList<Study> selectmainList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("studyMapper.selectmainList");
+	}
+
+	public Study stDetailPage(SqlSessionTemplate sqlSession, int studyNo) {
+		return sqlSession.selectOne("studyMapper.stDetailPage", studyNo);
+	}
+
+	public Object toggleLike(SqlSessionTemplate sqlSession, Member memId) {
+		return sqlSession.selectOne("studyMapper.toggleLike", memId);
 	}
 
 }

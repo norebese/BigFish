@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.google.gson.JsonElement;
 import com.kh.bigFish.announce.model.vo.Announce;
 import com.kh.bigFish.common.model.vo.PageInfo;
+import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reply.model.vo.Reply;
 import com.kh.bigFish.study.model.vo.Study;
 import com.kh.bigFish.study.model.vo.StudyGood;
@@ -49,10 +51,15 @@ public interface StudyService {
 
 	int studyUpdateLike(StudyGood sg, String result);
 	
-	
 	StudyGood checkLikeTable(int memNo, int sno);
 
 	int createLikeTable(int memNo, int sno);
 	 
 	ArrayList<Study> selectStudyList(String keyword);
+
+	ArrayList<Study> selectmainList();
+
+	Study stDetailPage(int studyNo);
+
+	void toggleLike(Member memId);
 }

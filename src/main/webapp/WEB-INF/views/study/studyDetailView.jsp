@@ -120,7 +120,7 @@
                 let likeImg = document.getElementById('like-logo');
                 $.ajax({
                     type: "GET",
-                    url: "ajaxUpdateLike", 
+                    url: "updateLike", 
                     success: function(data) {
                         console.log(data);
                             if(data == 'Y'){

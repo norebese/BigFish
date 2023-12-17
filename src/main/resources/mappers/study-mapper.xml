@@ -129,14 +129,20 @@
  	
  	<insert id="createLikeTable">
  		INSERT INTO STUDYGOOD (RMEM_NO, RSTUDY_NO)
-		VALUES (#{memNo}, #{studyNum})
+		VALUES (#{memNo}, #{studyNo})
  	</insert>
  
  	<select id="checkLikeTable" resultMap="studyResult">
  		SELECT *
 		FROM STUDYGOOD
 		WHERE RMEM_NO = #{memNo}
-		AND RSTUDY_NO = #{studyNum}
+		AND RSTUDY_NO = #{studyNo}
+ 	</select>
+ 	<select id="stDetailPage" resultMap="studyResult">
+ 		SELECT *
+ 		FROM STUDY
+ 		WHERE STUDY_NO = #{studyNo}
+ 		AND STUDY_STATUS = 'Y'
  	</select>
  	
  	<select id="selectStudyList" resultMap="studyResult">
@@ -146,5 +152,20 @@
  		 WHERE STUDY_STATUS = 'Y'	
  		 AND STUDY_TITLE LIKE '%' || #{keyword} || '%'
          AND ROWNUM &lt;= 2 
+ 	</select>
+ 	
+ 	<select id="selectmainList" resultMap="studyResult">
+	SELECT *
+	FROM (
+		SELECT STUDY_NO,
+		STUDY_LINK,
+		STUDY_TITLE,
+		STUDY_COUNT,
+		TO_CHAR(STUDY_CREATE_DATE, 'YYYY-MM-DD') AS "STUDY_CREATE_DATE"
+	FROM STUDY
+	WHERE STUDY_STATUS = 'Y'
+	ORDER BY STUDY_NO DESC
+	)
+	WHERE ROWNUM BETWEEN 1 AND 3
  	</select>
 </mapper>
