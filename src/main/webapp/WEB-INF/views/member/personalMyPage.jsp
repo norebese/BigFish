@@ -118,7 +118,7 @@
 						<c:forEach var="r" items="${reserList}">
 						<!-- 카드 -->
 							<div style="width: 70%; margin-bottom: 30px;" class="card">
-								<div class="card-header" style="padding-bottom: 3px; cursor: pointer;" onclick="location.href='myReservationDetail'">
+								<div class="card-header" style="padding-bottom: 3px; cursor: pointer;" onclick="location.href='myReservationDetail?revNo=${r.revNo}'">
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
 										<span style="font-weight: bold;">${r.rstoreName}</span>
 										<span style="font-size: 13px;">No. ${r.revNo}</span>
@@ -127,13 +127,28 @@
 									
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
 										<span style="font-size: 13px;">${r.revDate}</span>
-										<span>이용 완료</span>
+										<span>
+											<c:choose>
+												<c:when test="${r.revStatus eq 'WAITREV'}">
+												예약 대기
+												</c:when>
+												<c:when test="${r.revStatus eq 'OKREV'}">
+												예약 완료
+												</c:when>
+												<c:when test="${r.revStatus eq 'CANCELREV'}">
+												예약 취소
+												</c:when>
+												<c:when test="${r.revStatus eq 'DONEREV'}">
+												이용 완료
+												</c:when>
+											</c:choose>
+										</span>
 									</div>
 								</div>
 								<div class="card-body">
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
-										<span>1시간 이용권</span>
-										<span>24000원</span>
+										<span>${r.rticketName}</span>
+										<span>${r.rticketPrice * r.revPeople}원</span>
 									</div>
 								</div>
 								<div class="card-footer">
@@ -141,7 +156,7 @@
 										<span style="font-size: 13px;">예약한 시간에 도착하지 못할 경우 예약이 취소될 수 있습니다.</span>
 										<span>
 											<button class="btn btn-sm btn-primary">1:1 문의</button>
-											<button class="btn btn-sm btn-primary">리뷰 쓰기</button>
+											<button class="btn btn-sm btn-primary" onclick="location.href='resDetailPage?storeNumber=${r.rstoreNo}'">예약 바로가기</button>
 										</span>
 									</div>
 								</div>
@@ -198,7 +213,7 @@
 	</div>
 
 
-	  <br><br>
+	  <br><br><br><br><br><br><br>
 	  <jsp:include page="../common/footer.jsp"/>
 </body>
 </html>

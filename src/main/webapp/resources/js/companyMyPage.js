@@ -41,19 +41,23 @@ function showBusiness(){
 
 }
 
-function showSample1(){
+function showSample1(storeNo){
 
+    
+    
     const profileWork = document.querySelector("#profileWork");
     const businessWork = document.querySelector("#businessWork");
     const buttonProfile = document.querySelector("#buttonProfile");
     const buttonBusiness = document.querySelector("#buttonBusiness");
     const sample1Work = document.querySelector("#sample1Work");
     const btns = document.getElementsByClassName("businessButton");
+    const storeNoForReservation = document.querySelector("#storeNoForReservation");
     const buttonSample1 = this.event.target;
 
     profileWork.style.display = "none";
     businessWork.style.display = "none";
     sample1Work.style.display = "flex";
+    storeNoForReservation.value = storeNo;
 
     for(let btn of btns){
         btn.style.background = "rgb(59, 175, 252)";
@@ -62,6 +66,10 @@ function showSample1(){
     buttonProfile.style.background = "rgb(59, 175, 252)";
     buttonBusiness.style.background = "rgb(59, 175, 252)";
     buttonSample1.style.background = "rgb(28, 134, 204)";
+
+    const myStoreReservationList = document.querySelector("#myStoreReservationList");
+        
+    myStoreReservationList.innerHTML="";
 
 }
 
@@ -125,13 +133,139 @@ function buildCalendar() {
     }
 }
 
-// 날짜 선택
+// 날짜 선택 및 예약불러오기
 function choiceDate(nowColumn) {
     if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
         document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
     }
     nowColumn.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
+
+    
+    console.log(document.getElementsByClassName("choiceDay")[0].innerText);
+    
+    let sendData = { day : document.getElementsByClassName("choiceDay")[0].innerText,
+                    month : document.querySelector("#calMonth").innerText,
+                    year : document.querySelector("#calYear").innerText,
+                    storeNo : document.querySelector("#storeNoForReservation").value
+                    }
+
+    storeApi.getMyStoreReservationList(sendData, function(result){
+        // 예약목록 그려주기
+        console.log(JSON.parse(result).length);
+
+        
+        const choiceDayAllRes = document.querySelector("#choiceDayAllRes");
+        const myStoreReservationList = document.querySelector("#myStoreReservationList");
+        
+        choiceDayAllRes.innerHTML= JSON.parse(result).length+"건";
+        myStoreReservationList.innerHTML="";
+
+        for(let res of JSON.parse(result)){
+
+            let revStatus;
+            if(res.revStatus==="WAITREV")
+                revStatus = "예약 신청";
+            else if(res.revStatus==="OKREV")
+                revStatus = "예약 완료";
+            else if(res.revStatus==="CANCELREV")
+                revStatus = "예약 취소"
+            else if(res.revStatus==="DONEREV")
+                revStatus = "이용 완료"
+            
+          myStoreReservationList.innerHTML += '<div class="card" style="margin-bottom: 30px;">'+
+          '<div class="card-header" style="padding-bottom: 3px;">'+
+              '<div style="display: flex; flex-direction: row; justify-content: space-between;">'+
+                  '<span style="font-weight: bold;">'+res.revName+'</span>'+
+                  '<span style="font-size: 13px;">No. '+res.revNo+'</span>'+
+              '</div>'+
+              '<div style="display: flex; flex-direction: row; justify-content: space-between;">'+
+                  '<span style="font-size: 13px;">'+res.revStart+'</span>'+
+                  '<span id="revStatusArea'+res.revNo+'">'+revStatus+'</span>'+
+              '</div>'+
+
+          '</div>'+
+          '<div class="card-body">'+
+              '<div style="display: flex; flex-direction: row; justify-content: space-between;">'+
+                  '<span>'+res.rticketName+' '+res.revPeople+'매</span>'+
+                  '<span>'+(res.rticketPrice*res.revPeople)+'원</span>'+
+              '</div>'+
+
+              '<div class="top-line" style="border-bottom: 1px solid rgb(204, 204, 204);  width: 100%;"></div>'+
+
+              '<div>'+
+                  '요청 사항 : '+res.revRequest+
+              '</div>'+
+
+          '</div>'+
+
+          '<div class="card-footer" style="display: flex; justify-content: space-between;">'+
+              '<span>'+
+              '총합 : '+(res.rticketPrice*res.revPeople)+'원'+
+              '</span>'+
+              '<span>'+
+                  '<button class="btn btn-sm btn-primary" id="okReservation'+res.revNo+'" onclick="okReservation('+res.revNo+')">예약 승인</button>'+'&nbsp;'+
+                  '<button class="btn btn-sm btn-danger" id="cancelReservationBtn'+res.revNo+'" onclick="cancelReservation('+res.revNo+')">예약 취소</button>'+
+              '</span>'+
+          '</div>'+
+        '</div>';
+
+        if(revStatus==="예약 완료"){
+            const okReservation = document.querySelector("#okReservation"+res.revNo);
+            okReservation.style.display = "none";
+        }else if(revStatus==="예약 취소" || revStatus==="이용 완료"){
+            const okReservation = document.querySelector("#okReservation"+res.revNo);                
+            const cancelReservationBtn = document.querySelector("#cancelReservationBtn"+res.revNo);
+
+            okReservation.style.display = "none";
+            cancelReservationBtn.style.display = "none";
+        }
+
+        }
+        
+        
+        
+    })
 }
+
+function okReservation(revNo){
+    const revStatusArea = document.querySelector("#revStatusArea"+revNo);
+    const okReservation = document.querySelector("#okReservation"+revNo);
+    const sendData = {"revNo" : revNo};
+
+
+    storeApi.okReservation(sendData, function(result){
+        
+        if(result>0){
+            alert("예약 승인 처리가 완료되었습니다.");
+            okReservation.style.display = "none";
+            revStatusArea.innerHTML = "예약 완료";
+        }else{
+            alert("예약 승인 처리에 실패하였습니다.");
+        }
+        
+    })
+
+}
+
+function cancelReservation(revNo){
+    const okReservation = document.querySelector("#okReservation"+revNo);                
+    const cancelReservationBtn = document.querySelector("#cancelReservationBtn"+revNo);
+    const revStatusArea = document.querySelector("#revStatusArea"+revNo);
+
+    const sendData = {"revNo" : revNo};
+
+    storeApi.cancelReservation(sendData, function(result){
+        if(result>0){
+            alert("예약 취소 처리가 완료되었습니다.");
+            okReservation.style.display = "none";
+            cancelReservationBtn.style.display = "none";
+            revStatusArea.innerHTML = "예약 취소";
+        }else{
+            alert("예약 취소 처리에 실패하였습니다.");
+        }
+    })
+}
+
 
 // 이전달 버튼 클릭
 function prevCalendar() {
@@ -183,3 +317,65 @@ function profileImgChange(){
     
 
 }
+
+// 사업 상태 변경
+function updateStoreStatus(ev, storeName){
+    
+    console.log(storeName);
+    console.log(ev.dataset.storeNo);
+    console.log(ev.dataset.storeStatus);
+
+    sendData = {storeNo : ev.dataset.storeNo,
+                storeStatus : ev.dataset.storeStatus};
+
+    storeApi.updateStoreStatus(sendData, function(result){
+        if(result>0){
+            alert(storeName+" 사업장의 상태 변경에 성공했습니다.");
+            if(ev.dataset.storeStatus==="open"){
+                ev.dataset.storeStatus="stopOpen";
+            }else{
+                ev.dataset.storeStatus="open";
+            }
+        }else{
+            alert(storeName+" 사업장의 상태 변경에 실패했습니다.");
+        }
+    })
+    
+}
+
+function checkBusinessNoForDelete(){
+
+    const deleteBusinessInput = document.querySelector("#deleteBusinessInput");
+    const deleteBusinessArea = document.querySelector("#deleteBusinessArea");
+    const deleteBusinessBtn = document.querySelector("#deleteBusinessBtn");
+    
+
+    sendData = {businessNo : deleteBusinessInput.value};
+
+    storeApi.checkBusinessNoForDelete(sendData, function(result){
+        if(result==="Y"){
+            console.log("사업자 번호 일치");
+            deleteBusinessArea.innerHTML = "삭제 버튼을 누를 경우 사업장이 삭제됩니다.";
+            deleteBusinessArea.style.display = "flex";
+            deleteBusinessBtn.removeAttribute("disabled");
+        }else{
+            console.log("사업자 번호 불일치");
+            deleteBusinessArea.innerHTML = "삭제할 사업장의 사업자 번호를 정확히 입력해야합니다.";
+            deleteBusinessArea.style.display = "flex";
+            deleteBusinessBtn.setAttribute("disabled",true);
+        }
+    })
+
+}
+
+function businessDelete(){
+    const deleteBusinessInput = document.querySelector("#deleteBusinessInput");
+
+    location.href = "businessDelete?businessNo="+deleteBusinessInput.value;
+}
+
+
+
+
+
+

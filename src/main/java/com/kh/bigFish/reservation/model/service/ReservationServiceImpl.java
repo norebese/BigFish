@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.bigFish.reservation.model.dao.ReservationDao;
 import com.kh.bigFish.reservation.model.vo.Reservation;
+import com.kh.bigFish.store.model.vo.Ticket;
 
 @Service
 public class ReservationServiceImpl implements ReservationService{
@@ -34,4 +35,30 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.jungbokCheck(sqlSession, R);
 	}
 
+	@Override
+	public Ticket selectedTicket(int ticketNo) {
+		return reservationDao.selectedTicket(sqlSession, ticketNo);
+	}
+
+	@Override
+	public Reservation getReservationService(int revNo) {
+		return reservationDao.getReservationService(sqlSession, revNo);
+	}
+
+	@Override
+	public ArrayList<Reservation> getMyStoreReservationList(Reservation r) {
+		return reservationDao.getMyStoreReservationList(sqlSession, r);
+	}
+
+	@Override
+	public int okReservation(int revNo) {
+		return reservationDao.okReservation(sqlSession, revNo);
+	}
+
+	@Override
+	public int cancelReservation(int revNo) {
+		return reservationDao.cancelReservation(sqlSession, revNo);
+	}
+	
+	
 }

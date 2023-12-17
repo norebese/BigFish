@@ -29,10 +29,12 @@ public class Store {
 	private String storeGroup;
 	private String storeKind;
 	private String storeFishKind;
+	private String reservationDetail;
 	private String businessNo;
 	private String storeStatus;
 	private int likeCount;
 	private int minPrice;
 	private int replyCount;
+	private String thumbnailImg;
 }
 

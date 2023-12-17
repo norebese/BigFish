@@ -58,6 +58,23 @@
 		   )
 	</insert>
 	
+	<insert id="insertFreeReply">
+		INSERT INTO REPLY (
+			 REPLY_NO,
+			 REPLY_CONTENT,
+			 REPLY_WRITER ,
+			 RMEM_NO,
+			 RFREE_NO
+		     )
+		 VALUES (
+		 	SEQ_REPLY_NO.NEXTVAL,
+		 	#{replyContent},
+		 	#{replyWriter},
+		 	#{rmemNo},
+		 	#{rfreeNo}
+		   )
+	</insert>
+	
 	<select id="storeReplyCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM REPLY
@@ -82,5 +99,30 @@
 		SET reply_status = 'N'
 		WHERE reply_no = #{rNum}
 	</update>
+	
+	<select id="freeReplyCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REPLY
+		WHERE RFREE_NO = #{rfreeNo}
+		AND REPLY_STATUS = 'Y'
+	</select>
+	
+	<update id="deleteFreeReply">
+		UPDATE REPLY
+		SET reply_status = 'N'
+		WHERE reply_no = #{rNum}
+	</update>
+	
+	<select id="freeReplyList" resultMap="replyResult">
+		SELECT REPLY_NO,
+			   REPLY_CONTENT,
+			   REPLY_WRITER,
+			   TO_CHAR(REPLY_CREATE_DATE, 'YYYY-MM-DD') AS REPLY_CREATE_DATE,
+			   RMEM_NO
+		   FROM REPLY
+	     WHERE REPLY_STATUS = 'Y'
+	       AND RFREE_NO = #{sNum}
+	     ORDER BY REPLY_NO DESC
+	</select>
 	
 </mapper>

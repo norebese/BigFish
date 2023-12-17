@@ -308,37 +308,8 @@
 			</div>
 			<div class="container text-center" style="flex: 4; overflow: hidden;">
 					<div class="d-flex justify-content-between">
-					<div class="row">
-						<div class="col-4">
-							<div style="height: 80%;">
-								<img src="<%=contextPath%>/resources/images/fishing.jpg"
-									alt="Your Image" style="max-width: 100%; height: 100%;">
-							</div>
-							<!-- p태그 부분: 높이의 20% -->
-							<div style="height: 20%;">
-								<p>제목부분</p>
-							</div>
-						</div>
-						<div class="col-4">
-							<div style="height: 80%;">
-								<img src="<%=contextPath%>/resources/images/fishing.jpg"
-									alt="Your Image" style="max-width: 100%; height: 100%;">
-							</div>
-							<!-- p태그 부분: 높이의 20% -->
-							<div style="height: 20%;">
-								<p>제목부분</p>
-							</div>
-						</div>
-						<div class="col-4">
-							<div style="height: 80%;">
-								<img src="<%=contextPath%>/resources/images/fishing.jpg"
-									alt="Your Image" style="max-width: 100%; height: 100%;">
-							</div>
-							<!-- p태그 부분: 높이의 20% -->
-							<div style="height: 20%;">
-								<p>제목부분</p>
-							</div>
-						</div>
+					<div class="row" id="freeBoardList" >
+						
 					</div>
 				</div>
 			</div>
@@ -353,6 +324,7 @@
 		<script>
 		$(function(){
 			topBoardList();
+			
 		})
 		
 		function topBoardList(){
@@ -376,7 +348,7 @@
 		        	'<a href="detail.fibo?bno='+rowData.fishingNo+'" class="col-4" style="text-decoration: none; color: black;">'+
 						'<div style="height: 80%;">'+
 							'<img src="<%=contextPath%>'+ rowData.changeName + 
-								'"alt="Your Image" style="width: 238px; height: 164px; object-fit: contain; cursor: pointer;">' +
+								'"alt="Your Image" style="width: 239px; height: 175.8px; object-fit: contain; cursor: pointer;">' +
 						'</div>'+
 						<!-- p태그 부분: 높이의 20% -->
 						'<div style="height: 20%;">'+
@@ -396,12 +368,26 @@
 				success: function(data){
 					console.log(data)
 					drawStudyRow(data)
+
+		$(function(){
+			freeBoardList();
+			
+		})
+		
+		function freeBoardList(){
+			$.ajax({
+				url: "mainList.fbo",
+				success: function(freedata){
+					console.log(freedata)
+					 drawFreeBoardRow(freedata)
+
 				},
 				error: function(){
 					console.log("ajax 실패")
 				}
 			})
 		}
+
 
 		function drawStudyRow(data) {
 			console.log(data)
@@ -418,6 +404,26 @@
 					'</a>'		
 					console.log(data)
 			}
+
+		
+		function drawFreeBoardRow(freedata) {
+			
+		    for (let rowData of freedata) {
+		        // 각각의 게시물을 추가하는 부분입니다.
+		        document.getElementById("freeBoardList").innerHTML +=
+		        	'<a href="detail.fbo?bno='+rowData.freeNo+'" class="col-4" style="text-decoration: none; color: black;">'+
+						'<div style="height: 80%;">'+
+							'<img src="'+ rowData.freeContent + 
+								'"alt="Your Image" style="width: 239px; height: 175.8px; object-fit: contain; cursor: pointer;">' +
+						'</div>'+
+						<!-- p태그 부분: 높이의 20% -->
+						'<div style="height: 20%;">'+
+							'<p>'+rowData.freeTitle+'</p>'+
+						'</div>'+
+					'</a>'
+						
+		    }
+
 		}
 	</script>
 

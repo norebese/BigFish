@@ -8,11 +8,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.bigFish.store.model.vo.Slike;
-import com.kh.bigFish.store.model.vo.Store;
-
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
+import com.kh.bigFish.store.model.vo.Slike;
 import com.kh.bigFish.store.model.vo.Store;
 import com.kh.bigFish.store.model.vo.Ticket;
 
@@ -203,4 +201,58 @@ public class StoreDao {
 		return sqlSession.insert("storeMapper.storeEnroll",s);
 
 	}
+
+	public ArrayList<Store> myStoreList(SqlSessionTemplate sqlSession, int memNo) {
+		return (ArrayList)sqlSession.selectList("storeMapper.myStoreList", memNo);
+	}
+
+	public String detailInfo(SqlSessionTemplate sqlSession, int storeNum) {
+		return sqlSession.selectOne("storeMapper.detailInfo", storeNum);
+	}
+
+	public int updateDetailInfo(SqlSessionTemplate sqlSession, int storeNum, String info) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("storeNum", storeNum);
+	    params.put("info", info);
+		
+		return sqlSession.update("storeMapper.updateDetailInfo", params);
+	}
+	
+	public Store getStoreInfo(SqlSessionTemplate sqlSession,int storeNo) {
+		return sqlSession.selectOne("storeMapper.getStoreInfo",storeNo);
+	}
+	
+	public ArrayList<Ticket> getAllTicketInfo(SqlSessionTemplate sqlSession, int rstoreNo){
+		return (ArrayList)sqlSession.selectList("storeMapper.getAllTicketInfo", rstoreNo);
+	}
+	
+	public ArrayList<Attachment> getStoreAtt(SqlSessionTemplate sqlSession, int rstoreNo){
+		return (ArrayList)sqlSession.selectList("storeMapper.getStoreAtt", rstoreNo);
+	}
+	
+	public int updateStore(SqlSessionTemplate sqlSession, Store s) {
+		return sqlSession.update("storeMapper.updateStore",s);
+	}
+	
+	public int updateStoreStatus(SqlSessionTemplate sqlSession, Store s) {
+		return sqlSession.update("storeMapper.updateStoreStatus",s);
+	}
+	
+	public int checkBusinessNoForDelete(SqlSessionTemplate sqlSession, String businessNo) {
+		return sqlSession.selectOne("storeMapper.checkBusinessNoForDelete",businessNo);
+	}
+	
+	public int businessDelete(SqlSessionTemplate sqlSession, String businessNo) {
+		return sqlSession.update("storeMapper.businessDelete",businessNo);
+	}
+	
+	public Ticket getTicketInfo(SqlSessionTemplate sqlSession, int rticketNo) {
+		return sqlSession.selectOne("storeMapper.getTicketInfo", rticketNo);
+	}
+	
+
+	public ArrayList<Attachment> storePhoto(SqlSessionTemplate sqlSession, int storeNum) {
+		return (ArrayList)sqlSession.selectList("storeMapper.storePhoto", storeNum);
+	}
+
 }

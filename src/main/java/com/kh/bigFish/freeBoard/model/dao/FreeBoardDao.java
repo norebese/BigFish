@@ -2,15 +2,16 @@ package com.kh.bigFish.freeBoard.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
-import com.kh.bigFish.fishingBoard.model.vo.FishingBoard;
+import com.kh.bigFish.freeBoard.model.vo.Flike;
 import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
+import com.kh.bigFish.store.model.vo.Slike;
 
 @Repository
 public class FreeBoardDao {
@@ -44,12 +45,13 @@ public class FreeBoardDao {
 
 		return sqlSession.selectOne("freeBoardMapper.selectBoard",freeNo);
 	}
-	
-	
+
+
 	public int updateFreeBoard(SqlSessionTemplate sqlSession, FreeBoard b) {
-	
+
 		return sqlSession.update("freeBoardMapper.updateFreeBoard", b);
 	}
+
 
 	//통합검색을 위해 만든 것 -고이환-
 	public ArrayList<FreeBoard> selectFreeList(SqlSessionTemplate sqlSession, String keyword) {
@@ -58,20 +60,65 @@ public class FreeBoardDao {
 	
 public int deleteBoard(SqlSessionTemplate sqlSession, int freeNo) {
 		
+
 		return sqlSession.update("freeBoardMapper.deleteBoard", freeNo);
 	}
 
 
-public int selectSearchListCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
-	return sqlSession.selectOne("freeBoardMapper.selectSearchListCount", map);	
-}
+	public int selectSearchListCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("freeBoardMapper.selectSearchListCount", map);	
+	}
 
-public ArrayList<FreeBoard> selectSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi){
-	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-	int limit = pi.getBoardLimit();
+	public ArrayList<FreeBoard> selectSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("freeBoardMapper.selectSearchList", map, rowBounds);
+	}
+	public ArrayList<FreeBoard> selectmainList(SqlSessionTemplate sqlSession) {
+
+		ArrayList<FreeBoard>  ARR =(ArrayList)sqlSession.selectList("freeBoardMapper.selectmainList");
+
+		return ARR;
+	}
+
+	public Flike checkLikeTable(SqlSessionTemplate sqlSession, int memNo, int rfreeNo) {
+		Map<String, Object> params = new HashMap<>();
+		System.out.println(memNo+"돼지야살뺒자"+rfreeNo);
+		params.put("memNo", memNo);
+		params.put("bno", rfreeNo);
+		return sqlSession.selectOne("freeBoardMapper.checkLikeTable", params);
+	}
+	public int createLikeTable(SqlSessionTemplate sqlSession, int memNo, int bno) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("memNo", memNo);
+	    params.put("bno", bno);
+		return sqlSession.insert("freeBoardMapper.createLikeTable", params);
+	}
 	
-	RowBounds rowBounds = new RowBounds(offset, limit);
-	return (ArrayList)sqlSession.selectList("freeBoardMapper.selectSearchList", map, rowBounds);
-}
+	public Flike likeResult(SqlSessionTemplate sqlSession, Flike fr) {
+		return sqlSession.selectOne("freeBoardMapper.likeResult", fr);
+	}
+	
+	public int freeUpdateLike(SqlSessionTemplate sqlSession, Flike sk, String result) {
+	System.out.println(result+"12342134"+sk);
+		Map<String, Object> params = new HashMap<>();
+	    params.put("result", result);
+	    params.put("freeNo", sk.getRfreeNo());
+	    params.put("rmemNo", sk.getRmemNo());
+	    
+		return sqlSession.update("freeBoardMapper.freeUpdateLike", params);
+	}
+	
+	
+	public int freeGoodCount(SqlSessionTemplate sqlSession, int bno) {
+		System.out.println("qkqhqkqhqkqh 바보바ㅗ바보"+bno);
+		int o =sqlSession.selectOne("freeBoardMapper.freeGoodCount",bno);
+		System.out.print("444444"+o);
+		return sqlSession.selectOne("freeBoardMapper.freeGoodCount",bno);
+	}
+	
+	
 
 }
