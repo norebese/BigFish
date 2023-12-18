@@ -97,7 +97,7 @@
 		
 		$.each(date, function (index, store) {
 	                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
-					+'<img src="resources/images/shop-example.jpg"></div>'
+					+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 		            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 		            +'<span class="reply">'
 		            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'
@@ -115,7 +115,7 @@
 		
 		$.each(date, function (index, store) {
 	                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
-					+'<img src="resources/images/shop-example.jpg"></div>'
+					+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 		            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 		            +'<span class="reply">'
 		            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'
@@ -134,7 +134,7 @@ function updateSeaList(date){
 	
 	$.each(date, function (index, store) {
                 htmlContent += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
-				+'<img src="resources/images/shop-example.jpg"></div>'
+				+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 	            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 	            +'<span class="reply">'
 	            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'

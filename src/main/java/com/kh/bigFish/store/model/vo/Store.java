@@ -35,5 +35,6 @@ public class Store {
 	private int likeCount;
 	private int minPrice;
 	private int replyCount;
+	private String thumbnailImg;
 }
 

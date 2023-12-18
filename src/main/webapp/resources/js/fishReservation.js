@@ -69,14 +69,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 기존 도시 목록 제거
 
-        selectCity.innerHTML = "";
+        selectCity.innerHTML = `<option value="전체" selected>전체</option>`;
 
 
         // 선택된 지역에 해당하는 도시 목록 추가
 
         cityData[region].forEach(function (city) {
 
-            var option = document.createElement("option");
+            let option = document.createElement("option");
 
             option.value = city;
 
@@ -97,7 +97,7 @@ function updateList(date){
 	
 	$.each(date, function (index, store) {
                 htmlContent += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
-				+'<img src="resources/images/shop-example.jpg" alt=""></div>'
+				+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 	            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 	            +'<span class="reply">'
 	            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'
@@ -121,7 +121,7 @@ function nextList(date){
 	
 	$.each(date, function (index, store) {
                 Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
-				+'<img src="resources/images/shop-example.jpg" alt=""></div>'
+				+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 	            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 	            +'<span class="reply">'
 	            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'

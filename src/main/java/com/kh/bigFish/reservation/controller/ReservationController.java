@@ -82,15 +82,15 @@ public class ReservationController {
 		Reservation Rev = (Reservation) session.getAttribute("R");
 		Store st = (Store) session.getAttribute("st");
 		String name = request.getParameter("revName");
-		int phone = Integer.parseInt(request.getParameter("revPhone"));
+		String phone = request.getParameter("revPhone");
 		String requestment = request.getParameter("revRequest");
+		System.out.println(phone);
 		
 		Rev.setRstoreNo(st.getStoreNo());
 		Rev.setRevName(name);
 		Rev.setRevPhone(phone);
 		Rev.setRevRequest(requestment);
 		
-		System.out.println(Rev);
 		int result = reservationService.insertReservation(Rev);
 		
 		session.setAttribute("alertMsg", "예약 완료");

@@ -30,8 +30,8 @@
 	            <span style="margin-left: 240px;">휴대폰 번호</span>
 	        </div>
 	        <div class="input-area">
-	            <input name="revName" type="text" placeholder="이름을 입력해주세요" value="${M.memNick }">
-	            <input name="revPhone" style="margin-left: 85px;" type="text" placeholder="전화번호를 입력해주세요" value="${M.phone }">
+	            <input name="revName" type="text" placeholder="이름을 입력해주세요" value="${M.memNick}">
+	            <input name="revPhone" style="margin-left: 85px;" type="text" placeholder="전화번호를 입력해주세요" value="${M.phone}">
 	        </div>
 	    </div>
 	    <div class="section">

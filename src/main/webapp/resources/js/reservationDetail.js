@@ -114,7 +114,6 @@ function handleCheckboxClick(clickedCheckboxId, num) {
             console.log("endTime: "+endTime);
             console.log("num: "+num);
         }
-        
     });
 }
 
@@ -146,7 +145,12 @@ function updateTicket(date){
 	let htmlContent = '';
 	
 	$.each(date, function (index, ticket) {
-                htmlContent += '<li class="option-item"><label style="display: flex; cursor: pointer;" id="checkboxLabel'+ticket.ticketNo+'" data-bs-toggle="modal" data-bs-target="#myModal'+ticket.ticketNo+'">'
+				if(ticket.amount == 0){
+					htmlContent += '<li class="option-item disabled-option">'
+				}else{
+					 htmlContent += '<li class="option-item">'
+				}
+                htmlContent +='<label style="display: flex; cursor: pointer;" id="checkboxLabel'+ticket.ticketNo+'" data-bs-toggle="modal" data-bs-target="#myModal'+ticket.ticketNo+'">'
         		+'<div class="checkbox-icon"><label for="myCheckbox'+ticket.ticketNo+'"><input type="checkbox" id="myCheckbox'+ticket.ticketNo+'" class="myCheckbox" data-target="#checkboxLabel'+ticket.ticketNo
                 +`" onclick="handleCheckboxClick('myCheckbox` + ticket.ticketNo+`','`+ticket.ticketTime+ `')" value="`+ticket.ticketNo+'">'
         		+'</label></div><div class="option-info"><div class="info-text"><div class="boucher-title">'+ticket.ticketName+'</div>'
