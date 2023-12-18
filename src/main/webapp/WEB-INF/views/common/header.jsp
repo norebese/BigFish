@@ -111,19 +111,18 @@ li::marker {
 				<c:otherwise>
 					<img onclick="memberMenu();" alt="회원아이콘"
 						style="width: 30px; height: 30px; margin-left: 30px; margin-top: 15px; cursor: pointer;"
-						src="resources/images/member_icon.png">
-					<span style="position: absolute; right: -10px; bottom: -5px;">${loginUser.memNick }</span>
+						src="<%=contextPath%>/${loginUser.memChangeName}">
 				</c:otherwise>
 			</c:choose>
 			<div class="memberMenu" style="display: none;">
 				<c:choose>
 					<c:when test="${loginUser.businessStatus eq 'N' }">
 						<a href="personalMyPage.me"
-							style="margin-bottom: 3px; text-decoration: none; color: black;">마이페이지</a>
+							style="margin-bottom: 3px; text-decoration: none; color: black; border-bottom: solid 1px #c8c3c3;">마이페이지</a>
 					</c:when>
 					<c:otherwise>
 						<a href="companyMyPage.me"
-							style="margin-bottom: 3px; text-decoration: none; color: black;">마이페이지</a>
+							style="margin-bottom: 3px; text-decoration: none; color: black; border-bottom: solid 1px #c8c3c3;">마이페이지</a>
 					</c:otherwise>
 				</c:choose>
 				<a href="logout.me" style="text-decoration: none; color: black;">로그아웃</a>

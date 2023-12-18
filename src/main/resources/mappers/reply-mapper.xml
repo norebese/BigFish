@@ -13,6 +13,7 @@
 		<result column="RFREE_NO" property="rfreeNo"/>
 		<result column="RFISHING_NO" property="rfishungNo"/>
 		<result column="RSTUDY_NO" property="rstudyNo"/>
+		<result column="MEM_CHANGE_NAME" property="memProfileImg"/>
 	</resultMap>
 	
 	<select id="selectReplyList" resultMap="replyResult">
@@ -84,14 +85,16 @@
 	
 	<select id="storeReplyList" resultMap="replyResult">
 		SELECT REPLY_NO,
-			   REPLY_CONTENT,
-			   REPLY_WRITER,
-			   TO_CHAR(REPLY_CREATE_DATE, 'YYYY-MM-DD') AS REPLY_CREATE_DATE,
-			   RMEM_NO
-		   FROM REPLY
-	     WHERE REPLY_STATUS = 'Y'
-	       AND RSTORE_NO = #{sNum}
-	     ORDER BY REPLY_NO DESC
+	     REPLY_CONTENT,
+	     REPLY_WRITER,
+	     TO_CHAR(REPLY_CREATE_DATE, 'YYYY-MM-DD') AS REPLY_CREATE_DATE,
+	     RMEM_NO,
+       	 MEM_CHANGE_NAME
+		FROM REPLY
+		JOIN MEMBER ON MEM_NO = RMEM_NO
+		WHERE REPLY_STATUS = 'Y'
+		AND RSTORE_NO = #{sNum}
+		ORDER BY REPLY_NO DESC
 	</select>
 	
 	<update id="deleteReply">
