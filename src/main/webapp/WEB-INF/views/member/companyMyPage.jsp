@@ -98,7 +98,7 @@
 								</div>
 								<div class="card-body" style="display: flex; flex-direction: row;">
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
-										<img style="width: 120px; height: 100px; margin-right: 15px;" src="resources/images/businessSample.png" alt="">
+										<img style="width: 120px; height: 100px; margin-right: 15px;" src="resources/uploadFiles/${store.thumbnailImg}" alt="">
 									</div>
 									
 									<div style="display: flex; flex-direction: column;">
@@ -106,7 +106,7 @@
 										<span>
 											<form action="storeUpdateForm.sto" method="post">
 											<input type="hidden" name="storeNo" value="${store.storeNo}">
-											<button type="button" onclick="openChatPop(${store.storeNo})" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">1:1 문의</button>
+											<button type="button" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">1:1 문의</button>
 											<button type="submit" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 수정</button>
 											<button type="button" class="btn btn-danger" data-bs-toggle="modal" style="border: none;" data-bs-target="#businessDelete">사업장 삭제</button>
 											</form>

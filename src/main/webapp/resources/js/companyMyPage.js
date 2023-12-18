@@ -120,7 +120,8 @@ function buildCalendar() {
 
 
         if (nowDay < today) {                       // 지난날인 경우
-            nowColumn.className = "pastDay";
+            nowColumn.className = "futureDay";
+            nowColumn.onclick = function () { choiceDate(this); }
         }
         else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
             nowColumn.className = "today";
