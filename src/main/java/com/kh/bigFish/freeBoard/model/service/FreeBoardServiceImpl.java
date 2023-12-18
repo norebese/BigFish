@@ -12,6 +12,7 @@ import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.freeBoard.model.dao.FreeBoardDao;
 import com.kh.bigFish.freeBoard.model.vo.Flike;
 import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
+import com.kh.bigFish.reply.model.vo.Reply;
 
 @Service
 public class FreeBoardServiceImpl  implements FreeBoardService {
@@ -106,12 +107,24 @@ public class FreeBoardServiceImpl  implements FreeBoardService {
 
 	@Override
 	public int freeUpdateLike(Flike fr, String result) {
-		return freeBoardDao.freeUpdateLike(sqlSession, fr, result);
+		int i =freeBoardDao.freeUpdateLike(sqlSession, fr, result);
+		System.out.println("지금찍는거"+fr+"12342314"+result);
+		return i;
 	}
 
 	@Override
 	public int freeGoodCount(int bno) {
 		return freeBoardDao.freeGoodCount(sqlSession, bno);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReplyList(int bno) {
+		return freeBoardDao.selectReplyList(sqlSession, bno);
+	}
+
+	@Override
+	public int insertReply(Reply r) {
+		return freeBoardDao.insertReply(sqlSession, r);
 	}
 
 }

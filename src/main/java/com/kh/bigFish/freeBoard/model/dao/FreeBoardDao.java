@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.freeBoard.model.vo.Flike;
 import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
+import com.kh.bigFish.reply.model.vo.Reply;
 import com.kh.bigFish.store.model.vo.Slike;
 
 @Repository
@@ -85,7 +86,7 @@ public int deleteBoard(SqlSessionTemplate sqlSession, int freeNo) {
 
 	public Flike checkLikeTable(SqlSessionTemplate sqlSession, int memNo, int rfreeNo) {
 		Map<String, Object> params = new HashMap<>();
-		System.out.println(memNo+"돼지야살뺒자"+rfreeNo);
+		
 		params.put("memNo", memNo);
 		params.put("bno", rfreeNo);
 		return sqlSession.selectOne("freeBoardMapper.checkLikeTable", params);
@@ -117,6 +118,13 @@ public int deleteBoard(SqlSessionTemplate sqlSession, int freeNo) {
 		int o =sqlSession.selectOne("freeBoardMapper.freeGoodCount",bno);
 		System.out.print("444444"+o);
 		return sqlSession.selectOne("freeBoardMapper.freeGoodCount",bno);
+	}
+	
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bno) {
+		return (ArrayList)sqlSession.selectList("replyMapper.selectfreeReplyList", bno);
+	}
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("replyMapper.insertfreeReply", r);
 	}
 	
 	
