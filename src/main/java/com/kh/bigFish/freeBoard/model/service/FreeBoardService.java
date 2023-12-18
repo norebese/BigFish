@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.freeBoard.model.vo.Flike;
 import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
+import com.kh.bigFish.reply.model.vo.Reply;
 import com.kh.bigFish.store.model.vo.Slike;
 
 
@@ -58,6 +59,11 @@ public interface FreeBoardService {
 
 	//통합검색을 위해 만든 것 -고이환-
 	ArrayList<FreeBoard> selectFreeList(String keyword);
+	
+	//댓글 리스트 조회
+		ArrayList<Reply> selectReplyList(int bno);
+		//댓글 작성
+		int insertReply(Reply r);
 
 
 }

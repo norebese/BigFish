@@ -227,6 +227,8 @@
 		WHERE FREE_GOOD_STATUS = 'Y'
         AND RFREE_NO =#{bno}
 	</select>
+	
+
 
 
 </mapper>

@@ -104,25 +104,26 @@
 
 				<div class="row">
 					<div class="col-md-8">
-							<h6 align="left" style="margin-bottom: 0px; margin-top: 15px;">
-								
-								<div id="like-logo" onclick="updateLike()"
-									style="display: inline-block; margin-right: 15px;cursor:pointer; ">
-									<c:choose>
-										<c:when test="${Flike.storeGoodStatus eq 'Y'}">
-											<img style="height: 19px;"
-												src="<%=contextPath%>/resources/images/heart-filled.png">
-										</c:when>
-										<c:otherwise>
-											<img style="height: 19px;"
-												src="<%=contextPath%>/resources/images/heart-notfill.png">
-										</c:otherwise>
-									</c:choose>
-								</div>
-								<span style="margin-right: 15px;">${likeNo}</span>
-								<span style="margin-right: 15px;">댓글 5</span>
-							</h6>
-						</div>
+						<h6 align="left" style="margin-bottom: 0px; margin-top: 15px;">
+
+							<div id="like-logo" onclick="updateLike()"
+								style="display: inline-block; margin-right: 15px; cursor: pointer;">
+								<c:choose>
+									<c:when test="${freeGoodStatus.freeGoodStatus eq 'Y'}">
+										<img style="height: 19px;"
+											src="<%=contextPath%>/resources/images/heart-filled.png">
+										<span id="whgdkdy"></span>
+									</c:when>
+									<c:otherwise>
+										<img style="height: 19px;"
+											src="<%=contextPath%>/resources/images/heart-notfill.png">
+									</c:otherwise>
+								</c:choose>
+							</div>
+							<span style="margin-right: 15px;">${likeNo}</span> <span
+								style="margin-right: 15px;">댓글 </span>
+						</h6>
+					</div>
 					<c:if test="${loginUser.memNick eq b.freeWriter }">
 						<div class="col-6 col-md-4">
 							<button type="button" class="btn btn-success"
@@ -142,7 +143,7 @@
 
 				<br>
 
-				<div class="reply-area">
+				<!-- 	<div class="reply-area">
             <div class="reply-line">
                 <h6 id="replyNum" style="text-align: left; margin-bottom: 10px;">댓글 (${replyCount})</h6>
             </div>
@@ -201,48 +202,82 @@
 			        </ul>
 			      </nav>
             </div>
+             -->
 
-            <div>
-                
-                <th colspan="2">
-                    <div style="display: flex; align-items: center;">
-                        <textarea class="form-control" id="content" cols="55" rows="2" style="resize:none; width:100%; height: 80px;"></textarea>
-                        <button class="btn btn-primary" onclick="addReply();" <%= (loginUser == null) ? "disabled style='background:gray; height: 80px; width:120px; margin-left: 10px;'" : "" %> style="height: 80px; width:120px; margin-left: 10px;">댓글등록</button>
-                    </div>
-                </th>
-            </div>
-        </div>
-     
-			</div>
-			
 
-			<!-- Modal -->
-			<form method="post" action="delete.fbo" enctype="multipart/form-data">
-				<input type="hidden" value="${b.freeNo}" name="bno">
-				<div class="modal fade" id="staticBackdrop"
-					data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-					aria-labelledby="staticBackdropLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="staticBackdropLabel">글삭제</h1>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">글을 삭제하실려면 아래 글삭제를 눌러주세요.</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">닫기</button>
-								<button type="submit" class="btn btn-danger">글삭제</button>
+				<div style="width: 100%; margin: 0px auto;">
+					<table id="replyArea" class="table" align="center" onload="">
+						<thead>
+							<c:choose>
+								<c:when test="${ empty loginUser }">
+									<tr>
+										<th colspan="2"><textarea class="form-control" readonly
+												cols="50" rows="2" style="resize: none; width: 100%;">로그인 후 이용가능 합니다.</textarea>
+										</th>
+										<th>
+											<th style="vertical-align: middle;"><button class="btn btn-secondary disavled">등록하기</button>
+										</th></th>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<div>
+
+										<th colspan="2">
+											<div style="display: flex; align-items: center;">
+												<textarea class="form-control" id="content" cols="55"
+													style="resize: none; width: 100%; height: 80px;"></textarea>
+												<button class="btn btn-primary" onclick="addReply();"
+													<%= (loginUser == null) ? "disabled style='background:gray; height: 80px;  margin-left: 10px;'" : "" %>
+													style="height: 80px; width: 20%; margin-left: 10px;">댓글등록</button>
+											</div>
+										</th>
+									</div>
+								</c:otherwise>
+							</c:choose>
+							<tr>
+								<td style="resize: none; width: 100%; height: 30px;" colspan="3">댓글(<span
+									id="rcount"></span>)
+								</td>
+							</tr>
+						</thead>
+						<tbody>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tbody>
+					</table>
+				</div>
+
+
+
+				<!-- Modal -->
+				<form method="post" action="delete.fbo"
+					enctype="multipart/form-data">
+					<input type="hidden" value="${b.freeNo}" name="bno">
+					<div class="modal fade" id="staticBackdrop"
+						data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+						aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="staticBackdropLabel">글삭제</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">글을 삭제하실려면 아래 글삭제를 눌러주세요.</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-bs-dismiss="modal">닫기</button>
+									<button type="submit" class="btn btn-danger">글삭제</button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</form>
-		</div>
-		<jsp:include page="../common/footer.jsp" />
+				</form>
+			</div>
+			<jsp:include page="../common/footer.jsp" />
 
-		<script>
+			<script>
 		 let memNum = <%= (loginUser != null) ? loginUser.getMemNo() : 0%>;
 		    function dltReply(rNum){
 		    	$.ajax({
@@ -309,7 +344,7 @@
 			       });
 		    }
 		
-			  function addReply(){
+			  function addReply1(){
 			    	let contentValue = document.getElementById('content').value;
 					$.ajax({
 				           type: "GET",
@@ -393,22 +428,25 @@
 					
 				}
 				
+				/**
 				function updateLike(){
 			    	let likeImg = document.getElementById('like-logo');
+			    	
 			   		$.ajax({
 			               type: "GET",
 			               url: "ajaxUpdateFreeLike", 
 			               data: { 
 					        	
 					        	 freeNo :${b.freeNo}
+					        	 
 					           },
 					           dataType: 'json',
 			               success: function(data) {
-			            	   console.log(data);
+			            	   console.log(data+"고인물");
 								if(data == 'Y'){
-									likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-filled.png">'
+									 likeImg.innerHTML = '<img class="like-image" src="<%=contextPath%>/resources/images/heart-filled.png">';										
 								}else{
-									likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-notfill.png">'
+									likeImg.innerHTML='<img style="height: 19px !important;" src="<%=contextPath%>/resources/images/heart-notfill.png">'
 								}
 								console.log("ajax 통신 성공");
 			               },
@@ -418,6 +456,85 @@
 			           });
 			   		
 			   	}
+				 */
+				 function updateLike() {
+					    let likeImg = document.getElementById('like-logo');
+					    let whgdkdy =document.getElementById('whgdkdy');
+					    $.ajax({
+					        type: "GET",
+					        url: "ajaxUpdateFreeLike", 
+					        data: { 
+					            freeNo: ${b.freeNo}
+					        },
+					        dataType: 'json',
+					        success: function(data) {
+					            console.log(data.status); // 이 부분을 통해 상태 값을 확인
+					            if (data.status === 'Y') {
+					            	  likeImg.innerHTML = '<img style="height: 19px;" src="<%=contextPath%>/resources/images/heart-filled.png">';
+					                  whgdkdy.innerHTML = '<p>' + data.count + '</p>';
+					            } else {
+					                likeImg.innerHTML = '<img style="height: 19px;" src="<%=contextPath%>/resources/images/heart-notfill.png">';
+					            }
+					            console.log("ajax 통신 성공");
+					        },
+					        error: function() {
+					            console.log("ajax 통신 실패");
+					        }
+					    });
+					}
+				 
+				 $(function(){
+			            //댓글 조회하는 함수호출
+			            selectReplyList();
+			        })
+
+			        function selectReplyList(){
+			            $.ajax({
+			                url: "rlist.fr",
+			                data: {
+			                	bno: ${b.freeNo}
+			                },
+			                success: function(list){
+			                    let str = "";
+			                    for (reply of list){
+			                        str += ("<tr>" + 
+			                                    "<td>" + reply.replyWriter + "</td>" +
+			                                    "<td>" + reply.replyContent + "</td>" +
+			                                    "<td>" + reply.replyCreateDate + "</td>" +
+			                                "</tr>")
+			                    }
+
+			                    //$("#replyArea tbody").html();
+			                    document.querySelector("#replyArea tbody").innerHTML = str;
+			                    document.querySelector("#rcount").innerHTML = list.length;
+			                },
+			                error: function(){
+			                    console.log("ajax통신 실패")
+			                }
+			            })
+			        }
+
+			        //댓글 추가
+			        function addReply(){
+			            $.ajax({
+			                url: "rinsert.fr",
+			                data: {
+			                    rfreeNo: '${b.freeNo}',
+			                    replyWriter: '${loginUser.memNick}',
+			                    replyContent: $("#content").val()
+			                },
+			                success: function(res){
+			                        //성공시 다시 그려주기
+			                    if (res === "success") {
+			                        selectReplyList();
+			                        $("#content").val("");
+			                    }
+			                },
+			                error: function(){
+			                    console.log("ajax통신 실패")
+			                }
+			            })
+			        }
 			  </script>
 </body>
 </html>
