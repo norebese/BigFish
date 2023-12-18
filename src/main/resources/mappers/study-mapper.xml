@@ -16,6 +16,13 @@
 		<result column="STUDY_GOOD_STATUS" property="studyGoodStatus"/>
 	</resultMap>
 	
+	<resultMap type="StudyGood" id="studyGoodResult">
+		<result column="RMEM_NO" property="rmemNo" />
+		<result column="RSTUDY_NO" property="rstudyNo" />
+		<result column="STUDY_GOOD_STATUS" property="studyGoodStatus" />
+		<result column="COUNT" property="count" />
+	</resultMap>
+	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		 FROM STUDY
@@ -116,11 +123,11 @@
 	<update id="studyUpdateLike">
  		UPDATE STUDYGOOD
 		SET STUDY_GOOD_STATUS = #{result}
-		WHERE RSTUDY_NO = #{rstudyNo}
+		WHERE RSTUDY_NO = #{studyNo}
 		AND RMEM_NO = #{rmemNo}
  	</update>
  	
-	<select id="likeResult" resultMap="studyResult">
+	<select id="likeResult" resultMap="studyGoodResult">
  		SELECT STUDY_GOOD_STATUS
 		FROM STUDYGOOD
 		WHERE RMEM_NO = #{rmemNo}
@@ -129,14 +136,14 @@
  	
  	<insert id="createLikeTable">
  		INSERT INTO STUDYGOOD (RMEM_NO, RSTUDY_NO)
-		VALUES (#{memNo}, #{studyNum})
+		VALUES (#{memNo}, #{sno})
  	</insert>
  
- 	<select id="checkLikeTable" resultMap="studyResult">
+ 	<select id="checkLikeTable" resultMap="studyGoodResult">
  		SELECT *
 		FROM STUDYGOOD
 		WHERE RMEM_NO = #{memNo}
-		AND RSTUDY_NO = #{studyNum}
+		AND RSTUDY_NO = #{sno}
  	</select>
  	
  	<select id="selectStudyList" resultMap="studyResult">
@@ -146,5 +153,27 @@
  		 WHERE STUDY_STATUS = 'Y'	
  		 AND STUDY_TITLE LIKE '%' || #{keyword} || '%'
          AND ROWNUM &lt;= 2 
+ 	</select>
+ 	
+ 	<select id="selectmainList" resultMap="studyResult">
+	SELECT *
+	FROM (
+		SELECT STUDY_NO,
+		STUDY_LINK,
+		STUDY_TITLE,
+		STUDY_COUNT,
+		TO_CHAR(STUDY_CREATE_DATE, 'YYYY-MM-DD') AS "STUDY_CREATE_DATE"
+	FROM STUDY
+	WHERE STUDY_STATUS = 'Y'
+	ORDER BY STUDY_NO DESC
+	)
+	WHERE ROWNUM BETWEEN 1 AND 3
+ 	</select>
+ 	
+ 	<select id="studyGoodCount" resultType="_int">
+ 		SELECT COUNT(*)
+ 		FROM STUDYGOOD
+ 		WHERE STUDY_GOOD_STATUS = 'Y'
+ 		AND RSTUDY_NO = #{sno}
  	</select>
 </mapper>

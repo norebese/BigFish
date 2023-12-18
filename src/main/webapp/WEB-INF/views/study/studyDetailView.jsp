@@ -101,16 +101,17 @@
                 </tr>    
                     <td style="font-size: 0.9rem;">${s.studyCreateDate}</td>
                     <td style="font-size: 0.8rem; text-align: right;">조회수: ${s.studyCount}</td>
-                    <td style="font-size: 0.8rem; width: 15%;">좋아요: ${s.studyGoodStatus}</td>  
+                    <td style="font-size: 0.8rem; width: 15%;">좋아요: ${likeNo}</td>  
             </table>
 
             <div id="like-logo" onclick="updateLike()">
 	            <c:choose>
-	            <c:when test="${StudyGood.studyGoodStatus eq 'Y'}">
-	            	<img align="right" style="width: 25px;" src="<%=contextPath%>/resources/images/heart-filled.png">
+	            <c:when test="${studyGoodStatus.studyGoodStatus eq 'Y'}">
+	            	<img align="right" style="width: 25px; cursor: pointer;" src="<%=contextPath%>/resources/images/heart-filled.png">
+                    <span id="whgdkdy"></span>
 	            </c:when>
 	            <c:otherwise>
-	            	<img align="right" style="width: 25px; " src="<%=contextPath%>/resources/images/heart-notfill.png">
+	            	<img align="right" style="width: 25px; cursor: pointer;" src="<%=contextPath%>/resources/images/heart-notfill.png">
 	            </c:otherwise>
 	            </c:choose>
             </div>
@@ -118,15 +119,22 @@
             <script>
             function updateLike(){
                 let likeImg = document.getElementById('like-logo');
+                let whgdkdy = document.getElementById('whgdkdy');
                 $.ajax({
                     type: "GET",
-                    url: "ajaxUpdateLike", 
-                    success: function(data) {
-                        console.log(data);
-                            if(data == 'Y'){
-                                likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-filled.png">'
+                    url: "updateLike.st",
+                    data: {
+                        studyNo: ${s.studyNo}
+                    },
+                    dataType: 'json', 
+                    success: function(data) {   
+                        console.log(data.status);
+                            if(data.status === 'Y'){
+                                likeImg.innerHTML = '<img src="<%=contextPath%>/resources/images/heart-filled.png">'
+                                whgdkdy.innerHTML = '<p>' + data.count + '</p>';
                             }else{
                                 likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-notfill.png">'
+                                whgdkdy.innerHTML = '<p>' + data.count + '</p>';
                             }
                             console.log("ajax 통신 성공");
                     },
@@ -134,7 +142,6 @@
                         console.log("ajax 통신 실패");
                     }
                 });
-                
             }
             </script>
 
