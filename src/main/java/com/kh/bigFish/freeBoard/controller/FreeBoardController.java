@@ -273,17 +273,16 @@ public class FreeBoardController {
 	    fr.setRfreeNo(freeNo);
 	  
 	    Flike likeResult = freeboardService.likeResult(fr);
-	  
-	    int likeNo =freeboardService.freeGoodCount(freeNo);
-	    
-	    fr.setCount(likeNo);
-	    System.out.println("123412344321"+fr);
+	    System.out.println("여기예요"+likeResult);
+	
 	    String status = (likeResult.getFreeGoodStatus().equals("N")) ? "Y" : "N";
 	    
 	    int storeUpdateLike = freeboardService.freeUpdateLike(fr, status);
-	    System.out.println("123412344321"+storeUpdateLike);
+	    int storeUpdateCount = freeboardService.freeUpdateLike1(fr);
+	    System.out.println(fr+"에프알 찍는거"+status);
 	    result.put("status", status);
-	    
+	    result.put("likeCount", storeUpdateCount);
+	    System.out.println(result+"에프알 찍는거1234");
 	    return result;
 	}
 	
@@ -301,7 +300,7 @@ public class FreeBoardController {
 		@ResponseBody
 		@RequestMapping("rinsert.fr")
 		public String insertReply(Reply r) {
-			System.out.println("12342314"+r);
+			System.out.println(r);
 			int result = freeboardService.insertReply(r);
 			System.out.println(result);
 			if(result > 0) {

@@ -127,4 +127,11 @@ public class FreeBoardServiceImpl  implements FreeBoardService {
 		return freeBoardDao.insertReply(sqlSession, r);
 	}
 
+	@Override
+	public int freeUpdateLike1(Flike fr) {
+		int i =freeBoardDao.freeUpdateLike1(sqlSession, fr);
+		System.out.println("지금찍는거"+fr+"12342314");
+		return i;
+	}
+
 }
