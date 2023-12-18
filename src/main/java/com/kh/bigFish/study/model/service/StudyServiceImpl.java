@@ -8,7 +8,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.JsonElement;
 import com.kh.bigFish.common.model.vo.PageInfo;
+import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reply.model.vo.Reply;
 import com.kh.bigFish.study.model.dao.StudyDao;
 import com.kh.bigFish.study.model.vo.Study;
@@ -85,6 +87,7 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public StudyGood likeResult(StudyGood sg) {
+		System.out.println(sg + "111111");
 		return studyDao.likeResult(sqlSession, sg);
 	}
 
@@ -94,8 +97,8 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public StudyGood checkLikeTable(int memNo, int sno) {
-		return studyDao.checkLikeTable(sqlSession, memNo, sno);
+	public StudyGood checkLikeTable(int memNo, int rstudyNo) {
+		return studyDao.checkLikeTable(sqlSession, memNo, rstudyNo);
 	}
 
 	@Override
@@ -106,6 +109,16 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public ArrayList<Study> selectStudyList(String keyword) {
 		return studyDao.selectStudyList(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Study> selectmainList() {
+		return studyDao.selectmainList(sqlSession);
+	}
+
+	@Override
+	public int studyGoodCount(int sno) {
+		return studyDao.studyGoodCount(sqlSession, sno);
 	}
 	
 }
