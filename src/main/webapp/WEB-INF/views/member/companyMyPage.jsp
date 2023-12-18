@@ -98,7 +98,7 @@
 								</div>
 								<div class="card-body" style="display: flex; flex-direction: row;">
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
-										<img style="width: 120px; height: 100px; margin-right: 15px;" src="resources/images/businessSample.png" alt="">
+										<img style="width: 120px; height: 100px; margin-right: 15px;" src="resources/uploadFiles/${store.thumbnailImg}" alt="">
 									</div>
 									
 									<div style="display: flex; flex-direction: column;">
@@ -132,6 +132,7 @@
 				</c:forEach>
 
 					<button onclick="location.href='storeEnrollForm.sto'" style="width: 70%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 추가</button>
+					<br><br><br><br>
 			</div>
 
 			<div id="sample1Work" style="display: none; flex-direction: column;">

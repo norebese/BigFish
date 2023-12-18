@@ -104,25 +104,26 @@
 
 				<div class="row">
 					<div class="col-md-8">
-							<h6 align="left" style="margin-bottom: 0px; margin-top: 15px;">
-								
-								<div id="like-logo" onclick="updateLike()"
-									style="display: inline-block; margin-right: 15px;cursor:pointer; ">
-									<c:choose>
-										<c:when test="${Flike.storeGoodStatus eq 'Y'}">
-											<img style="height: 19px;"
-												src="<%=contextPath%>/resources/images/heart-filled.png">
-										</c:when>
-										<c:otherwise>
-											<img style="height: 19px;"
-												src="<%=contextPath%>/resources/images/heart-notfill.png">
-										</c:otherwise>
-									</c:choose>
-								</div>
-								<span style="margin-right: 15px;">${likeNo}</span>
-								<span style="margin-right: 15px;">댓글 5</span>
-							</h6>
-						</div>
+						<h6 align="left" style="margin-bottom: 0px; margin-top: 15px;">
+
+							<div id="like-logo" onclick="updateLike()"
+								style="display: inline-block; margin-right: 15px; cursor: pointer;">
+								<c:choose>
+									<c:when test="${freeGoodStatus.freeGoodStatus eq 'Y'}">
+										<img style="height: 19px;"
+											src="<%=contextPath%>/resources/images/heart-filled.png">
+
+									</c:when>
+									<c:otherwise>
+										<img style="height: 19px;"
+											src="<%=contextPath%>/resources/images/heart-notfill.png">
+									</c:otherwise>
+								</c:choose>
+							</div>
+							<span id="whgdkdy" style="margin-right: 15px;">${likeNo}</span> <span
+								style="margin-right: 15px;">댓글 </span>
+						</h6>
+					</div>
 					<c:if test="${loginUser.memNick eq b.freeWriter }">
 						<div class="col-6 col-md-4">
 							<button type="button" class="btn btn-success"
@@ -142,7 +143,7 @@
 
 				<br>
 
-				<div class="reply-area">
+				<!-- 	<div class="reply-area">
             <div class="reply-line">
                 <h6 id="replyNum" style="text-align: left; margin-bottom: 10px;">댓글 (${replyCount})</h6>
             </div>
@@ -201,20 +202,28 @@
 			        </ul>
 			      </nav>
             </div>
+             -->
 
-            <div>
-                
-                <th colspan="2">
-                    <div style="display: flex; align-items: center;">
-                        <textarea class="form-control" id="content" cols="55" rows="2" style="resize:none; width:100%; height: 80px;"></textarea>
-                        <button class="btn btn-primary" onclick="addReply();" <%= (loginUser == null) ? "disabled style='background:gray; height: 80px; width:120px; margin-left: 10px;'" : "" %> style="height: 80px; width:120px; margin-left: 10px;">댓글등록</button>
-                    </div>
-                </th>
-            </div>
-        </div>
-     
+
+				<div
+					style="border-top: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">
+					<h6 style="text-align: left; margin-bottom: 10px;">댓글</h6>
+					<th colspan="2">
+						<div style="display: flex; align-items: center;">
+							<textarea class="form-control" id="content" cols="55" rows="2"
+								style="resize: none; width: 100%; height: 80px;"></textarea>
+							<button type="button" class="btn btn-primary"
+								style="height: 80px; width: 120px; margin-left: 10px; background-color: rgb(59, 175, 252);"
+								onclick="addReply();">댓글등록</button>
+						</div>
+					</th>
+				</div>
 			</div>
-			
+			<div id="replyAreaa">
+				<!-- 댓글파트 -->
+
+			</div>
+
 
 			<!-- Modal -->
 			<form method="post" action="delete.fbo" enctype="multipart/form-data">
@@ -309,7 +318,7 @@
 			       });
 		    }
 		
-			  function addReply(){
+			  function addReply1(){
 			    	let contentValue = document.getElementById('content').value;
 					$.ajax({
 				           type: "GET",
@@ -393,22 +402,26 @@
 					
 				}
 				
+				/**
 				function updateLike(){
 			    	let likeImg = document.getElementById('like-logo');
+			    	
 			   		$.ajax({
 			               type: "GET",
 			               url: "ajaxUpdateFreeLike", 
 			               data: { 
 					        	
 					        	 freeNo :${b.freeNo}
+					        	 
 					           },
 					           dataType: 'json',
 			               success: function(data) {
-			            	   console.log(data);
+			            	   console.log(data+"고인물");
 								if(data == 'Y'){
-									likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-filled.png">'
+									 likeImg.innerHTML = '<img class="like-image" src="<%=contextPath%>/resources/images/heart-filled.png">';										
+							
 								}else{
-									likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-notfill.png">'
+									likeImg.innerHTML='<img style="height: 19px !important;" src="<%=contextPath%>/resources/images/heart-notfill.png">'
 								}
 								console.log("ajax 통신 성공");
 			               },
@@ -418,6 +431,92 @@
 			           });
 			   		
 			   	}
+				 */
+				 function updateLike() {
+					    let likeImg = document.getElementById('like-logo');
+					    let whgdkdy =document.getElementById('whgdkdy');
+					    $.ajax({
+					        type: "GET",
+					        url: "ajaxUpdateFreeLike", 
+					        data: { 
+					            freeNo: ${b.freeNo}
+					        },
+					        dataType: 'json',
+					        success: function(data) {
+					            console.log(data.status); // 이 부분을 통해 상태 값을 확인
+					            if (data.status === 'Y') {
+					            	  likeImg.innerHTML = '<img style="height: 19px;" src="<%=contextPath%>/resources/images/heart-filled.png">';
+					            	  $(whgdkdy).html(data.likeCount);
+					            } else {
+					                likeImg.innerHTML = '<img style="height: 19px;" src="<%=contextPath%>/resources/images/heart-notfill.png">';
+					                $(whgdkdy).html(data.likeCount);
+
+					            }
+					            console.log("ajax 통신 성공");
+					        },
+					        error: function() {
+					            console.log("ajax 통신 실패");
+					        }
+					    });
+					}
+				 
+				 $(function(){
+					    // 댓글 조회하는 함수 호출
+					    selectReplyList();
+					});
+
+					function selectReplyList(){
+					    $.ajax({
+					        url: "rlist.fr",
+					        data: {
+					            bno: ${b.freeNo}
+					        },
+					        success: function(list){
+					            let str = "";
+					            for (reply of list){
+					                str += (
+					                    "<div class='row'>" +
+					                        "<div class='col-sm' style='display: flex; align-items: center;'>" +
+					                            "<i class='bi bi-person' style='font-size: 40px;'></i>" + "<span>" + reply.replyWriter + "</span>" +
+					                        "</div>" +
+					                        "<div class='col-md-8' style='display: flex; align-items: center;'>" + reply.replyContent + "</div>" +
+					                        "<div class='col-sm' style='display: flex; align-items: center;'>" + reply.replyCreateDate + "</div>" +
+					                    "</div>"
+					                );
+					            }
+
+					            //$("#replyArea tbody").html();
+					            document.querySelector("#replyAreaa").innerHTML = str;
+					            document.querySelector("#rcount").innerHTML = list.length;
+					        },
+					        error: function(){
+					            console.log("ajax통신 실패");
+					        }
+					    });
+					}
+
+				        //댓글 추가
+				     function addReply(){
+				            $.ajax({
+				                url: "rinsert.fr",
+				                data: {
+				                    rfreeNo: '${b.freeNo}',
+				                    replyWriter: '${loginUser.memNick}',
+				                    replyContent: $("#content").val()
+				                 
+				                },
+				                success: function(res){
+				                        //성공시 다시 그려주기
+				                    if (res === "success") {
+				                        selectReplyList();
+				                        $("#content").val("");
+				                    }
+				                },
+				                error: function(){
+				                    console.log("ajax통신 실패")
+				                }
+				            })
+				        }
 			  </script>
 </body>
 </html>
