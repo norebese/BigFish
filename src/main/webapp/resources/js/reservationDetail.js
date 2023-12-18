@@ -177,7 +177,7 @@ function updateReplyList(date, memNum){
 	$.each(date, function (index, reply) {
                 htmlContent += '<div class="" style="border-bottom: solid 2px rgb(204,204,204);">'
 	            +'<div class="row"><div class="col-sm" style="display: flex; align-items: center;">'
-	            +'<i class="bi bi-person" style="font-size: 40px;"></i><span >'+reply.replyWriter+'</span></div>'
+	            +'<i class="replyImg"><img src="/bigFish/'+reply.memProfileImg+'"></i><span >'+reply.replyWriter+'</span></div>'
 	            +'<div class="col-md-8" style="display: flex; align-items: center;">'+reply.replyContent+'</div>'
 	            +'<div class="col-sm" style="display: flex; align-items: center;">'+reply.replyCreateDate;
 	            
@@ -187,7 +187,7 @@ function updateReplyList(date, memNum){
 	            
 	            htmlContent += '</div></div></div>';
             });
-	
+
 	divToUpdate.html(htmlContent);
 }
 

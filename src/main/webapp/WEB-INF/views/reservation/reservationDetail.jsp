@@ -283,7 +283,9 @@
 		            <div class="" style="border-bottom: solid 2px rgb(204,204,204); ">
 		                <div class="row">
 		                    <div class="col-sm" style="display: flex; align-items: center;">
-		                        <i class="bi bi-person" style="font-size: 40px;"></i>
+		                        <i class="replyImg">
+		                        	<img src="<%=contextPath%>/${rl.memProfileImg}">
+		                        </i>
 		                        <span >${rl.replyWriter}</span>
 		                    </div>
 		                    <div class="col-md-8" style="display: flex; align-items: center;">${rl.replyContent}</div>
