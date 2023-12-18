@@ -11,6 +11,7 @@ import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.fishingBoard.model.dao.FishingBoardDao;
 import com.kh.bigFish.fishingBoard.model.vo.FishingBoard;
+import com.kh.bigFish.reply.model.vo.Reply;
 
 
 
@@ -89,4 +90,16 @@ public class FishingBoardServiceImpl  implements FishingBoardService{
 	public ArrayList<FishingBoard> selectFishingList(String keyword) {
 		return fishingBoardDao.selectFishingList(sqlSession, keyword);
 	}
+
+	@Override
+	public ArrayList<Reply> selectReplyList(int bno) {
+		return fishingBoardDao.selectReplyList(sqlSession, bno);
+	}
+
+	@Override
+	public int insertReply(Reply r) {
+		return fishingBoardDao.insertReply(sqlSession, r);
+	}
+	
+	
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.freeBoard.model.vo.Flike;
 import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
+import com.kh.bigFish.reply.model.vo.Reply;
 import com.kh.bigFish.store.model.vo.Slike;
 
 @Repository
@@ -85,7 +86,7 @@ public int deleteBoard(SqlSessionTemplate sqlSession, int freeNo) {
 
 	public Flike checkLikeTable(SqlSessionTemplate sqlSession, int memNo, int rfreeNo) {
 		Map<String, Object> params = new HashMap<>();
-		System.out.println(memNo+"돼지야살뺒자"+rfreeNo);
+		
 		params.put("memNo", memNo);
 		params.put("bno", rfreeNo);
 		return sqlSession.selectOne("freeBoardMapper.checkLikeTable", params);
@@ -118,6 +119,26 @@ public int deleteBoard(SqlSessionTemplate sqlSession, int freeNo) {
 		System.out.print("444444"+o);
 		return sqlSession.selectOne("freeBoardMapper.freeGoodCount",bno);
 	}
+	
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bno) {
+		return (ArrayList)sqlSession.selectList("replyMapper.selectfrReplyList", bno);
+	}
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		System.out.println("4324234gkgk"+r);
+		return sqlSession.insert("replyMapper.insertfreeReply", r);
+	}
+	
+	public int freeUpdateLike1(SqlSessionTemplate sqlSession, Flike sk) {
+		
+			Map<String, Object> params = new HashMap<>();
+		
+		    params.put("rfreeNo", sk.getRfreeNo());
+		    params.put("rmemNo", sk.getRmemNo());
+		    int i =sqlSession.selectOne("freeBoardMapper.freeUpdateLike1", params);
+		    
+		    System.out.println("좋아요 숫자"+i);
+			return i;
+		}
 	
 	
 
