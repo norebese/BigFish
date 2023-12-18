@@ -60,6 +60,8 @@ public interface StudyService {
 	ArrayList<Study> selectmainList();
 
 	Study stDetailPage(int studyNo);
+	
+	//좋아요 갯수 중가
+	int studyGoodCount(int sno);
 
-	void toggleLike(Member memId);
 }

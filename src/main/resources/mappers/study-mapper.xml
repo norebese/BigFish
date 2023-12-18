@@ -129,14 +129,14 @@
  	
  	<insert id="createLikeTable">
  		INSERT INTO STUDYGOOD (RMEM_NO, RSTUDY_NO)
-		VALUES (#{memNo}, #{studyNo})
+		VALUES (#{memNo}, #{sno})
  	</insert>
  
  	<select id="checkLikeTable" resultMap="studyResult">
  		SELECT *
 		FROM STUDYGOOD
 		WHERE RMEM_NO = #{memNo}
-		AND RSTUDY_NO = #{studyNo}
+		AND RSTUDY_NO = #{sno}
  	</select>
  	<select id="stDetailPage" resultMap="studyResult">
  		SELECT *
@@ -167,5 +167,12 @@
 	ORDER BY STUDY_NO DESC
 	)
 	WHERE ROWNUM BETWEEN 1 AND 3
+ 	</select>
+ 	
+ 	<select id="studyGoodCount" resultType="_int">
+ 		SELECT COUNT(*)
+ 		FROM STUDYGOOD
+ 		WHERE STUDY_GOOD_STATUS = 'Y'
+ 		AND RSTUDY_NO = #{sno}
  	</select>
 </mapper>

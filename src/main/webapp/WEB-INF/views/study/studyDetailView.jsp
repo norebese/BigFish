@@ -101,7 +101,7 @@
                 </tr>    
                     <td style="font-size: 0.9rem;">${s.studyCreateDate}</td>
                     <td style="font-size: 0.8rem; text-align: right;">조회수: ${s.studyCount}</td>
-                    <td style="font-size: 0.8rem; width: 15%;">좋아요: ${s.studyGoodStatus}</td>  
+                    <td style="font-size: 0.8rem; width: 15%;">좋아요: ${likeNo}</td>  
             </table>
 
             <div id="like-logo" onclick="updateLike()">
@@ -120,8 +120,8 @@
                 let likeImg = document.getElementById('like-logo');
                 $.ajax({
                     type: "GET",
-                    url: "updateLike", 
-                    success: function(data) {
+                    url: "updateLike.st", 
+                    success: function(data) {   
                         console.log(data);
                             if(data == 'Y'){
                                 likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-filled.png">'

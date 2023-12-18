@@ -121,8 +121,8 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public void toggleLike(Member memId) {
-		return studyDao.toggleLike(sqlSession, memId);
+	public int studyGoodCount(int sno) {
+		return studyDao.studyGoodCount(sqlSession, sno);
 	}
 	
 }

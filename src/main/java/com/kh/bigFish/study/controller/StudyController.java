@@ -66,28 +66,27 @@ public class StudyController {
 	
 	@RequestMapping(value="/detail.st")
 	public String selectStudy(int sno, Model model, HttpSession session, HttpServletRequest request) {
-//		Member Mem = (Member) session.getAttribute("loginUser");
-//		int studyNo = Integer.parseInt(request.getParameter("studyNo"));
-//		Study st = studyService.stDetailPage(studyNo);
-//		StudyGood checkLikeTable = new StudyGood();
-//		
-//		if(Mem != null) {
-//			int memNo = Mem.getPostNo();
-//			
-//			checkLikeTable = studyService.checkLikeTable(memNo, studyNo);
-//			
-//			if(checkLikeTable == null) {
-//				int createLikeTable = studyService.createLikeTable(memNo, studyNo);
-//			}
-//		}
-//		
-//		session.setAttribute("StudyGood", checkLikeTable);
-		
+		Member Mem = (Member) session.getAttribute("loginUser");
+		int likeNo = studyService.studyGoodCount(sno);
 		int result = studyService.increaseCount(sno);
 		
+		StudyGood checkLikeTable = new StudyGood();
+		
+		if(Mem != null) {
+			int memNo = Mem.getMemNo();
+			
+			checkLikeTable = studyService.checkLikeTable(memNo, sno);
+			
+			if(checkLikeTable == null) {
+				int createLikeTable = studyService.createLikeTable(memNo, sno);
+			}
+		}
+			
 		if(result > 0) {
 			Study s = studyService.selectStudy(sno);
 			model.addAttribute("s", s);
+			model.addAttribute("likeNo", likeNo);
+			model.addAttribute("studyGoodcount", checkLikeTable);
 			
 			return "study/studyDetailView";
 		} else {
@@ -133,15 +132,15 @@ public class StudyController {
 		}
 	}
 	
-	@RequestMapping("updateLike")
+	@RequestMapping("updateLike.st")
 	public void updateLike(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
 
 		StudyGood sg = new StudyGood();
 		System.out.println(sg);
 		Study s = (Study) session.getAttribute("s");
 		Member Mem = (Member) session.getAttribute("loginUser");
-		System.out.println(Mem);
 		int studyNum = s.getStudyNo();
+		System.out.println(Mem);
 		
 		sg.setRmemNo(Mem.getMemNo());
 		sg.setRstudyNo(studyNum);
@@ -163,57 +162,7 @@ public class StudyController {
 		}
 	}
 	
-	// 좋아요 클릭했다 뗐다 하기
-		@RequestMapping("toggleLike") 
-		public Map<String, Object> toggleLike(HttpSession session, Member memId) {
-			
-			Map<String, Object> map = new HashMap<>();
-			
-			Member loginUser = (Member) session.getAttribute("sessionUser");
-			memId.setMemId(loginUser.getMemId());
-			
-			studyService.toggleLike(memId);
-			
-			map.put("result", "success");
-			
-			return map;
-		}
-		
-		// 고객이 하나의 상품에 대하여 좋아요를 하였는지 체크
-		@RequestMapping("checkLikeProductByCustomer") 
-		public Map<String, Object> checkLikeProductByCustomer(HttpSession session, Member memId) {
-			
-			Map<String, Object> map = new HashMap<>();
-			
-			Member loginUser = (Member) session.getAttribute("sessionUser");
-			
-			if (loginUser == null) {
-				map.put("result", "fail");
-				map.put("reason", "로그인이 되어있지 않습니다.");
-				return map;
-			}
-			
-			memId.setMemId(loginUser.getMemId());
-			
-			map.put("result", "success");
-			map.put("checkLikeProductByCustomer", studyService.checkLikeProductByCustomer(memId));
-			
-			return map;
-			
-		}
-		
-		// 상품 좋아요 개수 체크
-		@RequestMapping("getTotalLikeProductId")
-		public Map<String, Object> getTotalLikeProductId(int studyNo) {
-			
-			Map<String, Object> map = new HashMap<>();
-			
-			map.put("result", "success");
-			
-			map.put("count", studyService.getTotalLikeProductId(studyNo));
-			
-			return map;
-		}
+	
 	
 	@RequestMapping(value="search.st")
 	public ModelAndView searchStudy(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {

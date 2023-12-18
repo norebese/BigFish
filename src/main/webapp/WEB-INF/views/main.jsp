@@ -368,11 +368,12 @@
 				success: function(data){
 					console.log(data)
 					drawStudyRow(data)
-
-		$(function(){
-			freeBoardList();
-			
-		})
+				},
+				error: function(){
+					console.log("ajax 실패")
+				}
+			})
+		}	
 		
 		function freeBoardList(){
 			$.ajax({
@@ -404,7 +405,7 @@
 					'</a>'		
 					console.log(data)
 			}
-
+		}
 		
 		function drawFreeBoardRow(freedata) {
 			

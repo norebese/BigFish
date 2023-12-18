@@ -113,8 +113,9 @@ public class StudyDao {
 		return sqlSession.selectOne("studyMapper.stDetailPage", studyNo);
 	}
 
-	public Object toggleLike(SqlSessionTemplate sqlSession, Member memId) {
-		return sqlSession.selectOne("studyMapper.toggleLike", memId);
+	public int studyGoodCount(SqlSessionTemplate sqlSession, int sno) {
+	//	int o = sqlSession.selectOne("studyMapper.studyGoodCount", sno);
+		return sqlSession.selectOne("studyMapper.studyGoodCount", sno);
 	}
 
 }
