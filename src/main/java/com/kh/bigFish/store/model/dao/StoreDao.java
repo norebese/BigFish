@@ -254,5 +254,13 @@ public class StoreDao {
 	public ArrayList<Attachment> storePhoto(SqlSessionTemplate sqlSession, int storeNum) {
 		return (ArrayList)sqlSession.selectList("storeMapper.storePhoto", storeNum);
 	}
+	
+	public int updateAtt(SqlSessionTemplate sqlSession, Attachment a) {
+		return sqlSession.update("storeMapper.updateAtt", a);
+	}
+	
+	public ArrayList<Attachment> getStoreAttForUpdate(SqlSessionTemplate sqlSession, int rstoreNo) {
+		return (ArrayList)sqlSession.selectList("storeMapper.getStoreAttForUpdate",rstoreNo);
+	}
 
 }

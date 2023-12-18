@@ -102,7 +102,7 @@ public class StoreController {
 
 
 		
-		ArrayList<Attachment> attArray = new ArrayList<Attachment>();
+		ArrayList<Attachment> attArray = storeService.getStoreAttForUpdate(s.getStoreNo());
 		ArrayList<Ticket> ticArray = new ArrayList<Ticket>();
 		
 		s.setStoreWeekday(String.join(" ~ ", storeWeekdayArray));
@@ -119,6 +119,10 @@ public class StoreController {
 			ticArray.add(tic);
 		}
 		
+		
+		
+		
+	
 		if(!upfile[0].getOriginalFilename().equals("") ||
 			!upfile[1].getOriginalFilename().equals("")||
 			!upfile[2].getOriginalFilename().equals("")||
@@ -127,26 +131,37 @@ public class StoreController {
 			!upfile[5].getOriginalFilename().equals("")||
 			!upfile[6].getOriginalFilename().equals("")) {
 			
+				int i = 0;
 				for(MultipartFile fi : upfile) {
 					String changeName = saveFile(fi, session,"/resources/uploadFiles/");
 					
 					
-					Attachment att = new Attachment();
-					att.setOriginName(fi.getOriginalFilename());
-					att.setChangeName(changeName);
-					att.setFilePath(session.getServletContext().getRealPath("/resources/uploadFiles/"));
+//					Attachment att = new Attachment();
+//					att.setOriginName(fi.getOriginalFilename());
+//					att.setChangeName(changeName);
+//					att.setFileLevel(2);
+//					att.setFilePath(session.getServletContext().getRealPath("/resources/uploadFiles/"));
 					
-					attArray.add(att);
+					attArray.get(i).setOriginName(fi.getOriginalFilename());
+					attArray.get(i).setChangeName(changeName);
+					attArray.get(i).setFileLevel(2);
+					
+					i++;
 				}
 			
 			
 		}
 		
+		attArray.get(0).setFileLevel(1);
+		System.out.println(attArray);
+		
 		int storeResult = storeService.updateStore(s);
 		
 		if(storeResult>0) {
 			
-			
+			for(Attachment a : attArray) {
+				storeService.updateAtt(a);
+			}
 			
 			session.setAttribute("alertMsg", "사업장 수정에 성공했습니다.");
 			return "redirect:/companyMyPage.me";
@@ -154,7 +169,7 @@ public class StoreController {
 			
 			
 			
-			model.addAttribute("errorMsg","게시글 작성 실패");
+			model.addAttribute("errorMsg","사업장 수정 실패");
 			return "common/errorPage";
 		}
 		
@@ -194,10 +209,13 @@ public class StoreController {
 			Attachment att = new Attachment();
 			att.setOriginName(fi.getOriginalFilename());
 			att.setChangeName(changeName);
+			att.setFileLevel(2);
 			att.setFilePath(session.getServletContext().getRealPath("/resources/uploadFiles/"));
 			
 			attArray.add(att);
 		}
+		
+		attArray.get(0).setFileLevel(1);
 		
 		int storeResult = storeService.storeEnroll(s);
 		
