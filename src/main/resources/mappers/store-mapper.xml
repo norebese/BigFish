@@ -73,7 +73,7 @@
 		FROM STORE
 		WHERE LOCATION_BIG = #{locationBig}
 		<if test="locationSmall != '전체'">
-		AND s.LOCATION_SMALL = #{locationSmall}
+		AND LOCATION_SMALL = #{locationSmall}
 		</if>
 		AND STORE_STATUS = 'open'
 	</select>
@@ -118,7 +118,7 @@
  	<select id="storePhoto" resultMap="attachmentResult">
  		SELECT CHANGE_NAME, FILE_PATH
 		FROM ATTACHMENT
-		WHERE RSTORE_NO = 100
+		WHERE RSTORE_NO = #{storeNum}
 		AND ORIGIN_NAME IS NOT NULL
 		ORDER BY FILE_LEVEL ASC
  	</select>

@@ -25,6 +25,16 @@
 	       AND RSTUDY_NO = #{sno}
 	     ORDER BY REPLY_NO DESC
 	</select>
+	<select id="selectfreeReplyList" resultMap="replyResult">
+		SELECT REPLY_NO,
+			   REPLY_CONTENT,
+			   REPLY_WRITER,
+			   TO_CHAR(REPLY_CREATE_DATE, 'YYYY-MM-DD') AS REPLY_CREATE_DATE
+		   FROM REPLY
+	     WHERE REPLY_STATUS = 'Y'
+	       AND RFREE_NO = #{bno}
+	     ORDER BY REPLY_NO DESC
+	</select>
 	
 	<insert id="insertReply" >
 		INSERT INTO REPLY (
@@ -37,6 +47,20 @@
 		 	SEQ_REPLY_NO.NEXTVAL,
 		 	#{replyContent},
 		 	#{rstudyNo},
+		 	#{replyWriter}
+		   )
+	</insert>
+	<insert id="insertfreeReply" >
+		INSERT INTO REPLY (
+			 REPLY_NO,
+			 REPLY_CONTENT,
+			 RFREE_NO,
+			 REPLY_WRITER 
+		     )
+		 VALUES (
+		 	SEQ_REPLY_NO.NEXTVAL,
+		 	#{replyContent},
+		 	#{rfreeNo},
 		 	#{replyWriter}
 		   )
 	</insert>
