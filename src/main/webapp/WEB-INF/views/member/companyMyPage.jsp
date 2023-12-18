@@ -106,7 +106,7 @@
 										<span>
 											<form action="storeUpdateForm.sto" method="post">
 											<input type="hidden" name="storeNo" value="${store.storeNo}">
-											<button type="button" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">1:1 문의</button>
+											<button type="button" onclick="openChatPop(${store.storeNo})" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">1:1 문의</button>
 											<button type="submit" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 수정</button>
 											<button type="button" class="btn btn-danger" data-bs-toggle="modal" style="border: none;" data-bs-target="#businessDelete">사업장 삭제</button>
 											</form>
@@ -132,6 +132,7 @@
 				</c:forEach>
 
 					<button onclick="location.href='storeEnrollForm.sto'" style="width: 70%; border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 추가</button>
+					<br><br><br><br>
 			</div>
 
 			<div id="sample1Work" style="display: none; flex-direction: column;">
