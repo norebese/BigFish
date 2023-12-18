@@ -195,7 +195,7 @@
 						src="<%=contextPath%>/resources/images/1701241622193.png"
 						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">낚시 용품</p>
-					</a> <a href="" class="col h-100"
+					</a> <a href="fishInfo.fi" class="col h-100"
 						style="text-decoration: none; color: black;"> <img
 						src="<%=contextPath%>/resources/images/1701241621969.png"
 						alt="Your Image">
