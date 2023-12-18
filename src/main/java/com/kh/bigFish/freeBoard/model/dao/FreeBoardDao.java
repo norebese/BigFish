@@ -121,11 +121,24 @@ public int deleteBoard(SqlSessionTemplate sqlSession, int freeNo) {
 	}
 	
 	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bno) {
-		return (ArrayList)sqlSession.selectList("replyMapper.selectfreeReplyList", bno);
+		return (ArrayList)sqlSession.selectList("replyMapper.selectfrReplyList", bno);
 	}
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		System.out.println("4324234gkgk"+r);
 		return sqlSession.insert("replyMapper.insertfreeReply", r);
 	}
+	
+	public int freeUpdateLike1(SqlSessionTemplate sqlSession, Flike sk) {
+		
+			Map<String, Object> params = new HashMap<>();
+		
+		    params.put("rfreeNo", sk.getRfreeNo());
+		    params.put("rmemNo", sk.getRmemNo());
+		    int i =sqlSession.selectOne("freeBoardMapper.freeUpdateLike1", params);
+		    
+		    System.out.println("좋아요 숫자"+i);
+			return i;
+		}
 	
 	
 

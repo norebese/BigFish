@@ -56,6 +56,7 @@ public interface FreeBoardService {
 	Flike likeResult(Flike fr);
 	
 	int freeUpdateLike(Flike fr, String result);
+	int freeUpdateLike1(Flike fr);
 
 	//통합검색을 위해 만든 것 -고이환-
 	ArrayList<FreeBoard> selectFreeList(String keyword);

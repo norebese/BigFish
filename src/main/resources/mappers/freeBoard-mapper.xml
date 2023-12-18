@@ -228,7 +228,13 @@
         AND RFREE_NO =#{bno}
 	</select>
 	
-
+	<select id="freeUpdateLike1"  resultType="_int" >
+		SELECT COUNT(*)
+		FROM
+		FREEGOOD
+		WHERE FREE_GOOD_STATUS = 'Y'
+        AND RFREE_NO =#{rfreeNo}
+	</select>
 
 
 </mapper>
