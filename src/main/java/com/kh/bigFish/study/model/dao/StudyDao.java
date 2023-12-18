@@ -74,6 +74,7 @@ public class StudyDao {
 	}
 	
 	public StudyGood likeResult(SqlSessionTemplate sqlSession, StudyGood sg) {
+		System.out.println(sg);
 		return sqlSession.selectOne("studyMapper.likeResult", sg);
 	}
 	
@@ -81,16 +82,16 @@ public class StudyDao {
 		
 		Map<String, Object> params = new HashMap<>();
 	    params.put("result", result);
-	    params.put("rstudyNo", sg.getRstudyNo());
+	    params.put("studyNo", sg.getRstudyNo());
 	    params.put("rmemNo", sg.getRmemNo());
 		
 		return sqlSession.update("studyMapper.studyUpdateLike", params);
 	}
 	
-	public StudyGood checkLikeTable(SqlSessionTemplate sqlSession, int memNo, int sno) {
+	public StudyGood checkLikeTable(SqlSessionTemplate sqlSession, int memNo, int rstudyNo) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("memNo", memNo);
-	    params.put("sno", sno);
+	    params.put("sno", rstudyNo);
 		return sqlSession.selectOne("studyMapper.checkLikeTable", params);
 	}
 	
@@ -107,10 +108,6 @@ public class StudyDao {
 
 	public ArrayList<Study> selectmainList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("studyMapper.selectmainList");
-	}
-
-	public Study stDetailPage(SqlSessionTemplate sqlSession, int studyNo) {
-		return sqlSession.selectOne("studyMapper.stDetailPage", studyNo);
 	}
 
 	public int studyGoodCount(SqlSessionTemplate sqlSession, int sno) {

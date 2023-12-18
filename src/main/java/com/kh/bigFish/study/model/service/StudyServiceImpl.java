@@ -87,6 +87,7 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public StudyGood likeResult(StudyGood sg) {
+		System.out.println(sg + "111111");
 		return studyDao.likeResult(sqlSession, sg);
 	}
 
@@ -96,8 +97,8 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public StudyGood checkLikeTable(int memNo, int sno) {
-		return studyDao.checkLikeTable(sqlSession, memNo, sno);
+	public StudyGood checkLikeTable(int memNo, int rstudyNo) {
+		return studyDao.checkLikeTable(sqlSession, memNo, rstudyNo);
 	}
 
 	@Override
@@ -113,11 +114,6 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public ArrayList<Study> selectmainList() {
 		return studyDao.selectmainList(sqlSession);
-	}
-
-	@Override
-	public Study stDetailPage(int studyNo) {
-		return studyDao.stDetailPage(sqlSession, studyNo);
 	}
 
 	@Override

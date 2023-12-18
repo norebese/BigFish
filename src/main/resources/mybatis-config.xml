@@ -23,6 +23,7 @@
      	<typeAlias type="com.kh.bigFish.reply.model.vo.Reply" alias="Reply"/>
      	<typeAlias type="com.kh.bigFish.store.model.vo.Slike" alias="Slike"/>
      	<typeAlias type="com.kh.bigFish.freeBoard.model.vo.Flike" alias="Flike"/>
+     	<typeAlias type="com.kh.bigFish.study.model.vo.StudyGood" alias="StudyGood"/>
      </typeAliases>
      <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야한다. -->
      

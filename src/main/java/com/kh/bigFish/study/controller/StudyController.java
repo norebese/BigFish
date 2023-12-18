@@ -133,36 +133,29 @@ public class StudyController {
 	}
 	
 	@RequestMapping("updateLike.st")
-	public void updateLike(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
-
+	public Map<String, Object> updateLike(int studyNo, HttpServletRequest request, HttpSession session) {
+		Map<String, Object> result = new HashMap<>();
 		StudyGood sg = new StudyGood();
-		System.out.println(sg);
-		Study s = (Study) session.getAttribute("s");
-		Member Mem = (Member) session.getAttribute("loginUser");
-		int studyNum = s.getStudyNo();
-		System.out.println(Mem);
 		
-		sg.setRmemNo(Mem.getMemNo());
-		sg.setRstudyNo(studyNum);
+		Member mem = (Member) session.getAttribute("loginUser");
+//		System.out.println(mem);
+		sg.setRmemNo(mem.getMemNo());
+		sg.setRstudyNo(studyNo);
+		
 		StudyGood likeResult = studyService.likeResult(sg);
-		String result = null;
+		System.out.println(mem);
 		
-		if(likeResult.getStudyGoodStatus().equals("N")) {
-			result = "Y"; 
-		}else {
-			result = "N";
-		}
+		int likeNo = studyService.studyGoodCount(studyNo);
 		
-		int studyUpdateLike = studyService.studyUpdateLike(sg, result);
+		sg.setCount(likeNo);
+		String status = (likeResult.getStudyGoodStatus().equals("N")) ? "Y" : "N";
 		
-		try {
-			response.getWriter().print(result);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		int studyUpdateLike = studyService.studyUpdateLike(sg, status);
+	    System.out.println("123412344321"+studyUpdateLike);
+	    result.put("status", status);
+	    
+	    return result;
 	}
-	
-	
 	
 	@RequestMapping(value="search.st")
 	public ModelAndView searchStudy(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {

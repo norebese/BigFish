@@ -16,6 +16,13 @@
 		<result column="STUDY_GOOD_STATUS" property="studyGoodStatus"/>
 	</resultMap>
 	
+	<resultMap type="StudyGood" id="studyGoodResult">
+		<result column="RMEM_NO" property="rmemNo" />
+		<result column="RSTUDY_NO" property="rstudyNo" />
+		<result column="STUDY_GOOD_STATUS" property="studyGoodStatus" />
+		<result column="COUNT" property="count" />
+	</resultMap>
+	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		 FROM STUDY
@@ -116,11 +123,11 @@
 	<update id="studyUpdateLike">
  		UPDATE STUDYGOOD
 		SET STUDY_GOOD_STATUS = #{result}
-		WHERE RSTUDY_NO = #{rstudyNo}
+		WHERE RSTUDY_NO = #{studyNo}
 		AND RMEM_NO = #{rmemNo}
  	</update>
  	
-	<select id="likeResult" resultMap="studyResult">
+	<select id="likeResult" resultMap="studyGoodResult">
  		SELECT STUDY_GOOD_STATUS
 		FROM STUDYGOOD
 		WHERE RMEM_NO = #{rmemNo}
@@ -132,17 +139,11 @@
 		VALUES (#{memNo}, #{sno})
  	</insert>
  
- 	<select id="checkLikeTable" resultMap="studyResult">
+ 	<select id="checkLikeTable" resultMap="studyGoodResult">
  		SELECT *
 		FROM STUDYGOOD
 		WHERE RMEM_NO = #{memNo}
 		AND RSTUDY_NO = #{sno}
- 	</select>
- 	<select id="stDetailPage" resultMap="studyResult">
- 		SELECT *
- 		FROM STUDY
- 		WHERE STUDY_NO = #{studyNo}
- 		AND STUDY_STATUS = 'Y'
  	</select>
  	
  	<select id="selectStudyList" resultMap="studyResult">
