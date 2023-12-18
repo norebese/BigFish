@@ -1,10 +1,13 @@
 .carousel-inner{
-    transition: transform 0.5s ease-in-out;
+	width: 600px !important;
+	max-height: 400px;
 }
-.carousel-item {
-    display: flex; /* flex 속성 추가 */
+.carousel-control-next-icon{
+	background-image: url(../images/next-storeImg.png) !important;	
 }
-
+.carousel-control-prev-icon{
+	background-image: url(../images/prev-storeImg.png) !important;	
+}
 .header-area{
     z-index: 999;
 }
@@ -21,14 +24,8 @@
     margin-right: 100px;
     border-bottom: 1px solid;
     min-width: 100vh;
+    height: 400px;
     justify-content: center;
-}
-
-.carousel-inner img{
-    max-height: 400px;
-    max-width: 600px;
-    min-height: 400px;
-    min-width: 600px;
 }
 .photo-area{
     margin-bottom: 100px;
@@ -36,6 +33,7 @@
 .info-area{
     margin-left: 50px;
     word-break: keep-all;
+    overflow: hidden;
 }
 .bkind{
     font-weight: 500;
@@ -151,7 +149,7 @@ th, td {
 .option-list-area{
 	height: 80%;
     width: 100%;
-    overflow: scroll;
+    overflow: auto;
     margin-top: 10px;
 }
 .option-list{
@@ -167,6 +165,11 @@ th, td {
     position: relative;
     padding: 20px 0;
     margin: 0;
+}
+.option-item.disabled-option{
+	opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
 }
 
 .checkbox-icon{

@@ -33,6 +33,26 @@ public class ReplyDao {
 		return sqlSession.update("replyMapper.deleteReply", rNum);
 	}
 	
+
+	public int insertFreeReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("replyMapper.insertFreeReply", r);
+	}
 	
+	public int freeReplyCount(SqlSessionTemplate sqlSession, Reply r) {
+	
+		return sqlSession.selectOne("replyMapper.freeReplyCount", r);
+	}
+	public int deleteFreeReply(SqlSessionTemplate sqlSession, int rNum) {
+		return sqlSession.update("replyMapper.deleteFreeReply", rNum);
+	}
+	
+	public ArrayList<Reply> freeReplyList(SqlSessionTemplate sqlSession, PageInfo pi, int sNum) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+				
+		return (ArrayList)sqlSession.selectList("replyMapper.freeReplyList", sNum, rowBounds);
+	}
 
 }

@@ -353,7 +353,6 @@ public class StoreController {
 				int createLikeTable = storeService.createLikeTable(memNo, storeNum);
 			}
 		}
-		
 		List<String> fishKinds = Arrays.asList(st.getStoreFishKind().split("/"));
 		
 		Reply R = new Reply();
@@ -363,12 +362,15 @@ public class StoreController {
 		
 		ArrayList<Reply> replyList = replyService.storeReplyList(pi, storeNum);
 		
+		ArrayList<Attachment> storePhoto = storeService.storePhoto(storeNum);
+		
 		session.setAttribute("st", st);
 		session.setAttribute("Slike", checkLikeTable);
 		session.setAttribute("fishKinds", fishKinds);
 		session.setAttribute("replyList", replyList);
 		session.setAttribute("replyCount", storeReplyCount);
 		session.setAttribute("replyPi", pi);
+		session.setAttribute("storePhoto", storePhoto);
 		
 		return "reservation/reservationDetail";
 	}

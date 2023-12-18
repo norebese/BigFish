@@ -12,7 +12,7 @@
 		<result column="FREE_CREATE_DATE" property="createDate" />
 		<result column="FREE_COUNT" property="count" />
 		<result column="RMEM_NO" property="rmemNo" />
-
+		<result column="LIKE_COUNT" property="likeCount" />
 		<result column="ORIGIN_NAME" property="OriginName" />
 		<result column="CHANGE_NAME" property="ChangeName" />
 
@@ -29,6 +29,12 @@
 		<result column="ORIGIN_NAME" property="OriginName" />
 		<result column="CHANGE_NAME" property="ChangeName" />
 
+	</resultMap>
+	<resultMap type="Flike" id="flikeResult">
+		<result column="RMEM_NO" property="rmemNo" />
+		<result column="RFREE_NO" property="rfreeNo" />
+		<result column="FREE_GOOD_STATUS" property="freeGoodStatus" />
+		<result column="FREE_COUNT" property="count" />
 	</resultMap>
 
 	<!-- 게시글의 총 갯수 조회하는 쿼리 -->
@@ -129,7 +135,8 @@
 	<update id="deleteBoard">
 		UPDATE FREEBOARD
 		SET FREE_STATUS = 'N'
-		WHERE FREE_NO = #{freeNo}
+		WHERE FREE_NO =
+		#{freeNo}
 	</update>
 
 	<select id="selectSearchListCount" resultType="_int">
@@ -147,12 +154,13 @@
 
 	<select id="selectSearchList" resultMap="freeBoardResult">
 		SELECT FREE_NO
-       ,FREE_TITLE
-       ,FREE_COUNT
-       ,FREE_WRITER
-       ,FREE_CREATE_DATE
-FROM FREEBOARD 
-WHERE FREE_STATUS = 'Y'
+		,FREE_TITLE
+		,FREE_COUNT
+		,FREE_WRITER
+		,FREE_CREATE_DATE
+		FROM
+		FREEBOARD
+		WHERE FREE_STATUS = 'Y'
 		<choose>
 			<when test="condition == 'fTitle'">
 				AND FREE_TITLE
@@ -164,5 +172,61 @@ WHERE FREE_STATUS = 'Y'
 		LIKE '%' || #{keyword} || '%'
 		ORDER BY FREE_NO DESC
 	</select>
+
+	<select id="selectmainList" resultMap="freeBoardResult">
+		SELECT
+		FREE_NO,
+		FREE_TITLE,
+		FREE_WRITER,
+		(
+		SELECT COALESCE(NULLIF(REGEXP_SUBSTR(FREE_CONTENT,
+		'/bigFish/resources/uploadFiles/[^"]+', 1, 1), ''),
+		'/bigFish/resources/images/1701241591458.png') AS first_image_path
+		FROM DUAL
+		) AS FREE_CONTENT,
+		FREE_STATUS
+		FROM FREEBOARD
+
+		WHERE
+		ROWNUM
+		BETWEEN 1 AND 3
+		ORDER BY
+		FREE_NO DESC
+	</select>
+
+	<select id="checkLikeTable" resultMap="flikeResult">
+		SELECT *
+		FROM FREEGOOD
+		WHERE RMEM_NO = #{memNo}
+		AND RFREE_NO = #{bno}
+	</select>
+
+	<insert id="createLikeTable">
+		INSERT INTO FREEGOOD (RMEM_NO, RFREE_NO)
+		VALUES (#{memNo}, #{bno})
+	</insert>
+
+	<select id="likeResult" resultMap="flikeResult">
+		SELECT FREE_GOOD_STATUS
+		FROM FREEGOOD
+		WHERE RMEM_NO = #{rmemNo}
+		AND RFREE_NO= #{rfreeNo}
+	</select>
+	
+	<update id="freeUpdateLike">
+ 		UPDATE FREEGOOD
+		SET FREE_GOOD_STATUS = #{result}
+		WHERE RFREE_NO = #{freeNo}
+		AND RMEM_NO = #{rmemNo}
+ 	</update>
+ 	
+ 	<select id="freeGoodCount"  resultType="_int" >
+		SELECT COUNT(*)
+		FROM
+		FREEGOOD
+		WHERE FREE_GOOD_STATUS = 'Y'
+        AND RFREE_NO =#{bno}
+	</select>
+
 
 </mapper>

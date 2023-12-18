@@ -26,6 +26,7 @@
  		<result column="LIKE_COUNT" property="likeCount"/>
  		<result column="MIN_PRICE" property="minPrice"/>
  		<result column="reply_count" property="replyCount"/>
+ 		<result column="CHANGE_NAME" property="thumbnailImg"/>
  	</resultMap>
  	
  	<resultMap type="TicKet" id="ticketResult">
@@ -71,23 +72,40 @@
 		SELECT COUNT(*)
 		FROM STORE
 		WHERE LOCATION_BIG = #{locationBig}
+		<if test="locationSmall != '전체'">
 		AND LOCATION_SMALL = #{locationSmall}
+		</if>
 		AND STORE_STATUS = 'open'
 	</select>
 
  	<select id="ajaxStoreList" resultMap="storeResult">
- 		SELECT S.STORE_NO,
-        S.STORE_ADDRESS,
-        S.STORE_NAME,
-        COUNT(DISTINCT G.RSTORE_NO) AS LIKE_COUNT,
-        COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price
-		FROM STORE S
-		LEFT JOIN STOREGOOD G ON S.STORE_NO = G.RSTORE_NO
-        LEFT JOIN TICKET t ON s.STORE_NO = t.RSTORE_NO
-		WHERE S.LOCATION_BIG = #{locationBig}
-		  AND S.LOCATION_SMALL = #{locationSmall}
-		  AND STORE_STATUS = 'open'
-		GROUP BY S.STORE_NO, S.STORE_ADDRESS, S.STORE_NAME
+	SELECT 
+	    s.STORE_NO,
+	    s.STORE_ADDRESS,
+	    s.STORE_NAME,
+	    COUNT(DISTINCT CASE WHEN g.STORE_GOOD_STATUS = 'Y' THEN g.RSTORE_NO END) AS like_count,
+	    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
+	    COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count,
+	    CHANGE_NAME
+	FROM 
+	    STORE s
+	LEFT JOIN 
+	    STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
+	LEFT JOIN 
+	    TICKET t ON s.STORE_NO = t.RSTORE_NO
+	LEFT JOIN 
+	    REPLY r ON s.STORE_NO = r.RSTORE_NO
+	LEFT JOIN 
+	    ATTACHMENT a ON s.STORE_NO = a.RSTORE_NO AND a.FILE_LEVEL = 1
+	WHERE (STORE_KIND = 'FreshSeat'
+	        OR STORE_KIND = 'FreshCafe')
+	AND s.LOCATION_BIG = #{locationBig}
+	<if test="locationSmall != '전체'">
+	AND s.LOCATION_SMALL = #{locationSmall}
+	</if>
+	AND s.STORE_STATUS = 'open'
+	GROUP BY 
+	    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, CHANGE_NAME
  	</select>
  	
  	<select id="resDetailPage" resultMap="storeResult">
@@ -95,6 +113,14 @@
  		FROM STORE
  		WHERE STORE_NO = #{num}
  		AND STORE_STATUS = 'open'
+ 	</select>
+ 	
+ 	<select id="storePhoto" resultMap="attachmentResult">
+ 		SELECT CHANGE_NAME, FILE_PATH
+		FROM ATTACHMENT
+		WHERE RSTORE_NO = #{storeNum}
+		AND ORIGIN_NAME IS NOT NULL
+		ORDER BY FILE_LEVEL ASC
  	</select>
 
  	<insert id="insertStore">
@@ -209,20 +235,23 @@
 		    s.STORE_NAME,
 		    COUNT(DISTINCT CASE WHEN g.STORE_GOOD_STATUS = 'Y' THEN g.RSTORE_NO END) AS like_count,
 		    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
-            COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count
+		    COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count,
+		    CHANGE_NAME
 		FROM 
 		    STORE s
 		LEFT JOIN 
 		    STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
 		LEFT JOIN 
 		    TICKET t ON s.STORE_NO = t.RSTORE_NO
-        LEFT JOIN 
+		LEFT JOIN 
 		    REPLY r ON s.STORE_NO = r.RSTORE_NO
+		LEFT JOIN 
+		    ATTACHMENT a ON s.STORE_NO = a.RSTORE_NO AND a.FILE_LEVEL = 1
 		WHERE STORE_KIND = 'FreshSeat'
 		        OR STORE_KIND = 'FreshCafe'
 		AND STORE_STATUS = 'open'
 		GROUP BY 
-		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME
+		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, CHANGE_NAME
 		ORDER BY 
 		    like_count DESC
 	</select>
@@ -236,26 +265,29 @@
 	</select>
 	
 	<select id="seaStoreList" resultMap="storeResult">
- 		SELECT 
+		SELECT 
 		    s.STORE_NO,
 		    s.STORE_ADDRESS,
 		    s.STORE_NAME,
 		    COUNT(DISTINCT CASE WHEN g.STORE_GOOD_STATUS = 'Y' THEN g.RSTORE_NO END) AS like_count,
 		    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
-            COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count
+		    COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count,
+		    CHANGE_NAME
 		FROM 
 		    STORE s
 		LEFT JOIN 
 		    STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
 		LEFT JOIN 
 		    TICKET t ON s.STORE_NO = t.RSTORE_NO
-        LEFT JOIN 
+		LEFT JOIN 
 		    REPLY r ON s.STORE_NO = r.RSTORE_NO
+		LEFT JOIN 
+		    ATTACHMENT a ON s.STORE_NO = a.RSTORE_NO AND a.FILE_LEVEL = 1
 		WHERE STORE_KIND = 'seaShip'
 		        OR STORE_KIND = 'seaSeat'
 		AND STORE_STATUS = 'open'
 		GROUP BY 
-		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME
+		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, CHANGE_NAME
 		ORDER BY 
 		    like_count DESC
 	</select>
@@ -276,15 +308,16 @@
 	</select>
 	
 	<select id="ajaxSeaStoreList" resultMap="storeResult">
- 		SELECT *
+		SELECT *
 		FROM (SELECT 
 				    s.STORE_NO,
 				    s.STORE_ADDRESS,
 				    s.STORE_NAME,
 				    COUNT(DISTINCT CASE WHEN g.STORE_GOOD_STATUS = 'Y' THEN g.RSTORE_NO END) AS like_count,
 				    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
-		            s.LOCATION_SMALL,
-		            COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count
+				    COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count,
+				    CHANGE_NAME,
+                    LOCATION_SMALL
 				FROM 
 				    STORE s
 				LEFT JOIN 
@@ -292,20 +325,20 @@
 				LEFT JOIN 
 				    TICKET t ON s.STORE_NO = t.RSTORE_NO
 				LEFT JOIN 
-		    		REPLY r ON s.STORE_NO = r.RSTORE_NO    
-				WHERE (s.STORE_KIND = 'seaShip'
-				        OR s.STORE_KIND = 'seaSeat')
-				AND s.STORE_STATUS = 'open'
+				    REPLY r ON s.STORE_NO = r.RSTORE_NO
+				LEFT JOIN 
+				    ATTACHMENT a ON s.STORE_NO = a.RSTORE_NO AND a.FILE_LEVEL = 1
+				WHERE STORE_KIND = 'seaShip'
+				        OR STORE_KIND = 'seaSeat'
+				AND STORE_STATUS = 'open'
 				GROUP BY 
-				    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, s.LOCATION_SMALL
-				ORDER BY 
-				    like_count DESC)
-		WHERE (LOCATION_SMALL = #{city1}
+				    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, CHANGE_NAME, LOCATION_SMALL)
+		WHERE LOCATION_SMALL = #{city1}
         OR LOCATION_SMALL = #{city2}
         OR LOCATION_SMALL = #{city3}
         OR LOCATION_SMALL = #{city4}
         OR LOCATION_SMALL = #{city5}
-        OR LOCATION_SMALL = #{city6})
+        OR LOCATION_SMALL = #{city6}
 	</select>
 	
 	<select id="selectMyStoreList" resultMap="storeResult">
@@ -377,7 +410,8 @@
 		    s.STORE_NAME,
 		    COUNT(DISTINCT CASE WHEN g.STORE_GOOD_STATUS = 'Y' THEN g.RSTORE_NO END) AS like_count,
 		    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
-            COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count
+            COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count,
+            CHANGE_NAME
 		FROM 
 		    STORE s
 		LEFT JOIN 
@@ -386,6 +420,8 @@
 		    TICKET t ON s.STORE_NO = t.RSTORE_NO
         LEFT JOIN 
 		    REPLY r ON s.STORE_NO = r.RSTORE_NO
+		LEFT JOIN 
+			ATTACHMENT a ON s.STORE_NO = a.RSTORE_NO AND a.FILE_LEVEL = 1
 		WHERE (
 				<if test="filterNum == 1"> 
                  STORE_KIND = 'seaShip'
@@ -400,9 +436,7 @@
 		        )
 		AND STORE_STATUS = 'open'
 		GROUP BY 
-		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME
-		ORDER BY 
-		    like_count DESC
+		    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, CHANGE_NAME
 	</select>
 	
 	<select id="ajaxStoreKindFilterB" resultMap="storeResult">
@@ -414,7 +448,8 @@
 				    COUNT(DISTINCT CASE WHEN g.STORE_GOOD_STATUS = 'Y' THEN g.RSTORE_NO END) AS like_count,
 				    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
 		            s.LOCATION_SMALL,
-		            COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count
+		            COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count,
+		            CHANGE_NAME
 				FROM 
 				    STORE s
 				LEFT JOIN 
@@ -423,6 +458,8 @@
 				    TICKET t ON s.STORE_NO = t.RSTORE_NO
 				LEFT JOIN 
 		    		REPLY r ON s.STORE_NO = r.RSTORE_NO
+		    	LEFT JOIN 
+					ATTACHMENT a ON s.STORE_NO = a.RSTORE_NO AND a.FILE_LEVEL = 1
 				WHERE (
 					<if test="filterNum == 1"> 
                      s.STORE_KIND = 'seaShip'
@@ -437,9 +474,7 @@
 				        )
 				AND s.STORE_STATUS = 'open'
 				GROUP BY 
-				    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, s.LOCATION_SMALL
-				ORDER BY 
-				    like_count DESC)
+				    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, s.LOCATION_SMALL, CHANGE_NAME)
 		WHERE (LOCATION_SMALL = #{city1}
         OR LOCATION_SMALL = #{city2}
         OR LOCATION_SMALL = #{city3}
