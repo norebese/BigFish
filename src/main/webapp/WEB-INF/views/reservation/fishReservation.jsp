@@ -22,7 +22,9 @@
 <jsp:include page="../common/header.jsp"/>
 	<div style="display: flexbox; ">
         <div style="margin: 150px 100px 10px 100px; padding: 0; border-bottom: 1px solid; min-width: 100vh;">
-            <p class="page-title">민물 낚시</p>
+        	<a href="">
+            	<div class="page-title">민물 낚시</div>
+            </a>
         </div>
         <script type="text/javascript">
 	        let selectedRegion;
