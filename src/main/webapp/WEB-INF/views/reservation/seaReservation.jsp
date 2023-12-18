@@ -283,10 +283,10 @@
 	    </div>
 	    <div>
            <div class="weather-area">
-               aa
+               	날씨 API 사용할 곳
            </div>
            <div class="fishinfo">
-               bbb
+              	어종 정보 API 사용할 곳
            </div>
        	</div>
     </div>
@@ -309,7 +309,7 @@
 	            <a class="list-box-area" href="resDetailPage?storeNumber=${ssl.storeNo}">
 	                <div class="list-img-box">
 	                    <div class="img-box">
-	                        <img src="<%=contextPath%>/resources/images/shop-example.jpg" alt="">
+	                        <img src="<%=contextPath%>/resources/uploadFiles/${ssl.thumbnailImg}">
 	                    </div>
 	                    <div class="list-txt-box">
 	                        <p class="list-name">

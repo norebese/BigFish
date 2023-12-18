@@ -1,13 +1,19 @@
+<%@page import="com.kh.bigFish.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%String contextPath = request.getContextPath();%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String contextPath = request.getContextPath();
+	String alertMsg = (String)session.getAttribute("alertMsg");
+	Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>BIGFISH</title>
 <!-- 부트스트랩 css 사용 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -16,31 +22,36 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-	
-	<!-- CSS-->
-<link rel="stylesheet" href="<%=contextPath%>/resources/css/freeBoardDetailView.css">
+
+<!-- CSS-->
+<link rel="stylesheet"
+	href="<%=contextPath%>/resources/css/freeBoardDetailView.css">
 
 
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
-	 <br><br><br><br><br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div class="header-box">
-        <div class="left_box"></div>
-        <div class="center_box">
-            <div style="color: white;">
-            <h2>자유게시판</h2>
-            <br>
-                <tr>
-                    <td>자유롭게 소통을 해보세용~!</td>
-                </tr>
-            </div>
-            <div class="study-image" style="color: white;">              
-                <img style="width: 150px;" src="resources/images/1701241590820.png">
-            </div>
-        </div>
-        <div class="right_box"></div>
-    </div>
+		<div class="left_box"></div>
+		<div class="center_box">
+			<div style="color: white;">
+				<h2>자유게시판</h2>
+				<br>
+				<tr>
+					<td>자유롭게 소통을 해보세용~!</td>
+				</tr>
+			</div>
+			<div class="study-image" style="color: white;">
+				<img style="width: 150px;" src="resources/images/1701241590820.png">
+			</div>
+		</div>
+		<div class="right_box"></div>
+	</div>
 
 	<div class="content" align="center">
 		<br> <br>
@@ -93,26 +104,106 @@
 
 				<div class="row">
 					<div class="col-md-8">
-						<h6 align="left" style="margin-bottom: 0px; margin-top: 15px;">좋아요:
-							55 댓글: 5</h6>
+						<h6 align="left" style="margin-bottom: 0px; margin-top: 15px;">
+
+							<div id="like-logo" onclick="updateLike()"
+								style="display: inline-block; margin-right: 15px; cursor: pointer;">
+								<c:choose>
+									<c:when test="${freeGoodStatus.freeGoodStatus eq 'Y'}">
+										<img style="height: 19px;"
+											src="<%=contextPath%>/resources/images/heart-filled.png">
+
+									</c:when>
+									<c:otherwise>
+										<img style="height: 19px;"
+											src="<%=contextPath%>/resources/images/heart-notfill.png">
+									</c:otherwise>
+								</c:choose>
+							</div>
+							<span id="whgdkdy" style="margin-right: 15px;">${likeNo}</span> <span
+								style="margin-right: 15px;">댓글 </span>
+						</h6>
 					</div>
-						<c:if test="${loginUser.memNick eq b.freeWriter }">
-					<div class="col-6 col-md-4">
-						<button type="button" class="btn btn-success"
-							onclick="location.href='freeUpdateForm.bo?bno=${b.freeNo}'" style=" background-color: rgb(59, 175, 252);">글수정</button>
-						<button type="button" class="btn btn-danger"
-							data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-left: 20px;">
-							글삭제</button>
-					</div>
-						</c:if>
+					<c:if test="${loginUser.memNick eq b.freeWriter }">
+						<div class="col-6 col-md-4">
+							<button type="button" class="btn btn-success"
+								onclick="location.href='freeUpdateForm.bo?bno=${b.freeNo}'"
+								style="background-color: rgb(59, 175, 252);">글수정</button>
+							<button type="button" class="btn btn-danger"
+								data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+								style="margin-left: 20px;">글삭제</button>
+						</div>
+					</c:if>
 				</div>
 
-			
-				
-			
+
+
+
 
 
 				<br>
+
+				<!-- 	<div class="reply-area">
+            <div class="reply-line">
+                <h6 id="replyNum" style="text-align: left; margin-bottom: 10px;">댓글 (${replyCount})</h6>
+            </div>
+            
+            <div id="showReplyArea">
+            	<c:forEach var="rl" items="${replyList}" varStatus="loopStatus">
+		            <div class="" style="border-bottom: solid 2px rgb(204,204,204); ">
+		                <div class="row">
+		                    <div class="col-sm" style="display: flex; align-items: center;">
+		                        <i class="bi bi-person" style="font-size: 40px;"></i>
+		                        <span >${rl.replyWriter}</span>
+		                    </div>
+		                    <div class="col-md-8" style="display: flex; align-items: center;">${rl.replyContent}</div>
+		                    <div class="col-sm" style="display: flex; align-items: center;">${rl.replyCreateDate}
+			                    <c:if test="${rl.rmemNo eq loginUser.memNo}">
+			                    <span id="dltBtn" onclick="dltReply('${rl.replyNo}')">삭제</span>
+			                    </c:if>
+		                    </div>
+		                </div>
+		            </div>
+	            </c:forEach>    
+            </div>
+            
+            <div>
+		    	<nav aria-label="Page navigation example"  class="d-flex justify-content-center" style="margin-top: 20px;">
+			        <ul class="pagination">
+           				<li id="prevBtn" class="page-item" onclick="pageReply('prev')" style="display: none;">
+			            	<a class="page-link" href="#" aria-label="Previous">
+			              		<span aria-hidden="true">&laquo;</span>
+			            	</a>
+	            		</li>
+	            		<ul id="pageNBtn" class="pagination">
+					       <c:forEach var="p" begin="${replyPi.startPage}" end="${replyPi.endPage}">
+						        <c:set var="activeClass" value="${p == replyPi.currentPage ? 'active' : ''}" />
+						        <li class="page-item ${activeClass}">
+						            <a class="page-link" href="#" onclick="pageReply(${p})">${p}</a>
+						        </li>
+						    </c:forEach>
+				       </ul>
+				       <c:choose>
+				       <c:when test="${replyPi.maxPage eq 1 or replyPi.maxPage eq 0}">
+				          <li id="nextBtn" class="page-item" onclick="pageReply('next')" style="display: none;">
+					            <a class="page-link" href="#" aria-label="Next">
+					              <span aria-hidden="true">&raquo;</span>
+					            </a>
+				          </li>
+			          </c:when>
+			          <c:otherwise>
+			          		<li id="nextBtn" class="page-item" onclick="pageReply('next')">
+					            <a class="page-link" href="#" aria-label="Next">
+					              <span aria-hidden="true">&raquo;</span>
+					            </a>
+				          </li>
+			          </c:otherwise>
+			          </c:choose>
+			        </ul>
+			      </nav>
+            </div>
+             -->
+
 
 				<div
 					style="border-top: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">
@@ -121,47 +212,18 @@
 						<div style="display: flex; align-items: center;">
 							<textarea class="form-control" id="content" cols="55" rows="2"
 								style="resize: none; width: 100%; height: 80px;"></textarea>
-							<button class="btn btn-primary" onclick="addReply();"
-								style="height: 80px; width: 120px; margin-left: 10px;background-color: rgb(59, 175, 252); ">댓글등록</button>
+							<button type="button" class="btn btn-primary"
+								style="height: 80px; width: 120px; margin-left: 10px; background-color: rgb(59, 175, 252);"
+								onclick="addReply();">댓글등록</button>
 						</div>
 					</th>
 				</div>
 			</div>
-			<!-- 댓글파트 -->
-			<div class="container"
-				style="border-bottom: solid 2px rgb(204, 204, 204);">
-				<div class="row">
-					<div class="col-sm" style="display: flex; align-items: center;">
-						<i class="bi bi-person" style="font-size: 40px;"></i> <span>임영웅</span>
-					</div>
-					<div class="col-md-8" style="display: flex; align-items: center;">네
-						아마 안될거 같네요.</div>
-					<div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
-				</div>
-			</div>
-			<div class="container"
-				style="border-bottom: solid 2px rgb(204, 204, 204);">
-				<div class="row">
-					<div class="col-sm" style="display: flex; align-items: center;">
-						<i class="bi bi-person" style="font-size: 40px;"></i> <span>임영웅</span>
-					</div>
-					<div class="col-md-8" style="display: flex; align-items: center;">네
-						아마 안될거 같네요.</div>
-					<div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
-				</div>
+			<div id="replyAreaa">
+				<!-- 댓글파트 -->
+
 			</div>
 
-			<div class="container"
-				style="border-bottom: solid 2px rgb(204, 204, 204);">
-				<div class="row">
-					<div class="col-sm" style="display: flex; align-items: center;">
-						<i class="bi bi-person" style="font-size: 40px;"></i> <span>임영웅</span>
-					</div>
-					<div class="col-md-8" style="display: flex; align-items: center;">네
-						아마 안될거 같네요.</div>
-					<div class="col-sm" style="display: flex; align-items: center;">2023/11/19</div>
-				</div>
-			</div>
 
 			<!-- Modal -->
 			<form method="post" action="delete.fbo" enctype="multipart/form-data">
@@ -172,7 +234,7 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="staticBackdropLabel" >글삭제</h1>
+								<h1 class="modal-title fs-5" id="staticBackdropLabel">글삭제</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
 							</div>
@@ -186,7 +248,275 @@
 					</div>
 				</div>
 			</form>
-			</div>
-			  <jsp:include page="../common/footer.jsp"/>
+		</div>
+		<jsp:include page="../common/footer.jsp" />
+
+		<script>
+		 let memNum = <%= (loginUser != null) ? loginUser.getMemNo() : 0%>;
+		    function dltReply(rNum){
+		    	$.ajax({
+			           type: "GET",
+			           url: "ajaxDltFreeReply",
+			           data: { 
+			        	   rNum: rNum,
+			        	   freeNo :${b.freeNo}
+			           },
+			           dataType: 'json',
+			           success: function(data) {
+			        	 alert('댓글이 삭제되었습니다.');
+			        	 updateReplyList(data.replyList, memNum);
+			        	 document.getElementById('content').value = '';
+			        	 let startPage = (data.replyPi.startPage);
+			        	 let endPage = (data.replyPi.endPage);
+			        	 let maxPage = (data.replyPi.maxPage);
+			        	 let currentPage = (data.replyPi.currentPage);
+			        	 updatePageBtn(startPage, endPage, currentPage);
+			        	 updateReplyBtn(endPage, maxPage, currentPage);
+			        	 document.getElementById('replyNum').innerHTML = '댓글 ('+(data.rNum)+')';
+			           },
+			           error: function() {
+			           	console.log("ajax 통신 실패");
+			           }
+			       });
+		    }
+		    
+		    let rPage = 1;
+		    function pageReply(num){
+		    	let scrollTop = $(window).scrollTop();
+		    	if(num === 'prev'){
+		    		rPage--;
+		    		if(rPage<=0){
+		    			rPage = 1;
+		    		}
+		    	}else if(num === 'next'){
+		    		rPage++;
+		    	}else{
+		    		rPage = num;
+		    	}
+		    	
+				$.ajax({
+			           type: "GET",
+			           url: "ajaxPageReply", 
+			           data: { 
+			        	   rPage: rPage,
+			           },
+			           dataType: 'json',
+			           success: function(data) {
+			        	 updateReplyList(data.replyList, memNum);
+			        	 let startPage = (data.replyPi.startPage);
+			        	 let endPage = (data.replyPi.endPage);
+			        	 let maxPage = (data.replyPi.maxPage);
+			        	 let currentPage = (data.replyPi.currentPage);
+			        	 updatePageBtn(startPage, endPage, currentPage);
+			        	 updateReplyBtn(endPage, maxPage, currentPage);
+			        	 
+		         		$(window).scrollTop(scrollTop);
+			           },
+			           error: function() {
+			           	console.log("ajax 통신 실패");
+			           }
+			       });
+		    }
+		
+			  function addReply1(){
+			    	let contentValue = document.getElementById('content').value;
+					$.ajax({
+				           type: "GET",
+				           url: "ajaxAddFreeReply",
+				           data: { 
+				        	 contentValue: contentValue,
+				        	 freeNo :${b.freeNo}
+				           },
+				           dataType: 'json',
+				           success: function(data) {
+				        	 updateReplyList(data.replyList, memNum);
+				        	 document.getElementById('content').value = '';
+				        	 let startPage = (data.replyPi.startPage);
+				        	 let endPage = (data.replyPi.endPage);
+				        	 let maxPage = (data.replyPi.maxPage);
+				        	 let currentPage = (data.replyPi.currentPage);
+				        	 updatePageBtn(startPage, endPage, currentPage);
+				        	 updateReplyBtn(endPage, maxPage, currentPage);
+				        	 document.getElementById('replyNum').innerHTML = '댓글 ('+(data.rNum)+')';
+				           },
+				           error: function() {
+				           	console.log("ajax 통신 실패");
+				           }
+				       });
+					   console.log("Session Data:", sessionStorage);
+			    }
+			  
+			  
+			  function updateReplyList(date, memNum){
+					let divToUpdate = $('#showReplyArea');
+					let htmlContent = '';
+					
+					$.each(date, function (index, reply) {
+				                htmlContent += '<div class="" style="border-bottom: solid 2px rgb(204,204,204);">'
+					            +'<div class="row"><div class="col-sm" style="display: flex; align-items: center;">'
+					            +'<i class="bi bi-person" style="font-size: 40px;"></i><span >'+reply.replyWriter+'</span></div>'
+					            +'<div class="col-md-8" style="display: flex; align-items: center;">'+reply.replyContent+'</div>'
+					            +'<div class="col-sm" style="display: flex; align-items: center;">'+reply.replyCreateDate;
+					            
+					            if (reply.rmemNo == memNum) {
+							        htmlContent += '<span id="dltBtn" onclick="dltReply(' + reply.replyNo + ')">삭제</span>';
+							    }
+					            
+					            htmlContent += '</div></div></div>';
+				            });
+					
+					divToUpdate.html(htmlContent);
+				}
+
+				function updatePageBtn(startPage, endPage, currentPage){
+					let liToUpdate = $('#pageNBtn');
+					liToUpdate.empty();
+					let buttonsHTML = '';
+
+					for (let p = startPage; p <= endPage; p++) {
+				        buttonsHTML += '<li class="page-item';
+				        if (p === currentPage) {
+				            buttonsHTML += ' active';
+				        }
+				        buttonsHTML += '"><a class="page-link" href="#' + p + '" onclick="pageReply(' + p + ')">' + p + '</a></li>';
+				    }
+				    
+				    liToUpdate.html(buttonsHTML);
+				}
+
+				function updateReplyBtn(endPage, maxPage, currentPage){
+
+					if(maxPage == 1){
+						document.getElementById("prevBtn").style.display = "none";
+						document.getElementById("nextBtn").style.display = "none";
+					}else if(currentPage == 1){
+						document.getElementById("prevBtn").style.display = "none";
+						document.getElementById("nextBtn").style.display = "block";
+					}else if(currentPage == maxPage){
+						document.getElementById("prevBtn").style.display = "block";
+						document.getElementById("nextBtn").style.display = "none";
+					}else{
+						document.getElementById("prevBtn").style.display = "block";
+						document.getElementById("nextBtn").style.display = "block";
+					}
+					
+				}
+				
+				/**
+				function updateLike(){
+			    	let likeImg = document.getElementById('like-logo');
+			    	
+			   		$.ajax({
+			               type: "GET",
+			               url: "ajaxUpdateFreeLike", 
+			               data: { 
+					        	
+					        	 freeNo :${b.freeNo}
+					        	 
+					           },
+					           dataType: 'json',
+			               success: function(data) {
+			            	   console.log(data+"고인물");
+								if(data == 'Y'){
+									 likeImg.innerHTML = '<img class="like-image" src="<%=contextPath%>/resources/images/heart-filled.png">';										
+							
+								}else{
+									likeImg.innerHTML='<img style="height: 19px !important;" src="<%=contextPath%>/resources/images/heart-notfill.png">'
+								}
+								console.log("ajax 통신 성공");
+			               },
+			               error: function() {
+			               	console.log("ajax 통신 실패");
+			               }
+			           });
+			   		
+			   	}
+				 */
+				 function updateLike() {
+					    let likeImg = document.getElementById('like-logo');
+					    let whgdkdy =document.getElementById('whgdkdy');
+					    $.ajax({
+					        type: "GET",
+					        url: "ajaxUpdateFreeLike", 
+					        data: { 
+					            freeNo: ${b.freeNo}
+					        },
+					        dataType: 'json',
+					        success: function(data) {
+					            console.log(data.status); // 이 부분을 통해 상태 값을 확인
+					            if (data.status === 'Y') {
+					            	  likeImg.innerHTML = '<img style="height: 19px;" src="<%=contextPath%>/resources/images/heart-filled.png">';
+					            	  $(whgdkdy).html(data.likeCount);
+					            } else {
+					                likeImg.innerHTML = '<img style="height: 19px;" src="<%=contextPath%>/resources/images/heart-notfill.png">';
+					                $(whgdkdy).html(data.likeCount);
+
+					            }
+					            console.log("ajax 통신 성공");
+					        },
+					        error: function() {
+					            console.log("ajax 통신 실패");
+					        }
+					    });
+					}
+				 
+				 $(function(){
+					    // 댓글 조회하는 함수 호출
+					    selectReplyList();
+					});
+
+					function selectReplyList(){
+					    $.ajax({
+					        url: "rlist.fr",
+					        data: {
+					            bno: ${b.freeNo}
+					        },
+					        success: function(list){
+					            let str = "";
+					            for (reply of list){
+					                str += (
+					                    "<div class='row'>" +
+					                        "<div class='col-sm' style='display: flex; align-items: center;'>" +
+					                            "<i class='bi bi-person' style='font-size: 40px;'></i>" + "<span>" + reply.replyWriter + "</span>" +
+					                        "</div>" +
+					                        "<div class='col-md-8' style='display: flex; align-items: center;'>" + reply.replyContent + "</div>" +
+					                        "<div class='col-sm' style='display: flex; align-items: center;'>" + reply.replyCreateDate + "</div>" +
+					                    "</div>"
+					                );
+					            }
+
+					            //$("#replyArea tbody").html();
+					            document.querySelector("#replyAreaa").innerHTML = str;
+					            document.querySelector("#rcount").innerHTML = list.length;
+					        },
+					        error: function(){
+					            console.log("ajax통신 실패");
+					        }
+					    });
+					}
+
+				        //댓글 추가
+				     function addReply(){
+				            $.ajax({
+				                url: "rinsert.fr",
+				                data: {
+				                    rfreeNo: '${b.freeNo}',
+				                    replyWriter: '${loginUser.memNick}',
+				                    replyContent: $("#content").val()
+				                 
+				                },
+				                success: function(res){
+				                        //성공시 다시 그려주기
+				                    if (res === "success") {
+				                        selectReplyList();
+				                        $("#content").val("");
+				                    }
+				                },
+				                error: function(){
+				                    console.log("ajax통신 실패")
+				                }
+				            })
+				        }
+			  </script>
 </body>
 </html>

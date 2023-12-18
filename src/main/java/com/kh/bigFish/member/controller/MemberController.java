@@ -262,9 +262,11 @@ public class MemberController {
 		
 		Reservation rev = reservationService.getReservationService(revNo);
 		Store store = storeService.getStoreInfo(rev.getRstoreNo());
+		Ticket tic = storeService.getTicketInfo(rev.getRticketNo());
 		
 		model.addAttribute("rev",rev);
 		model.addAttribute("store",store);
+		model.addAttribute("tic",tic);
 		
 		return "member/myReservationDetail";
 	}

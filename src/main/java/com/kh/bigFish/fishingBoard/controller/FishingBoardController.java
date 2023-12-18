@@ -25,6 +25,7 @@ import com.kh.bigFish.common.template.Pagenation;
 import com.kh.bigFish.fishingBoard.model.service.FishingBoardService;
 import com.kh.bigFish.fishingBoard.model.vo.FishingBoard;
 import com.kh.bigFish.member.model.vo.Member;
+import com.kh.bigFish.reply.model.vo.Reply;
 
 @Controller
 public class FishingBoardController {
@@ -297,6 +298,30 @@ public class FishingBoardController {
 	public String ajaxTopBoardList() {
 		return new Gson().toJson(fishingBoardService.selectmainList());
 	}
+	
+	//댓글 파트
+			@ResponseBody
+			@RequestMapping(value="rlist.fi", produces="application/json; charset=UTF-8")
+			public String selectReplyList(int bno) {
+			
+				ArrayList<Reply> list = fishingBoardService.selectReplyList(bno);
+				System.out.println("여기까진됩니다.12342134"+list);
+				
+				return new Gson().toJson(list);
+			}
+			
+			@ResponseBody
+			@RequestMapping("rinsert.fi")
+			public String insertReply(Reply r) {
+				System.out.println("1234"+r);
+				int result = fishingBoardService.insertReply(r);
+				System.out.println(result);
+				if(result > 0) {
+					return "success";
+				} else {
+					return "fail";
+				}
+			}
 }
 
 

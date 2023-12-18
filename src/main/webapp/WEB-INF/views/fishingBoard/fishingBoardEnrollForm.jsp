@@ -134,7 +134,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 						<div>
 							<td id="content"></td>
 							<textarea id="summernote" name="fishingContent"
-								style="resize: none; margin-bottom: 20px; height: 100%;text-align: left; "></textarea>
+								style="resize: none; margin-bottom: 20px; height: 100%;text-align: left; " required></textarea>
 						</div>
 					</table>
 					<br>

@@ -24,17 +24,16 @@
  	</resultMap>
  
  	<insert id="insertReservation" parameterType="Reservation">
- 		INSERT INTO RESERVATION (rev_no, rmem_no, rstore_no, rticket_no, rev_date, rev_people, rev_start, rev_end, rev_status, rev_request, rev_name, rev_phone)
+ 		INSERT INTO RESERVATION (rev_no, rmem_no, rstore_no, rticket_no, rev_date, rev_people, rev_start, rev_end, rev_request, rev_name, rev_phone)
 		VALUES
 		(SEQ_REV_NO.NEXTVAL, 
-		#{rmemNo}, 
+		#{rmemNo},
 		#{rstoreNo},
 		#{rticketNo},
 		DEFAULT, 
 		#{revPeople}, 
 		TO_DATE(#{revStart}, 'YYYY-MM-DD HH24:MI'), 
 		TO_DATE(#{revEnd}, 'YYYY-MM-DD HH24:MI'), 
-		'N', 
 		#{revRequest}, 
 		#{revName}, 
 		#{revPhone})
@@ -68,7 +67,8 @@
 		FROM STORE s
 		LEFT JOIN RESERVATION r ON s.STORE_NO = r.RSTORE_NO
 		WHERE s.STORE_NO = #{rstoreNo}
-		AND r.REV_STATUS = 'Y'
+		AND (r.REV_STATUS = 'WAITREV'
+		OR r.REV_STATUS = 'OKREV')
 		AND (
 		    (#{revStart} &gt;= r.REV_START AND #{revStart} &lt; r.REV_END)
 		    OR (#{revEnd} &gt; r.REV_START AND #{revEnd} &lt;= r.REV_END)
@@ -87,9 +87,45 @@
  		REV_STATUS,
  		REV_REQUEST,
  		REV_NAME,
- 		REV_PHONE
+ 		REV_PHONE,
+ 		RTICKET_NO
  	FROM RESERVATION
  	WHERE REV_NO = #{revNo}
  	</select>
- 
+ 	
+ 	<select id="getMyStoreReservationList" resultMap="reservationResult">
+ 	 		SELECT R.REV_NO,
+ 			R.RMEM_NO,
+ 			R.RSTORE_NO,
+ 			R.REV_DATE,
+ 			R.REV_PEOPLE,
+ 			R.REV_START,
+ 			R.REV_END,
+ 			R.REV_STATUS,
+ 			R.REV_REQUEST,
+ 			R.REV_NAME,
+ 			R.REV_PHONE,
+ 			S.STORE_NAME,
+            T.TICKET_NAME,
+            T.TICKET_PRICE,
+            T.TICKET_TIME
+ 		FROM RESERVATION R
+ 		LEFT JOIN STORE S ON R.RSTORE_NO = S.STORE_NO
+ 		LEFT JOIN TICKET T ON R.RTICKET_NO = T.TICKET_NO
+ 		WHERE R.RSTORE_NO = #{rstoreNo} AND R.REV_START LIKE '%'||#{choiceDate}||'%'
+ 		ORDER BY R.REV_NO DESC
+ 	</select>
+ 	
+ 	<update id="okReservation">
+ 	UPDATE RESERVATION
+ 	SET REV_STATUS = 'OKREV'
+ 	WHERE REV_NO = #{revNo}
+ 	</update>
+ 	
+ 	<update id="cancelReservation">
+ 	UPDATE RESERVATION
+ 	SET REV_STATUS = 'CANCELREV'
+ 	WHERE REV_NO = #{revNo}
+ 	</update>
+ 	
  </mapper>

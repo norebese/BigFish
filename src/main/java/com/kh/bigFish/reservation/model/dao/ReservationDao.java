@@ -31,5 +31,17 @@ public class ReservationDao {
 	public Ticket selectedTicket(SqlSessionTemplate sqlSession, int ticketNo) {
 		return sqlSession.selectOne("storeMapper.selectedTicket", ticketNo);
 	}
+	
+	public ArrayList<Reservation> getMyStoreReservationList(SqlSessionTemplate sqlSession, Reservation r){
+		return (ArrayList)sqlSession.selectList("reservationMapper.getMyStoreReservationList",r);
+	}
+	
+	public int okReservation(SqlSessionTemplate sqlSession, int revNo) {
+		return sqlSession.update("reservationMapper.okReservation", revNo);
+	}
+	
+	public int cancelReservation(SqlSessionTemplate sqlSession, int revNo) {
+		return sqlSession.update("reservationMapper.cancelReservation",revNo);
+	}
 
 }

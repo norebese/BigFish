@@ -11,6 +11,7 @@ import com.kh.bigFish.announce.model.vo.Announce;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.fishingBoard.model.vo.FishingBoard;
+import com.kh.bigFish.reply.model.vo.Reply;
 
 @Repository
 public class FishingBoardDao {
@@ -88,6 +89,12 @@ public ArrayList<FishingBoard> selectSearchList(SqlSessionTemplate sqlSession, H
 
 public ArrayList<FishingBoard> selectmainList(SqlSessionTemplate sqlSession) {
 	return (ArrayList)sqlSession.selectList("fishingBoardMapper.selectmainList");
+}
+public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bno) {
+	return (ArrayList)sqlSession.selectList("replyMapper.selectfreeReplyList", bno);
+}
+public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+	return sqlSession.insert("replyMapper.insertfiReply", r);
 }
 
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
@@ -133,6 +134,12 @@
 		width: 100%;
 	}
 }
+
+.row iframe{
+	margin: 0px 61px; 
+	width: 85%;
+	height: 85%;
+}
 </style>
 <title>BIG FISH</title>
 <!-- 부트스트랩 css 사용 -->
@@ -143,6 +150,8 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+
+	
 <!-- CSS-->
 <link rel="stylesheet"
 	href="<%=contextPath%>/resources/css/freeBoardUpdateForm.css">
@@ -152,19 +161,26 @@
 	<jsp:include page="common/header.jsp" />
 	<br>
 
-
+	
 	<div class="header-box">
 		<div class="left_box"></div>
 		<div class="centerbox">
 			<div style="color: white;">
-				<h2>학습동영상</h2>
+				<h2>BIGFISH</h2>
 				<br>
-				<tr>
-					<td>낚시에 대한 새로운 지식을 배워보세요!</td>
-				</tr>
+				<c:choose>
+					<c:when test="${not empty loginUser }">
+						${loginUser.memNick}님 환영합니다.	
+					</c:when>
+					<c:otherwise>
+						로그인 후 이용 바랍니다.
+					</c:otherwise>
+				</c:choose>
+				<br>
+				<td>BIGFISH에서 많은 서비스를 이용해보세요!</td>
 			</div>
 			<div class="study-image" style="color: white;">
-				<img style="width: 150px;" src="resources/images/study.png">
+				<img style="width: 150px;" src="resources/images/mainfish.png">
 			</div>
 		</div>
 		<div class="right_box"></div>
@@ -244,17 +260,11 @@
 				style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
 				<h4>학습 동영상</h4>
 			</div>
-			<div class="container text-center">
-				<div>
-					<a href="detail.st?sno=100"><img
-						src="<%=contextPath%>/resources/images/fishingTip.png"
-						style="margin-right: 20px; max-width: calc(33.33% - 20px);"></a>
-					<a href="detail.st?sno=101"><img
-						src="<%=contextPath%>/resources/images/fishingPrepare.png"
-						style="margin-right: 20px; max-width: calc(33.33% - 20px);"></a>
-					<a href="detail.st?sno=108"><img
-						src="<%=contextPath%>/resources/images/fishingJJi.png"
-						style="max-width: calc(33.33% - 20px);"></a>
+			<div class="container text-center1" style="flex: 4; overflow: hidden;">
+				<div class="d-flex justify-content-between">
+					<div class="row" id="studyList">
+						
+					</div>
 				</div>
 			</div>
 			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
@@ -298,37 +308,8 @@
 			</div>
 			<div class="container text-center" style="flex: 4; overflow: hidden;">
 					<div class="d-flex justify-content-between">
-					<div class="row">
-						<div class="col-4">
-							<div style="height: 80%;">
-								<img src="<%=contextPath%>/resources/images/fishing.jpg"
-									alt="Your Image" style="max-width: 100%; height: 100%;">
-							</div>
-							<!-- p태그 부분: 높이의 20% -->
-							<div style="height: 20%;">
-								<p>제목부분</p>
-							</div>
-						</div>
-						<div class="col-4">
-							<div style="height: 80%;">
-								<img src="<%=contextPath%>/resources/images/fishing.jpg"
-									alt="Your Image" style="max-width: 100%; height: 100%;">
-							</div>
-							<!-- p태그 부분: 높이의 20% -->
-							<div style="height: 20%;">
-								<p>제목부분</p>
-							</div>
-						</div>
-						<div class="col-4">
-							<div style="height: 80%;">
-								<img src="<%=contextPath%>/resources/images/fishing.jpg"
-									alt="Your Image" style="max-width: 100%; height: 100%;">
-							</div>
-							<!-- p태그 부분: 높이의 20% -->
-							<div style="height: 20%;">
-								<p>제목부분</p>
-							</div>
-						</div>
+					<div class="row" id="freeBoardList" >
+						
 					</div>
 				</div>
 			</div>
@@ -343,6 +324,7 @@
 		<script>
 		$(function(){
 			topBoardList();
+			
 		})
 		
 		function topBoardList(){
@@ -366,15 +348,83 @@
 		        	'<a href="detail.fibo?bno='+rowData.fishingNo+'" class="col-4" style="text-decoration: none; color: black;">'+
 						'<div style="height: 80%;">'+
 							'<img src="<%=contextPath%>'+ rowData.changeName + 
-								'"alt="Your Image" style="width: 238px; height: 164px; object-fit: contain; cursor: pointer;">' +
+								'"alt="Your Image" style="width: 239px; height: 175.8px; object-fit: contain; cursor: pointer;">' +
 						'</div>'+
 						<!-- p태그 부분: 높이의 20% -->
 						'<div style="height: 20%;">'+
 							'<p>'+rowData.fishingTitle+'</p>'+
 						'</div>'+
+					'</a>'		
+		    }
+		}
+
+		$(function(){
+			studyBoardList();
+		})
+
+		function studyBoardList(){
+			$.ajax({
+				url: "mainList.st",
+				success: function(data){
+					console.log(data)
+					drawStudyRow(data)
+				},
+				error: function(){
+					console.log("ajax 실패")
+				}
+			})
+		}	
+		
+		function freeBoardList(){
+			$.ajax({
+				url: "mainList.fbo",
+				success: function(freedata){
+					console.log(freedata)
+					 drawFreeBoardRow(freedata)
+
+				},
+				error: function(){
+					console.log("ajax 실패")
+				}
+			})
+		}
+
+
+		function drawStudyRow(data) {
+			console.log(data)
+			for (let rowData of data) {
+				// 각각의 게시물을 추가하는 부분입니다.
+				document.getElementById("studyList").innerHTML +=
+					'<a href="detail.st?sno='+rowData.studyNo+'" class="col-4" style="text-decoration: none; color: black; margin-left: -6%">'+
+							 rowData.studyLink + 
+						'</div>'+
+						<!-- p태그 부분: 높이의 20% -->
+						'<div style="height: 20%;">'+
+							'<p style="margin-left:38%">'+rowData.studyTitle+'</p>'+
+						'</div>'+
+					'</a>'		
+					console.log(data)
+			}
+		}
+		
+		function drawFreeBoardRow(freedata) {
+			
+		    for (let rowData of freedata) {
+		        // 각각의 게시물을 추가하는 부분입니다.
+		        document.getElementById("freeBoardList").innerHTML +=
+		        	'<a href="detail.fbo?bno='+rowData.freeNo+'" class="col-4" style="text-decoration: none; color: black;">'+
+						'<div style="height: 80%;">'+
+							'<img src="'+ rowData.freeContent + 
+								'"alt="Your Image" style="width: 239px; height: 175.8px; object-fit: contain; cursor: pointer;">' +
+						'</div>'+
+						<!-- p태그 부분: 높이의 20% -->
+						'<div style="height: 20%;">'+
+							'<p>'+rowData.freeTitle+'</p>'+
+						'</div>'+
 					'</a>'
 						
 		    }
+
 		}
 	</script>
 

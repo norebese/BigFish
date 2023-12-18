@@ -7,6 +7,7 @@ import com.kh.bigFish.announce.model.vo.Announce;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.fishingBoard.model.vo.FishingBoard;
+import com.kh.bigFish.reply.model.vo.Reply;
 
 public interface FishingBoardService {
 
@@ -46,6 +47,11 @@ public interface FishingBoardService {
 
 	//최근작성된 board 3개 가져오기
 	ArrayList<FishingBoard> selectmainList();
+	
+	//댓글 리스트 조회
+			ArrayList<Reply> selectReplyList(int bno);
+			//댓글 작성
+			int insertReply(Reply r);
 
 
 

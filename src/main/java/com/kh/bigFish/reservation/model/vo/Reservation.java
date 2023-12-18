@@ -26,11 +26,12 @@ public class Reservation {
 	private String revStatus;
 	private String revRequest;
 	private String revName;
-	private int revPhone; 
+	private String revPhone; 
 	private String rstoreName;
 	private String rticketName;
 	private int rticketPrice;
 	private int rticketTime;
+	private String choiceDate;
 }
 
 

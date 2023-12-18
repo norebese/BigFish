@@ -50,5 +50,42 @@ const storeApi = {
                 console.log("ajax 데이터베이스 사업자 확인 실패");
             }
         })
+    },
+    getMyStoreReservationList : function(data,callback){
+        $.ajax({
+            url : "getMyStoreReservationList",
+            data : data,
+            contentType : "application/text; charset:UTF-8",
+            success : function(result){
+                callback(result)
+            },
+            error : function(){
+                console.log("ajax 날짜별 예약 불러오기 실패");
+            }
+        })
+    },
+    okReservation : function(data,callback){
+        $.ajax({
+            url : "okReservation",
+            data : data,
+            success : function(result){
+                callback(result);
+            },
+            error : function(){
+                console.log("ajax 예약 승인 실패");
+            }
+        })
+    },
+    cancelReservation : function(data,callback){
+        $.ajax({
+            url : "cancelReservation",
+            data : data,
+            success : function(result){
+                callback(result);
+            },
+            error : function(){
+                console.log("ajax 예약 취소 실패");
+            }
+        })
     }
 }

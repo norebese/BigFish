@@ -48,7 +48,7 @@
 					<c:when test="${store.storeStatus eq 'DeleteOpen'}">
 					</c:when>
 					<c:otherwise>
-						<button id="buttonSample1" onclick="showSample1()" style="width: 100%; border: none; background: rgb(59, 175, 252); " class="btn btn-secondary businessButton">${store.storeName }</button><br><br>
+						<button id="buttonSample1" onclick="showSample1('${store.storeNo}')" style="width: 100%; border: none; background: rgb(59, 175, 252); " class="btn btn-secondary businessButton">${store.storeName }</button><br><br>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
@@ -135,6 +135,7 @@
 			</div>
 
 			<div id="sample1Work" style="display: none; flex-direction: column;">
+				<input id="storeNoForReservation" type="hidden" value="1"> 
 				<div style="display: flex; flex-direction: row; justify-content: space-evenly;">
 					<table class="Calendar">
 						<thead>
@@ -160,13 +161,13 @@
 						</tbody>
 					</table>
 					<div style="display: flex; flex-direction: column; justify-content: center;">
-						<div style="display: flex; width: 100%; justify-content: space-evenly; flex-direction: row; align-items: center;">
+						<div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;">
 							<div style="display: flex; flex-direction: column; align-items: center;">
 								<img style="width: 100px; height: 100px;" src="resources/images/groupImg.png" alt="">
-								<p style="padding: 5px; background: rgb(59, 175, 252); color: white; border-radius: 8px;">총 예약</p>
+								<p style="padding: 5px; background: rgb(59, 175, 252); color: white; border-radius: 8px;">선택된 날짜 총 예약</p>
 							</div>
 							
-							<div style="font-size: 20px; font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;2건</div>
+							<div id="choiceDayAllRes" style="font-size: 20px; font-weight: bold;">0건</div>
 						</div>
 						
 
@@ -175,85 +176,12 @@
 				</div>
 				<div class="top-line" style="width: 100%;"></div>
 
-				<div>
-					<div class="card" style="margin-bottom: 30px;">
-						<div class="card-header" style="padding-bottom: 3px;">
-							<div style="display: flex; flex-direction: row; justify-content: space-between;">
-								<span style="font-weight: bold;">김예약</span>
-								<span style="font-size: 13px;">No. 12322</span>
-							</div>
-							<div style="display: flex; flex-direction: row; justify-content: space-between;">
-								<span style="font-size: 13px;">12월 9일(토) | 12:00</span>
-								<span>예약 신청</span>
-							</div>
-
+						<div id="myStoreReservationList">
+						<!-- js를 통해 생성-->
 						</div>
-						<div class="card-body">
-							<div style="display: flex; flex-direction: row; justify-content: space-between;">
-								<span>1시간 이용권 2매</span>
-								<span>48000원</span>
-							</div>
-
-							<div class="top-line" style="border-bottom: 1px solid rgb(204, 204, 204);  width: 100%;"></div>
-
-							<div>
-								요청 사항 : 아이가 둘 있어요.
-							</div>
-
-						</div>
-
-						<div class="card-footer" style="display: flex; justify-content: space-between;">
-							<span>
-								총합 : 48000원
-							</span>
-							<span>
-								<button class="btn btn-sm btn-primary">예약 승인</button>
-								<button class="btn btn-sm btn-danger">예약 취소</button>
-							</span>
-						</div>
-					  </div>
-				</div>
+					
 				
-				<div>
-					<div class="card" style="margin-bottom: 30px;">
-						<div class="card-header" style="padding-bottom: 3px;">
-							<div style="display: flex; flex-direction: row; justify-content: space-between;">
-								<span style="font-weight: bold;">이예약</span>
-								<span style="font-size: 13px;">No. 12321</span>
-							</div>
-							<div style="display: flex; flex-direction: row; justify-content: space-between;">
-								<span style="font-size: 13px;">12월 9일(토) | 18:00</span>
-								<span>예약 신청</span>
-							</div>
-
-						</div>
-						<div class="card-body">
-							<div style="display: flex; flex-direction: row; justify-content: space-between;">
-								<span>1시간 이용권 2매</span>
-								<span>48000원</span>
-							</div>
-
-							<div class="top-line" style="border-bottom: 1px solid rgb(204, 204, 204);  width: 100%;"></div>
-
-							<div>
-								요청 사항 : 주차 공간이 필요해요.
-							</div>
-
-						</div>
-
-						<div class="card-footer" style="display: flex; justify-content: space-between;">
-							<span>
-								총합 : 48000원
-							</span>
-							<span>
-								<button class="btn btn-sm btn-primary">예약 승인</button>
-								<button class="btn btn-sm btn-danger">예약 취소</button>
-							</span>
-						</div>
-					  </div>
-				</div>
-
-
+		
 			</div>
 
 

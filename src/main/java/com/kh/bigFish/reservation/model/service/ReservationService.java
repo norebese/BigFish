@@ -25,4 +25,13 @@ public interface ReservationService {
 	// 특정 예약 정보 가져오기
 	Reservation getReservationService(int revNo);
 	
+	// 사업장별 / 날짜별 예약 정보 불러오기
+	ArrayList<Reservation> getMyStoreReservationList(Reservation r);
+	
+	// 예약 승인 처리
+	int okReservation(int revNo);
+	
+	// 예약 취소 처리
+	int cancelReservation(int revNo);
+	
 }

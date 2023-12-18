@@ -16,6 +16,6 @@ public class StudyGood {
 	private int rmemNo;
 	private int rstudyNo;
 	private String studyGoodStatus;
-	
+	private int count;
 	
 }
