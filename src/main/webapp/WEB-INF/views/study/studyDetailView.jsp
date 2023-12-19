@@ -128,8 +128,8 @@
                     },
                     dataType: 'json', 
                     success: function(data) {   
-                        console.log(data.status);
-                            if(data.status === 'Y'){
+                        console.log(data.studyGoodStatus);
+                            if(data == 'Y'){
                                 likeImg.innerHTML = '<img src="<%=contextPath%>/resources/images/heart-filled.png">'
                                 whgdkdy.innerHTML = '<p>' + data.count + '</p>';
                             }else{
