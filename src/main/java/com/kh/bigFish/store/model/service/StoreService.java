@@ -86,6 +86,10 @@ public interface StoreService {
 	
 	Ticket getTicketInfo(int rticketNo);
 	
+	int updateAtt(Attachment a);
+	
+	ArrayList<Attachment> getStoreAttForUpdate(int rstoreNo);
+	
 }
 
 

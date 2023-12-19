@@ -200,6 +200,16 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.getTicketInfo(sqlSession, rticketNo);
 	}
 
+	@Override
+	public int updateAtt(Attachment a) {
+		return storeDao.updateAtt(sqlSession, a);
+	}
+
+	@Override
+	public ArrayList<Attachment> getStoreAttForUpdate(int rstoreNo) {
+		return storeDao.getStoreAttForUpdate(sqlSession, rstoreNo);
+	}
+
 
 	
 }

@@ -25,4 +25,5 @@ public class Reply {
 	private int rfishingNo;
 	private int rstudyNo;
 	private int rstoreNo;
+	private String memProfileImg;
 }

@@ -343,6 +343,7 @@ public class MemberController {
 			new File(session.getServletContext().getRealPath(memChangeName)).delete();
 			
 			System.out.println(loginUser.getMemChangeName());
+			session.setAttribute("loginUser", loginUser);
 			return loginUser.getMemChangeName();	
 		}else {
 			// 변경 실패
@@ -409,14 +410,16 @@ public class MemberController {
 			
 			Attachment att = new Attachment();
 			att.setOriginName(fi.getOriginalFilename());
+			att.setFileLevel(2);
 			att.setChangeName(changeName);
 			att.setFilePath(session.getServletContext().getRealPath("/resources/uploadFiles/"));
 			
 			attArray.add(att);
 		}
 		
+		attArray.get(0).setFileLevel(1);
 		
-		
+
 		
 		int memberResult = memberService.insertCompanyMember(m);
 		
