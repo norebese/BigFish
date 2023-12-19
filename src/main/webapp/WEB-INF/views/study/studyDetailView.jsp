@@ -130,10 +130,10 @@
                     success: function(data) {   
                         console.log(data.status);
                             if(data.status === 'Y'){
-                                likeImg.innerHTML = '<img src="<%=contextPath%>/resources/images/heart-filled.png">'
+                                likeImg.innerHTML = '<img src="/bigFish/resources/images/heart-filled.png">'
                                 whgdkdy.innerHTML = '<p>' + data.count + '</p>';
                             }else{
-                                likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-notfill.png">'
+                                likeImg.innerHTML='<img src="/bigFish/resources/images/heart-notfill.png">'
                                 whgdkdy.innerHTML = '<p>' + data.count + '</p>';
                             }
                             console.log("ajax 통신 성공");

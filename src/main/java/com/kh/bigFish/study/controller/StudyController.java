@@ -151,8 +151,9 @@ public class StudyController {
 		String status = (likeResult.getStudyGoodStatus().equals("N")) ? "Y" : "N";
 		
 		int studyUpdateLike = studyService.studyUpdateLike(sg, status);
-	    System.out.println("123412344321"+studyUpdateLike);
+	    System.out.println("1234"+studyUpdateLike);
 	    result.put("status", status);
+	    result.put("sg", sg);
 	    
 	    return result;
 	}
