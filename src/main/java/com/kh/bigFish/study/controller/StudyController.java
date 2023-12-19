@@ -137,11 +137,13 @@ public class StudyController {
 		
 		int studyUpdateLike = studyService.studyUpdateLike(sg, result);
 		
+
 		try {
 			response.getWriter().print(result);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 	
 	/*
