@@ -360,6 +360,7 @@
 
 		$(function(){
 			studyBoardList();
+			freeBoardList();
 		})
 
 		function studyBoardList(){

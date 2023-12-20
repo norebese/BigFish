@@ -185,14 +185,16 @@
  							ORIGIN_NAME,
  							CHANGE_NAME,
  							FILE_PATH,
- 							RSTORE_NO
+ 							RSTORE_NO,
+ 							FILE_LEVEL
  							)
  				VALUES(
  						SEQ_FILE_NO.NEXTVAL,
  						#{originName},
  						#{changeName},
  						#{filePath},
- 						SEQ_STORE_NO.CURRVAL
+ 						SEQ_STORE_NO.CURRVAL,
+ 						#{fileLevel}
  						)
  	</insert>
  	
@@ -358,9 +360,11 @@
 			STORE_KIND,
 			STORE_FISH_KIND,
 			BUSINESS_NO,
-			STORE_STATUS
+			STORE_STATUS,
+			CHANGE_NAME
 		FROM STORE
-		WHERE RMEM_NO = #{memNo}	
+		LEFT JOIN ATTACHMENT ON STORE_NO = RSTORE_NO
+		WHERE RMEM_NO = #{memNo} AND FILE_LEVEL = 1	
 	</select>
 	
 	<select id="ajaxSeaStoreCountFA" resultType="_int">
@@ -581,6 +585,23 @@
 	WHERE RSTORE_NO = #{rstoreNo} AND ORIGIN_NAME LIKE '%.%'
 	</select>
 	
+	<select id="getStoreAttForUpdate" resultMap="attachmentResult">
+	SELECT FILE_NO,
+			ORIGIN_NAME,
+			CHANGE_NAME,
+			FILE_PATH,
+			UPLOAD_DATE,
+			FILE_LEVEL,
+			FILE_STATUS,
+			RFISH_NO,
+			RPRODUCT_NO,
+			RFISHING_NO,
+			RFREE_NO,
+			RSTORE_NO
+	FROM ATTACHMENT
+	WHERE RSTORE_NO = #{rstoreNo}
+	</select>
+	
 	<update id="updateStore">
 	UPDATE STORE
 	SET STORE_NAME = #{storeName},
@@ -598,6 +619,16 @@
 		STORE_FISH_KIND = #{storeFishKind},
 		MAX_MEMBER = #{maxMember}
 	WHERE STORE_NO = #{storeNo}
+	</update>
+	
+	<update id="updateAtt">
+	UPDATE ATTACHMENT
+	SET ORIGIN_NAME = #{originName},
+		CHANGE_NAME = #{changeName},
+		UPLOAD_DATE = SYSDATE,
+		FILE_LEVEL = #{fileLevel}
+	WHERE RSTORE_NO = #{rstoreNo} AND FILE_NO = #{fileNo}
+		
 	</update>
 	
 	<update id="updateStoreStatus">
