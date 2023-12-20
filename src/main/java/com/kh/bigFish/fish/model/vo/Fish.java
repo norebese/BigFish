@@ -14,4 +14,5 @@ import lombok.ToString;
 public class Fish {
 	private int fishNo;
 	private String fishName;
+	private String fishContent;
 }

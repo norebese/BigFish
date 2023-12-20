@@ -9,33 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Big Fish</title>
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/fishInfo.css?ver=1">
 </head>
-<style>
-.fishInfo-title{
-	color: rgb(59, 175, 252);
-    width: 90%;
-    margin: 10px auto;
-    font-weight: bolder;
-}
-.border-line{
-	border-bottom: 2px solid rgb(204, 204, 204);
-    width: 90%;
-    margin: 10px auto;		
-}
-.pagingArea{
-    display: flex;
-    width: 90%;
-    justify-content: center;
-    align-items: center;
-}
-.nav-area{
-	display: flex;
-	width: 90%;
-	justify-content: center;
-	align-items:center;
-	flex-direction: column;
-}
-</style>
 <body>
 <jsp:include page="../common/header.jsp"/>
 	<br><br><br><br><br><br>
@@ -53,18 +28,34 @@
 				    <a class="nav-link" data-bs-toggle="tab" href="#menu1">바다</a>
 				  </li>
 				</ul>
-			
+				
+				<br>
+				
 				<!-- Tab panes -->
 				<div class="tab-content">
 				  <div class="tab-pane container active" id="home">
-				  	민물고기 어쩌구저쩌구 저쩌구 저쩌구 
+				  	<c:forEach var="f" items="${list}">
+						<div class="name-section">
+					  		<img src="resources/images/bungFish.jpg" style="width: 250px; height: 250px;" />
+				  			<div class="tag-section">
+				  				<p class="fish-name">${f.fishName}</p>
+				  				<a class="fish-tag" href="">자세히보기...</a>
+				  			</div>
+					  	</div>
+					</c:forEach>
 				  </div>
+				
 				  <div class="tab-pane container fade" id="menu1">
-				  	바다 물고기 어쩌구저쩌구 저쩌구 저쩌구 
+					바다물고기....
 				  </div>
+				  
+				 </div>
+				   
 				</div>
-			</div>
 			
+			<div class="fishInfo-create-btn">
+				<button class="btn btn-primary" onclick="location.href='fishInEnroll.fi'">작성하기</button>	
+			</div>
 			<br><br><br><br><br>
 			
 		 <div id="pagingArea" class="pagingArea">
@@ -75,12 +66,12 @@
 	                   		<li class="page-item disabled"><a class="page-link">이전</a></li>
 	                   	</c:when>
 	                   	<c:otherwise>
-	                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+	                   		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ pi.currentPage - 1 }">Previous</a></li>
 	                   	</c:otherwise>
 					</c:choose>
 	
 					<c:forEach var="p" begin="${pi.startPage}" end="${ pi.endPage }" >
-	                  		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ p }">${ p }</a></li>  
+	                  		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ p }">${ p }</a></li>  
 	                   </c:forEach>
 	                   
 	                   <c:choose>
@@ -88,13 +79,48 @@
 	                   		<li class="page-item disabled"><a class="page-link">다음</a></li>
 	                   	</c:when>
 	                   	<c:otherwise>
-	                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage + 1 }">Next</a></li>
+	                   		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ pi.currentPage + 1 }">Next</a></li>
 	                   	</c:otherwise>
 					</c:choose>
 	                
 			</ul>
 		</div>
-	
+		
+		
+		<script>
+			const init = function(){
+					const sea = document.getElementById("menu1");
+					sea.onclick = function(){
+						$.ajax({
+							url:"fishInfo.fi",	
+							data: {
+								location: document.getElementById('location').value
+							},
+							success: function(){
+								console.log(data);
+								drawSea(data);
+							},
+							error: function(){
+								console.log("fishInfo.fi ajax 실패")
+							}
+						})
+					}
+			}
+			
+			const drawSea = function(data){
+				const itemArr = data.response.body.items;
+				let str = "";
+				for(let i in itemArr){
+					let item = itemArr[i];
+					
+					str += '<tr>'
+						+  '<td>' + item.mfKorName + '</td>'
+						+  '</tr>'
+				}
+				
+				document.querySelector("talbe > tbody").innerHTML = str;
+			}
+		</script>
 	
 	<br><br><br><br><br><br>
 <jsp:include page="../common/footer.jsp"/>

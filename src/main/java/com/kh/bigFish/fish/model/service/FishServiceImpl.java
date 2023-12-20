@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.fish.model.dao.FishDao;
 import com.kh.bigFish.fish.model.vo.Fish;
@@ -29,4 +30,8 @@ public class FishServiceImpl implements FishService {
 		return fishDao.selectList(sqlSession, pi);
 	}
 
+	@Override
+	public int insertFishInfo(Fish f) {
+		return fishDao.insertFishInfo(sqlSession, f);
+	}
 }

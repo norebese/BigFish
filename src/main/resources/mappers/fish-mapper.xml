@@ -6,7 +6,22 @@
 	<resultMap type="Fish" id="fishResult">
  		<result column="FISH_NO" property="fishNo" />
  		<result column="FISH_NAME" property="fishName" />
+ 		<result column="FISH_CONTENT" property="fishContent" />
  	</resultMap>
+ 	
+ 	<resultMap type="Attachment" id="AttachmentResult">
+		<result column="FILE_NO" property="fileNo" />
+		<result column="ORIGIN_NAME" property="originName" />
+		<result column="CHANGE_NAME" property="changeName" />
+		<result column="FILE_PATH" property="filePath" />
+		<result column="UPLOAD_DATE" property="uploadDate" />
+		<result column="FILE_LEVEL" property="fileLevel" />
+		<result column="FILE_STATUS" property="fileStatus" />
+		<result column="RFISH_NO" property="rfishNo" />
+		<result column="RPRODUCT_NO" property="rproductNo" />
+		<result column="RFISHING_NO" property="rfishingNo" />
+		<result column="RSTORE_NO" property="rstoreNo" />
+	</resultMap>
  	
  	<select id="selectListCount" resultType="_int">
  		SELECT COUNT (*)
@@ -15,7 +30,22 @@
  	
  	<select id="selectList" resultMap="fishResult">
  		SELECT *
- 		FROM FISH
- 		ORDER BY FISH_NO DESC
+ 			FROM FISH
+ 			ORDER BY FISH_NO DESC
  	</select>
+ 	
+ 	<!-- 게시글 작성 쿼리문 -->
+	<insert id="insertfishingBoard">
+		INSERT INTO FISH (
+							FISH_NO,
+							FISH_NAME,
+							FISH_CONTENT
+		)
+		VALUES (
+							SEQ_FISH_NO.NEXTVAL,
+							#{fishName},
+							#{fishContent)
+		)
+	</insert>
+	
 </mapper>

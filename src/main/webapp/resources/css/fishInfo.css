@@ -1,0 +1,61 @@
+.fishInfo-title{
+	color: rgb(59, 175, 252);
+    width: 90%;
+    margin: 10px auto;
+    font-weight: bolder;
+}
+.border-line{
+	border-bottom: 2px solid rgb(204, 204, 204);
+    width: 90%;
+    margin: 10px auto;		
+}
+.pagingArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-area{
+	display: flex;
+	justify-content: center;
+	align-items:center;
+	flex-direction: column;
+	text-align: center;
+}
+.nav-item{
+	width: 250px;
+	font-weight: bold;
+	font-size:25px;
+}
+.fish-name{
+    font-weight: bold;
+}
+.fish-tag{
+	text-decoration-line: none;
+	font-size:15px;
+}
+.name-section{
+	display: flex;
+    width: 450px;
+    justify-content: space-between;
+}
+.tag-section{
+	display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 150px;
+}
+.tab-content{
+	width: auto;
+    display: flex;
+}
+#home{
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: auto;
+}
+.fishInfo-create-btn{
+	width: 90%;
+    display: flex;
+    flex-direction: row-reverse;
+}

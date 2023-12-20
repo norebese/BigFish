@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.fish.model.vo.Fish;
 
@@ -22,5 +23,10 @@ public class FishDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		return (ArrayList)sqlSession.selectList("fishMapper.selectList", null, rowBounds);
-	} 
+	}
+	
+	public int insertFishInfo(SqlSessionTemplate sqlSession, Fish f) {
+		return sqlSession.insert("fishMapper.insertFishInfo", f);
+	}
+	
 }
