@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Big Fish</title>
-<link rel="stylesheet" href="<%=contextPath%>/resources/css/fishInfo.css?ver=1">
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/fishInfoSea.css?ver=1">
 <style>
 .fish-type-btn{
 	width: 90%;
@@ -71,30 +71,30 @@
 			<br>
 			
 		 <div id="pagingArea" class="pagingArea">
-	     	<ul class="pagination">
-	                
-	               	<c:choose>
-	               		<c:when test="${ pi.currentPage eq 1 }">
-	                   		<li class="page-item disabled"><a class="page-link">이전</a></li>
-	                   	</c:when>
-	                   	<c:otherwise>
-	                   		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ pi.currentPage - 1 }">이전</a></li>
-	                   	</c:otherwise>
-					</c:choose>
-	
-					<c:forEach var="p" begin="${pi.startPage}" end="${ pi.endPage }" >
-	                  		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ p }">${ p }</a></li>  
-	                   </c:forEach>
-	                   
-	                   <c:choose>
-	               		<c:when test="${ pi.currentPage eq pi.maxPage }">
-	                   		<li class="page-item disabled"><a class="page-link">다음</a></li>
-	                   	</c:when>
-	                   	<c:otherwise>
-	                   		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ pi.currentPage + 1 }">다음</a></li>
-	                   	</c:otherwise>
-					</c:choose>
-	       
+     		<ul class="pagination">
+                
+               	<c:choose>
+               		<c:when test="${ pi.currentPage eq 1 }">
+                   		<li class="page-item disabled"><a class="page-link">이전</a></li>
+                   	</c:when>
+                   	<c:otherwise>
+                   		<li class="page-item"><a class="page-link" href="fishInfoSea.fi?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+                   	</c:otherwise>
+				</c:choose>
+
+				<c:forEach var="p" begin="${pi.startPage}" end="${ pi.endPage }" >
+                  		<li class="page-item"><a class="page-link" href="fishInfoSea.fi?cpage=${ p }">${ p }</a></li>  
+                   </c:forEach>
+                   
+                   <c:choose>
+               		<c:when test="${ pi.currentPage eq pi.maxPage }">
+                   		<li class="page-item disabled"><a class="page-link">다음</a></li>
+                   	</c:when>
+                   	<c:otherwise>
+                   		<li class="page-item"><a class="page-link" href="fishInfoSea.fi?cpage=${ pi.currentPage + 1 }">Next</a></li>
+                   	</c:otherwise>
+				</c:choose>
+                
 			</ul>
 		</div>
 		

@@ -15,4 +15,7 @@ public class Fish {
 	private int fishNo;
 	private String fishName;
 	private String fishContent;
+	private int fishCount;
+	private String fishStatus;
+	private String fishType;
 }

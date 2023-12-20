@@ -59,7 +59,7 @@
                    		<li class="page-item disabled"><a class="page-link">이전</a></li>
                    	</c:when>
                    	<c:otherwise>
-                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage - 1 }">이전</a></li>
                    	</c:otherwise>
 				</c:choose>
 
@@ -72,7 +72,7 @@
                    		<li class="page-item disabled"><a class="page-link">다음</a></li>
                    	</c:when>
                    	<c:otherwise>
-                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage + 1 }">Next</a></li>
+                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage + 1 }">다음</a></li>
                    	</c:otherwise>
 				</c:choose>
                 

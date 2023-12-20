@@ -7,6 +7,9 @@
  		<result column="FISH_NO" property="fishNo" />
  		<result column="FISH_NAME" property="fishName" />
  		<result column="FISH_CONTENT" property="fishContent" />
+ 		<result column="FISH_COUNT" property="fishCount" />
+ 		<result column="FISH_STATUS" property="fishStatus" />
+ 		<result column="FISH_TYPE" property="fishType" />
  	</resultMap>
  	
  	<resultMap type="Attachment" id="AttachmentResult">
@@ -23,29 +26,77 @@
 		<result column="RSTORE_NO" property="rstoreNo" />
 	</resultMap>
  	
- 	<select id="selectListCount" resultType="_int">
+ 	<select id="selectFreshListCount" resultType="_int">
  		SELECT COUNT (*)
  			FROM FISH
+ 			WHERE FISH_TYPE= 'FRESH'
+ 			AND FISH_STATUS= 'Y'
  	</select>
  	
- 	<select id="selectList" resultMap="fishResult">
+ 	<select id="selectFreshList" resultMap="fishResult">
  		SELECT *
  			FROM FISH
- 			ORDER BY FISH_NO DESC
+ 			WHERE FISH_TYPE = 'FRESH'
+ 			AND FISH_STATUS= 'Y'
+ 			ORDER BY FISH_NO ASC
  	</select>
  	
- 	<!-- 게시글 작성 쿼리문 -->
-	<insert id="insertfishingBoard">
+ 	<select id="selectSeaListCount" resultType="_int">
+ 		SELECT COUNT (*)
+ 			FROM FISH
+ 			WHERE FISH_TYPE= 'SEA'
+ 			AND FISH_STATUS= 'Y'
+ 	</select>
+ 	
+ 	<select id="selectSeaList" resultMap="fishResult">
+ 		SELECT *
+ 			FROM FISH
+ 			WHERE FISH_TYPE = 'SEA'
+ 			AND FISH_STATUS= 'Y'
+ 			ORDER BY FISH_NO ASC
+ 	</select>
+ 	
+	<insert id="insertFishInfo">
 		INSERT INTO FISH (
 							FISH_NO,
 							FISH_NAME,
-							FISH_CONTENT
+							FISH_CONTENT,
+							FISH_TYPE
 		)
 		VALUES (
 							SEQ_FISH_NO.NEXTVAL,
 							#{fishName},
-							#{fishContent)
+							#{fishContent},
+							#{fishType}
 		)
 	</insert>
+	
+	<update id="increaseCount">
+ 		UPDATE FISH
+ 		   SET FISH_COUNT = FISH_COUNT + 1
+ 		 WHERE FISH_NO = #{fishNo}
+ 		   AND FISH_STATUS = 'Y'
+ 	</update>
+ 	
+ 	<select id="selectFish" resultMap="fishResult">
+ 		SELECT *
+ 		  FROM FISH
+ 		 WHERE FISH_STATUS = 'Y'
+ 		   AND FISH_NO = #{fishNo}
+ 	</select>
+ 	
+ 	<select id="selectFishImageList" resultMap="fishResult">
+ 		SELECT *
+ 		FROM (
+ 			SELECT
+ 				FISH_NO,
+ 				FISH_NAME,
+ 				COALESCE(NULLIF(REGEXP_SUBSTR(FISH_CONTENT, '/bigFish/resources/uploadFiles/[^"]+', 1, 1), ''), '/bigFish/resources/images/1701241622009.png') AS FISH_CONTENT,
+				FISH_STATUS
+			FROM FISH
+			ORDER BY FISH_NO ASC	 		
+ 		)
+ 		WHERE ROWNUM &lt; = 3		
+ 	</select>
 	
 </mapper>

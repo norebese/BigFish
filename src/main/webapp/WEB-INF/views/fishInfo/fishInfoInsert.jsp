@@ -60,8 +60,13 @@
 		<div class="insert-area">
 			<div class="input-area">
 				<input type="text" name="fishName" style="width:350px;" required placeholder="물고기 이름 입력해주세요." /> <br>
+				<select name="fishType">
+					<option value="FRESH">민물</option>
+					<option value="SEA">바다</option>
+				</select>
+				<br>
 				<input type="hidden" value="" name="deleteImgs" />
-				<textarea id="summernote"  class="" name="fishContent" placeholder="내용을 입력해주세요."></textarea> <br>
+				<textarea id="summernote"  class="" name="fishContent"></textarea> <br>
 			</div>
 		</div>
 		<div class="fishBtn-area">
