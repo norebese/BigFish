@@ -3,7 +3,10 @@ package com.kh.bigFish.fish.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,24 +35,35 @@ public class FishController {
 			ModelAndView mv) {
 		
 		PageInfo pi = Pagenation.getPageInfo(fishService.selectFreshListCount(), currentPage, 10, 6);
-		
+		ArrayList<Fish> fishList = fishService.selectFreshList(pi);
+
+		for (Fish f : fishList) {
+			String imgPaths = ImagePathFromContent(f.getFishContent());
+			f.setFishTitleImage(imgPaths);
+		}
 			mv.addObject("pi",pi)
-			  .addObject("list", fishService.selectFreshList(pi))
+			  .addObject("list", fishList)
 			  .setViewName("fishInfo/fishInfo");
 		
 		return mv;
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="fishInfoSea.fi")
 	public ModelAndView fishInfoSeaList(@RequestParam(value="cpage", defaultValue="1") int currentPage, 
 			ModelAndView mv) {
 		
 		PageInfo pi = Pagenation.getPageInfo(fishService.selectSeaListCount(), currentPage, 10, 6);
+		ArrayList<Fish> fishList = fishService.selectSeaList(pi);
+		
+		for (Fish f : fishList) {
+			String imgPaths = ImagePathFromContent(f.getFishContent());
+			f.setFishTitleImage(imgPaths);
+			
+		}
 		
 			mv.addObject("pi",pi)
-			  .addObject("list", fishService.selectSeaList(pi))
-			  .setViewName("fishInfo/fishInfo");
+			  .addObject("list", fishList)
+			  .setViewName("fishInfo/fishInfoSea");
 		
 		return mv;
 	 }
@@ -131,9 +145,19 @@ public class FishController {
 		
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="fishImageList.fi", produces="application/json; charset=UTF-8")
-	public String ajaxfreeBoardList() {
-		return new Gson().toJson(fishService.selectFishImageList());
-	}
+	public static String ImagePathFromContent(String fishContent) {
+		
+	    int startIndex = fishContent.indexOf("<img");
+	    
+	    if (startIndex != -1) {
+	        int srcIndex = fishContent.indexOf("src=", startIndex);
+	        int startQuoteIndex = fishContent.indexOf("\"", srcIndex);
+	        int endQuoteIndex = fishContent.indexOf("\"", startQuoteIndex + 1);
+	        String imgPath = fishContent.substring(startQuoteIndex + 9, endQuoteIndex);
+	        return imgPath;
+	    }
+	    return null;
+	} 
+	
+
 }

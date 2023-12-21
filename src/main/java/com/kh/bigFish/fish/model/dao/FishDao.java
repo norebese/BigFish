@@ -50,8 +50,13 @@ public class FishDao {
 		return sqlSession.selectOne("fishMapper.selectFish", fishNo);
 	}
 	
-	public ArrayList<Fish> selectFishImageList(SqlSessionTemplate sqlSession){
-		ArrayList<Fish>  arr =(ArrayList)sqlSession.selectList("fishMapper.selectFishImageList");
+	public ArrayList<Fish> selectFreshFishImageList(SqlSessionTemplate sqlSession){
+		ArrayList<Fish>  arr =(ArrayList)sqlSession.selectList("fishMapper.selectFreshFishImageList");
+		return arr;
+	}
+	
+	public ArrayList<Fish> selectSeaFishImageList(SqlSessionTemplate sqlSession){
+		ArrayList<Fish>  arr =(ArrayList)sqlSession.selectList("fishMapper.selectSeaFishImageList");
 		return arr;
 	}
 	

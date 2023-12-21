@@ -85,18 +85,5 @@
  		   AND FISH_NO = #{fishNo}
  	</select>
  	
- 	<select id="selectFishImageList" resultMap="fishResult">
- 		SELECT *
- 		FROM (
- 			SELECT
- 				FISH_NO,
- 				FISH_NAME,
- 				COALESCE(NULLIF(REGEXP_SUBSTR(FISH_CONTENT, '/bigFish/resources/uploadFiles/[^"]+', 1, 1), ''), '/bigFish/resources/images/1701241622009.png') AS FISH_CONTENT,
-				FISH_STATUS
-			FROM FISH
-			ORDER BY FISH_NO ASC	 		
- 		)
- 		WHERE ROWNUM &lt; = 3		
- 	</select>
 	
 </mapper>

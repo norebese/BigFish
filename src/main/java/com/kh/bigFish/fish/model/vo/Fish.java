@@ -18,4 +18,5 @@ public class Fish {
 	private int fishCount;
 	private String fishStatus;
 	private String fishType;
+	private String fishTitleImage;
 }

@@ -47,11 +47,8 @@
 					<div class="tab-content">
 					  <div class="tab-pane container active" id="home">
 						<c:forEach var="f" items="${list}">  
-					        <div class="name-section">
-					   		<img src="<%=contextPath%>/resources/images/1701241621969.png" style="width: 150px; height:150px;" />
-					            <div id="fishImageList">
-					                
-					            </div>
+							<div class="name-section">
+					   			<img src="<%=contextPath%>${f.fishTitleImage}" style="width: 150px; height:150px;" />
 					            <div class="tag-section">
 					                <p class="fish-name">${f.fishName}</p>
 					                <a class="fish-tag" href="fishInfoDetail.fi?fno=${f.fishNo}">자세히보기...</a>
@@ -70,63 +67,34 @@
 		</c:if>
 			<br>
 			
-		 <div id="pagingArea" class="pagingArea">
-	     	<ul class="pagination">
-	                
-	               	<c:choose>
-	               		<c:when test="${ pi.currentPage eq 1 }">
-	                   		<li class="page-item disabled"><a class="page-link">이전</a></li>
-	                   	</c:when>
-	                   	<c:otherwise>
-	                   		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ pi.currentPage - 1 }">이전</a></li>
-	                   	</c:otherwise>
-					</c:choose>
-	
-					<c:forEach var="p" begin="${pi.startPage}" end="${ pi.endPage }" >
-	                  		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ p }">${ p }</a></li>  
-	                   </c:forEach>
-	                   
-	                   <c:choose>
-	               		<c:when test="${ pi.currentPage eq pi.maxPage }">
-	                   		<li class="page-item disabled"><a class="page-link">다음</a></li>
-	                   	</c:when>
-	                   	<c:otherwise>
-	                   		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ pi.currentPage + 1 }">다음</a></li>
-	                   	</c:otherwise>
-					</c:choose>
-	       
+		<div id="pagingArea" class="pagingArea">
+     		<ul class="pagination">
+                
+               	<c:choose>
+               		<c:when test="${ pi.currentPage eq 1 }">
+                   		<li class="page-item disabled"><a class="page-link">이전</a></li>
+                   	</c:when>
+                   	<c:otherwise>
+                   		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ pi.currentPage - 1 }">이전</a></li>
+                   	</c:otherwise>
+				</c:choose>
+
+				<c:forEach var="p" begin="${pi.startPage}" end="${ pi.endPage }" >
+                  		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ p }">${ p }</a></li>  
+                   </c:forEach>
+                   
+                   <c:choose>
+               		<c:when test="${ pi.currentPage eq pi.maxPage }">
+                   		<li class="page-item disabled"><a class="page-link">다음</a></li>
+                   	</c:when>
+                   	<c:otherwise>
+                   		<li class="page-item"><a class="page-link" href="fishInfo.fi?cpage=${ pi.currentPage + 1 }">다음</a></li>
+                   	</c:otherwise>
+				</c:choose>
+                
 			</ul>
 		</div>
 		
-		
-		<script>
-		
-			$(function(){
-				fishImageList();
-			});
-			
-			function fishImageList(){
-				$.ajax({
-					url: "fishImageList.fi",
-					success: function(data){
-						console.log(data)
-						drawImageList(data)
-					},
-					error: function(){
-						console.log("ajax 실패")
-					}
-				});
-			};
-			
-			function drawImageList(data) {
-				console.log(data)
-				for (let rowData of data){
-					document.getElementById("fishImageList").innerHTML += 
-						'<a href=""'
-				};
-			};
-			
-		</script>
 	
 	<br><br><br><br><br><br>
 <jsp:include page="../common/footer.jsp"/>

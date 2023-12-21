@@ -21,5 +21,4 @@ public interface FishService {
 	
 	Fish selectFish(int fishNo);
 	
-	ArrayList<Fish> selectFishImageList();
 }

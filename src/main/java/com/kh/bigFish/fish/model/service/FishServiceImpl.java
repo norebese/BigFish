@@ -56,9 +56,4 @@ public class FishServiceImpl implements FishService {
 		return fishDao.selectFish(sqlSession, fishNo);
 	}
 
-	@Override
-	public ArrayList<Fish> selectFishImageList() {
-		ArrayList<Fish> arr = fishDao.selectFishImageList(sqlSession);
-		return arr;
-	}
 }
