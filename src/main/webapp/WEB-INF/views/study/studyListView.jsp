@@ -46,7 +46,7 @@
             <h3 align="left" style="font-weight: bolder; color: rgb(59, 175, 252); margin-left: 5px;">학습동영상</h3>
 
             <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
-            <c:if test="${not empty loginUser }">
+            <c:if test="${studyGoodStatus.studyGoodStatus eq 'Y'}">
                 <button class="btn" onclick="location.href='enrollForm.st' " style="background-color: rgb(52, 152, 219); color: white; float:right;">글쓰기</button>
                 <br><br>
             </c:if>

@@ -44,7 +44,7 @@
 		RMEM_NO
 		)
 		VALUES (
-		SEQ_FISH_NO.NEXTVAL,
+		SEQ_FISHING_NO.NEXTVAL,
 		#{fishingTitle},
 		#{fishingWriter},
 		#{fishingContent},
@@ -66,7 +66,7 @@
 
 		,#{originName}
 		,#{changeName}
-		,SEQ_FISH_NO.CURRVAL
+		,SEQ_FISHING_NO.CURRVAL
 		)
 	</insert>
 	<!-- 게시글의 총 갯수 조회하는 쿼리 -->

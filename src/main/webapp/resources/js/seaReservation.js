@@ -31,7 +31,7 @@
         buttonElement7.addEventListener('mouseover', function() {
         imageElement.src = 'resources/images/level01_9.png';
         });
-
+		
         // 마우스 아웃 이벤트 리스너 추가 (다시 초기 이미지로 변경)
         buttonElement1.addEventListener('mouseout', function() {
         // 이미지의 src 속성 초기 이미지로 변경
@@ -67,6 +67,8 @@
             document.querySelector('.map-area8').classList.add('on');
             document.querySelector('.map-area1').classList.remove('on');
         });
+        
+        
 
         let prevButtons = document.querySelectorAll('.prev-btn');
         // 이전으로 가기 버튼 클릭 이벤트 리스너 추가
@@ -154,3 +156,348 @@ document.getElementById("sortStore").addEventListener("change", function() {
     let selectedOption = this.value;
     storeKindFilter(selectedOption);
   });
+  
+function updateFishKindList(date){
+	let divToUpdate = $('#fish-group');
+	let htmlContent = '';
+	
+	$.each(date, function (index, fish) {
+        htmlContent += `<li onclick="showFish(`+"'"+fish.key+"'"+`)" class="list-group-item d-flex justify-content-between align-items-center">` +
+            fish.key + '<span class="badge bg-primary rounded-pill">' + fish.value + '</span></li>';
+    });
+    divToUpdate.html(htmlContent);
+}
+
+function selectedSea(ways){
+console.log(ways);
+	let newSeaName;
+	if(ways == '12A20101'){
+		newSeaName = "인천,경기 북부 앞바다"
+	}else if(ways == '12A20102'){
+		newSeaName = "인천,경기 남부 앞바다"
+	}else if(ways == '12A20103'){
+		newSeaName = "충남 북부 앞바다"
+	}else if(ways == '12A20104'){
+		newSeaName = "충남 남부 앞바다"
+	}else if(ways == '22A30101'){
+		newSeaName = "전북 북부 앞바다"
+	}else if(ways == '22A30102'){
+		newSeaName = "전북 남부 앞바다"
+	}else if(ways == '22A30103'){
+		newSeaName = "전남 북부 서해 앞바다"
+	}else if(ways == '22A30104'){
+		newSeaName = "전남 중부 서해 앞바다"
+	}else if(ways == '22A30105'){
+		newSeaName = "전남 남부 서해 앞바다"
+	}else if(ways == '12B10101'){
+		newSeaName = "전남 서부 남해 앞바다"
+	}else if(ways == '12B10102'){
+		newSeaName = "전남 동부 남해 앞바다"
+	}else if(ways == '12B10302'){
+		newSeaName = "제주도 북부 앞바다"
+	}else if(ways == '12B10301'){
+		newSeaName = "제주도 동부 앞바다"
+	}else if(ways == '12B10304'){
+		newSeaName = "제주도 서부 앞바다"
+	}else if(ways == '12B10303'){
+		newSeaName = "제주도 남부 앞바다"
+	}else if(ways == '12B20103'){
+		newSeaName = "부산 앞바다"
+	}else if(ways == '12B20104'){
+		newSeaName = "거제시 동부 앞바다"
+	}else if(ways == '12B20101'){
+		newSeaName = "경남 서부 남해 앞바다"
+	}else if(ways == '12C10103'){
+		newSeaName = "경북 북부 앞바다"
+	}else if(ways == '12C10102'){
+		newSeaName = "경북 남부 앞바다"
+	}else if(ways == '12C10101'){
+		newSeaName = "울산 앞바다"
+	}else if(ways == '12C20103'){
+		newSeaName = "강원 북부 앞바다"
+	}else if(ways == '12C20102'){
+		newSeaName = "강원 중부 앞바다"
+	}else if(ways == '12C20101'){
+		newSeaName = "강원 남부 앞바다"
+	}
+
+
+	document.getElementById("seaName").innerText = newSeaName;
+}
+
+let sPage;
+let city1 = ''; let city2 = ''; let city3 = ''; let city4 = ''; let city5 = ''; let city6 = '';
+	function seaAreaFilter(param1, param2, param3, param4, param5, param6, ways){
+		sPage = 1;
+		const sendData = { param1: param1,
+	                    	param2: param2,
+	                    	param3: param3,
+	                    	param4: param4,
+	                    	param5: param5,
+	                    	param6: param6
+	                    };
+		storeApi.ajaxSeaAreaFilter(sendData,function(data){
+			seaWeather(ways);
+        	selectedSea(ways);
+        	updateFishKindList(data.fishKindList);
+        	if (data.list.length === 0) {
+        		if(document.getElementById("more") != null){
+        			document.getElementById("more").style.display = "none";
+        		}
+            	emptyResult();
+            	if(document.getElementById("moreA") != null){
+        			document.getElementById("moreA").style.display = "none";
+        		}
+            } else{
+            	updateSeaList(data.list);
+            	let moreButton3 = $(`<button id="moreA" onclick="ajaxSeaAreaMore()">더 보기 +`
+						+`<span>`+data.piS.currentPage+`</span>`
+						+`<span style="color: rgba(96,96,96,.5)">/ `+data.piS.maxPage+`</span>`
+						+`</button>`);
+                $('#btn-area').html(moreButton3);
+                if(data.piS.currentPage === data.piS.maxPage){
+            		document.getElementById("moreA").style.display = "none";
+            	}
+            }
+        	city1 = data.cityNames[0];
+        	city2 = data.cityNames[1];
+        	city3 = data.cityNames[2];
+        	city4 = data.cityNames[3];
+        	city5 = data.cityNames[4];
+        	city6 = data.cityNames[5];
+		})
+	}
+
+function ajaxSeaAreaMore(){
+	sPage++;
+	const sendData = { param1: city1,
+        	param2: city2,
+        	param3: city3,
+        	param4: city4,
+        	param5: city5,
+        	param6: city6,
+        	sPage: sPage
+        };
+	storeApi.ajaxSeaAreaMore(sendData,function(data){
+		nextListFiltered(data.list);
+    	let moreButton2 = $('<button id="moreA" onclick="ajaxSeaAreaMore()">더 보기</button>');
+		$('#btn-area').html(moreButton2);
+    	if(data.piS.currentPage === data.piS.maxPage){
+    		document.getElementById("moreA").style.display = "none";
+    	}
+	})
+}
+
+function getDirection(way) {
+    if(way == 'N'){
+    	return '북';
+    }else if(way == 'NW'){
+    	return '북서';
+    }else if(way == 'NE'){
+    	return '북동';
+    }else if(way == 'E'){
+    	return '동';
+    }else if(way == 'SE'){
+    	return '남동';
+    }else if(way == 'S'){
+    	return '남';
+    }else if(way == 'SW'){
+    	return '남서';
+    }else if(way == 'W'){
+    	return '서';
+    }
+}
+
+function daySet(timestamp, num){
+	let day;
+	let year = timestamp.toString().substr(0, 4);
+	let month = timestamp.toString().substr(4, 2) - 1;
+	let originalDay = parseInt(timestamp.toString().substr(6, 2), 10);
+	if(num==0){
+		day = originalDay;
+	}else if(num==1){
+		day = originalDay + 1;
+	}else if(num==2){
+		day = originalDay + 2;
+	}
+	let hour = timestamp.toString().substr(8, 2);
+	let minute = timestamp.toString().substr(10, 2);
+
+	let date = new Date(year, month, day, hour, minute);
+	let formattedDate = date.toLocaleDateString("ko-KR", { month: "numeric", day: "numeric" });
+
+	return formattedDate;
+}
+function timeSet(num){
+	let time;
+	if(num == 1){
+		time = '오전'
+	}else{
+		time = '오후'
+	}
+	return time;
+}
+
+function seaWeather(ways){
+	const sendData = {location : ways};
+	storeApi.seaWeather(sendData,function(data){
+		console.log(data);
+		document.getElementById("dayOne").innerText = daySet(data[0].tmFc, 0);
+		document.getElementById("dayTwo").innerText = daySet(data[0].tmFc, 1);
+		document.getElementById("dayThree").innerText = daySet(data[0].tmFc, 2);
+		$(".table-inner").empty();
+		$(".table-inner2").empty();
+		$(".table-inner3").empty();
+		let num = 1;
+		if(data.length == 7){
+			for (let i = 0; i < 1; i++) {
+				let rowData = data[i];
+				let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
+				rowHtml +=`<span>오후</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
+				rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
+				rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
+				
+				$(".table-inner").append(rowHtml);
+			}
+		}else{
+			for (let i = 0; i < 2; i++) {
+				let rowData = data[i];
+				let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
+				rowHtml +=`<span>`+timeSet(num)+`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
+				rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
+				rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
+				
+				$(".table-inner").append(rowHtml);
+				num++;
+			}
+		}
+		num =1;	
+		for (let i = 1; i < 3; i++) {
+			let rowData = data[i];
+			let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
+			rowHtml +=`<span>`+timeSet(num)+`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
+			rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
+			rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
+			
+			$(".table-inner2").append(rowHtml);
+			num++;
+		}
+		num =1;
+		for (let i = 3; i < 5; i++) {
+			let rowData = data[i];
+			let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
+			rowHtml +=`<span>`+timeSet(num)+`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
+			rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
+			rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
+			
+			$(".table-inner3").append(rowHtml);
+			num++;
+		}
+	
+	})
+}
+
+let cpage = 1;
+    function addSeaPage(){
+    	cpage++;
+    	const sendData = {cpage : cpage};
+    	storeApi.addSeaPage(sendData,function(data){
+    		nextList(data.seaStoreList);
+    		let moreButton3 = $(`<button id="moreA" onclick="addSeaPage()">더 보기 +`
+    							+`<span>`+data.pi.currentPage+`</span>`
+    							+`<span style="color: rgba(96,96,96,.5)">/ `+data.pi.maxPage+`</span>`
+    							+`</button>`);
+    		$('#btn-area').html(moreButton3);
+    		if(data.pi.currentPage === data.pi.maxPage){
+        		document.getElementById("moreA").style.display = "none";
+        	}
+    	})
+   	}
+
+let sfPage;
+function storeKindFilter(selectedOption){
+	sfPage = 1; 
+	const sendData = { param1: city1,
+        	param2: city2,
+        	param3: city3,
+        	param4: city4,
+        	param5: city5,
+        	param6: city6,
+        	selectedOption: selectedOption,
+        	sfPage: sfPage
+        };
+	storeApi.storeKindFilter(sendData,function(data){
+		if (data.list.length === 0) {
+    		if(document.getElementById("more") != null){
+    			document.getElementById("more").style.display = "none";
+    		}
+        	emptyResult();
+        	document.getElementById("moreA").style.display = "none";
+        }else{
+        	updateSeaList(data.list);
+        	let moreButton3 = $(`<button id="moreA" onclick="storeKindFilterMore(`+ selectedOption + `)">더 보기 +`
+					+`<span>`+data.piS.currentPage+`</span>`
+					+`<span style="color: rgba(96,96,96,.5)">/ `+data.piS.maxPage+`</span>`
+					+`</button>`);
+    		$('#btn-area').html(moreButton3);
+        	if(data.piS.currentPage >= data.piS.maxPage){
+        		document.getElementById("moreA").style.display = "none";
+        	}
+        }
+	})
+}
+
+function storeKindFilterMore(selectedOption){
+	sfPage++; 
+	const sendData = { param1: city1,
+        	param2: city2,
+        	param3: city3,
+        	param4: city4,
+        	param5: city5,
+        	param6: city6,
+        	selectedOption: selectedOption,
+        	sfPage: sfPage
+        };
+	storeApi.storeKindFilterMore(sendData,function(data){
+		nextListFiltered(data.list);
+    	let moreButton3 = $(`<button id="moreA" onclick="storeKindFilterMore(`+ selectedOption + `)">더 보기 +`
+				+`<span>`+data.piS.currentPage+`</span>`
+				+`<span style="color: rgba(96,96,96,.5)">/ `+data.piS.maxPage+`</span>`
+				+`</button>`);
+		$('#btn-area').html(moreButton3);
+    	if(data.piS.currentPage === data.piS.maxPage){
+    		document.getElementById("moreA").style.display = "none";
+    	}
+	})
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+	seaWeather('12A20101');
+    selectedSea('12A20101');
+    const fishgroup = document.getElementById('fish-group');
+
+    // 이벤트 위임을 사용하여 container에서 mouseover와 mouseout 이벤트를 처리
+    fishgroup.addEventListener('mouseover', function (event) {
+        const target = event.target;
+
+        // 만약에 hoverable-element 클래스를 가진 요소면 hovered 클래스를 추가
+        if (target.classList.contains('list-group-item')) {
+            target.style.backgroundColor = '#f0f0f0';
+        }
+    });
+
+    fishgroup.addEventListener('mouseout', function (event) {
+        const target = event.target;
+
+        if(target.classList.contains('list-group-item')) {
+            target.style.backgroundColor = '';
+        }
+    })
+})
+
+function showFish(fish){
+	const sendData = {fish:fish};
+	storeApi.showFish(sendData,function(data){
+		console.log('done')
+	})
+}
