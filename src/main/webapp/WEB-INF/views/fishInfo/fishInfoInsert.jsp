@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>BIG FISH</title>
+<title>Insert title here</title>
 <link
 
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -22,31 +22,59 @@
 <link rel="stylesheet"
 
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-
-<!-- CSS-->
-<link rel="stylesheet" href="<%=contextPath%>/resources/css/announceInsert.css">
-
+<style>
+.insert-area{
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.input-area{
+	width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.fish-button{
+	width: 850px;
+    font-size: 16px;
+    font-weight: bolder;
+    height: 50px;
+    background-color: rgb(59, 175, 252);
+    color: white;
+    border-radius: 3px;
+    border: 4px solid;
+}
+.fishBtn-area{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
 </head>
 <body>
-	<jsp:include page="../common/header.jsp"/>
+<jsp:include page="../common/header.jsp"/>
 	<br><br><br><br><br><br>
 	
-	<h1 class="announce-ann" style="color:rgb(59, 175, 252)">공지사항</h1>
-	<div class="border-line"></div>
-	
-	<br><br>
-	
-	<form class="ann-form" action="annInsert.an" method="post">
-			<input type="text" class="ann-title form-control" style="width: 65%;" name="annTitle" required placeholder="제목을 입력해주세요.">
-			<input type="hidden" value="${loginUser.memId}" name="annWriter" />
-			<input type="hidden" value="" name="deleteImgs" />
-			<br><br><br>
-			<textarea id="summernote"  class="ann-content" name="annContent" placeholder="내용을 입력해주세요. "></textarea>
-			<br><br>
-			<button class="btn btn-primary ann-button" onclick="imgFilter()">게시글 등록</button>
+	<form action="fishInsert.fi" method="post">
+		<div class="insert-area">
+			<div class="input-area">
+				<input type="text" name="fishName" style="width:350px;" required placeholder="물고기 이름 입력해주세요." /> <br>
+				<select name="fishType">
+					<option value="FRESH">민물</option>
+					<option value="SEA">바다</option>
+				</select>
+				<br>
+				<input type="hidden" value="" name="deleteImgs" />
+				<textarea id="summernote"  class="" name="fishContent"></textarea> <br>
+			</div>
+		</div>
+		<div class="fishBtn-area">
+			<button class="btn btn-primary fish-button" onclick="fishImgFilter()">백과사전 등록</button>
+		</div>
 	</form>
-
-	<script>
+	
+<script>
 
     // onImageUpload callback
 	let imgList = [];
@@ -97,7 +125,7 @@
             callbacks : { //여기 부분이 이미지를 첨부하는 부분
                 onImageUpload : function(files) {
                     for (let i = files.length - 1; i >= 0; i--) {
-                        uploadSummernoteImageFile(files[i]);
+                        uploadSummernoteFishImageFile(files[i]);
                     }
 
                 }
@@ -107,13 +135,13 @@
 
         $('#summernote').summernote(setting);
 
-        function uploadSummernoteImageFile(file) {
+        function uploadSummernoteFishImageFile(file) {
             data = new FormData();
             data.append("upfile", file);
             $.ajax({
                 data : data,
                 type : "POST",
-                url : "uploadImageFile",
+                url : "uploadFishImageFile",
                 contentType : false,
                 enctype : 'multipart/form-data',
                 processData : false,
@@ -127,7 +155,7 @@
     });
 
 
-	function imgFilter(){
+	function fishImgFilter(){
 		const contents = $("#summernote").val();
 		const deleteImgLIst = [];
 		
@@ -140,10 +168,10 @@
 		document.querySelector("input[name=deleteImgs]").value = deleteImgLIst.toString();
 	}
     </script>
-
-
 	
-	<br><br><br><br><br><br>
+	
+	
+		<br><br><br><br><br><br>
 	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
