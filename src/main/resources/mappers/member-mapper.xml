@@ -185,5 +185,17 @@
 	FROM MEMBER
 	WHERE MEM_ID = #{memId} AND PHONE = #{phone}
 	</select>
+	<select id="getMemberInfoForChat" resultMap="memberResult">
+	SELECT MEM_NO,
+			MEM_ID,
+			MEM_NICK
+	FROM MEMBER
+	WHERE MEM_NO = #{senderId}
+	</select>
+	<select id="getUserNameInfoForChat" resultMap="memberResult">
+	SELECT MEM_NICK
+	FROM MEMBER
+	WHERE MEM_NO = #{memNo}
+	</select>
 	
 </mapper>

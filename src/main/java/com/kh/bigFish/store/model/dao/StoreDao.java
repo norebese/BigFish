@@ -262,5 +262,12 @@ public class StoreDao {
 	public ArrayList<Attachment> getStoreAttForUpdate(SqlSessionTemplate sqlSession, int rstoreNo) {
 		return (ArrayList)sqlSession.selectList("storeMapper.getStoreAttForUpdate",rstoreNo);
 	}
-
+	
+	public Store getStoreForChat(SqlSessionTemplate sqlSession, String storeNo) {
+		return sqlSession.selectOne("storeMapper.getStoreForChat",Integer.parseInt(storeNo));
+	}
+	
+	public Store getStoreNameInfoForChat(SqlSessionTemplate sqlSession, Store s) {
+		return sqlSession.selectOne("storeMapper.getStoreNameInfoForChat", s);
+	}
 }

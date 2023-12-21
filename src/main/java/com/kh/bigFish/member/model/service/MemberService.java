@@ -1,5 +1,6 @@
 package com.kh.bigFish.member.model.service;
 
+import com.kh.bigFish.chat.model.vo.Chat;
 import com.kh.bigFish.member.model.vo.Member;
 
 public interface MemberService {
@@ -42,5 +43,11 @@ public interface MemberService {
 	
 	// 비밀번호 찾기
 	Member findPwd(Member m);
+	
+	// 멤버 정보 가져오기 (채팅)
+	Member getMemberInfoForChat(Chat c);
+	
+	// 멤버 이름 가져오기 (채팅)
+	Member getUserNameInfoForChat(Member m);
 	
 }

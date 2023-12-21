@@ -34,4 +34,7 @@ public interface ReservationService {
 	// 예약 취소 처리
 	int cancelReservation(int revNo);
 	
+	// 예약정보가 있는 사업장 리스트 불러오기 (채팅)
+	ArrayList<Reservation> getRevStoreForChat(int memNo);
+	
 }

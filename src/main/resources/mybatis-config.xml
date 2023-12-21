@@ -24,6 +24,7 @@
      	<typeAlias type="com.kh.bigFish.store.model.vo.Slike" alias="Slike"/>
      	<typeAlias type="com.kh.bigFish.freeBoard.model.vo.Flike" alias="Flike"/>
      	<typeAlias type="com.kh.bigFish.study.model.vo.StudyGood" alias="StudyGood"/>
+     	<typeAlias type="com.kh.bigFish.chat.model.vo.Chat" alias="Chat"/>
      </typeAliases>
      <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야한다. -->
      
@@ -43,6 +44,7 @@
 		<mapper resource="/mappers/faq-mapper.xml" />
 		<mapper resource="/mappers/freeBoard-mapper.xml"/>
 		<mapper resource="/mappers/reply-mapper.xml"/>
+		<mapper resource="/mappers/chat-mapper.xml"/>
      </mappers>
      <!--  유의사항: 미리 등록해두려면 해당 mapper파일이 진짜 존재하고 있는 상태여야한다. + namespace도 작성되어 있어야한다. -->
      

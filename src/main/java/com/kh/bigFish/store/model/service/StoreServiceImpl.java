@@ -210,6 +210,16 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.getStoreAttForUpdate(sqlSession, rstoreNo);
 	}
 
+	@Override
+	public Store getStoreForChat(String storeNo) {
+		return storeDao.getStoreForChat(sqlSession, storeNo);
+	}
+
+	@Override
+	public Store getStoreNameInfoForChat(Store s) {
+		return storeDao.getStoreNameInfoForChat(sqlSession, s);
+	}
+
 
 	
 }

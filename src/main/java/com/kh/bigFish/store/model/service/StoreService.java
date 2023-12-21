@@ -90,6 +90,10 @@ public interface StoreService {
 	
 	ArrayList<Attachment> getStoreAttForUpdate(int rstoreNo);
 	
+	Store getStoreForChat(String storeNo);
+	
+	Store getStoreNameInfoForChat(Store s);
+	
 }
 
 

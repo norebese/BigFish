@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.bigFish.chat.model.vo.Chat;
 import com.kh.bigFish.member.model.dao.MemberDao;
 import com.kh.bigFish.member.model.vo.Member;
 
@@ -80,6 +81,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member findPwd(Member m) {
 		return memberDao.findPwd(sqlSession, m);
+	}
+
+	@Override
+	public Member getMemberInfoForChat(Chat c) {
+		return memberDao.getMemberInfoForChat(sqlSession, c);
+	}
+
+	@Override
+	public Member getUserNameInfoForChat(Member m) {
+		return memberDao.getUserNameInfoForChat(sqlSession, m);
 	}
 	
 	
