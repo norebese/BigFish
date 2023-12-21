@@ -659,6 +659,34 @@
 	WHERE TICKET_NO = #{rticketNo}
 	</select>
 	
+	<select id="getStoreForChat" resultMap="storeResult">
+	SELECT STORE_NO,
+			RMEM_NO,
+			LOCATION_BIG,
+			LOCATION_SMALL,
+			STORE_ADDRESS,
+			STORE_ADDRESS_DETAIL,
+			STORE_POST_NO,
+			STORE_NAME,
+			STORE_PHONE,
+			MAX_MEMBER,
+			STORE_WEEKDAY,
+			STORE_WEEKEND,
+			STORE_GROUP,
+			STORE_KIND,
+			STORE_FISH_KIND,
+			RESERVATION_DETAIL,
+			BUSINESS_NO,
+			STORE_STATUS
+	FROM STORE
+	WHERE STORE_NO = #{storeNo}
+	</select>
+	
+	<select id="getStoreNameInfoForChat" resultMap="storeResult">
+	SELECT STORE_NAME
+	FROM STORE
+	WHERE STORE_NO = #{storeNo}
+
 	<select id="fishKindList" resultType="string">
 		SELECT STORE_FISH_KIND
 		FROM (SELECT 
