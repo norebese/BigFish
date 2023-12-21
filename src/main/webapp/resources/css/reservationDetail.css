@@ -296,3 +296,14 @@ th, td {
     color: red;
     cursor: pointer;
 }
+.replyImg{
+    display: flex;
+    height: 60px;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.replyImg img{
+    height: 35px;
+    width: 35px;
+    margin-right: 10px;
+}

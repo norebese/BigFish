@@ -2,6 +2,7 @@ package com.kh.bigFish.store.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
@@ -262,6 +263,7 @@ public class StoreDao {
 	public ArrayList<Attachment> getStoreAttForUpdate(SqlSessionTemplate sqlSession, int rstoreNo) {
 		return (ArrayList)sqlSession.selectList("storeMapper.getStoreAttForUpdate",rstoreNo);
 	}
+
 	
 	public Store getStoreForChat(SqlSessionTemplate sqlSession, String storeNo) {
 		return sqlSession.selectOne("storeMapper.getStoreForChat",Integer.parseInt(storeNo));
@@ -270,4 +272,18 @@ public class StoreDao {
 	public Store getStoreNameInfoForChat(SqlSessionTemplate sqlSession, Store s) {
 		return sqlSession.selectOne("storeMapper.getStoreNameInfoForChat", s);
 	}
+
+
+	public List<String> fishKindList(SqlSessionTemplate sqlSession, String City1, String City2, String City3, String City4, String City5, String City6) {
+		Map<String, Object> params = new HashMap<>();
+	    params.put("city1", City1);
+	    params.put("city2", City2);
+	    params.put("city3", City3);
+	    params.put("city4", City4);
+	    params.put("city5", City5);
+	    params.put("city6", City6);
+		return (ArrayList)sqlSession.selectList("storeMapper.fishKindList",params);
+	}
+
+
 }

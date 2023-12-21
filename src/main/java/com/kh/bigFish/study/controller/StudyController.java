@@ -3,7 +3,6 @@ package com.kh.bigFish.study.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +23,6 @@ import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
 import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reply.model.vo.Reply;
-import com.kh.bigFish.store.model.vo.Store;
 import com.kh.bigFish.study.model.service.StudyService;
 import com.kh.bigFish.study.model.vo.Study;
 import com.kh.bigFish.study.model.vo.StudyGood;
@@ -65,28 +63,13 @@ public class StudyController {
 	}
 	
 	@RequestMapping(value="/detail.st")
-	public String selectStudy(int sno, Model model, HttpSession session, HttpServletRequest request) {
-		Member Mem = (Member) session.getAttribute("loginUser");
-		int likeNo = studyService.studyGoodCount(sno);
+	public String selectStudy(int sno, Model model, HttpSession session) {
+		
 		int result = studyService.increaseCount(sno);
 		
-		StudyGood checkLikeTable = new StudyGood();
-		
-		if(Mem != null) {
-			int memNo = Mem.getMemNo();
-			
-			checkLikeTable = studyService.checkLikeTable(memNo, sno);
-			
-			if(checkLikeTable == null) {
-				int createLikeTable = studyService.createLikeTable(memNo, sno);
-			}
-		}
-			
 		if(result > 0) {
 			Study s = studyService.selectStudy(sno);
 			model.addAttribute("s", s);
-			model.addAttribute("likeNo", likeNo);
-			model.addAttribute("studyGoodcount", checkLikeTable);
 			
 			return "study/studyDetailView";
 		} else {
@@ -132,30 +115,62 @@ public class StudyController {
 		}
 	}
 	
-	@RequestMapping("updateLike.st")
-	public Map<String, Object> updateLike(int studyNo, HttpServletRequest request, HttpSession session) {
-		Map<String, Object> result = new HashMap<>();
+	@RequestMapping("UpdateLike")
+	public void updateLike(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+
 		StudyGood sg = new StudyGood();
+		System.out.println(sg);
+		Study st = (Study) session.getAttribute("st");
+		Member Mem = (Member) session.getAttribute("loginUser");
+		int studyNum = st.getStudyNo();
 		
-		Member mem = (Member) session.getAttribute("loginUser");
-//		System.out.println(mem);
-		sg.setRmemNo(mem.getMemNo());
-		sg.setRstudyNo(studyNo);
-		
+		sg.setRmemNo(Mem.getMemNo());
+		sg.setRstudyNo(studyNum);
 		StudyGood likeResult = studyService.likeResult(sg);
-		System.out.println(mem);
+		String result = null;
 		
-		int likeNo = studyService.studyGoodCount(studyNo);
+		if(likeResult.getStudyGoodStatus().equals("N")) {
+			result = "Y";
+		}else {
+			result = "N";
+		}
 		
-		sg.setCount(likeNo);
-		String status = (likeResult.getStudyGoodStatus().equals("N")) ? "Y" : "N";
+		int studyUpdateLike = studyService.studyUpdateLike(sg, result);
 		
-		int studyUpdateLike = studyService.studyUpdateLike(sg, status);
-	    System.out.println("123412344321"+studyUpdateLike);
-	    result.put("status", status);
-	    
-	    return result;
+
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
+	
+	/*
+	@PostMapping("/like.st")
+	@ResponseBody
+	public String updateGood(@RequestBody StudyGood studyGoodStatus) {
+		// JSON으로 값이 들어오기 때문에 @RequestBody와 커맨드 객체를 사용해서 JSON 타입을 객첼 변경 
+		System.out.println("/snsBoard/like : POST ");
+		System.out.println("좋아요 기능 값을 가져오는지 확인 : " + studyGoodStatus);
+		
+		// 좋아요 버튼은 버튼이 하나임으로 버튼을 클릭 유무에 따라 좋아요 선택 및 취소를 뜻
+		
+		int result = studyService.searchGood(studyGoodStatus);
+		// 좋아요를 눌렀다면 1이 오고 좋아요를 누르지 않았다면 0이 옴 
+		
+		if(result == 0) {
+			// 좋아요를 누르지 않았다면 해당 정보를 db에 저장 
+			studyService.createLike(studyGoodStatus);
+			return "like";
+		}
+		else {
+			// 좋아요를 눌렀으므로 db에서 해당 값 삭제 
+			studyService.deleteLike(studyGoodStatus);
+			return "delete";
+		}
+	}
+	*/
 	
 	@RequestMapping(value="search.st")
 	public ModelAndView searchStudy(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {
@@ -197,12 +212,4 @@ public class StudyController {
 			return "fail";
 		}
 	}
-	
-	@ResponseBody
-	@RequestMapping(value="mainList.st", produces="application/json; charset=UTF-8")
-	public String ajaxTopStudyList() {
-		System.out.println("s");
-		return new Gson().toJson(studyService.selectmainList());
-	}
 }
-

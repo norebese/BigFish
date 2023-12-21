@@ -80,7 +80,7 @@ public int deleteBoard(SqlSessionTemplate sqlSession, int freeNo) {
 	public ArrayList<FreeBoard> selectmainList(SqlSessionTemplate sqlSession) {
 
 		ArrayList<FreeBoard>  ARR =(ArrayList)sqlSession.selectList("freeBoardMapper.selectmainList");
-
+System.out.println("아주이상하네요"+ARR);
 		return ARR;
 	}
 

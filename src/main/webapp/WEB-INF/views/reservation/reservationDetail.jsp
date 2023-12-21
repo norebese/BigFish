@@ -23,6 +23,8 @@
 	<link rel="stylesheet" href="<%=contextPath%>/resources/css/insertReservationOne.css">
 	<script src="<%=contextPath%>/resources/js/insertReservationOne.js"></script>
 	<script src="<%=contextPath%>/resources/js/reservationDetail.js"></script>
+	<!-- resAPI-->
+	<script src="<%=contextPath%>/resources/js/service/res-api.js"></script>
 </head>
 <body onload="buildCalendar(), init()">
 
@@ -230,48 +232,6 @@
                 </div>
             </div>
         </div>
-        
-        <script type="text/javascript">
-	        let rDetail = document.getElementById('rDetail');
-	        let updateRDetail = document.getElementById('updateRDetail');
-	        let updateBtn = document.getElementById('updateBtn');
-	        let saveBtn = document.getElementById('saveBtn');
-	        function changeToTextarea() {
-	        	updateRDetail.innerText = rDetail.innerText;
-	        	rDetail.style.display = 'none';
-	        	updateRDetail.style.display = 'block';
-	        	updateBtn.style.display = 'none';
-	        	saveBtn.style.display = 'block';
-	        }
-	        
-	        function updateDetailInfo(storeNo){
-	    		let infoVal = document.getElementById('updateRDetail').value;
-	       		$.ajax({
-	                   type: "GET",
-	                   url: "ajaxUpdateDetailInfo",
-	                   data: {
-	                	   storeNum: storeNo,
-	                	   infoVal: infoVal
-	    				},
-	    				dataType: 'json',
-	                   success: function(data) {
-	                	   if(data.info > 0){
-	                		   alert('업데이트 성공');
-	                		   rDetail.innerText = data.detail;
-		           	        rDetail.style.display = 'block';
-		           	        updateRDetail.style.display = 'none';
-		           	        updateBtn.style.display = 'block';
-		           	        saveBtn.style.display = 'none';
-	                	   }else{
-	                		   alert('업데이트 실패');
-	                	   }
-	                   },
-	                   error: function() {
-	                   	console.log("ajax 통신 실패");
-	                   }
-	               });
-	       	}
-        </script>
 
         <div class="reply-area">
             <div class="reply-line">
@@ -283,7 +243,9 @@
 		            <div class="" style="border-bottom: solid 2px rgb(204,204,204); ">
 		                <div class="row">
 		                    <div class="col-sm" style="display: flex; align-items: center;">
-		                        <i class="bi bi-person" style="font-size: 40px;"></i>
+		                        <i class="replyImg">
+		                        	<img src="<%=contextPath%>/${rl.memProfileImg}">
+		                        </i>
 		                        <span >${rl.replyWriter}</span>
 		                    </div>
 		                    <div class="col-md-8" style="display: flex; align-items: center;">${rl.replyContent}</div>
@@ -380,179 +342,6 @@
     
     <script>
     let memNum = <%= (loginUser != null) ? loginUser.getMemNo() : 0%>;
-    function dltReply(rNum){
-    	$.ajax({
-	           type: "GET",
-	           url: "ajaxDltReply",
-	           data: { 
-	        	   rNum: rNum,
-	           },
-	           dataType: 'json',
-	           success: function(data) {
-	        	 alert('댓글이 삭제되었습니다.');
-	        	 updateReplyList(data.replyList, memNum);
-	        	 document.getElementById('content').value = '';
-	        	 let startPage = (data.replyPi.startPage);
-	        	 let endPage = (data.replyPi.endPage);
-	        	 let maxPage = (data.replyPi.maxPage);
-	        	 let currentPage = (data.replyPi.currentPage);
-	        	 updatePageBtn(startPage, endPage, currentPage);
-	        	 updateReplyBtn(endPage, maxPage, currentPage);
-	        	 document.getElementById('replyNum').innerHTML = '댓글 ('+(data.rNum)+')';
-	           },
-	           error: function() {
-	           	console.log("ajax 통신 실패");
-	           }
-	       });
-    }
-    
-    let rPage = 1;
-    function pageReply(num){
-    	let scrollTop = $(window).scrollTop();
-    	if(num === 'prev'){
-    		rPage--;
-    		if(rPage<=0){
-    			rPage = 1;
-    		}
-    	}else if(num === 'next'){
-    		rPage++;
-    	}else{
-    		rPage = num;
-    	}
-    	
-		$.ajax({
-	           type: "GET",
-	           url: "ajaxPageReply", 
-	           data: { 
-	        	   rPage: rPage,
-	           },
-	           dataType: 'json',
-	           success: function(data) {
-	        	 updateReplyList(data.replyList, memNum);
-	        	 let startPage = (data.replyPi.startPage);
-	        	 let endPage = (data.replyPi.endPage);
-	        	 let maxPage = (data.replyPi.maxPage);
-	        	 let currentPage = (data.replyPi.currentPage);
-	        	 updatePageBtn(startPage, endPage, currentPage);
-	        	 updateReplyBtn(endPage, maxPage, currentPage);
-	        	 
-         		$(window).scrollTop(scrollTop);
-	           },
-	           error: function() {
-	           	console.log("ajax 통신 실패");
-	           }
-	       });
-    }
-    
-    function addReply(){
-    	let contentValue = document.getElementById('content').value;
-		$.ajax({
-	           type: "GET",
-	           url: "ajaxAddReply",
-	           data: { 
-	        	 contentValue: contentValue,
-	           },
-	           dataType: 'json',
-	           success: function(data) {
-	        	 updateReplyList(data.replyList, memNum);
-	        	 document.getElementById('content').value = '';
-	        	 let startPage = (data.replyPi.startPage);
-	        	 let endPage = (data.replyPi.endPage);
-	        	 let maxPage = (data.replyPi.maxPage);
-	        	 let currentPage = (data.replyPi.currentPage);
-	        	 updatePageBtn(startPage, endPage, currentPage);
-	        	 updateReplyBtn(endPage, maxPage, currentPage);
-	        	 document.getElementById('replyNum').innerHTML = '댓글 ('+(data.rNum)+')';
-	           },
-	           error: function() {
-	           	console.log("ajax 통신 실패");
-	           }
-	       });
-    }
-    
-    function updateLike(){
-    	let likeImg = document.getElementById('like-logo');
-   		$.ajax({
-               type: "GET",
-               url: "ajaxUpdateLike", 
-               success: function(data) {
-            	   console.log(data);
-					if(data == 'Y'){
-						likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-filled.png">'
-					}else{
-						likeImg.innerHTML='<img src="<%=contextPath%>/resources/images/heart-notfill.png">'
-					}
-					console.log("ajax 통신 성공");
-               },
-               error: function() {
-               	console.log("ajax 통신 실패");
-               }
-           });
-   		
-   	}
-    
-	function loadTickets(){
-		
-	let year = document.getElementById("calYear").textContent;
-   	let month = document.getElementById("calMonth").textContent;
-		
-		$.ajax({
-            type: "GET",
-            url: "loadTickets", 
-            data: { 
-            	year: year,
-        		month: month,
-        		day: day,
-        		time: selectedTime,
-            },
-            dataType: 'json',
-            success: function(data) {
-            	updateTicket(data);
-            },
-            error: function() {
-            	console.log("ajax 통신 실패");
-            }
-        });
-		
-	}
-
-    function saveSelectedDate() {
-    	const timeSelect = document.getElementById('timeSelect');
-    	
-        if (dateClicked !== "passed") {
-            alert('날짜를 선택하세요.');
-            return;
-        }else if (timeSelect.value === "") {
-            alert('시간을 선택하세요.');
-            return;
-        }else if (isChecked !=="checkOk") {
-            alert('이용권을 선택해 주세요');
-            return;
-        }
-    	
-    	let year = document.getElementById("calYear").textContent;
-    	let month = document.getElementById("calMonth").textContent;
-    	
-    	$.ajax({
-            type: "GET",
-            url: "insertReservation", 
-            data: { year: year,
-            		month: month,
-            		day: day,
-            		time: selectedTime,
-            		numPeople: numPeople,
-            		ticketNo: ticketNo,
-            		ticketTime: ticketTime
-            },
-            success: function(response) {
-            	console.log("예약 정보 전송 성공");
-            	window.location.href = "<%=contextPath%>/insertReservationTwo";
-            },
-            error: function() {
-            	console.log("ajax 통신 실패");
-            }
-        });
-    }
 	</script>
 </body>
 </html>

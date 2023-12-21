@@ -7,7 +7,8 @@
 	let dateClicked;
     let ticketNo;
     let ticketTime;
-
+	let rPage = 1;
+	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -177,7 +178,7 @@ function updateReplyList(date, memNum){
 	$.each(date, function (index, reply) {
                 htmlContent += '<div class="" style="border-bottom: solid 2px rgb(204,204,204);">'
 	            +'<div class="row"><div class="col-sm" style="display: flex; align-items: center;">'
-	            +'<i class="bi bi-person" style="font-size: 40px;"></i><span >'+reply.replyWriter+'</span></div>'
+	            +'<i class="replyImg"><img src="/bigFish/'+reply.memProfileImg+'"></i><span >'+reply.replyWriter+'</span></div>'
 	            +'<div class="col-md-8" style="display: flex; align-items: center;">'+reply.replyContent+'</div>'
 	            +'<div class="col-sm" style="display: flex; align-items: center;">'+reply.replyCreateDate;
 	            
@@ -187,7 +188,7 @@ function updateReplyList(date, memNum){
 	            
 	            htmlContent += '</div></div></div>';
             });
-	
+
 	divToUpdate.html(htmlContent);
 }
 
@@ -225,3 +226,146 @@ function updateReplyBtn(endPage, maxPage, currentPage){
 	
 }
 
+function changeToTextarea() {
+let rDetail = document.getElementById('rDetail');
+let updateRDetail = document.getElementById('updateRDetail');
+let updateBtn = document.getElementById('updateBtn');
+let saveBtn = document.getElementById('saveBtn');
+	updateRDetail.innerText = rDetail.innerText;
+	rDetail.style.display = 'none';
+	updateRDetail.style.display = 'block';
+	updateBtn.style.display = 'none';
+	saveBtn.style.display = 'block';
+}
+
+//상세정보 업데이트
+function updateDetailInfo(storeNo){
+	let infoVal = document.getElementById('updateRDetail').value;
+	const sendData = { storeNum: storeNo,
+			infoVal: infoVal
+        };
+	resApi.updateDetailInfo(sendData,function(data){
+		if(data.info > 0){
+ 		   alert('업데이트 성공');
+ 		   rDetail.innerText = data.detail;
+   	        rDetail.style.display = 'block';
+   	        updateRDetail.style.display = 'none';
+   	        updateBtn.style.display = 'block';
+   	        saveBtn.style.display = 'none';
+ 	   }else{
+ 		   alert('업데이트 실패');
+ 	   }
+	})
+}
+
+function dltReply(rNum){
+	const sendData = { rNum: rNum};
+	resApi.dltReply(sendData,function(data){
+		alert('댓글이 삭제되었습니다.');
+       	 updateReplyList(data.replyList, memNum);
+       	 document.getElementById('content').value = '';
+       	 let startPage = (data.replyPi.startPage);
+       	 let endPage = (data.replyPi.endPage);
+       	 let maxPage = (data.replyPi.maxPage);
+       	 let currentPage = (data.replyPi.currentPage);
+       	 updatePageBtn(startPage, endPage, currentPage);
+       	 updateReplyBtn(endPage, maxPage, currentPage);
+       	 document.getElementById('replyNum').innerHTML = '댓글 ('+(data.rNum)+')';
+	})
+}
+
+
+function pageReply(num){
+	let scrollTop = $(window).scrollTop();
+	if(num === 'prev'){
+		rPage--;
+		if(rPage<=0){
+			rPage = 1;
+		}
+	}else if(num === 'next'){
+		rPage++;
+	}else{
+		rPage = num;
+	}
+	const sendData = { rPage: rPage};
+	resApi.pageReply(sendData,function(data){
+		updateReplyList(data.replyList, memNum);
+    	 let startPage = (data.replyPi.startPage);
+    	 let endPage = (data.replyPi.endPage);
+    	 let maxPage = (data.replyPi.maxPage);
+    	 let currentPage = (data.replyPi.currentPage);
+    	 updatePageBtn(startPage, endPage, currentPage);
+    	 updateReplyBtn(endPage, maxPage, currentPage);
+    	 
+		$(window).scrollTop(scrollTop);
+	})
+}
+
+function addReply(){
+	let contentValue = document.getElementById('content').value;
+	const sendData = { contentValue: contentValue};
+	resApi.addReply(sendData,function(data){
+		updateReplyList(data.replyList, memNum);
+       	 document.getElementById('content').value = '';
+       	 let startPage = (data.replyPi.startPage);
+       	 let endPage = (data.replyPi.endPage);
+       	 let maxPage = (data.replyPi.maxPage);
+       	 let currentPage = (data.replyPi.currentPage);
+       	 updatePageBtn(startPage, endPage, currentPage);
+       	 updateReplyBtn(endPage, maxPage, currentPage);
+       	 document.getElementById('replyNum').innerHTML = '댓글 ('+(data.rNum)+')';
+	})
+}
+
+function updateLike(){
+	let likeImg = document.getElementById('like-logo');
+	resApi.updateLike(function(data){
+		if(data == 'Y'){
+			likeImg.innerHTML='<img src="/bigFish/resources/images/heart-filled.png">'
+		}else{
+			likeImg.innerHTML='<img src="/bigFish/resources/images/heart-notfill.png">'
+		}
+		console.log("ajax 통신 성공");
+	})
+}
+
+function loadTickets(){
+	let year = document.getElementById("calYear").textContent;
+   	let month = document.getElementById("calMonth").textContent;
+   	const sendData = { year: year,
+   			month: month,
+   			day: day,
+    		time: selectedTime
+        };
+   	resApi.loadTickets(sendData,function(data){
+   		updateTicket(data);
+   	})
+}
+
+function saveSelectedDate() {
+	const timeSelect = document.getElementById('timeSelect');
+    if (dateClicked !== "passed") {
+        alert('날짜를 선택하세요.');
+        return;
+    }else if (timeSelect.value === "") {
+        alert('시간을 선택하세요.');
+        return;
+    }else if (isChecked !=="checkOk") {
+        alert('이용권을 선택해 주세요');
+        return;
+    }
+	let year = document.getElementById("calYear").textContent;
+	let month = document.getElementById("calMonth").textContent;
+	const sendData = { year: year,
+   			month: month,
+   			day: day,
+    		time: selectedTime,
+    		numPeople: numPeople,
+    		ticketNo: ticketNo,
+    		ticketTime: ticketTime
+        };
+	resApi.saveSelectedDate(sendData,function(data){
+		console.log("예약 정보 전송 성공");
+    	window.location.href = "/bigFish/insertReservationTwo";
+	})
+}

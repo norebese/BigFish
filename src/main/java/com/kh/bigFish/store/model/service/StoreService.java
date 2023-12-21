@@ -2,6 +2,7 @@ package com.kh.bigFish.store.model.service;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
@@ -93,6 +94,8 @@ public interface StoreService {
 	Store getStoreForChat(String storeNo);
 	
 	Store getStoreNameInfoForChat(Store s);
+
+	List<String> fishKindList(String City1, String City2, String City3, String City4, String City5, String City6);
 	
 }
 
