@@ -33,19 +33,22 @@ String alertMsg = (String) session.getAttribute("alertMsg");
     <br><br><br>
 
     <div class="content">
-        <form id="enrollForm" method="post" action="insert.sh" enctype="multipart/form-data">
+        <form id="updateForm" method="post" action="update.sh" enctype="multipart/form-data">
 		<div class="header-box" style="margin: 5%;">
 			<h6 align="left"
-				style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">상품 등록하기
+				style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">상품 수정하기
 			</h6>
 			<br>
 			<div class="file-upload" style="width: 40%; float: left; margin-right: 10%;">					
+                <input type="hidden" name="productNo" value="${s.productNo}">
                 <table>
                     <div>
                         <label for="upfile" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">상품 사진</label>
                         <input type="file" id="upfile" class="form-control-file border"
-                            name="upfile" required style="float: left; display: none;"
-                            onchange="uploadFile(this)" ></input> 
+                            name="reupfile" required style="float: left; display: none;"
+                            onchange="uploadFile(this)" ></input>
+                            <input type="hidden" name="originName" value="${s.originName}"> 
+                            <input type="hidden" name="changeName" value="${s.changeName}">   
                     </div>
                     <div
                         style="flex: 1; display: flex; margin-left: 20%;">
@@ -60,35 +63,36 @@ String alertMsg = (String) session.getAttribute("alertMsg");
             <div class="content" align="center">
                 <div class="innerOuter" style=" padding:4% 0%; width: 50%; float: left; margin-left: -10%;">
                     <div style="width: 60%;">
+                        
                     <table>
                         <tr>
                             <td>
-                                <input type="text" id="productName" class="form-control" style="margin-bottom: 20px;" name="productName" required placeholder="상품 이름을 입력해주세요">
+                                <input type="text" id="productName" class="form-control" style="margin-bottom: 20px;" value="${s.productName}" name="productName" required placeholder="상품 이름을 입력해주세요">
                             </td>
                         </tr> 
                         <tr>
                             <td>
-                                <input type="text" id="productPrice" class="form-control" style="margin-bottom: 20px;" name="productPrice" required placeholder="가격 입력">
+                                <input type="text" id="productPrice" class="form-control" style="margin-bottom: 20px;" value="${s.productPrice}" name="productPrice" required placeholder="가격 입력">
                             </td>
                         </tr>            
                         <tr>
                             <td>
-                                <input type="text" id="productOrigin" class="form-control" style="margin-bottom: 20px;" name="productOrigin" required placeholder="원산지 입력">
+                                <input type="text" id="productOrigin" class="form-control" style="margin-bottom: 20px;" value="${s.productOrigin}" name="productOrigin" required placeholder="원산지 입력">
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" id="productBrand" class="form-control" style="margin-bottom: 20px;" name="productBrand" required placeholder="브랜드 입력">
+                                <input type="text" id="productBrand" class="form-control" style="margin-bottom: 20px;" value="${s.productBrand}" name="productBrand" required placeholder="브랜드 입력">
                             </td>
                         </tr>
 						<tr>
                             <td>
-                                <input type="text" id="productStock" class="form-control" style="margin-bottom: 20px;" name="productStock" required placeholder="재고 입력">
+                                <input type="text" id="productStock" class="form-control" style="margin-bottom: 20px;" value="${s.productStock}" name="productStock" required placeholder="재고 입력">
                             </td>
                         </tr>
                     </table>
                     </div>
-                    <button type="submit" class="btn btn-primary" onclick="location.href=''" style="width: 50%;">상품 등록</button>
+                    <button type="submit" class="btn btn-primary" onclick="location.href=''" style="width: 50%;">상품 수정</button>
                     </div>
                 </div>
             </div>
