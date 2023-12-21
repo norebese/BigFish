@@ -271,9 +271,10 @@ public class FreeBoardController {
 	    Member mem = (Member) session.getAttribute("loginUser");
 	    fr.setRmemNo(mem.getMemNo());
 	    fr.setRfreeNo(freeNo);
+	 
 	  
 	    Flike likeResult = freeboardService.likeResult(fr);
-	    System.out.println("여기예요"+likeResult);
+	    System.out.println("여기좀보소"+likeResult);
 	
 	    String status = (likeResult.getFreeGoodStatus().equals("N")) ? "Y" : "N";
 	    
