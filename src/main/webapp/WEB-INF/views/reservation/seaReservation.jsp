@@ -12,6 +12,8 @@
 <title>BIG FISH</title>
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/seaReservation.css">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- storeAPI-->
+<script src="<%=contextPath%>/resources/js/service/store-api.js"></script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -55,82 +57,6 @@
 	            </div>
 	        </div>
 	        
-	        <script type="text/javascript">
-	        let sPage;
-	        let city1 = ''; let city2 = ''; let city3 = ''; let city4 = ''; let city5 = ''; let city6 = '';
-	        	function seaAreaFilter(param1, param2, param3, param4, param5, param6){
-	        		sPage = 1;
-	        		$.ajax({
-	                    type: "GET",
-	                    url: "ajaxSeaAreaFilter", 
-	                    data: { param1: param1,
-	                    	param2: param2,
-	                    	param3: param3,
-	                    	param4: param4,
-	                    	param5: param5,
-	                    	param6: param6
-	                    },
-	                    dataType: 'json',
-	                    success: function(data) {
-	                    	if (data.list.length === 0) {
-	                    		if(document.getElementById("more") != null){
-	                    			document.getElementById("more").style.display = "none";
-	                    		}
-	                        	emptyResult();
-	                        	document.getElementById("moreA").style.display = "none";
-	                        } else{
-	                        	updateSeaList(data.list);
-	                        	let moreButton3 = $(`<button id="moreA" onclick="ajaxSeaAreaMore()">더 보기 +`
-	        							+`<span>`+data.piS.currentPage+`</span>`
-	        							+`<span style="color: rgba(96,96,96,.5)">/ `+data.piS.maxPage+`</span>`
-	        							+`</button>`);
-	                            $('#btn-area').html(moreButton3);
-	                            if(data.piS.currentPage === data.piS.maxPage){
-	                        		document.getElementById("moreA").style.display = "none";
-	                        	}
-	                        }
-	                    	city1 = data.cityNames[0];
-	                    	city2 = data.cityNames[1];
-	                    	city3 = data.cityNames[2];
-	                    	city4 = data.cityNames[3];
-	                    	city5 = data.cityNames[4];
-	                    	city6 = data.cityNames[5];
-	                    },
-	                    error: function() {
-	                    	console.log("ajax 통신 실패");
-	                    }
-	                });
-	        	}
-	        	
-	        	function ajaxSeaAreaMore(){
-	        		sPage++;
-	        		$.ajax({
-	                    type: "GET",
-	                    url: "ajaxSeaAreaMore", 
-	                    data: { param1: city1,
-	                    	param2: city2,
-	                    	param3: city3,
-	                    	param4: city4,
-	                    	param5: city5,
-	                    	param6: city6,
-	                    	sPage: sPage
-	                    },
-	                    dataType: 'json',
-	                    success: function(data) {
-	                    	nextListFiltered(data.list);
-	                    	let moreButton2 = $('<button id="moreA" onclick="ajaxSeaAreaMore()">더 보기</button>');
-	                		$('#btn-area').html(moreButton2);
-	                    	if(data.piS.currentPage === data.piS.maxPage){
-	                    		document.getElementById("moreA").style.display = "none";
-	                    	}
-	                    },
-	                    error: function() {
-	                    	console.log("ajax 통신 실패");
-	                    }
-	                });
-	        	}
-	        </script>
-	        
 	        <div class="map-area2">
 	            <img id="" src="<%=contextPath%>/resources/images/level02_2.png" alt="서해중부 지도">
 	            <button class="prev-btn" title="이전으로 가기"></button>
@@ -138,19 +64,19 @@
 	                <p class="sub-txt">서해중부</p>
 	                <button class="icon-txt-btn1">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span id="test" onclick="seaAreaFilter('강화군', '중구', '서구', '김포시')">인천,경기 북부 앞바다</span>
+	                    <span id="test" onclick="seaAreaFilter('강화군', '중구', '서구', '김포시', '', '', '12A20101')">인천,경기 북부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn2">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('남동구', '남구', '안산시', '시흥시', '화성시', '평택시')">인천,경기 남부 앞바다</span>
+	                    <span onclick="seaAreaFilter('남동구', '남구', '안산시', '시흥시', '화성시', '평택시', '12A20102')">인천,경기 남부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn3">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('당진시', '서산시', '태안군')">충남 북부 앞바다</span>
+	                    <span onclick="seaAreaFilter('당진시', '서산시', '태안군', '', '', '', '12A20103')">충남 북부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn4">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('보령시', '서천군')">충남 남부 앞바다</span>
+	                    <span onclick="seaAreaFilter('보령시', '서천군', '','','','', '12A20104')">충남 남부 앞바다</span>
 	                </button>
 	            </div>
 	        </div>
@@ -161,23 +87,23 @@
 	                <p class="sub-txt">서해남부</p>
 	                <button class="icon-txt-btn5">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('군산시' ,'부안군')">전북 북부 앞바다</span>
+	                    <span onclick="seaAreaFilter('군산시' ,'부안군','','','','', '22A30101')">전북 북부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn6">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('고창군')">전북 남부 앞바다</span>
+	                    <span onclick="seaAreaFilter('고창군','','','','','', '22A30102')">전북 남부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn7">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('영광군')">전남 북부 서해 앞바다</span>
+	                    <span onclick="seaAreaFilter('영광군','','','','','', '22A30103')">전남 북부 서해 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn8">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('신안군', '함평군', '무안군', '목포시')">전남 중부 서해 앞바다</span>
+	                    <span onclick="seaAreaFilter('신안군', '함평군', '무안군', '목포시','','', '22A30104')">전남 중부 서해 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn9">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('해남군', '진도군')">전남 남부 서해 앞바다</span>
+	                    <span onclick="seaAreaFilter('해남군', '진도군','','','','', '22A30105')">전남 남부 서해 앞바다</span>
 	                </button>
 	            </div>
 	        </div>
@@ -188,11 +114,11 @@
 	                <p class="sub-txt">남해서부</p>
 	                <button class="icon-txt-btn10">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('해남군', '강진군', '완도군')">전남 서부 <br> 남해 앞바다</span>
+	                    <span onclick="seaAreaFilter('해남군', '강진군', '완도군','','','', '12B10101')">전남 서부 <br> 남해 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn11">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('장흥군', '보성군', '고흥군')">전남 동부 남해 앞바다</span>
+	                    <span onclick="seaAreaFilter('장흥군', '보성군', '고흥군','','','', '12B10102')">전남 동부 남해 앞바다</span>
 	                </button>
 	            </div>
 	        </div>
@@ -203,19 +129,19 @@
 	                <p class="sub-txt">제주도</p>
 	                <button class="icon-txt-btn12">
 	                    <img class="jeju" src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('제주')">제주도 북부 앞바다</span>
+	                    <span onclick="seaAreaFilter('제주','','','','','', '12B10302')">제주도 북부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn13">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('제주')">제주도 동부 앞바다</span>
+	                    <span onclick="seaAreaFilter('제주','','','','','', '12B10301')">제주도 동부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn14">
 	                    <img class="jeju" src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('서귀포시')">제주도 서부 <br> 앞바다</span>
+	                    <span onclick="seaAreaFilter('서귀포시','','','','','', '12B10304')">제주도 서부 <br> 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn15">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('서귀포시')">제주도 남부 앞바다</span>
+	                    <span onclick="seaAreaFilter('서귀포시','','','','','', '12B10303')">제주도 남부 앞바다</span>
 	                </button>
 	            </div>
 	        </div>
@@ -226,19 +152,16 @@
 	                <p class="sub-txt">남해동부</p>
 	                <button class="icon-txt-btn16">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('부산', '창원시', '기장군')">부산 앞바다</span>
+	                    <span onclick="seaAreaFilter('부산', '창원시', '기장군','','','', '12B20103')">부산 앞바다</span>
 	                </button>
-	                <button class="icon-txt-btn17">
-	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span id="test">경남 중부 남해 앞바다</span>
-	                </button>
+
 	                <button class="icon-txt-btn18">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('고성군', '통영시', '거제시')">거제시 동부 앞바다</span>
+	                    <span onclick="seaAreaFilter('고성군', '통영시', '거제시','','','', '12B20104')">거제시 동부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn19">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('여수시', '광양시', '남해군', '사천시')">경남 서부 남해 앞바다</span>
+	                    <span onclick="seaAreaFilter('여수시', '광양시', '남해군', '사천시','','', '12B20101')">경남 서부 남해 앞바다</span>
 	                </button>
 	            </div>
 	        </div>
@@ -249,15 +172,15 @@
 	                <p class="sub-txt">동해남부</p>
 	                <button class="icon-txt-btn20">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('울진군')">경북 북부 앞바다</span>
+	                    <span onclick="seaAreaFilter('울진군','','','','','', '12C10103')">경북 북부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn21">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('포항시', '영덕군')">경북 남부 앞바다</span>
+	                    <span onclick="seaAreaFilter('포항시', '영덕군','','','','', '12C10102')">경북 남부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn22">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('울산')">울산 앞바다</span>
+	                    <span onclick="seaAreaFilter('울산','','','','','', '12C10101')">울산 앞바다</span>
 	                </button>
 	            </div>
 	        </div>
@@ -268,26 +191,69 @@
 	                <p class="sub-txt">동해중부</p>
 	                <button class="icon-txt-btn23">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('속초시', '고성군')">강원 북부 앞바다</span>
+	                    <span onclick="seaAreaFilter('속초시', '고성군','','','','', '12C20103')">강원 북부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn24">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('강릉시', '양양군')">강원 중부 앞바다</span>
+	                    <span onclick="seaAreaFilter('강릉시', '양양군','','','','', '12C20102')">강원 중부 앞바다</span>
 	                </button>
 	                <button class="icon-txt-btn25">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
-	                    <span onclick="seaAreaFilter('삼척시', '동해시')">강원 남부 앞바다</span>
+	                    <span onclick="seaAreaFilter('삼척시', '동해시','','','','', '12C20101')">강원 남부 앞바다</span>
 	                </button>
 	            </div>
 	        </div>
 	    </div>
-	    <div>
-           <div class="weather-area">
-               	날씨 API 사용할 곳
+	    <div style="width: 60%;">
+	    	<div class="apiArea">
+		    	<div id="seaName"></div>
+		    	<div>지도에서 지역을 선택하시면 날씨전망 및 어종을 확인할 수 있습니다.</div>
+	           <div class="weather-area">
+					<div class="weather-table">
+						<div><span class="word-date">오늘</span> 
+							<span id="dayOne"><br><br></span>
+						</div>
+						<div class="table-inner">
+
+						</div>
+					</div>
+					<div class="weather-table">
+						<div><span class="word-date">내일</span>
+							<span id="dayTwo"><br><br></span>
+						</div>
+						<div class="table-inner2">
+
+						</div>
+					</div>
+					<div class="weather-table">
+						<div><span class="word-date">모레</span>
+							<span id="dayThree"><br><br></span>
+						</div>
+						<div class="table-inner3">
+
+						</div>
+					</div>
+	           </div>
            </div>
-           <div class="fishinfo">
-              	어종 정보 API 사용할 곳
+           <div class="fishinfo-area">
+           		<p class="fish-info-banner">어종 정보</p>
+           		<div class="fishinfo">
+		           <div class="fishKindAmount">
+			           	<ul id="fish-group" class="list-group" style="width: 100%;">
+			           		<li>
+			           		지도에서 지역을 선택하시면 해당 지역 사업장에서 취급하는 어종을 확인할 수 있습니다.
+			           		</li>
+						</ul>
+		           </div>
+	              	<div class="fishPhoto">
+	              		<img alt="물고기 사진" src="<%=contextPath%>/resources/images/fish ex.png" style="width: 100%;" height="160px;">
+	              		<div>
+	              			<a class="goDetail">어종 백과사전 -></a>
+	              		</div>
+	              	</div>
+           		</div>
            </div>
+           
        	</div>
     </div>
     <div class="list-section">
@@ -349,100 +315,6 @@
 		        	</div>
 			    </c:if>
             </div>
-            
-            <script type="text/javascript">
-		    let cpage = 1;
-		    function addSeaPage(){
-		    	cpage += ${pi.currentPage};
-		   		$.ajax({
-		               type: "GET",
-		               url: "seaReservationAddPage",
-		               data: {
-		            	   cpage: cpage
-						},
-		               dataType: 'json',
-		               success: function(data) {
-		            	nextList(data.seaStoreList);
-	            		let moreButton3 = $(`<button id="moreA" onclick="addSeaPage()">더 보기 +`
-	            							+`<span>`+data.pi.currentPage+`</span>`
-	            							+`<span style="color: rgba(96,96,96,.5)">/ `+data.pi.maxPage+`</span>`
-	            							+`</button>`);
-	            		$('#btn-area').html(moreButton3);
-	            		if(data.pi.currentPage === data.pi.maxPage){
-                    		document.getElementById("moreA").style.display = "none";
-                    	}
-		               },
-		               error: function() {
-		               	console.log("ajax 통신 실패");
-		               }
-		           });
-		   	}
-		    let sfPage;
-		    function storeKindFilter(selectedOption){
-		    	sfPage = 1; 
-		   		$.ajax({
-		               type: "GET",
-		               url: "ajaxStoreKindFilter",
-		               data: {param1: city1,
-	                    	param2: city2,
-	                    	param3: city3,
-	                    	param4: city4,
-	                    	param5: city5,
-	                    	param6: city6,
-		            	   	selectedOption: selectedOption,
-		            	   	sfPage: sfPage
-						},
-		               dataType: 'json',
-		               success: function(data) {
-		            	updateSeaList(data.list);
-		            	let moreButton3 = $(`<button id="moreA" onclick="storeKindFilterMore(`+ selectedOption + `)">더 보기 +`
-    							+`<span>`+data.piS.currentPage+`</span>`
-    							+`<span style="color: rgba(96,96,96,.5)">/ `+data.piS.maxPage+`</span>`
-    							+`</button>`);
-                		$('#btn-area').html(moreButton3);
-                    	if(data.piS.currentPage === data.piS.maxPage){
-                    		document.getElementById("moreA").style.display = "none";
-                    	}
-		               },
-		               error: function() {
-		               	console.log("ajax 통신 실패");
-		               }
-		           });
-		   	}
-		    
-		    function storeKindFilterMore(selectedOption){
-		    	sfPage++; 
-		   		$.ajax({
-		               type: "GET",
-		               url: "ajaxStoreKindFilter",
-		               data: {param1: city1,
-	                    	param2: city2,
-	                    	param3: city3,
-	                    	param4: city4,
-	                    	param5: city5,
-	                    	param6: city6,
-		            	   	selectedOption: selectedOption,
-		            	   	sfPage: sfPage
-						},
-		               dataType: 'json',
-		               success: function(data) {
-		            	nextListFiltered(data.list);
-		            	let moreButton3 = $(`<button id="moreA" onclick="storeKindFilterMore(`+ selectedOption + `)">더 보기 +`
-    							+`<span>`+data.piS.currentPage+`</span>`
-    							+`<span style="color: rgba(96,96,96,.5)">/ `+data.piS.maxPage+`</span>`
-    							+`</button>`);
-                		$('#btn-area').html(moreButton3);
-                    	if(data.piS.currentPage === data.piS.maxPage){
-                    		document.getElementById("moreA").style.display = "none";
-                    	}
-		               },
-		               error: function() {
-		               	console.log("ajax 통신 실패");
-		               }
-		           });
-		   	}
-		    </script>
-            
         </div>
        
         <div class="goTop" onclick="moveTop()">

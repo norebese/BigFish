@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectCity = document.getElementById("selectCity");
 
     let confirmBtn = document.getElementById("confirmBtn");
-	
 
     let cityData = {
 
@@ -58,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 여기에서 원하는 작업 수행
 
-		ajaxStoreList();
+		ajaxStoreList(selectedRegion, selectedCity);
 
     });
 
@@ -134,4 +133,70 @@ function nextList(date){
 
 function moveTop(){
             $("html, body").animate({ scrollTop: 0 }, 600);
+}
+
+let dpage;
+let selectedRegion;
+let selectedCity;
+	function ajaxStoreList(selectedRegion, selectedCity){
+
+		dpage = 1;
+		const sendData = { selectedRegion: selectedRegion,
+				selectedCity: selectedCity,
+				dpage: dpage
+	        };
+		storeApi.ajaxStoreList(sendData,function(data){
+			if (data.list.length === 0) {
+        		if(document.getElementById("more") != null){
+            		document.getElementById("more").style.display = "none";
+        		}
+                emptyResult();
+            } else {
+            	updateList(data.list);
+            	let moreButton3 = $(`<button id="moreA" onclick="ajaxStoreListMore()">더 보기 +`
+						+`<span>`+data.piA.currentPage+`</span>`
+						+`<span style="color: rgba(96,96,96,.5)">/ `+data.piA.maxPage+`</span>`
+						+`</button>`);
+            	$('#moreBtn').html(moreButton3);
+            	if(data.piA.currentPage === data.piA.maxPage){
+            		document.getElementById("moreA").style.display = "none";
+            	}
+            }
+		})
+	}
+	
+function ajaxStoreListMore(){
+	dpage ++;
+	const sendData = { selectedRegion: selectedRegion,
+			selectedCity: selectedCity,
+			dpage: dpage
+        };
+	storeApi.ajaxStoreListMore(sendData,function(data){
+		nextList(data.list);
+   		let moreButton3 = $(`<button id="moreA" onclick="ajaxStoreListMore()">더 보기 +`
+				+`<span>`+data.piA.currentPage+`</span>`
+				+`<span style="color: rgba(96,96,96,.5)">/ `+data.piA.maxPage+`</span>`
+				+`</button>`);
+    	$('#moreBtn').html(moreButton3);
+    	if(data.piA.currentPage === data.piA.maxPage){
+    		document.getElementById("moreA").style.display = "none";
+    	}
+	})
+}
+
+let cpage = 1;
+function addpage(){
+	cpage++;
+	const sendData = {cpage: cpage};
+	storeApi.addFishPage(sendData,function(data){
+		nextList(data.list);
+    	let moreButton3 = $(`<button id="moreA" onclick="addpage()">더 보기 +`
+				+`<span>`+data.pi.currentPage+`</span>`
+				+`<span style="color: rgba(96,96,96,.5)">/ `+data.pi.maxPage+`</span>`
+				+`</button>`);
+    	$('#moreBtn').html(moreButton3);
+    	if(data.pi.currentPage === data.pi.maxPage){
+    		document.getElementById("moreA").style.display = "none";
+			}
+	})
 }
