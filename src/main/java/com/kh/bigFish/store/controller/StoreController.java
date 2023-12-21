@@ -11,6 +11,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +55,8 @@ import com.kh.bigFish.store.model.vo.Ticket;
 
 @Controller
 public class StoreController {
+	public static final String SERVICE_KEY = "O%2BHuQXOnHrSKrJPhQjimjUX71FMDrrL%2FDw0vWU1V4gDVesEDjPb54npPCusEwxpNd4qv6NYjAIBQO7dEWv0VsA%3D%3D";
+
 	
 	@Autowired
 	private StoreService storeService;
@@ -522,7 +538,22 @@ public class StoreController {
 		result.put("list", list);
 	    result.put("piS", piS);
 	    result.put("cityNames", cityNames);
-		
+	    
+	    //선택된 가게들 어종 정보 가져오기
+	    List<String> FKind = storeService.fishKindList(City1, City2, City3, City4, City5, City6);
+	    Map<String, Integer> wordCountMap = new HashMap<>();
+	    
+	    for (String fishKind : FKind) {
+            String[] words = fishKind.split("/");
+            for (String word : words) {
+                wordCountMap.put(word, wordCountMap.getOrDefault(word, 0) + 1);
+            }
+        }
+	    //어종 중복 많은 순서로 정렬
+	    List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(wordCountMap.entrySet());
+        sortedEntries.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
+        
+        result.put("fishKindList", sortedEntries);
 		return result;
 	}
 	
@@ -566,7 +597,7 @@ public class StoreController {
 		int ajaxSeaStoreCountF = storeService.ajaxSeaStoreCountF(City1, City2, City3, City4, City5, City6, filterNum);
 		
 		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCountF, sfPage, 10, 6);
-		
+		System.out.println(piS);
 		ArrayList<Store> list = storeService.ajaxStoreKindFilter(piS, City1, City2, City3, City4, City5, City6, filterNum);
 		result.put("list", list);
 		result.put("count", ajaxSeaStoreCountF);
@@ -652,6 +683,51 @@ public class StoreController {
 		return result;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="seaWeather", produces = "application/json; charset=UTF-8")
+	public String seaWeather(String location) throws IOException, ParseException {
+		String url = "http://apis.data.go.kr/1360000/VilageFcstMsgService/getSeaFcst";
+		url += "?serviceKey="+ SERVICE_KEY;
+		url += ("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
+		url +=("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
+	    url +=("&" + URLEncoder.encode("dataType","UTF-8") + "=" + URLEncoder.encode("JSON", "UTF-8")); /*요청자료형식(XML/JSON) Default: XML*/
+	    url +=("&" + URLEncoder.encode("regId","UTF-8") + "=" + URLEncoder.encode(location, "UTF-8")); /*12A20100 (서해중부앞바다), 12B20100(남해동부앞바다) 등... 별첨 엑셀자료 참조(‘해상’ 구분 값 참고)*/
 
+		URL requestUrl = new URL(url);
+		HttpURLConnection urlConnection = (HttpURLConnection)requestUrl.openConnection();
+		urlConnection.setRequestMethod("GET");
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+		
+		String responseText = "";
+		String line;
+		
+		while((line = br.readLine()) != null) {
+			responseText += line;
+		}
+		
+		br.close();
+		urlConnection.disconnect();
+		
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonObject = (JSONObject)jsonParser.parse(responseText);
+		JSONObject response = (JSONObject)jsonObject.get("response");
+		JSONObject body = (JSONObject)response.get("body");
+		JSONObject items = (JSONObject)body.get("items");
+		JSONArray item = (JSONArray)items.get("item");
+		//JSONObject data = null;
+		
+		return new Gson().toJson(item);
+	}
+
+	@ResponseBody
+	@RequestMapping(value="showFish")
+	public Map<String, Object> showFish(HttpServletRequest request){
+		Map<String, Object> result = new HashMap<>();
+		String fish = request.getParameter("fish");
+		System.out.println(fish);
+		
+		return result;
+	}
 }
 

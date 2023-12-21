@@ -659,4 +659,39 @@
 	WHERE TICKET_NO = #{rticketNo}
 	</select>
 	
+	<select id="fishKindList" resultType="string">
+		SELECT STORE_FISH_KIND
+		FROM (SELECT 
+				    s.STORE_NO,
+				    s.STORE_ADDRESS,
+				    s.STORE_NAME,
+				    COUNT(DISTINCT CASE WHEN g.STORE_GOOD_STATUS = 'Y' THEN g.RSTORE_NO END) AS like_count,
+				    COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price,
+				    COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count,
+				    CHANGE_NAME,
+                    LOCATION_SMALL,
+                    STORE_FISH_KIND
+				FROM 
+				    STORE s
+				LEFT JOIN 
+				    STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
+				LEFT JOIN 
+				    TICKET t ON s.STORE_NO = t.RSTORE_NO
+				LEFT JOIN 
+				    REPLY r ON s.STORE_NO = r.RSTORE_NO
+				LEFT JOIN 
+				    ATTACHMENT a ON s.STORE_NO = a.RSTORE_NO AND a.FILE_LEVEL = 1
+				WHERE STORE_KIND = 'seaShip'
+				        OR STORE_KIND = 'seaSeat'
+				AND STORE_STATUS = 'open'
+				GROUP BY 
+				    s.STORE_NO, s.STORE_ADDRESS, s.STORE_NAME, CHANGE_NAME, LOCATION_SMALL, STORE_FISH_KIND)
+		WHERE LOCATION_SMALL = #{city1}
+        OR LOCATION_SMALL = #{city2}
+        OR LOCATION_SMALL = #{city3}
+        OR LOCATION_SMALL = #{city4}
+        OR LOCATION_SMALL = #{city5}
+        OR LOCATION_SMALL = #{city6}
+	</select>
+	
  </mapper>

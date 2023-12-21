@@ -87,5 +87,143 @@ const storeApi = {
                 console.log("ajax 예약 취소 실패");
             }
         })
-    }
+    },
+    ajaxSeaAreaFilter : function(data,callback){
+		$.ajax({
+	        type: "GET",
+	        url: "ajaxSeaAreaFilter", 
+	        data: data,
+	        dataType: 'json',
+	        success: function(data) {
+	        	callback(data);
+	        },
+	        error: function() {
+	        	console.log("ajax 통신 실패");
+	        }
+	    })
+	},
+	ajaxSeaAreaMore : function(data,callback){
+		$.ajax({
+	        type: "GET",
+	        url: "ajaxSeaAreaMore", 
+	        data: data,
+	        dataType: 'json',
+	        success: function(data) {
+	        	callback(data);
+	        },
+	        error: function() {
+	        	console.log("ajax 통신 실패");
+	        }
+	    });
+	},
+	seaWeather : function(data,callback){
+		$.ajax({
+			url: "seaWeather",
+			data: data,
+			success: function(data){
+				callback(data);
+			},
+			error: function(){
+				console.log("air.do ajax 실패")
+			}
+		})
+	},
+	addSeaPage : function(data,callback){
+		$.ajax({
+           type: "GET",
+           url: "seaReservationAddPage",
+           data: data,
+           dataType: 'json',
+           success: function(data) {
+        	   callback(data);
+           },
+           error: function() {
+           	console.log("ajax 통신 실패");
+           }
+       });
+	},
+	storeKindFilter : function(data,callback){
+		$.ajax({
+           type: "GET",
+           url: "ajaxStoreKindFilter",
+           data: data,
+           dataType: 'json',
+           success: function(data) {
+        	   callback(data);
+           },
+           error: function() {
+           	console.log("ajax 통신 실패");
+           }
+       });
+	},
+	storeKindFilterMore : function(data,callback){
+		$.ajax({
+           type: "GET",
+           url: "ajaxStoreKindFilter",
+           data: data,
+           dataType: 'json',
+           success: function(data) {
+        	   callback(data);
+           },
+           error: function() {
+           	console.log("ajax 통신 실패");
+           }
+       });
+	},
+	ajaxStoreList : function(data,callback){
+		$.ajax({
+	        type: "GET",
+	        url: "ajaxStoreList", 
+	        data: data,
+	        dataType: 'json',
+	        success: function(data) {
+	        	callback(data);
+	        },
+	        error: function() {
+	        	console.log("ajax 통신 실패");
+	        }
+	    });
+	},
+	ajaxStoreListMore : function(data,callback){
+		$.ajax({
+            type: "GET",
+            url: "ajaxStoreList", 
+            data: data,
+            dataType: 'json',
+            success: function(data) {
+            	callback(data);
+            },
+            error: function() {
+            	console.log("ajax 통신 실패");
+            }
+        });
+	},
+	addFishPage : function(data,callback){
+		$.ajax({
+               type: "GET",
+               url: "fishReservationAddPage",
+               data: data,
+               dataType: 'json',
+               success: function(data) {
+            	   callback(data);
+               },
+               error: function() {
+               	console.log("ajax 통신 실패");
+               }
+           });
+	},
+	showFish : function(data,callback){
+		$.ajax({
+               type: "GET",
+               url: "showFish",
+               data: data,
+               dataType: 'json',
+               success: function(data) {
+            	   callback(data);
+               },
+               error: function() {
+               	console.log("ajax 통신 실패");
+               }
+           });
+	}
 }

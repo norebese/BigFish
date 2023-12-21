@@ -17,6 +17,8 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <!-- storeAPI-->
+	<script src="<%=contextPath%>/resources/js/service/store-api.js"></script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -24,72 +26,6 @@
         <div style="margin: 150px 100px 10px 100px; padding: 0; border-bottom: 1px solid; min-width: 100vh;">
             <p class="page-title" >민물 낚시</p>
         </div>
-        <script type="text/javascript">
-	        let selectedRegion;
-	    	let selectedCity;
-	    	let dpage;
-        	function ajaxStoreList(){
-        		//document.getElementById("more").style.display = "none";
-        		dpage = 1;
-        		$.ajax({
-                    type: "GET",
-                    url: "ajaxStoreList", 
-                    data: { selectedRegion: selectedRegion,
-                    		selectedCity: selectedCity,
-                    		dpage: dpage
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                    	if (data.list.length === 0) {
-                    		if(document.getElementById("more") != null){
-                        		document.getElementById("more").style.display = "none";
-                    		}
-                            emptyResult();
-                        } else {
-                        	updateList(data.list);
-                        	let moreButton3 = $(`<button id="moreA" onclick="ajaxStoreListMore()">더 보기 +`
-            						+`<span>`+data.piA.currentPage+`</span>`
-            						+`<span style="color: rgba(96,96,96,.5)">/ `+data.piA.maxPage+`</span>`
-            						+`</button>`);
-                        	$('#moreBtn').html(moreButton3);
-                        	if(data.piA.currentPage === data.piA.maxPage){
-                        		document.getElementById("moreA").style.display = "none";
-                        	}
-                        }
-                    },
-                    error: function() {
-                    	console.log("ajax 통신 실패");
-                    }
-                });
-        	}
-        	
-        	function ajaxStoreListMore(){
-        		dpage ++;
-        		$.ajax({
-                    type: "GET",
-                    url: "ajaxStoreList", 
-                    data: { selectedRegion: selectedRegion,
-                    		selectedCity: selectedCity,
-                    		dpage: dpage
-                    },
-                    dataType: 'json',
-                    success: function(data) {
-                   		nextList(data.list);
-                   		let moreButton3 = $(`<button id="moreA" onclick="ajaxStoreListMore()">더 보기 +`
-        						+`<span>`+data.piA.currentPage+`</span>`
-        						+`<span style="color: rgba(96,96,96,.5)">/ `+data.piA.maxPage+`</span>`
-        						+`</button>`);
-                    	$('#moreBtn').html(moreButton3);
-                    	if(data.piA.currentPage === data.piA.maxPage){
-                    		document.getElementById("moreA").style.display = "none";
-                    	}
-                    },
-                    error: function() {
-                    	console.log("ajax 통신 실패");
-                    }
-                });
-        	}
-        </script>
         <div class="shop-section">
 	        <div class="shop-list">
 	            <div class="filter-area">
@@ -154,36 +90,6 @@
     </div>
     
     <jsp:include page="../common/footer.jsp"/>
-    
-    <script type="text/javascript">
-    let cpage = 1;
-    function addpage(){
-    	cpage += ${pi.currentPage};
-   		$.ajax({
-               type: "GET",
-               url: "fishReservationAddPage",
-               data: {
-            	   cpage: cpage
-				},
-               dataType: 'json',
-               success: function(data) {
-            	nextList(data.list);
-            	let moreButton3 = $(`<button id="moreA" onclick="addpage()">더 보기 +`
-						+`<span>`+data.pi.currentPage+`</span>`
-						+`<span style="color: rgba(96,96,96,.5)">/ `+data.pi.maxPage+`</span>`
-						+`</button>`);
-            	$('#moreBtn').html(moreButton3);
-            	if(data.pi.currentPage === data.pi.maxPage){
-            		document.getElementById("moreA").style.display = "none";
-					}
-               },
-               error: function() {
-               	console.log("ajax 통신 실패");
-               }
-           });
-   	}
-    </script>
-    
     
     <!-- Modal -->
 
