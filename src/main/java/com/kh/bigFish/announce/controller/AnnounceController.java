@@ -104,7 +104,7 @@ public class AnnounceController {
 	    // annContent에서 이미지 파일 경로 추출
 	    List<String> imgPaths = extractImgPathsFromContent(annContent);
 	    List<String> newImgPaths = extractImgPathsFromContent(newAnnContent);
-	    System.out.println(deleteImgs);
+
 	    // 이미지를 저장확정 안할시 삭제한 이미지를 폴더에서 삭제하는 코드
 	    String[] imgs = deleteImgs.split(",");
 	    for (String imgPath : imgs) {

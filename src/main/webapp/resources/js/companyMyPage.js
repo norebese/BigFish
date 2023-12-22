@@ -375,7 +375,9 @@ function businessDelete(){
     location.href = "businessDelete?businessNo="+deleteBusinessInput.value;
 }
 
-
+function chatPopUp(storeNo){
+    window.open("companyChat?storeNo="+storeNo,"popup Chat","width = 550, height = 600, top = 100, left = 200, location = no, status=no toolbars=no");
+}
 
 
 

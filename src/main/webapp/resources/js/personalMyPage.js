@@ -93,3 +93,7 @@ function profileImgChange(){
 
 }
 
+function chatPopUp(){
+    window.open("personalChat","popup Chat","width = 550, height = 600, top = 100, left = 200, location = no, status=no toolbars=no");
+}
+

@@ -36,7 +36,7 @@
 	
 	<br><br>
 	
-	<form class="ann-form" action="annInsert.an" >
+	<form class="ann-form" action="annInsert.an" method="post">
 			<input type="text" class="ann-title form-control" style="width: 65%;" name="annTitle" required placeholder="제목을 입력해주세요.">
 			<input type="hidden" value="${loginUser.memId}" name="annWriter" />
 			<input type="hidden" value="" name="deleteImgs" />

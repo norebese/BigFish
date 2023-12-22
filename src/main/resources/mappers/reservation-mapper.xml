@@ -128,4 +128,20 @@
  	WHERE REV_NO = #{revNo}
  	</update>
  	
+ 	<select id="getRevStoreForChat" resultMap="reservationResult">
+ 	SELECT REV_NO, RMEM_NO, RSTORE_NO, RTICKET_NO, STORE_NAME
+	FROM (
+	    SELECT R.REV_NO,
+	           R.RMEM_NO,
+	           R.RSTORE_NO,
+	           R.RTICKET_NO,
+	           S.STORE_NAME,
+	           ROW_NUMBER() OVER (PARTITION BY R.RSTORE_NO ORDER BY R.REV_NO) AS RN
+	    FROM RESERVATION R
+	    LEFT JOIN STORE S ON S.STORE_NO = R.RSTORE_NO
+	    WHERE R.RMEM_NO = 1
+		)
+	WHERE RN = 1
+ 	</select>
+ 	
  </mapper>

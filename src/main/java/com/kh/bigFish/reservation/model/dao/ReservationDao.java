@@ -43,5 +43,9 @@ public class ReservationDao {
 	public int cancelReservation(SqlSessionTemplate sqlSession, int revNo) {
 		return sqlSession.update("reservationMapper.cancelReservation",revNo);
 	}
+	
+	public ArrayList<Reservation> getRevStoreForChat(SqlSessionTemplate sqlSession, int memNo){
+		return (ArrayList)sqlSession.selectList("reservationMapper.getRevStoreForChat", memNo);
+	}
 
 }

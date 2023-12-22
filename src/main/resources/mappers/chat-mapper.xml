@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+ <mapper namespace="chatMapper">
+ 	<resultMap type="Chat" id="chatResult">
+ 		<result column="CHAT_ID" property="chatId"/>
+ 		<result column="SENDER_ID" property="senderId"/>
+ 		<result column="RECEIVER_ID" property="receiverId"/>
+ 		<result column="MSGTEXT" property="msgText"/>
+ 		<result column="SEND_TIME" property="sendTime"/>
+ 		<result column="TYPE" property="type"/>
+ 		<result column="READ_CHECK" property="readCheck"/>
+ 	</resultMap>
+ 	
+ 	<insert id="insertChatMsg">
+ 	INSERT INTO CHAT
+ 	VALUES(SEQ_CHATID.NEXTVAL,
+ 			#{senderId},
+ 			#{receiverId},
+ 			#{msgText},
+ 			#{sendTime},
+ 			#{type},
+ 			#{readCheck})
+ 	</insert>
+ 	
+ 	<select id="getChat" resultMap="chatResult">
+ 	SELECT CHAT_ID,
+        SENDER_ID,
+        RECEIVER_ID,
+        MSGTEXT,
+        SEND_TIME,
+        TYPE,
+        READ_CHECK
+	FROM CHAT
+	WHERE (SENDER_ID = #{senderId} OR SENDER_ID = #{receiverId}) AND
+		 (RECEIVER_ID = #{senderId} OR RECEIVER_ID = #{receiverId})
+	ORDER BY CHAT_ID
+ 	</select>
+ 	
+ 	<select id="getUserForChat" resultMap="chatResult">
+ 	SELECT SENDER_ID, RECEIVER_ID
+	FROM CHAT
+	WHERE RECEIVER_ID = #{receiverId}
+	GROUP BY SENDER_ID, RECEIVER_ID
+ 	</select>
+ 	
+ 	<select id="readCheckPersonal" resultType="_int">
+ 	SELECT COUNT(*)
+	FROM CHAT
+	WHERE SENDER_ID = #{senderId} AND
+	    RECEIVER_ID = #{receiverId} AND
+	    READ_CHECK = 'N'
+ 	
+ 	</select>
+ 	
+ 	<update id="updateReadPersonal">
+ 	UPDATE CHAT
+ 	SET READ_CHECK = 'Y'
+ 	WHERE SENDER_ID = #{senderId} AND
+	    RECEIVER_ID = #{receiverId} AND
+	    READ_CHECK = 'N'
+ 	</update>
+ 	
+ </mapper>

@@ -19,18 +19,7 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-<style>
-.rightarrow{
-	width:40px;
-	height:40px;
-}
-.ann-area{
-	display: flex;
-    width: 90%;
-    justify-content: space-between;
-    height: 35px;
-}
-</style>
+	
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
@@ -54,7 +43,9 @@
 	<br>
 	
 	<c:if test="${  not empty loginUser and loginUser.memAdmin eq 'Y'}">
-    	<button class="ann-create btn btn-primary" onclick="location.href='annEnroll.an'">작성하기</button>
+		<div class="ann-create">
+    		<button class="btn btn-primary" onclick="location.href='annEnroll.an'">작성하기</button>
+        </div>
         <br>
     </c:if>
     
@@ -68,7 +59,7 @@
                    		<li class="page-item disabled"><a class="page-link">이전</a></li>
                    	</c:when>
                    	<c:otherwise>
-                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage - 1 }">Previous</a></li>
+                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage - 1 }">이전</a></li>
                    	</c:otherwise>
 				</c:choose>
 
@@ -81,7 +72,7 @@
                    		<li class="page-item disabled"><a class="page-link">다음</a></li>
                    	</c:when>
                    	<c:otherwise>
-                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage + 1 }">Next</a></li>
+                   		<li class="page-item"><a class="page-link" href="annList.an?cpage=${ pi.currentPage + 1 }">다음</a></li>
                    	</c:otherwise>
 				</c:choose>
                 

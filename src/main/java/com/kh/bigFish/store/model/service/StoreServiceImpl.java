@@ -1,6 +1,7 @@
 package com.kh.bigFish.store.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -208,6 +209,19 @@ public class StoreServiceImpl implements StoreService{
 	@Override
 	public ArrayList<Attachment> getStoreAttForUpdate(int rstoreNo) {
 		return storeDao.getStoreAttForUpdate(sqlSession, rstoreNo);
+	}
+
+	@Override
+	public Store getStoreForChat(String storeNo) {
+		return storeDao.getStoreForChat(sqlSession, storeNo);
+	}
+
+	@Override
+	public Store getStoreNameInfoForChat(Store s) {
+		return storeDao.getStoreNameInfoForChat(sqlSession, s);
+
+	public List<String> fishKindList(String City1, String City2, String City3, String City4, String City5, String City6) {
+		return storeDao.fishKindList(sqlSession, City1, City2, City3, City4, City5, City6);
 	}
 
 
