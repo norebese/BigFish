@@ -777,3 +777,8 @@ p {
     line-height: 31px;
     color: #407dd0;
 }
+.wIcon{
+	width: 20px;
+	height: 20px;
+	margin-left: 10px;
+}

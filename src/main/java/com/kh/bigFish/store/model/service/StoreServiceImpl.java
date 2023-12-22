@@ -220,9 +220,21 @@ public class StoreServiceImpl implements StoreService{
 	public Store getStoreNameInfoForChat(Store s) {
 		return storeDao.getStoreNameInfoForChat(sqlSession, s);
 	}
+
 	public List<String> fishKindList(String City1, String City2, String City3, String City4, String City5, String City6) {
 		return storeDao.fishKindList(sqlSession, City1, City2, City3, City4, City5, City6);
 	}
+
+	@Override
+	public String showFishImg(String fish) {
+		return storeDao.showFishImg(sqlSession, fish);
+	}
+
+	@Override
+	public String getFishNo(String fish) {
+		return storeDao.getFishNo(sqlSession, fish);
+	}
+
 
 
 	
