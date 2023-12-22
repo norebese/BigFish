@@ -1,7 +1,18 @@
 package com.kh.bigFish.freeBoard.controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,12 +20,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOExceptionWithCause;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,8 +42,7 @@ import com.kh.bigFish.freeBoard.model.vo.Flike;
 import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
 import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reply.model.vo.Reply;
-import com.kh.bigFish.store.model.vo.Slike;
-import com.kh.bigFish.store.model.vo.Store;
+import com.kh.bigFish.shop.model.vo.KakaoRequestDto;
 
 
 @Controller
@@ -310,7 +322,179 @@ public class FreeBoardController {
 				return "fail";
 			}
 		}
+		
+		@ResponseBody
+		@RequestMapping("kakao.fr")
+		public String kakao(@RequestBody KakaoRequestDto kakaoRequestDto) throws IOException  {
+			URL pay;
+	
+				pay = new URL("https://kapi.kakao.com/v1/payment/ready");
+			
+			
+				HttpURLConnection conn=(HttpURLConnection)pay.openConnection();
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Authorization", "KakaoAK e04a6e1d2f48b503788cdd07f67dc975");
+				conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+				conn.setDoOutput(true);
+	//			String parameter ="cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name=\"fishing\"&quantity=1&total_amount=2200&tax_free_amount=0&approval_url=http://localhost:8987/bigFish&fail_url=http://localhost:8987/fail&cancel_url=http://localhost:8987/cancel";
+				String item_name_param = "\"" + kakaoRequestDto.getItem_name() + "\"";
+				String parameter = ("cid=" + kakaoRequestDto.getCid() +
+	            "&partner_order_id=" + kakaoRequestDto.getPartner_order_id() +
+	            "&partner_user_id=" + kakaoRequestDto.getPartner_user_id() +
+	            "&item_name=" + item_name_param +
+	            "&quantity=" + kakaoRequestDto.getQuantity() +
+	            "&total_amount=" + kakaoRequestDto.getTotal_amount() +
+	            "&tax_free_amount=" + kakaoRequestDto.getTax_free_amount() +
+	            "&approval_url=" + kakaoRequestDto.getApproval_url() +
+	            "&fail_url=" + kakaoRequestDto.getFail_url() +
+	            "&cancel_url=" + kakaoRequestDto.getCancel_url());
+				OutputStream i =conn.getOutputStream();
+				DataOutputStream j =new DataOutputStream(i);
+				System.out.println(parameter);
+				j.writeBytes(parameter);
+				
+				
+				j.close();
+				int result =conn.getResponseCode();
+				System.out.println("fdsafdsafasdgbewsagase"+result);
+				InputStream k ;
+				if(result == 200) {
+					k =conn.getInputStream();
+				}else {
+					k=conn.getErrorStream();
+				}
+				InputStreamReader l=new InputStreamReader(k);
+				BufferedReader m =new BufferedReader(l);
+			
+				return m.readLine();
+			
+			
+			
+			
+		}//이게진짜
+		
+		@ResponseBody
+		@RequestMapping("pay.fr")
+		 public String handlePaymentResult(@RequestBody KakaoRequestDto kakaoRequestDto) {
+			   // 여기서 받은 데이터를 활용하여 원하는 로직을 수행
+			
+			
+			  
+			   String pg_token=kakaoRequestDto.getPg_token();
+			   int bno=kakaoRequestDto.getProductNo();
+			   
+			   
+			
+		    System.out.println(bno+"파라미터"+pg_token);
+	        
+	        // TODO: 여기에 원하는 로직을 추가하세요.
 
+	        return "Success"; // 또는 다른 응답을 반환
+	    }
+//		@ResponseBody
+//		@PostMapping("/kakao.fr")
+//		public String kakao(@RequestBody KakaoRequestDto kakaoRequestDto) {
+//			System.out.println(kakaoRequestDto);
+//		    try {
+//		        // 카카오페이 결제 요청 로직
+//		        // 예시로 URL 객체를 생성하고 연결을 수행하도록 했습니다.
+//		        URL pay = new URL("https://kapi.kakao.com/v1/payment/ready");
+//		        HttpURLConnection conn = (HttpURLConnection) pay.openConnection();
+//
+//		        conn.setRequestMethod("POST");
+//		        conn.setRequestProperty("Authorization", "KakaoAK e04a6e1d2f48b503788cdd07f67dc975");
+//		        conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+//		        conn.setDoOutput(true);
+//
+//		        // KakaoRequestDto에서 필드 값을 가져와서 요청 파라미터 설정
+//		        String item_name_param = "\"" + kakaoRequestDto.getItem_name() + "\"";
+//
+//		        String parameter = ("cid=" + kakaoRequestDto.getCid() +
+//		                "&partner_order_id=" + kakaoRequestDto.getPartner_order_id() +
+//		                "&partner_user_id=" + kakaoRequestDto.getPartner_user_id() +
+//		                "&item_name=" + item_name_param +
+//		                "&quantity=" + kakaoRequestDto.getQuantity() +
+//		                "&total_amount=" + kakaoRequestDto.getTotal_amount() +
+//		                "&tax_free_amount=" + kakaoRequestDto.getTax_free_amount() +
+//		                "&approval_url=" + kakaoRequestDto.getApproval_url() +
+//		                "&fail_url=" + kakaoRequestDto.getFail_url() +
+//		                "&cancel_url=" + kakaoRequestDto.getCancel_url());
+//		        System.out.println("durl"+parameter);
+//
+//		        // 파라미터를 OutputStream을 통해 전송
+//		        OutputStream outputStream = conn.getOutputStream();
+//		        DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+//		        dataOutputStream.writeBytes(parameter);
+//		        dataOutputStream.close();
+//
+//		        int responseCode = conn.getResponseCode();
+//		        InputStream inputStream;
+//		        if (responseCode == 200) {
+//		            inputStream = conn.getInputStream();
+//		        } else {
+//		            inputStream = conn.getErrorStream();
+//		        }
+//
+//		        // 응답을 읽어와서 문자열로 변환
+//		        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+//		        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+//		        String response = bufferedReader.readLine();
+//
+//		        // 여기에서 응답에 대한 로직 수행
+//		        // 예시로 응답을 콘솔에 출력
+//		        System.out.println(response);
+//
+//		        // 응답 데이터 생성
+//		        return response;
+//		    } catch (IOException e) {
+//		        e.printStackTrace();
+//		    }
+//
+//		    // 에러가 발생하면 에러 응답 생성
+//		    return "error";
+//		}
+		
+		
+
+//		@ResponseBody
+//		@PostMapping("/kakao.fr")
+//		public String kakao(@RequestBody KakaoRequestDto kakaoRequestDto) {
+//		    try {
+//		        URL pay = new URL("https://kapi.kakao.com/v1/payment/ready");
+//		        HttpURLConnection conn = (HttpURLConnection) pay.openConnection();
+//
+//		        conn.setRequestMethod("POST");
+//		        conn.setRequestProperty("Authorization", "KakaoAK e04a6e1d2f48b503788cdd07f67dc975");
+//		        conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+//		        conn.setDoOutput(true);
+//
+//		        // KakaoRequestDto에서 필드 값을 가져와서 요청 파라미터 설정
+//		        String item_name_param = "\"" + kakaoRequestDto.getItem_name() + "\"";
+//
+//		        String parameter = String.format(
+//		            "cid=%s&partner_order_id=%s&partner_user_id=%s&item_name=%s&quantity=%d&total_amount=%d&tax_free_amount=%d&approval_url=%s&fail_url=%s&cancel_url=%s",
+//		            kakaoRequestDto.getCid(),
+//		            kakaoRequestDto.getPartner_order_id(),
+//		            kakaoRequestDto.getPartner_user_id(),
+//		            item_name_param,
+//		            kakaoRequestDto.getQuantity(),
+//		            kakaoRequestDto.getTotal_amount(),
+//		            kakaoRequestDto.getTax_free_amount(),
+//		            kakaoRequestDto.getApproval_url(),
+//		            kakaoRequestDto.getFail_url(),
+//		            kakaoRequestDto.getCancel_url()
+//		        );
+//		        System.out.println(parameter);
+//
+//		        // 나머지 코드 생략
+//		    } catch (MalformedURLException e) {
+//		        e.printStackTrace();
+//		    } catch (IOException e) {
+//		        e.printStackTrace();
+//		    }
+//
+//		    return "main";
+//		}
 	/**
 	 * 
 	 */
