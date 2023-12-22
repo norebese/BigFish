@@ -289,4 +289,8 @@ public class StoreDao {
 		return sqlSession.selectOne("storeMapper.showFishImg", fish);
 	}
 
+	public String getFishNo(SqlSessionTemplate sqlSession, String fish) {
+		return sqlSession.selectOne("storeMapper.getFishNo", fish);
+	}
+
 }

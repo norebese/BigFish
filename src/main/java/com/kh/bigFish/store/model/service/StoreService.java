@@ -99,6 +99,8 @@ public interface StoreService {
 	
 	String showFishImg(String fish);
 	
+	String getFishNo(String fish);
+	
 }
 
 

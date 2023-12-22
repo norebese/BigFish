@@ -229,6 +229,12 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.showFishImg(sqlSession, fish);
 	}
 
+	@Override
+	public String getFishNo(String fish) {
+		return storeDao.getFishNo(sqlSession, fish);
+	}
+
+
 
 	
 }

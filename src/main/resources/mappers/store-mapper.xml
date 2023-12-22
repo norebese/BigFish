@@ -729,4 +729,10 @@
 		WHERE FISH_NAME = #{fish}
 	</select>
 	
+	<select id="getFishNo" resultType="string">
+		SELECT FISH_NO
+		FROM FISH
+		WHERE FISH_NAME = #{fish}
+	</select>
+	
  </mapper>

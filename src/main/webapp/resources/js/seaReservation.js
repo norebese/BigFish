@@ -549,7 +549,10 @@ document.addEventListener('DOMContentLoaded', function () {
 function showFish(fish){
 	const sendData = {fish:fish};
 	storeApi.showFish(sendData,function(data){
-		let imgData = `<img src="`+data.img+`" style="width: 100%;" height="160px;">`
+		let imgData = `<img src="`+data.img+`" style="width: 100%;" height="160px;">`;
+		if(data.fishNo != null){
+			imgData += `<div><a href="fishInfoDetail.fi?fno=`+data.fishNo+`" class="goDetail">어종 백과사전 -></a></div>`;
+		}
 		$("#fishImg-area").html(imgData);
 	})
 }

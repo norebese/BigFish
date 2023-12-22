@@ -387,6 +387,14 @@ public class StoreController {
 			}
 		}
 		List<String> fishKinds = Arrays.asList(st.getStoreFishKind().split("/"));
+		Map<String, String> fishImageMap = new HashMap<>();
+	    for (String fishKind : fishKinds) {
+	        String imageName = storeService.showFishImg(fishKind);
+	        if(imageName == null) {
+	        	imageName = "/bigFish/resources/images/fish ex.png";
+	        }
+	        fishImageMap.put(fishKind, imageName);
+	    }
 		
 		Reply R = new Reply();
 		R.setRstoreNo(storeNum);
@@ -399,7 +407,7 @@ public class StoreController {
 		
 		session.setAttribute("st", st);
 		session.setAttribute("Slike", checkLikeTable);
-		session.setAttribute("fishKinds", fishKinds);
+		session.setAttribute("fishImageMap", fishImageMap);
 		session.setAttribute("replyList", replyList);
 		session.setAttribute("replyCount", storeReplyCount);
 		session.setAttribute("replyPi", pi);
@@ -736,13 +744,15 @@ public class StoreController {
 		String fish = request.getParameter("fish");
 		
 		String img = storeService.showFishImg(fish);
-		
+		String fishNo = storeService.getFishNo(fish);
 		
 		if(img != null) {
 			result.put("img", img);
+			result.put("fishNo", fishNo);
 		}else {
 			img = "/bigFish/resources/images/fish ex.png";
 			result.put("img", img);
+			result.put("fishNo", null);
 		}
 		
 		return result;

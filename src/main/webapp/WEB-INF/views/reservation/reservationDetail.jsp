@@ -189,17 +189,17 @@
                 </div>
                 
             </div>
-			<c:set var="fishKindsSize" value="${fn:length(fishKinds)}" />
+			<c:set var="fishKindsSize" value="${fn:length(fishImageMap)}" />
 
             <div class="fishkind-area">
                 <span class="price-title">주요 어종</span>
                 <span style="color: green;"><c:out value="${fishKindsSize}" />종</span>
 
                 <div style="display: flex; margin-left: 10px;">
-	                <c:forEach var="fishKind" items="${fishKinds}"> 
+	                <c:forEach var="fishInfo" items="${fishImageMap}"> 
 	                    <div class="fish-img">
-	                        <img src="<%=contextPath%>/resources/images/fish ex.png" alt="">
-	                        <p class="fishname">${fishKind}</p>
+	                        <img src="${fishInfo.value}" alt="">
+	                        <p class="fishname">${fishInfo.key}</p>
 	                    </div>
 	                 </c:forEach>
                 </div>

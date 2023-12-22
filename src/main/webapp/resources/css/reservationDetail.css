@@ -222,6 +222,7 @@ th, td {
 }
 .fishname{
     margin-top: 20px;
+    text-align: center;
 }
 .fishkind-area{
     border-bottom: 1px solid;

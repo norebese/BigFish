@@ -247,9 +247,6 @@
 		           </div>
 	              	<div class="fishPhoto">
 	              		<div id="fishImg-area"></div>
-	              		<div>
-	              			<a class="goDetail">어종 백과사전 -></a>
-	              		</div>
 	              	</div>
            		</div>
            </div>
