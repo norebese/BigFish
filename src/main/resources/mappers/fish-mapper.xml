@@ -10,6 +10,7 @@
  		<result column="FISH_COUNT" property="fishCount" />
  		<result column="FISH_STATUS" property="fishStatus" />
  		<result column="FISH_TYPE" property="fishType" />
+ 		<result column="FISH_TITLE_IMAGE" property="fishTitleImage" />
  	</resultMap>
  	
  	<resultMap type="Attachment" id="AttachmentResult">
