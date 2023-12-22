@@ -64,6 +64,18 @@ const memberApi = {
                 console.log("ajax 비밀번호 찾기 통신 실패");
             }
         })
+    },
+    getMemberForChat : function(data, callback){
+        $.ajax({
+            url : "getMemberForChat",
+            data : data,
+            success : function(result){
+                callback(result)
+            },
+            error : function(){
+                console.log("ajax 멤버 정보 획득 실패");
+            }
+        })
     }
     
 }

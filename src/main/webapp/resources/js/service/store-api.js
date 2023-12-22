@@ -88,6 +88,18 @@ const storeApi = {
             }
         })
     },
+    getStoreForChat : function(data,callback){
+        $.ajax({
+            url : "getStoreForChat",
+            data : data,
+            success : function(result){
+                callback(result);
+            },
+            error : function(){
+                console.log("ajax 사업장 정보 획득 실패")
+            }
+        })
+    },
     ajaxSeaAreaFilter : function(data,callback){
 		$.ajax({
 	        type: "GET",

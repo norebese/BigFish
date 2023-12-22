@@ -3,6 +3,7 @@ package com.kh.bigFish.member.model.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.bigFish.chat.model.vo.Chat;
 import com.kh.bigFish.member.model.vo.Member;
 
 @Repository
@@ -60,5 +61,12 @@ public class MemberDao {
 	public Member findPwd(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.findPwd",m);
 	}
-		
+	
+	public Member getMemberInfoForChat(SqlSessionTemplate sqlSession, Chat c) {
+		return sqlSession.selectOne("memberMapper.getMemberInfoForChat",c);
+	}
+	
+	public Member getUserNameInfoForChat(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.getUserNameInfoForChat", m);
+	}
 }

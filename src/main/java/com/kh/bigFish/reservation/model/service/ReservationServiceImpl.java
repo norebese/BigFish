@@ -59,6 +59,11 @@ public class ReservationServiceImpl implements ReservationService{
 	public int cancelReservation(int revNo) {
 		return reservationDao.cancelReservation(sqlSession, revNo);
 	}
+
+	@Override
+	public ArrayList<Reservation> getRevStoreForChat(int memNo) {
+		return reservationDao.getRevStoreForChat(sqlSession, memNo);
+	}
 	
 	
 }
