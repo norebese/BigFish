@@ -56,4 +56,14 @@ public class FishServiceImpl implements FishService {
 		return fishDao.selectFish(sqlSession, fishNo);
 	}
 
+	@Override
+	public int updateFish(Fish f) {
+		return fishDao.updateFish(sqlSession, f);
+	}
+
+	@Override
+	public int deleteFish(int fishNo) {
+		return fishDao.deleteFish(sqlSession, fishNo);
+	}
+
 }
