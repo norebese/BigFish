@@ -58,4 +58,15 @@ public class ShopServiceImpl implements ShopService{
 	public int deleteShop(int sno) {
 		return shopDao.deleteShop(sqlSession, sno);
 	}
+
+	@Override
+	public int insertParameter(String parameter) {
+		
+		return shopDao.insertParameter(sqlSession, parameter);
+	}
+
+	@Override
+	public int updatePg_token(String j) {
+		return shopDao.updatePg_token(sqlSession,j);
+	}
 }
