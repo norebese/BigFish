@@ -97,6 +97,8 @@
 
 				<tr>
 					<td colspan="4"><p style="height: 10px;">${b.freeContent}</p></td>
+				
+
 				</tr>
 			</table>
 			<div class="container"
@@ -517,6 +519,43 @@
 				                }
 				            })
 				        }
+				        
+				        
+				        
+				
+	//function kakao() {
+    // requestData 객체 생성 및 값 할당
+    //var requestData = {
+      //  cid: "TC0ONETIME",
+        //partner_order_id: "partner_order_id",
+    //    partner_user_id: "partner_user_id",
+    //    item_name: "fishing",
+     //   quantity: 1,
+    //    total_amount: 2200,
+    //    tax_free_amount: 0,
+    //    approval_url: "http://localhost:8987/bigFish",
+     //   fail_url: "http://localhost:8987/fail",
+     //   cancel_url: "http://localhost:8987/cancel"
+   // };
+//
+  //  $.ajax({
+   //     url: "kakao.fr",
+   //     type: 'POST', // 데이터를 전송하는 방식을 POST로 설정
+   //     contentType: 'application/json', // 전송되는 데이터의 타입을 JSON으로 설정
+   //     data: JSON.stringify(requestData), // 데이터를 JSON 문자열로 변환
+   //     success: function(data) {
+   //         console.log(data);
+   //         alert("카카오페이 결제를 완료해주세요");
+    //        let box = data.next_redirect_pc_url;
+   //         window.open(box);
+   //     },
+  //      error: function(error) {
+  //          alert(error);
+  //          console.log("천재");
+  //      }
+  //  });
+//}
 			  </script>
+	
 </body>
 </html>

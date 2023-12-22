@@ -46,7 +46,10 @@
 	<div class="myPage">
 		<div class="myPageMenuList">
 			<button id="buttonProfile" onclick="showProfile()" style="width: 100%; border: none; background: rgb(28, 134, 204);" class="btn btn-secondary">프로필 관리</button><br><br>
-			<button id="buttonReservation" onclick="showReservation()" style="width: 100%; border: none; background: rgb(59, 175, 252);" class="btn btn-secondary">예약 목록</button><br><br>
+			<button id="buttonReservation" onclick="\
+			\
+			
+			()" style="width: 100%; border: none; background: rgb(59, 175, 252);" class="btn btn-secondary">예약 목록</button><br><br>
 			<button style="width: 100%; border: none; background: rgb(59, 175, 252); " class="btn btn-secondary">구매 목록</button><br><br>
 			<button style="width: 100%; border: none; background: rgb(59, 175, 252);" class="btn btn-secondary">장바구니</button>
 

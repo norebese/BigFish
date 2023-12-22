@@ -9,24 +9,27 @@
     let ticketTime;
 	let rPage = 1;
 	
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
-
-	// 지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
 	
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
 
-function init(){
+function init(ad, name){
+
     let infobtn = document.querySelector('.detail-tab');
     let replybtn = document.querySelector('.reply-tab');
 
     let infodiv = document.querySelector('.map-plus');
     let replydiv = document.querySelector('.reply-area');
+    
+    let storeInfo = document.querySelector('.detail-tab');
+    let replyInfo = document.querySelector('.reply-tab');
+    
+    storeInfo.addEventListener('click', function () {
+        storeInfo.style.backgroundColor = 'rgb(180 207 242)';
+        replyInfo.style.backgroundColor = '';
+    });
+    replyInfo.addEventListener('click', function () {
+        replyInfo.style.backgroundColor = 'rgb(180 207 242)';
+        storeInfo.style.backgroundColor = '';
+    });
 
     infobtn.addEventListener('click', function() {
         infodiv.classList.add('on');
@@ -58,10 +61,20 @@ function init(){
         loadTickets();
     });
     
-    
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
         
 	// 주소로 좌표를 검색합니다
-	geocoder.addressSearch('서울특별시 관악구 남부순환로247가길 18', function(result, status) {
+	geocoder.addressSearch(ad, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === kakao.maps.services.Status.OK) {
@@ -77,7 +90,7 @@ function init(){
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
         	
-            content: '<div style="width:150px;text-align:center;padding:6px 0;"></div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+name+'</div>'
             
         });
         infowindow.open(map, marker);
@@ -317,7 +330,11 @@ function addReply(){
 	})
 }
 
-function updateLike(){
+function updateLike(user){
+	if(user == 'null'){
+		alert("로그인 후 이용가능 합니다.");
+		return;
+	}
 	let likeImg = document.getElementById('like-logo');
 	resApi.updateLike(function(data){
 		if(data == 'Y'){
@@ -325,7 +342,6 @@ function updateLike(){
 		}else{
 			likeImg.innerHTML='<img src="/bigFish/resources/images/heart-notfill.png">'
 		}
-		console.log("ajax 통신 성공");
 	})
 }
 

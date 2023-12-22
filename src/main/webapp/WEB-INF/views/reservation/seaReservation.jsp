@@ -21,7 +21,7 @@
         <p class="page-title">바다 낚시 지도</p>
     </div>
     <div class="main-section">
-	    <div class="main-area">
+	    <div id="seaMapArea" class="main-area">
 	        <!-- class에 'on' 이 들어가면 활성화 -->
 	        <div class="map-area1 on">
 	            <img id="main-img" src="<%=contextPath%>/resources/images/level01_1.png" alt="">
@@ -214,7 +214,7 @@
 							<span id="dayOne"><br><br></span>
 						</div>
 						<div class="table-inner">
-
+							
 						</div>
 					</div>
 					<div class="weather-table">
@@ -246,10 +246,7 @@
 						</ul>
 		           </div>
 	              	<div class="fishPhoto">
-	              		<img alt="물고기 사진" src="<%=contextPath%>/resources/images/fish ex.png" style="width: 100%;" height="160px;">
-	              		<div>
-	              			<a class="goDetail">어종 백과사전 -></a>
-	              		</div>
+	              		<div id="fishImg-area"></div>
 	              	</div>
            		</div>
            </div>
@@ -261,7 +258,7 @@
         <div class="category-area">
             
             <div class="category-title">
-                <p>카테고리 제목</p>
+                <p>카테고리 목록</p>
                  <div class="filter-area">
 		              <select id="sortStore" class="form-select" aria-label="Default select example" style="width: 200px;">
 		                <option selected value="3">전체</option>

@@ -250,7 +250,7 @@ let city1 = ''; let city2 = ''; let city3 = ''; let city4 = ''; let city5 = ''; 
         		}
             } else{
             	updateSeaList(data.list);
-            	let moreButton3 = $(`<button id="moreA" onclick="ajaxSeaAreaMore()">더 보기 +`
+            	let moreButton3 = $(`<button id="moreA" onclick="ajaxSeaAreaMore()">더 보기 `
 						+`<span>`+data.piS.currentPage+`</span>`
 						+`<span style="color: rgba(96,96,96,.5)">/ `+data.piS.maxPage+`</span>`
 						+`</button>`);
@@ -280,7 +280,7 @@ function ajaxSeaAreaMore(){
         };
 	storeApi.ajaxSeaAreaMore(sendData,function(data){
 		nextListFiltered(data.list);
-    	let moreButton2 = $('<button id="moreA" onclick="ajaxSeaAreaMore()">더 보기</button>');
+    	let moreButton2 = $('<button id="moreA" onclick="ajaxSeaAreaMore()">더 보기+</button>');
 		$('#btn-area').html(moreButton2);
     	if(data.piS.currentPage === data.piS.maxPage){
     		document.getElementById("moreA").style.display = "none";
@@ -337,6 +337,28 @@ function timeSet(num){
 	}
 	return time;
 }
+function weatherIcon(rnYn, wfCd){
+	let result;
+	if(rnYn>0){
+		if(rnYn == 1){
+			result = 'rain.png';
+		}else if(rnYn == 2){
+			result = 'snowrain.png';
+		}else if(rnYn == 3){
+			result = 'snow.png';
+		}
+	}else{
+		if(wfCd == 'DB01'){
+			result = 'sun.png';
+		}else if(wfCd == 'DB03'){
+			result = 'sunhalf.png';
+		}else if(wfCd == 'DB04'){
+			result = 'cloud.png';
+		}
+	}
+	
+	return result;
+}
 
 function seaWeather(ways){
 	const sendData = {location : ways};
@@ -349,50 +371,79 @@ function seaWeather(ways){
 		$(".table-inner2").empty();
 		$(".table-inner3").empty();
 		let num = 1;
-		if(data.length == 7){
+		if(data.length == 7 || data.length == 9){
 			for (let i = 0; i < 1; i++) {
 				let rowData = data[i];
 				let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
-				rowHtml +=`<span>오후</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
+				rowHtml +=`<span>오후<img class="wIcon" src="/bigFish/resources/images/`+weatherIcon(rowData.rnYn,rowData.wfCd)+`">`;
+				rowHtml +=`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
 				rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
 				rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
 				
 				$(".table-inner").append(rowHtml);
 			}
-		}else{
+			num =1;	
+			for (let i = 1; i < 3; i++) {
+				let rowData = data[i];
+				let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
+				rowHtml +=`<span>`+timeSet(num)+`<img class="wIcon" src="/bigFish/resources/images/`+weatherIcon(rowData.rnYn,rowData.wfCd)+`">`;
+				rowHtml +=`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
+				rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
+				rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
+				
+				$(".table-inner2").append(rowHtml);
+				num++;
+			}
+			num =1;
+			for (let i = 3; i < 5; i++) {
+				let rowData = data[i];
+				let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
+				rowHtml +=`<span>`+timeSet(num)+`<img class="wIcon" src="/bigFish/resources/images/`+weatherIcon(rowData.rnYn,rowData.wfCd)+`">`;
+				rowHtml +=`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
+				rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
+				rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
+				
+				$(".table-inner3").append(rowHtml);
+				num++;
+		}
+		}else if(data.length == 8){
 			for (let i = 0; i < 2; i++) {
 				let rowData = data[i];
 				let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
-				rowHtml +=`<span>`+timeSet(num)+`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
+				rowHtml +=`<span>`+timeSet(num)+`<img class="wIcon" src="/bigFish/resources/images/`+weatherIcon(rowData.rnYn,rowData.wfCd)+`">`;
+				rowHtml +=`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
 				rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
 				rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
 				
 				$(".table-inner").append(rowHtml);
 				num++;
 			}
+			num =1;	
+			for (let i = 2; i < 4; i++) {
+				let rowData = data[i];
+				let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
+				rowHtml +=`<span>`+timeSet(num)+`<img class="wIcon" src="/bigFish/resources/images/`+weatherIcon(rowData.rnYn,rowData.wfCd)+`">`;
+				rowHtml +=`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
+				rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
+				rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
+				
+				$(".table-inner2").append(rowHtml);
+				num++;
+			}
+			num =1;
+			for (let i = 4; i < 6; i++) {
+				let rowData = data[i];
+				let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
+				rowHtml +=`<span>`+timeSet(num)+`<img class="wIcon" src="/bigFish/resources/images/`+weatherIcon(rowData.rnYn,rowData.wfCd)+`">`;
+				rowHtml +=`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
+				rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
+				rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
+				
+				$(".table-inner3").append(rowHtml);
+				num++;
+			}
 		}
-		num =1;	
-		for (let i = 1; i < 3; i++) {
-			let rowData = data[i];
-			let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
-			rowHtml +=`<span>`+timeSet(num)+`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
-			rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
-			rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
-			
-			$(".table-inner2").append(rowHtml);
-			num++;
-		}
-		num =1;
-		for (let i = 3; i < 5; i++) {
-			let rowData = data[i];
-			let rowHtml = `<div class="cell-weather"><span class="time-inner"><strong class="inner-text"><span class="text-inner">`;
-			rowHtml +=`<span>`+timeSet(num)+`</span><span><span class="w-text">풍향</span><span class="wind-direction">`+ getDirection(rowData.wd1) +"-"+getDirection(rowData.wd2)+`</span></span><span>`;
-			rowHtml +=`<span class="w-text">풍속</span><span class="wind-speed">`+ rowData.ws1 + "~" + rowData.ws2 +" m/s"+`</span></span><span><span class="w-text">파고</span>`
-			rowHtml +=`<span class="wave-info">`+ rowData.wh1 + "~" + rowData.wh2 + " m"+`</span>`;
-			
-			$(".table-inner3").append(rowHtml);
-			num++;
-		}
+		
 	
 	})
 }
@@ -475,7 +526,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	seaWeather('12A20101');
     selectedSea('12A20101');
     const fishgroup = document.getElementById('fish-group');
-
+    const seaMapMark = document.getElementById('seaMapArea');
+	
     // 이벤트 위임을 사용하여 container에서 mouseover와 mouseout 이벤트를 처리
     fishgroup.addEventListener('mouseover', function (event) {
         const target = event.target;
@@ -493,11 +545,35 @@ document.addEventListener('DOMContentLoaded', function () {
             target.style.backgroundColor = '';
         }
     })
+    seaMapMark.addEventListener('mouseover', function (event) {
+    const target = event.target;
+    if (target.tagName === 'SPAN') {
+        target.style.backgroundColor = 'rgb(255 220 187 / 49%)';
+    }
+	});
+	
+	seaMapMark.addEventListener('mouseout', function (event) {
+	    const target = event.target;
+	    if (target.tagName === 'SPAN') {
+	        target.style.backgroundColor = '';
+	    }
+	});
 })
 
 function showFish(fish){
 	const sendData = {fish:fish};
 	storeApi.showFish(sendData,function(data){
-		console.log('done')
+		let imgData = `<img src="`+data.img+`" style="width: 100%;" height="160px;">`;
+		if(data.fishNo != null){
+			imgData += `<div><a href="fishInfoDetail.fi?fno=`+data.fishNo+`" class="goDetail">어종 백과사전 -></a></div>`;
+		}
+		$("#fishImg-area").html(imgData);
 	})
+	let selectedElement = document.querySelector('.list-group-item.clicked');
+    if (selectedElement) {
+      selectedElement.classList.remove('clicked');
+    }
+
+    let clickedElement = event.currentTarget;
+    clickedElement.classList.add('clicked');
 }

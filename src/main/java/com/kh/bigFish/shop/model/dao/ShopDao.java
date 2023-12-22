@@ -1,6 +1,8 @@
 package com.kh.bigFish.shop.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -50,4 +52,58 @@ public class ShopDao {
 	public int deleteShop(SqlSessionTemplate sqlSession, int sno) {
 		return sqlSession.update("shopMapper.deleteShop", sno);
 	}
+	
+//	public int insertParameter(SqlSessionTemplate sqlSession,String parameter) {
+//		  Map<String, String> paramMap = getParameterMap(parameter);
+//		System.out.println("샾서비스"+parameter);
+//		return 3;//sqlSession.insert("shopMapper.insertParameter",parameter);
+//	}
+
+	public int insertParameter(SqlSessionTemplate sqlSession, String parameter) {
+	    System.out.println("샾서비스" + parameter);
+
+	    // URL 쿼리 문자열을 맵으로 변환
+	    Map<String, String> paramMap = getParameterMap(parameter);
+System.out.println("99834234"+paramMap);
+	    
+	  
+
+	    return sqlSession.insert("kakaoRequestDtoMapper.insertParameter",paramMap);
+	}
+
+	// URL 쿼리 문자열을 맵으로 변환하는 함수
+	private Map<String, String> getParameterMap(String queryString) {
+	    Map<String, String> paramMap = new HashMap<>();
+	    String[] params = queryString.split("&");
+	    for (String param : params) {
+	        String[] keyValue = param.split("=");
+	        if (keyValue.length == 2) {
+	            String key = keyValue[0];
+	            String value = keyValue[1];
+	            paramMap.put(key, value);
+	        }
+	    }
+	    return paramMap;
+	}
+
+	public int updatePg_token(SqlSessionTemplate sqlSession, String j) {
+		  Map<String, String> paramMap = gettokenMap(j);
+		  System.out.println("헷akstp"+paramMap);
+		return sqlSession.update("kakaoRequestDtoMapper.updatePg_token", paramMap);
+	}
+	public Map<String, String> gettokenMap(String input) {
+        Map<String, String> resultMap = new HashMap<>();
+        String[] parts = input.split(",");
+
+        // 앞뒤 공백 제거
+        String firstPart = parts.length > 0 ? parts[0].trim() : null;
+
+        // 두 번째 부분이 "null" 문자열인 경우에는 null로 설정
+        String secondPart = parts.length > 1 && !"null".equalsIgnoreCase(parts[1].trim()) ? parts[1].trim() : null;
+
+        resultMap.put("pg_token", firstPart);
+        resultMap.put("productNo", secondPart);
+
+        return resultMap;
+    }
 }

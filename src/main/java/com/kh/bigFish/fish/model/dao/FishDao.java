@@ -60,4 +60,12 @@ public class FishDao {
 		return arr;
 	}
 	
+	public int updateFish(SqlSessionTemplate sqlSession, Fish f) {
+		return sqlSession.update("fishMapper.updateFish", f);
+	}
+	
+	public int deleteFish(SqlSessionTemplate sqlSession, int fishNo) {
+		return sqlSession.delete("fishMapper.deleteFish", fishNo);
+	}
+	
 }

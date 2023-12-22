@@ -10,6 +10,7 @@
  		<result column="FISH_COUNT" property="fishCount" />
  		<result column="FISH_STATUS" property="fishStatus" />
  		<result column="FISH_TYPE" property="fishType" />
+ 		<result column="FISH_TITLE_IMAGE" property="fishTitleImage" />
  	</resultMap>
  	
  	<resultMap type="Attachment" id="AttachmentResult">
@@ -85,5 +86,18 @@
  		   AND FISH_NO = #{fishNo}
  	</select>
  	
+	<update id="updateFish">
+ 		UPDATE FISH
+ 		   SET FISH_NAME = #{fishName},
+ 		   	   FISH_TYPE = #{fishType},
+ 		   	   FISH_CONTENT = #{fishContent}
+ 		 WHERE FISH_NO = #{fishNo}
+ 	</update>
+	
+	<update id="deleteFish">
+ 		UPDATE FISH
+ 		   SET FISH_STATUS = 'N'
+ 	 	 WHERE FISH_NO = #{fishNo}
+ 	</update>
 	
 </mapper>

@@ -19,6 +19,7 @@ button{
 }
 .main-section{
 	display: flex;
+	justify-content: center;
 	margin-left: 100px;
 	margin-right: 100px;
 	border: 1px solid;
@@ -26,13 +27,14 @@ button{
     border: #e7e9ef;
 }
 .main-area{
-	background: #e7e9ef;
+	background: #acbff7;
     display: flex;
     position: relative;
     padding: 10px;
     top: 0;
     border-radius: 16px;
     border: #e7e9ef;
+    align-items: center;
 }
 .apiArea{
 	border-radius: 16px;
@@ -524,7 +526,7 @@ p {
 .fishPhoto{
 	width: 300px;
 	height: 200px;
-	margin-left: 100px;
+	margin-left: 50px;
 }
 
 .list-section{
@@ -764,6 +766,9 @@ p {
 .hovered {
     background-color: blue;
 }
+.clicked{
+	background-color: #f0f0f0 !important;
+}
 .goDetail{
 	float: right;
 	width: 125px;
@@ -776,4 +781,9 @@ p {
     font-size: 13px;
     line-height: 31px;
     color: #407dd0;
+}
+.wIcon{
+	width: 20px;
+	height: 20px;
+	margin-left: 10px;
 }

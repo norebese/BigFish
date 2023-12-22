@@ -14,6 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BIG FISH</title>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=93eacc44e9f87bdc7f981a6488721356&libraries=services"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -26,7 +27,7 @@
 	<!-- resAPI-->
 	<script src="<%=contextPath%>/resources/js/service/res-api.js"></script>
 </head>
-<body onload="buildCalendar(), init()">
+<body onload="buildCalendar(), init('${st.storeAddress}','${st.storeName}')">
 
 <jsp:include page="../common/header.jsp"/>
 	<div style="margin: 150px 100px 10px 100px; padding: 0; border-bottom: 1px solid; min-width: 100vh;">
@@ -75,7 +76,7 @@
             <p class="baddress">
                 ${st.storeAddress }
             </p>
-            <div id="like-logo" onclick="updateLike()">
+            <div id="like-logo" onclick="updateLike('<%=loginUser%>')">
 	            <c:choose>
 	            <c:when test="${Slike.storeGoodStatus eq 'Y'}">
 	            	<img src="<%=contextPath%>/resources/images/heart-filled.png">
@@ -91,20 +92,19 @@
     <div class="detail-reply">
         <div class="tab-area">
             <ul class="half">
-                <li class="detail-tab">낚시터 정보</li>
+                <li class="detail-tab" style="background-color: rgb(180, 207, 242);">낚시터 정보</li>
+                <li style="display: table-cell; width: 90px;"></li>
                 <li class="reply-tab">댓글</li>
             </ul>
         </div>
         <div class="map-plus on">
             <div class="map-area">
-                <div class="kakao-map">
-					<div id="map">
-						
-            		</div>
+                <div id="map" class="kakao-map">
+
                 </div>
                 <div class="address-area">
                     <p class="title-address">위치 정보</p>
-                    <p class="detail-address">충남 당진시 석문면 난지3길 12</p>
+                    <p class="detail-address">${st.storeAddress}</p>
                 </div>
             </div>
             
@@ -188,17 +188,17 @@
                 </div>
                 
             </div>
-			<c:set var="fishKindsSize" value="${fn:length(fishKinds)}" />
+			<c:set var="fishKindsSize" value="${fn:length(fishImageMap)}" />
 
             <div class="fishkind-area">
                 <span class="price-title">주요 어종</span>
                 <span style="color: green;"><c:out value="${fishKindsSize}" />종</span>
 
                 <div style="display: flex; margin-left: 10px;">
-	                <c:forEach var="fishKind" items="${fishKinds}"> 
+	                <c:forEach var="fishInfo" items="${fishImageMap}"> 
 	                    <div class="fish-img">
-	                        <img src="<%=contextPath%>/resources/images/fish ex.png" alt="">
-	                        <p class="fishname">${fishKind}</p>
+	                        <img src="${fishInfo.value}" alt="">
+	                        <p class="fishname">${fishInfo.key}</p>
 	                    </div>
 	                 </c:forEach>
                 </div>

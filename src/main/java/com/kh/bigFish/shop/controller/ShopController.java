@@ -1,7 +1,14 @@
 package com.kh.bigFish.shop.controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +30,7 @@ import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
 import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.shop.model.service.ShopService;
+import com.kh.bigFish.shop.model.vo.KakaoRequestDto;
 import com.kh.bigFish.shop.model.vo.Shop;
 
 
@@ -234,4 +243,81 @@ public class ShopController {
 			return "common/errorPage";
 		}
 	}
+	
+	@RequestMapping(value="/listasdf.SHbo")
+	public String freeBoardList() {
+		
+		return "shop/goodsPayment";
+	}
+	
+	@ResponseBody
+	@RequestMapping("kakao.fr")
+	public String kakao(@RequestBody KakaoRequestDto kakaoRequestDto) throws IOException  {
+		URL pay;
+
+			pay = new URL("https://kapi.kakao.com/v1/payment/ready");
+		
+		
+			HttpURLConnection conn=(HttpURLConnection)pay.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Authorization", "KakaoAK e04a6e1d2f48b503788cdd07f67dc975");
+			conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+			conn.setDoOutput(true);
+//			String parameter ="cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name=\"fishing\"&quantity=1&total_amount=2200&tax_free_amount=0&approval_url=http://localhost:8987/bigFish&fail_url=http://localhost:8987/fail&cancel_url=http://localhost:8987/cancel";
+			String item_name_param = "\"" + kakaoRequestDto.getItem_name() + "\"";
+			String parameter = ("cid=" + kakaoRequestDto.getCid() +
+            "&partner_order_id=" + kakaoRequestDto.getPartner_order_id() +
+            "&partner_user_id=" + kakaoRequestDto.getPartner_user_id() +
+            "&item_name=" + item_name_param +
+            "&quantity=" + kakaoRequestDto.getQuantity() +
+            "&total_amount=" + kakaoRequestDto.getTotal_amount() +
+            "&tax_free_amount=" + kakaoRequestDto.getTax_free_amount() +
+            "&approval_url=" + kakaoRequestDto.getApproval_url() +
+            "&fail_url=" + kakaoRequestDto.getFail_url() +
+            "&cancel_url=" + kakaoRequestDto.getCancel_url());
+			OutputStream i =conn.getOutputStream();
+			DataOutputStream j =new DataOutputStream(i);
+			System.out.println(parameter);
+			j.writeBytes(parameter);
+			int result1 = shopService.insertParameter(parameter);
+			
+			j.close();
+			int result =conn.getResponseCode();
+			System.out.println("fdsafdsafasdgbewsagase"+result);
+			InputStream k ;
+			if(result == 200) {
+				k =conn.getInputStream();
+			}else {
+				k=conn.getErrorStream();
+			}
+			InputStreamReader l=new InputStreamReader(k);
+			BufferedReader m =new BufferedReader(l);
+		
+			return m.readLine();
+		
+		
+		
+		
+	}//이게진짜
+	
+	@ResponseBody
+	@RequestMapping("pay.fr")
+	 public String handlePaymentResult(@RequestBody KakaoRequestDto kakaoRequestDto) {
+		   // 여기서 받은 데이터를 활용하여 원하는 로직을 수행
+		
+		
+		                                
+		   String pg_token=kakaoRequestDto.getPg_token();
+		   int bno=kakaoRequestDto.getProductNo();
+		   
+		
+		   String j=pg_token+","+bno;
+		   
+		   int result1 = shopService.updatePg_token(j);
+	    System.out.println(bno+"파라미터"+pg_token);
+        
+        // TODO: 여기에 원하는 로직을 추가하세요.
+
+        return "Success"; // 또는 다른 응답을 반환
+    }
 }
