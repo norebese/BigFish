@@ -11,8 +11,8 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 <meta charset="UTF-8">
 <title>BIG FISH</title>
 
-<!-- JS-->
-<script src="<%=contextPath%>/resources/js/shopDetailView.js"></script>
+<!-- JS
+<script src="<%=contextPath%>/resources/js/shopDetailView.js"></script> -->
 
 </head>
 <body>
@@ -40,7 +40,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
             <br>
             <div class="quantity-container" align="right"> 
                 수량 : <input type="hidden" name="sell_price" value="${s.productPrice}">
-                <input type="text" name="amount" value="1" size="3" max="">
+                <input type="text" name="amount" value="0" size="3" max="">
                 <input type="button" value=" + " name="add">
                 <input type="button" value=" - " name="minus">
                 총 상품 금액 : <input type="text" name="sum" size="11" readonly>원

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https:/mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+ <mapper namespace="shopMapper">
+ 	<resultMap type="Shop" id="shopResult">
+ 		<result column="PRODUCT_NO" property="productNo"/>
+ 		<result column="PRODUCT_NAME" property="productName"/>
+ 		<result column="PRODUCT_PRICE" property="productPrice"/>
+ 		<result column="PRODUCT_STOCK" property="productStock"/>
+ 		<result column="PRODUCT_STATUS" property="productStatus"/>
+ 		<result column="PRODUCT_ORIGIN" property="productOrigin"/>
+ 		<result column="PRODUCT_BRAND" property="productBrand"/>
+ 		<result column="ORIGIN_NAME" property="originName"/>
+ 		<result column="CHANGE_NAME" property="changeName"/>
+ 		<result column="RPRODUCT_NO" property="rproductNo"/>
+ 	</resultMap>
+ 	
+ 	<resultMap type="Attachment" id="AttachmentResult">
+		<result column="FILE_NO" property="fileNo" />
+		<result column="ORIGIN_NAME" property="originName" />
+		<result column="CHANGE_NAME" property="changeName" />
+		<result column="FILE_PATH" property="filePath" />
+		<result column="UPLOAD_DATE" property="uploadDate" />
+		<result column="FILE_LEVEL" property="fileLevel" />
+		<result column="FILE_STATUS" property="fileStatus" />
+		<result column="RFISH_NO" property="rfishNo" />
+		<result column="RPRODUCT_NO" property="rproductNo" />
+		<result column="RFISHING_NO" property="rfishingNo" />
+		<result column="RSTORE_NO" property="rstoreNo" />
+	</resultMap>
+	
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+			FROM SHOP
+			WHERE PRODUCT_STATUS = 'Y'
+	</select>
+	
+	<select id="selectList" resultMap="shopResult">
+		 SELECT SH.PRODUCT_NO,
+ 			   SH.PRODUCT_NAME,
+ 			   SH.PRODUCT_PRICE,
+ 			   SH.PRODUCT_STATUS,
+ 			   SH.PRODUCT_ORIGIN,
+ 			   SH.PRODUCT_BRAND,
+ 			  AT.CHANGE_NAME
+ 		 FROM SHOP SH
+ 		LEFT JOIN ATTACHMENT AT ON SH.PRODUCT_NO = AT.RPRODUCT_NO 
+ 		WHERE SH.PRODUCT_STATUS = 'Y'
+ 		ORDER BY SH.PRODUCT_NO DESC
+	</select>
+	
+	<insert id="insertShop">
+		INSERT INTO SHOP (
+ 		PRODUCT_NO,
+ 		PRODUCT_NAME,
+ 		PRODUCT_PRICE,
+        PRODUCT_STOCK,
+ 		PRODUCT_ORIGIN,
+ 		PRODUCT_BRAND
+ 		)
+ 		VALUES (
+ 		SEQ_SHOP_NO.NEXTVAL,
+ 		#{productName},
+ 		#{productPrice},
+        #{productStock},
+ 		#{productOrigin},
+ 		#{productBrand}
+ 		)
+	</insert>
+	
+	<insert id="insertShopFile">
+		INSERT
+ 		INTO ATTACHMENT (
+ 		FILE_NO,
+ 		ORIGIN_NAME,
+ 		CHANGE_NAME,
+ 		RPRODUCT_NO
+ 		)
+ 		VALUES (
+ 		SEQ_FILE_NO.NEXTVAL,
+ 		#{originName},
+		#{changeName},
+ 		SEQ_SHOP_NO.CURRVAL
+ 		)
+	</insert>
+	
+	<select id="selectShop" resultMap="shopResult">
+		SELECT
+			SH.PRODUCT_NO,
+			SH.PRODUCT_NAME,
+			SH.PRODUCT_PRICE,
+			SH.PRODUCT_STOCK,
+			SH.PRODUCT_STATUS,
+			SH.PRODUCT_ORIGIN,
+			SH.PRODUCT_BRAND,
+			AT.CHANGE_NAME,
+			AT.ORIGIN_NAME
+		 FROM SHOP SH
+		 INNER JOIN ATTACHMENT AT ON SH.PRODUCT_NO = AT.RPRODUCT_NO
+		 WHERE SH.PRODUCT_STATUS = 'Y'
+		 AND SH.PRODUCT_NO = #{productNo}
+	</select>
+	
+	<update id="updateShop">
+		UPDATE SHOP
+			SET PRODUCT_NAME = #{productName},
+				PRODUCT_PRICE = #{productPrice},
+				PRODUCT_STOCK = #{productStock},
+				PRODUCT_ORIGIN = #{productOrigin},
+				PRODUCT_BRAND = #{productBrand}
+			WHERE PRODUCT_NO = #{productNo}
+	</update>
+	
+	<update id="updateFileShop">
+		UPDATE ATTACHMENT
+	  		SET 
+	  			ORIGIN_NAME = #{originName},
+	  			CHANGE_NAME = #{changeName}
+	  		WHERE RPRODUCT_NO = #{productNo}
+	</update>
+	
+	<update id="deleteShop">
+		UPDATE SHOP
+		 SET PRODUCT_STATUS = 'N'
+		WHERE PRODUCT_NO = #{prodcutNo}
+	</update>
+ </mapper>
+ 
