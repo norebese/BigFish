@@ -694,4 +694,10 @@
         OR LOCATION_SMALL = #{city6}
 	</select>
 	
+	<select id="showFishImg" resultType="string">
+		SELECT SUBSTR(FISH_CONTENT, INSTR(FISH_CONTENT, 'src="') + 5, INSTR(SUBSTR(FISH_CONTENT, INSTR(FISH_CONTENT, 'src="') + 5), '"') - 1) AS IMG
+		FROM FISH
+		WHERE FISH_NAME = #{fish}
+	</select>
+	
  </mapper>

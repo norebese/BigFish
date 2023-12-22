@@ -54,40 +54,46 @@
     min-width: 100vh;
 }
 .tab-area{
+	display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
     
 }
-.tab-area li{
-    float: left;
-    display: flex;
-}
 .half{
-    display: flex;
-    margin-left: 30%;
-    margin-right: 30%;
+    display: table;
+    table-layout: fixed;
+    width: 60%;
+    height: 40px;
 }
 .detail-tab{
-    width: 70%;
+	display: flex;
+    width: 100%;
+	display: table-cell;
     height: 60px;
     margin-right: 80px;
     align-items: center;
     justify-content: center;
-    background-color: rgb(238, 238, 238);
     font-size: 30px;
     cursor: pointer;
     word-break: keep-all;
+    border: solid 1px gray;
+    text-align: center;
+    border-radius: 4px;
 }
 .reply-tab{
-    width: 50%;
+	display: flex;
+    width: 100%;
+	display: table-cell;
     height: 60px;
     margin-right: 80px;
     align-items: center;
     justify-content: center;
-    background-color: rgb(238, 238, 238);
     font-size: 30px;
     cursor: pointer;
+    border: solid 1px gray;
+    text-align: center;
+    border-radius: 4px;
 }
 .map-plus{
     display: none;

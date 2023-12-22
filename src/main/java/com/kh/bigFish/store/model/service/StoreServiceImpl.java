@@ -216,6 +216,11 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.fishKindList(sqlSession, City1, City2, City3, City4, City5, City6);
 	}
 
+	@Override
+	public String showFishImg(String fish) {
+		return storeDao.showFishImg(sqlSession, fish);
+	}
+
 
 	
 }

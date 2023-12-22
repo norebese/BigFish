@@ -725,7 +725,16 @@ public class StoreController {
 	public Map<String, Object> showFish(HttpServletRequest request){
 		Map<String, Object> result = new HashMap<>();
 		String fish = request.getParameter("fish");
-		System.out.println(fish);
+		
+		String img = storeService.showFishImg(fish);
+		
+		
+		if(img != null) {
+			result.put("img", img);
+		}else {
+			img = "/bigFish/resources/images/fish ex.png";
+			result.put("img", img);
+		}
 		
 		return result;
 	}

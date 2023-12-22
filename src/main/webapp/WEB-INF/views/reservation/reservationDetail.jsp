@@ -91,7 +91,8 @@
     <div class="detail-reply">
         <div class="tab-area">
             <ul class="half">
-                <li class="detail-tab">낚시터 정보</li>
+                <li class="detail-tab" style="background-color: rgb(180, 207, 242);">낚시터 정보</li>
+                <li style="display: table-cell; width: 90px;"></li>
                 <li class="reply-tab">댓글</li>
             </ul>
         </div>

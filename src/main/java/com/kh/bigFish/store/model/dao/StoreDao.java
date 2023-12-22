@@ -275,4 +275,8 @@ public class StoreDao {
 		return (ArrayList)sqlSession.selectList("storeMapper.fishKindList",params);
 	}
 
+	public String showFishImg(SqlSessionTemplate sqlSession, String fish) {
+		return sqlSession.selectOne("storeMapper.showFishImg", fish);
+	}
+
 }
