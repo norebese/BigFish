@@ -26,4 +26,7 @@ public interface ShopService {
 
 	int deleteShop(int sno);
 	
+	int insertParameter(String parameter);
+	
+	int updatePg_token(String j);
 }

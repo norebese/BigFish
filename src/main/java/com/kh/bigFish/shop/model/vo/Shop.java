@@ -19,6 +19,7 @@ public class Shop {
 	private int productStock;
 	private String productStatus;
 	private String productOrigin;
+	private String productDetail;
 	private String productBrand;
 	private String originName;
 	private String changeName;

@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.kh.bigFish.announce.model.vo.Announce;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
 import com.kh.bigFish.fish.model.service.FishService;
@@ -95,6 +96,76 @@ public class FishController {
 		}
 	}
 	
+	@RequestMapping(value="fishUpdateForm.fi")
+	public String FishUpdateForm(int fno, Model model) {
+		
+		model.addAttribute("f", fishService.selectFish(fno));
+		
+		return "fishInfo/fishInfoUpdate";
+	}
+	
+	@RequestMapping(value="fishUpdate.fi")
+	public String updateAnn(Fish f, String deleteImgs, HttpSession session, Model model) {
+		
+		Fish fish = fishService.selectFish(f.getFishNo());
+		
+	    String fishContent = fish.getFishContent();
+	    String newFishContent = f.getFishContent();
+	    
+	    // annContent에서 이미지 파일 경로 추출
+	    List<String> imgPaths = extractImgPathsFromContent(fishContent);
+	    List<String> newImgPaths = extractImgPathsFromContent(newFishContent);
+
+	    // 이미지를 저장확정 안할시 삭제한 이미지를 폴더에서 삭제하는 코드
+	    String[] imgs = deleteImgs.split(",");
+	    for (String imgPath : imgs) {
+	        new File(session.getServletContext().getRealPath(imgPath)).delete();
+	    }
+	    
+	    // 파일 삭제
+	    for (String imgPath : imgPaths) {
+	    	if (newImgPaths.indexOf(imgPath) == -1) {
+	            new File(session.getServletContext().getRealPath(imgPath)).delete();
+	        }
+	    }
+	    
+	    int result = fishService.updateFish(f);
+	    
+	    if (result > 0) {
+	        session.setAttribute("alertMsg", "게시글 수정 완료");
+	        return "redirect:fishInfoDetail.fi?fno=" + f.getFishNo();
+	    } else {
+	        model.addAttribute("errorMsg", "게시글 수정 실패");
+	        return "common/errorPage";
+	    }
+	}
+	
+	@RequestMapping(value="fishInfoDelete.fi")
+	public String deleteFishInfo(int fno, HttpSession session, Model model) {
+		
+		Fish f = fishService.selectFish(fno);
+		String fishContent = f.getFishContent();
+		
+	    // annContent에서 이미지 파일 경로 추출
+	    List<String> imgPaths = extractImgPathsFromContent(fishContent);
+
+	    // 파일 삭제
+	    for (String imgPath : imgPaths) {
+	  
+	         new File(session.getServletContext().getRealPath(imgPath)).delete();
+	         
+	    }
+		
+		int result = fishService.deleteFish(fno);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "게시글 삭제 성공");
+			return "redirect:fishInfo.fi";
+		} else {
+			model.addAttribute("errorMsg", "게시글 삭제 실패");
+			return "common/errorPage";
+		}
+	}
 
 	@ResponseBody
 	@RequestMapping(value="/uploadFishImageFile")
@@ -157,7 +228,25 @@ public class FishController {
 	        return imgPath;
 	    }
 	    return null;
-	} 
+	}
+	
+	private List<String> extractImgPathsFromContent(String fishContent) {
+	    List<String> imgPaths = new ArrayList<>();
+
+	    // 이미지 경로 추출
+	    int startIndex = fishContent.indexOf("<img");
+
+	    while (startIndex != -1) {
+	        int srcIndex = fishContent.indexOf("src=", startIndex);
+	        int startQuoteIndex = fishContent.indexOf("\"", srcIndex);	      
+	        int endQuoteIndex = fishContent.indexOf("\"", startQuoteIndex + 1);
+	        String imgPath = fishContent.substring(startQuoteIndex + 9, endQuoteIndex); // +9인 이유는 +1에다가 /bigFish라는 contextPath제거
+	        imgPaths.add(imgPath);
+	        startIndex = fishContent.indexOf("<img", endQuoteIndex);
+	    }
+
+	    return imgPaths;
+	}
 	
 
 }
