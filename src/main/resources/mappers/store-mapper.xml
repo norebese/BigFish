@@ -758,11 +758,11 @@
 	</select>
 
 	<select id="getStoreNameInfoForChat" resultMap="storeResult">
-		SELECT STORE_NAME
-		FROM STORE
-		WHERE STORE_NO = #{storeNo}
+	SELECT STORE_NAME
+	FROM STORE
+	WHERE STORE_NO = #{storeNo}
 	</select>
-
+	
 
 
 

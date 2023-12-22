@@ -285,6 +285,8 @@ public class StoreDao {
 		return (ArrayList)sqlSession.selectList("storeMapper.fishKindList",params);
 	}
 
+
+
 	public String showFishImg(SqlSessionTemplate sqlSession, String fish) {
 		return sqlSession.selectOne("storeMapper.showFishImg", fish);
 	}
@@ -292,5 +294,6 @@ public class StoreDao {
 	public String getFishNo(SqlSessionTemplate sqlSession, String fish) {
 		return sqlSession.selectOne("storeMapper.getFishNo", fish);
 	}
+
 
 }

@@ -75,7 +75,7 @@
 					<td id="checkNickSpace" style="height: 30px;"></td>
 				</tr>
 			</table>
-			<input required id="phone" name="phone" placeholder="휴대폰 번호를 입력해주세요. (-포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
+			<input required id="phone" name="phone" placeholder="휴대폰 번호를 입력해주세요. (-미포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
 			<table style="width: 40%; margin: 0px auto;">
 				<tr style="width: 100%;">
 					<td><input name="postNo" id="postcode" placeholder="우편번호" readonly style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
