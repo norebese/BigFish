@@ -27,6 +27,18 @@ function init(){
 
     let infodiv = document.querySelector('.map-plus');
     let replydiv = document.querySelector('.reply-area');
+    
+    let storeInfo = document.querySelector('.detail-tab');
+    let replyInfo = document.querySelector('.reply-tab');
+    
+    storeInfo.addEventListener('click', function () {
+        storeInfo.style.backgroundColor = 'rgb(180 207 242)';
+        replyInfo.style.backgroundColor = '';
+    });
+    replyInfo.addEventListener('click', function () {
+        replyInfo.style.backgroundColor = 'rgb(180 207 242)';
+        storeInfo.style.backgroundColor = '';
+    });
 
     infobtn.addEventListener('click', function() {
         infodiv.classList.add('on');

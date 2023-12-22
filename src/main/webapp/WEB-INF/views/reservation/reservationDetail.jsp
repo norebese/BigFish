@@ -91,7 +91,8 @@
     <div class="detail-reply">
         <div class="tab-area">
             <ul class="half">
-                <li class="detail-tab">낚시터 정보</li>
+                <li class="detail-tab" style="background-color: rgb(180, 207, 242);">낚시터 정보</li>
+                <li style="display: table-cell; width: 90px;"></li>
                 <li class="reply-tab">댓글</li>
             </ul>
         </div>
@@ -188,17 +189,17 @@
                 </div>
                 
             </div>
-			<c:set var="fishKindsSize" value="${fn:length(fishKinds)}" />
+			<c:set var="fishKindsSize" value="${fn:length(fishImageMap)}" />
 
             <div class="fishkind-area">
                 <span class="price-title">주요 어종</span>
                 <span style="color: green;"><c:out value="${fishKindsSize}" />종</span>
 
                 <div style="display: flex; margin-left: 10px;">
-	                <c:forEach var="fishKind" items="${fishKinds}"> 
+	                <c:forEach var="fishInfo" items="${fishImageMap}"> 
 	                    <div class="fish-img">
-	                        <img src="<%=contextPath%>/resources/images/fish ex.png" alt="">
-	                        <p class="fishname">${fishKind}</p>
+	                        <img src="${fishInfo.value}" alt="">
+	                        <p class="fishname">${fishInfo.key}</p>
 	                    </div>
 	                 </c:forEach>
                 </div>
