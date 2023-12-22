@@ -53,9 +53,12 @@ String alertMsg = (String) session.getAttribute("alertMsg");
                         <a class="btn btn-primary" onclick="postFormSubmit(1)">상품 수정</a>
                         <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProduct">상품 삭제</a>
                     </div>
+                    <br>
+                    <div align="right"><button class="btn btn-secondary" onclick="location.href='list.sh'">목록으로</button></div>
                 </c:when>
                 <c:otherwise>
                     <button align="center" class="btn" onclick="location.href=''" style="background-color: rgb(52, 152, 219); color: white; float:right;">구매하기</button>
+                    <div style="margin-left: 52%;"><button class="btn btn-secondary" onclick="location.href='list.st'">목록으로</button></div>
                 </c:otherwise>
             </c:choose>  
         </div>
@@ -77,11 +80,18 @@ String alertMsg = (String) session.getAttribute("alertMsg");
         <div
             style="width: 100%; height: 400px; margin-bottom: 20px; overflow: hidden; display: flex; justify-content: flex-start;">
             <!-- 실제로는 이미지의 경로를 적어주세요. -->
-            <img src="<%=contextPath%>/${b.changeName}" alt="Your Image"
+            <img src="<%=contextPath%>/${b.changeName}" alt=""
                 style="height: 352px;">
         </div>
     </div>
 
+    <div style="display: flex; justify-content: center;">
+        <tr>
+            <td colspan="4">${s.productDetail}
+                </p>
+            </td>
+        </tr>
+    </div>
     <!-- The Modal -->
     <div class="modal" id="deleteProduct">
         <div class="modal-dialog">

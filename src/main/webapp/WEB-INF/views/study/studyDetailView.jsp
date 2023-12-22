@@ -127,7 +127,7 @@
                         studyNo: ${s.studyNo}
                     },
                     dataType: 'json', 
-                    success: function(data) {   
+                    success: function(data)    
 
                         console.log(data.studyGoodStatus);
                             if(data == 'Y'){
