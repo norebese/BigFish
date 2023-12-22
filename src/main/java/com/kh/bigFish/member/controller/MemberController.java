@@ -14,12 +14,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +31,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.bigFish.attachment.model.vo.Attachment;
@@ -58,7 +59,8 @@ public class MemberController {
 	@Autowired
 	private ReservationService reservationService;
 	
-
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	
 	// 로그인 폼으로 이동
@@ -71,9 +73,11 @@ public class MemberController {
 	@RequestMapping(value="/login.me")
 	public ModelAndView loginMember(Member m, ModelAndView mv, HttpSession session) {
 		
-		Member loginUser = memberService.loginMember(m);
+		//Member loginUser = memberService.loginMember(m);
 		
-		if(loginUser == null) {
+		Member loginUser = memberService.loginMemberId(m); 
+		
+		if(loginUser == null || !bcryptPasswordEncoder.matches(m.getMemPwd(), loginUser.getMemPwd())) {
 			mv.addObject("errorMsg","로그인 실패");
 			mv.setViewName("common/errorPage");
 		}else {
@@ -81,6 +85,7 @@ public class MemberController {
 			
 			mv.setViewName("redirect:/");
 		}
+
 		
 		return mv;
 	}
@@ -144,7 +149,7 @@ public class MemberController {
 		System.out.println(isMember);
 		
 		if(isMember != null) {
-			Member loginUser = memberService.loginMember(isMember);
+			Member loginUser = memberService.loginMemberId(isMember);
 			
 			session.setAttribute("loginUser", loginUser);
 			return "redirect:/";
@@ -356,8 +361,14 @@ public class MemberController {
 	// 개인 회원가입
 	@RequestMapping("/insertPersonalMember.me")
 	public String insertPersonalMember(Member m, Model model, HttpSession session) {
-
+		
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
+		System.out.println("암호문 : " + encPwd);
+		
+		m.setMemPwd(encPwd);
+		
 		int result = memberService.insertPersonalMember(m);
+		
 		
 		if(result>0) {
 			session.setAttribute("alertMsg", "회원가입에 성공했습니다.");
@@ -369,6 +380,21 @@ public class MemberController {
 		}
 		
 		
+	}
+	// 네이버 로그인 회원 회원가입
+	@RequestMapping("/insertNaverMember.me")
+	public String insertNaverMember(Member m, Model model, HttpSession session) {
+		
+		int result = memberService.insertNaverMember(m);
+		
+		if(result>0) {
+			session.setAttribute("alertMsg", "회원가입에 성공했습니다.");
+			 
+			return "redirect:/";
+		}else {
+			model.addAttribute("errorMsg","게시글 작성 실패");
+			return "common/errorPage";
+		}
 	}
 	
 	// 사업자 회원 가입
@@ -420,6 +446,8 @@ public class MemberController {
 		attArray.get(0).setFileLevel(1);
 		
 
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
+		m.setMemPwd(encPwd);
 		
 		int memberResult = memberService.insertCompanyMember(m);
 		
@@ -535,21 +563,29 @@ public class MemberController {
 	@RequestMapping("/updateNick.me")
 	public String updateNick(Member m, Model model, HttpSession session) {
 		
-		int result = memberService.updateNick(m);
+		int nickIsSame = memberService.nickIsSame(m);
 		
-		if(result>0) {
-			// 닉네임 변경 성공
-			Member loginUser = memberService.takeUserInfo(m);
+		if(nickIsSame<0) {
+			int result = memberService.updateNick(m);
 			
-			session.setAttribute("loginUser", loginUser);
-			session.setAttribute("alertMsg", "정보변경에 성공했습니다.");
-			return "redirect:/personalMyPage.me";	
-			
+			if(result>0) {
+				// 닉네임 변경 성공
+				Member loginUser = memberService.takeUserInfo(m);
+				
+				session.setAttribute("loginUser", loginUser);
+				session.setAttribute("alertMsg", "정보변경에 성공했습니다.");
+				return "redirect:/personalMyPage.me";	
+				
+			}else {
+			   // 닉네임 변경 실패
+				model.addAttribute("errorMsg","닉네임 변경 실패");
+				return "common/errorPage";
+			}
 		}else {
-		   // 닉네임 변경 실패
-			model.addAttribute("errorMsg","닉네임 변경 실패");
-			return "common/errorPage";
+			session.setAttribute("alertMsg", "중복된 닉네임입니다. 다시 입력해주세요.");
+			return "redirect:/personalMyPage.me";
 		}
+		
 		
 		
 	}
@@ -598,6 +634,21 @@ public class MemberController {
 		}
 	}
 	
+	// 비밀번호 변경
+	@RequestMapping("updateMyPwd")
+	public String updateMyPwd(Member m, HttpSession session) {
+		
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemPwd());
+		
+		m.setMemPwd(encPwd);
+		
+		int result = memberService.updateMyPwd(m);
+		
+		session.setAttribute("alertMsg", "정보변경에 성공했습니다.");
+		return "redirect:/personalMyPage.me";	
+		
+	}
+	
 	// 아이디 찾기
 	@ResponseBody
 	@RequestMapping("/findId.me")
@@ -635,11 +686,15 @@ public class MemberController {
 		
 		if(findUser != null) {
 			
+			// 임시번호 발급
+			UUID ranUid = UUID.randomUUID(); 
+			String tempPwd = ranUid.toString().substring(0,7);
+			
 			// 메시지 세팅
 			SimpleMailMessage message = new SimpleMailMessage();
 			
 			message.setSubject("안녕하세요. BIGFISH입니다.");
-			message.setText("고객님의 비밀번호는 "+findUser.getMemPwd()+"입니다.");
+			message.setText("고객님의 비밀번호는 "+tempPwd+" 입니다.");
 			
 			// 보낼 곳 세팅
 			String [] to = {findUser.getMemId()};
@@ -647,7 +702,13 @@ public class MemberController {
 			
 			// 발송
 			sender.send(message);
-
+			
+			//발송한 비밀번호로 변경
+			String encPwd = bcryptPasswordEncoder.encode(tempPwd);
+			findUser.setMemPwd(encPwd);
+			
+			memberService.updateTmpPwd(findUser);
+			
 			
 			
 			return "Y";

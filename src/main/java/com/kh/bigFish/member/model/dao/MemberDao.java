@@ -69,4 +69,24 @@ public class MemberDao {
 	public Member getUserNameInfoForChat(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("memberMapper.getUserNameInfoForChat", m);
 	}
+	
+	public Member loginMemberId(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.loginMemberId", m);
+	}
+	
+	public int insertNaverMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.insert("memberMapper.insertNaverMember", m);
+	}
+	
+	public int updateTmpPwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateTmpPwd", m);
+	}
+	
+	public int updateMyPwd(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("memberMapper.updateMyPwd", m);
+	}
+	
+	public int nickIsSame(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("memberMapper.nickIsSame", m);
+	}
 }

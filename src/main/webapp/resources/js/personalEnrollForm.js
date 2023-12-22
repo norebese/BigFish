@@ -1,41 +1,3 @@
-function checkPwd(){
-    let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-
-    const pwd = document.querySelector("#pwd");
-    const passwordRule = document.querySelector("#passwordRule");
-    const passwordRuleOK = document.querySelector("#passwordRuleOK");
-    const enrollBtn = document.querySelector("#enroll-btn");
-
-    if(!reg.test(pwd.value)){
-        passwordRuleOK.style.display = "none";
-        passwordRule.style.display = "block";
-        enrollBtn.setAttribute("disabled",ture);
-        return;
-    }
-
-    passwordRule.style.display = "none";
-    passwordRuleOK.style.display = "block";
-    pwd.setAttribute("readonly",true);
-    enrollBtn.removeAttribute("disabled");
-    
-}
-
-function samePwd(){
-    const pwd = document.querySelector("#pwd");
-    const pwdAgain = document.querySelector("#pwdAgain");
-    const checkPasswordRule = document.querySelector("#checkPasswordRule");
-    const enrollBtn = document.querySelector("#enroll-btn");
-
-    if(pwd.value!==pwdAgain.value){
-        checkPasswordRule.style.display = "block";
-        enrollBtn.setAttribute("disabled",true);
-        return;
-    }
-
-    checkPasswordRule.style.display = "none";
-    enrollBtn.removeAttribute("disabled");
-
-}
 // 회원 가입 시 중복체크 (사용 가능 시 "Y" 반환 사용 불가능 시 "N" 반환)
 function checkEmailId(){
     const emailId = document.querySelector("#emailId");
@@ -69,6 +31,7 @@ function checkEmailId(){
             // 사용 가능한 경우
             checkEmailIdSpace.innerHTML = "사용 가능한 아이디입니다.";
             checkEmailIdSpace.style.color = "#2f9947";
+            enrollBtn.removeAttribute("disabled");
         }else{
             // 사용 불가능한 경우
             checkEmailIdSpace.innerHTML = "사용 불가능한 아이디입니다.";

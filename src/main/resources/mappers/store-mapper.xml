@@ -686,7 +686,8 @@
 	SELECT STORE_NAME
 	FROM STORE
 	WHERE STORE_NO = #{storeNo}
-
+	</select>
+	
 	<select id="fishKindList" resultType="string">
 		SELECT STORE_FISH_KIND
 		FROM (SELECT 

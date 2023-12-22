@@ -285,5 +285,4 @@ public class StoreDao {
 		return (ArrayList)sqlSession.selectList("storeMapper.fishKindList",params);
 	}
 
-
 }
