@@ -97,6 +97,10 @@ public interface StoreService {
 
 	List<String> fishKindList(String City1, String City2, String City3, String City4, String City5, String City6);
 	
+	String showFishImg(String fish);
+	
+	String getFishNo(String fish);
+	
 }
 
 
