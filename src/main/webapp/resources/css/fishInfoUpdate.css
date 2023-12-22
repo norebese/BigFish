@@ -1,0 +1,35 @@
+.fishInfoHead-fi{
+	color: rgb(59, 175, 252);
+    width: 90%;
+    margin: 10px auto;
+    font-weight: bolder;
+}
+.border-line{
+	border-bottom: 2px solid rgb(204, 204, 204);
+    width: 90%;
+    margin: 10px auto;		
+}
+.fishInfo-button {
+    width: 850px;
+    font-size: 16px;
+    font-weight: bolder;
+    height: 50px;
+    background-color: rgb(59, 175, 252);
+    color: white;
+    border-radius: 3px;
+    border: 4px solid;
+}
+.fishInfo-form{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.fish-name{
+	width: 850px;
+    height: 40px;
+}
+.fish-content{
+	width: 850px;
+    height: 550px;
+}

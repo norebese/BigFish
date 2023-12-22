@@ -32,9 +32,11 @@
 		
 		<c:if test="${ not empty loginUser }">
 			<div class="ann-btn-area">
-				<a class="btn btn-primary" onClick="annList()">목록으로</a>
-				<a class="btn btn-primary" onclick="location.href='annUpdateForm.an?ano=${a.annNo}'">수정하기</a>
-				<a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</a>
+				<a class="btn btn-primary" onclick="location.href='annList.an'">목록으로</a>
+				<c:if test="${ loginUser.memAdmin eq 'Y' }">
+					<a class="btn btn-primary" onclick="location.href='annUpdateForm.an?ano=${a.annNo}'">수정하기</a>
+					<a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</a>
+				</c:if>
 			</div>
 		</c:if>
 	</div>
@@ -67,11 +69,6 @@
 			  </div>
 			</div>
 	
-	<script>
-		function annList(){
-			location.href="annList.an";
-		}
-	</script>
 	
 	<br><br><br><br><br><br>
 	<jsp:include page="../common/footer.jsp"/>
