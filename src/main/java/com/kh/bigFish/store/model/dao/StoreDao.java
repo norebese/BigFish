@@ -264,6 +264,16 @@ public class StoreDao {
 		return (ArrayList)sqlSession.selectList("storeMapper.getStoreAttForUpdate",rstoreNo);
 	}
 
+	
+	public Store getStoreForChat(SqlSessionTemplate sqlSession, String storeNo) {
+		return sqlSession.selectOne("storeMapper.getStoreForChat",Integer.parseInt(storeNo));
+	}
+	
+	public Store getStoreNameInfoForChat(SqlSessionTemplate sqlSession, Store s) {
+		return sqlSession.selectOne("storeMapper.getStoreNameInfoForChat", s);
+	}
+
+
 	public List<String> fishKindList(SqlSessionTemplate sqlSession, String City1, String City2, String City3, String City4, String City5, String City6) {
 		Map<String, Object> params = new HashMap<>();
 	    params.put("city1", City1);

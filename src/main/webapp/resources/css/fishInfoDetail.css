@@ -1,0 +1,34 @@
+.fishInfo-title{
+	color: rgb(59, 175, 252);
+    width: 90%;
+    margin: 10px auto;
+    font-weight: bolder;
+}
+.border-line{
+	border-bottom: 2px solid rgb(204, 204, 204);
+    width: 90%;
+    margin: 10px auto;		
+}
+.fishInfo-area{
+	display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.fish-name{
+	display: flex;
+    width: 90%;
+    margin: 10px auto;
+}
+.fish-content{
+	display: flex;
+    width: 90%;
+    margin: 10px auto;
+}
+.btn{
+	display: flex;
+    width: 250px;
+    margin: 10px auto;
+    text-align: center;
+    justify-content: center;
+}

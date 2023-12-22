@@ -105,8 +105,8 @@
 										<span style="font-weight: 500;">사업자 번호 : ${store.businessNo}</span><br>
 										<span>
 											<form action="storeUpdateForm.sto" method="post">
-											<input type="hidden" name="storeNo" value="${store.storeNo}">
-											<button type="button" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">1:1 문의</button>
+											<input type="hidden" id="thisIsStoreNo" name="storeNo" value="${store.storeNo}">
+											<button type="button" onclick="chatPopUp('${store.storeNo}')" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">1:1 문의</button>
 											<button type="submit" style="border: none; background: rgb(59, 175, 252);" class="btn btn-primary">사업장 수정</button>
 											<button type="button" class="btn btn-danger" data-bs-toggle="modal" style="border: none;" data-bs-target="#businessDelete">사업장 삭제</button>
 											</form>
