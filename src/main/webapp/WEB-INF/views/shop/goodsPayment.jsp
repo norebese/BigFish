@@ -191,7 +191,7 @@
                 <td style="border: 1px solid #a7a7a7; padding: 10px; width: 60%; text-align: left; vertical-align: left;">
                     <span>
                         <img src="<%=contextPath%>/resources/images/1701241622842.png" alt="" style="height: 78px; width: 83px; ">
-                        <h5 style="display: inline-block;margin-left: 40px;text-align: center;">루어팩토리 메탈 쉐이크 SDFASD-ASDF-S</h5>
+                        <h5 style="display: inline-block;margin-left: 40px;text-align: center;">SDFASD-ASDF-S</h5>
                     </span>
                 </td>
                 <td style="border: 1px solid #a7a7a7; padding: 10px; width: 20%;text-align: center;">1개</td>
@@ -216,7 +216,7 @@
         <table style="width: 100%; margin: 0px auto; border-collapse: collapse;">
             <tr style="height: 80px; background-color: #bfbfbf;text-align: left;">
                 <td style="border: 1px solid #bfbfbf; padding: 10px; width: 20%; "><h5>최종결제금액</h5></td>
-                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 80%;"><h5 style="color: #ff0000; ">8000원</h5></td>
+                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 80%;"><input id="payValue" value="8000" readonly style="background-color: #bfbfbf; color: #ff0000; border: none;"></input><h5 style="color: #ff0000; ">원</h5></td>
              
             </tr>
            
@@ -225,11 +225,93 @@
         <br>
         <div style="text-align: center;">
             <button  class="btn btn-danger" style="height: 64px;width: 276px; background-color: white;"><h5 style=" color: red; ">취소</h5></button>
-            <button class="btn btn-primary" style="height: 64px;width: 276px; margin-left: 50px;"><h5>결제하기</h5></button>
+            <button class="btn btn-primary" style="height: 64px;width: 276px; margin-left: 50px;" onclick="kakao();"><h5>결제하기</h5></button>
         </div>
       
 
     </div>
     <jsp:include page="../common/footer.jsp"/>
+    <script>
+    function kakao() {
+    	 let payValue = document.getElementById('payValue').value;
+	    let requestData = {
+	        cid: "TC0ONETIME",
+	        partner_order_id: "partner_order_id",
+	        partner_user_id: `${loginUser.memId}`,
+	        item_name: "SDFASD-ASDF-S",
+	        quantity: 4,
+	        total_amount: payValue,
+	        tax_free_amount: 0,
+	        approval_url:`http://localhost:8987/bigFish/listasdf.SHbo&pg_token=`,//`http://localhost:8987/bigFish/detail.fbo?bno=${b.freeNo}&pg_token=`,
+	        fail_url: "http://localhost:8987/fail",
+	        cancel_url: "http://localhost:8987/cancel"
+	    }
+
+	    $.ajax({
+	        url: "kakao.fr", // 여러분의 Kakao API 엔드포인트로 교체하세요
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify(requestData),
+	        success: function(data) {
+	            console.log(data+"이곳이문제");
+	            alert("카카오페이 결제를 완료해주세요");
+	            data1 = JSON.parse(data); 
+	            let box = data1.next_redirect_pc_url;
+	            console.log(box+"이곳이문제2");
+	            
+	            location.href = box;
+	            
+	     
+	           
+	            
+	        },
+	        error: function(error) {
+	            alert(error.responseText); // 서버에서 반환된 오류 메시지를 표시하세요
+	            console.log("에러 발생");
+	        }
+	    });
+	}
+ $(document).ready(function() {
+	    // pg_token 추출
+	    var pgToken = getParameterByName('pg_token');
+	    
+	    // bno 추출
+	    var bno = getParameterByName('bno');
+
+	    // 서버로 pg_token 및 bno 전송
+	    sendTokenToServer(pgToken, bno);
+	});
+
+	function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+
+	function sendTokenToServer(pgToken, bno) {
+	    // Ajax 요청으로 pgToken 및 bno을 서버로 전송
+	    $.ajax({
+	        url: "pay.fr",  // 서버의 실제 엔드포인트로 교체하세요
+	        type: 'POST',
+	        contentType: 'application/json',
+	        data: JSON.stringify({
+	            pg_token: pgToken,
+	            productNo: bno
+	        }),
+	        success: function(response) {
+	            console.log("서버 응답:", response);
+	            // 서버로 전송 성공 시 원하는 동작 수행
+	        },
+	        error: function(error) {
+	            console.error("서버 오류:", error.responseText);
+	            // 서버 오류 시 처리
+	        }
+	    });
+	}	
+	</script>
  </body>
 </html>
