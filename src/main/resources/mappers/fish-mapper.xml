@@ -87,12 +87,12 @@
  	</update>
  	
  	<select id="selectSearchListCount" resultType="_int">
-	    SELECT COUNT(*)
-	    FROM FISH
-	    WHERE FISH_STATUS = 'Y'
-	    <if test="condition == 'fishName' and keyword != null and keyword.trim() != ''"> 
-	        AND FISH_NAME LIKE '%' || #{keyword} || '%'
-	    </if>
+    SELECT COUNT(*)
+    FROM FISH
+    WHERE FISH_STATUS = 'Y'
+    <if test="condition == 'fishName' and keyword != null and keyword.trim() != ''"> 
+        AND FISH_NAME LIKE '%' || #{keyword} || '%'
+    </if>
 	</select>
 
 <select id="selectSearchList" resultMap="fishResult">
