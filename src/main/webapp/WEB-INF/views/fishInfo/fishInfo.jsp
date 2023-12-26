@@ -81,6 +81,26 @@
 			</ul>
 		</div>
 		
+		
+		<form class="fish-search-area" id="fishSearchForm" action="searchfish.fi" method="get" align="center">
+			<div class="select">
+				<select id="selectbox" class="form-select pt-1 mt-4" name="condition" style="margin-bottom: 23px;">
+	                <option value="fishName">이름</option>
+	            </select>
+	         </div>
+	        <div class="text">
+	           	<input type="text" class="form-control" name="keyword">
+	        </div>
+	        <button type="submit" class="searchBtn btn btn-primary">검색</button>
+	     </form>
+	 <c:if test="${ not empty condition }">
+        <script>
+        	window.onload = function() {
+        		const opt = document.querySelector("#fish-search-area option[value=${condition}]")
+        		opt.setAttribute("selected", true);
+        	}
+        </script>
+	</c:if>
 	
 	<br><br><br><br><br><br>
 <jsp:include page="../common/footer.jsp"/>

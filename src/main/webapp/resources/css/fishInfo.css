@@ -79,3 +79,11 @@
     font-size: 30px;
     font-weight: bolder;
 }
+.fish-search-area{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text{
+	width: 500px;
+}

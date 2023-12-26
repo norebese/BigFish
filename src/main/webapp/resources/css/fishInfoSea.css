@@ -78,3 +78,11 @@
     font-weight: bolder;
     border-radius: 4px;
 }
+.fish-search-area{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text{
+	width: 500px;
+}
