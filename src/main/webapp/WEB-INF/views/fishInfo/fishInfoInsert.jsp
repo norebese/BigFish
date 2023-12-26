@@ -22,35 +22,7 @@
 <link rel="stylesheet"
 
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-<style>
-.insert-area{
-	display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.input-area{
-	width: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-.fish-button{
-	width: 850px;
-    font-size: 16px;
-    font-weight: bolder;
-    height: 50px;
-    background-color: rgb(59, 175, 252);
-    color: white;
-    border-radius: 3px;
-    border: 4px solid;
-}
-.fishBtn-area{
-	display: flex;
-    justify-content: center;
-    align-items: center;
-}
-</style>
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/fishInfoInsert.css?ver=1">
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>

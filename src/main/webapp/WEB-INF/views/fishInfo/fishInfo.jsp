@@ -10,21 +10,7 @@
 <meta charset="UTF-8">
 <title>Big Fish</title>
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/fishInfo.css?ver=1">
-<style>
-.fish-type-btn{
-	width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.fish-type-btn > button {
-	border: none;
-    background-color: white;
-    width: 150px;
-    font-size: 30px;
-    font-weight: bolder;
-}
-</style>
+
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -36,8 +22,8 @@
 		
 		<br>	
 		<div class="fish-type-btn">
-			<button onclick="location.href='fishInfo.fi'">민물</button>
-			<button onclick="location.href='fishInfoSea.fi'">바다</button>
+			<button class="freshBtn" onclick="location.href='fishInfo.fi'">민물</button>
+			<button class="seaBtn" onclick="location.href='fishInfoSea.fi'">바다</button>
 		</div>
 		
 		<div class="border-line"></div>
