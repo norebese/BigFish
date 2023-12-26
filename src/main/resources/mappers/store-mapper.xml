@@ -713,7 +713,7 @@
 		#{fileLevel}
 		WHERE RSTORE_NO = #{rstoreNo} AND FILE_NO = #{fileNo}
 	</update>
-	
+
 
 
 
@@ -758,18 +758,19 @@
 	</select>
 
 	<select id="getStoreNameInfoForChat" resultMap="storeResult">
-		SELECT STORE_NAME
-		FROM STORE
-		WHERE STORE_NO = #{storeNo}
+	SELECT STORE_NAME
+	FROM STORE
+	WHERE STORE_NO = #{storeNo}
 	</select>
-
-
 	
+
+
 
 	<update id="updateStoreStatus">
 		UPDATE STORE
 		SET STORE_STATUS = #{storeStatus}
-		WHERE STORE_NO = #{storeNo}
+		WHERE
+		STORE_NO = #{storeNo}
 	</update>
 
 	<select id="checkBusinessNoForDelete" resultType="_int">

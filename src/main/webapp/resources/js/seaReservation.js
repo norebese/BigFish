@@ -526,7 +526,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	seaWeather('12A20101');
     selectedSea('12A20101');
     const fishgroup = document.getElementById('fish-group');
-
+    const seaMapMark = document.getElementById('seaMapArea');
+	
     // 이벤트 위임을 사용하여 container에서 mouseover와 mouseout 이벤트를 처리
     fishgroup.addEventListener('mouseover', function (event) {
         const target = event.target;
@@ -544,6 +545,19 @@ document.addEventListener('DOMContentLoaded', function () {
             target.style.backgroundColor = '';
         }
     })
+    seaMapMark.addEventListener('mouseover', function (event) {
+    const target = event.target;
+    if (target.tagName === 'SPAN') {
+        target.style.backgroundColor = 'rgb(255 220 187 / 49%)';
+    }
+	});
+	
+	seaMapMark.addEventListener('mouseout', function (event) {
+	    const target = event.target;
+	    if (target.tagName === 'SPAN') {
+	        target.style.backgroundColor = '';
+	    }
+	});
 })
 
 function showFish(fish){
@@ -555,4 +569,11 @@ function showFish(fish){
 		}
 		$("#fishImg-area").html(imgData);
 	})
+	let selectedElement = document.querySelector('.list-group-item.clicked');
+    if (selectedElement) {
+      selectedElement.classList.remove('clicked');
+    }
+
+    let clickedElement = event.currentTarget;
+    clickedElement.classList.add('clicked');
 }
