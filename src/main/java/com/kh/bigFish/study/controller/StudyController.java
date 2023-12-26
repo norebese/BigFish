@@ -190,6 +190,12 @@ public class StudyController {
 		
 		return mv;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="mainList.st", produces="application/json; charset=UTF-8")
+	public String ajaxTopBoardList() {
+		return new Gson().toJson(studyService.selectmainList());
+	}
 
 	//댓글 파트
 	@ResponseBody

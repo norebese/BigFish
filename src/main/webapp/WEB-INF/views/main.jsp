@@ -206,7 +206,7 @@
 						src="<%=contextPath%>/resources/images/1701241622051.png"
 						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">민물 낚시</p>
-					</a> <a href="listasdf.SHbo" class="col h-100"
+					</a> <a href="list.sh" class="col h-100"
 						style="text-decoration: none; color: black;"> <img
 						src="<%=contextPath%>/resources/images/1701241622193.png"
 						alt="Your Image">

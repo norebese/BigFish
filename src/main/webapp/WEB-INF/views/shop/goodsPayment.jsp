@@ -76,8 +76,7 @@
               <div class="col-sm-2"><h4>이름</h4></div>
               <div class="col-sm-4" required>
                 <tr>
-					<td><input required id="emailId" name="memId" placeholder="이름을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
-					
+					<td><input required id="name" name="name" placeholder="이름을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>					
 				</tr>
               </div>   
               <div class="col-sm-4"></div>
@@ -90,7 +89,7 @@
              
               <div class="col-sm-4" required>
                 <tr>
-					<td><input required id="emailId" name="memId" placeholder="이메일을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
+					<td><input required id="memId" name="memId" value="${loginUser.memId}" placeholder="이메일을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
 					
 				</tr>
               </div>  
@@ -106,7 +105,7 @@
            
               <div class="col-sm-4" required>
                 <tr>
-					<td><input required id="emailId" name="memId" placeholder="연락처을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
+					<td><input required id="phone" name="phone" value="${loginUser.phone}" placeholder="연락처을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
 					
 				</tr>
               </div>   
@@ -163,21 +162,16 @@
                 <div class="col-sm-10" style="display: flex; align-items: center;">
                     <table style="width: 100%; margin: 0px auto;">
                         <tr style="width: 100%;">
-                            <td colspan="3"><textarea  id="postcode" placeholder="내용을 입력해주세요"  style="width: 100%;" class="form-control" type="text"></textarea>
-                            
-                        </tr>
-                       
+                            <td colspan="3"><textarea  id="postcode" placeholder="내용을 입력해주세요"  style="width: 100%; resize: none;   " class="form-control" type="text"></textarea>                        
+                        </tr>              
                     </table>
-                </div>
-                 
+                </div>           
             </div>
         </div>
-
     </div>
     <br><br><br>
 
     <div style="width: 100%; max-width: 1200px; display: inline-block; text-align: left;">
-      
         <div>
           <h2 style="border-bottom: 3px solid #bfbfbf; padding-bottom: 15px;">주문 상품 정보</h2>
         </div>
@@ -190,16 +184,14 @@
             <tr style="height: 100px;">
                 <td style="border: 1px solid #a7a7a7; padding: 10px; width: 60%; text-align: left; vertical-align: left;">
                     <span>
-                        <img src="<%=contextPath%>/resources/images/1701241622842.png" alt="" style="height: 78px; width: 83px; ">
-                        <h5 style="display: inline-block;margin-left: 40px;text-align: center;">SDFASD-ASDF-S</h5>
+                        <img src="<%=contextPath%>${s.changeName}" alt="Your Image" style="height: 78px; width: 83px; ">
+                        <h5 style="display: inline-block;margin-left: 40px;text-align: center;">${s.productName}</h5>
                     </span>
                 </td>
-                <td style="border: 1px solid #a7a7a7; padding: 10px; width: 20%;text-align: center;">1개</td>
-                <td style="border: 1px solid #a7a7a7; padding: 10px; width: 20%; text-align: center;">5000원</td>
-            </tr>
-          
+                <td style="border: 1px solid #a7a7a7; padding: 10px; width: 20%;text-align: center;">${s.product}개</td>
+                <td style="border: 1px solid #a7a7a7; padding: 10px; width: 20%; text-align: center;">${s.productPrice}</td>
+            </tr> 
         </table>
-
     </div>
     <br><br><br>
 
@@ -216,7 +208,7 @@
         <table style="width: 100%; margin: 0px auto; border-collapse: collapse;">
             <tr style="height: 80px; background-color: #bfbfbf;text-align: left;">
                 <td style="border: 1px solid #bfbfbf; padding: 10px; width: 20%; "><h5>최종결제금액</h5></td>
-                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 80%;"><input id="payValue" value="8000" readonly style="background-color: #bfbfbf; color: #ff0000; border: none;"></input><h5 style="color: #ff0000; ">원</h5></td>
+                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 80%;"><input id="productPrice" value="${s.productPrice}" readonly style="background-color: #bfbfbf; color: #ff0000; border: none;"></input><h5 style="color: #ff0000; ">원</h5></td>
              
             </tr>
            
