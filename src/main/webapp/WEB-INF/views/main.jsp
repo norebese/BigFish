@@ -230,17 +230,18 @@
 						src="<%=contextPath%>/resources/images/1701241622143.png"
 						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">조황게시판</p>
-					</a> <a href="" class="col h-100"
-						style="text-decoration: none; color: black;"> <img
-						src="<%=contextPath%>/resources/images/1701241621845.png"
-						alt="Your Image">
-						<p style="font-size: large; font-weight: 700;">예약</p>
 					</a> <a href="list.st" class="col h-100"
 						style="text-decoration: none; color: black;"> <img
 						src="<%=contextPath%>/resources/images/1701241621923.png"
 						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">학습동영상</p>
+					</a> <a href="gofisingTeacher" class="col h-100"
+						style="text-decoration: none; color: black;"> <img
+						src="<%=contextPath%>/resources/images/fishingTeacher.png"
+						alt="Your Image">
+						<p style="font-size: large; font-weight: 700;">낚시 빅선생</p>
 					</a>
+					
 				</div>
 			</div>
 		</div>

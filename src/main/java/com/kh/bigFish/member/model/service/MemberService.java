@@ -8,6 +8,9 @@ public interface MemberService {
 	// 로그인
 	Member loginMember(Member m);
 	
+	// 로그인(아이디로만)
+	Member loginMemberId(Member m);
+	
 	// 회원가입시 이메일 중복체크
 	int checkEmailId(String emailId);
 	
@@ -49,5 +52,17 @@ public interface MemberService {
 	
 	// 멤버 이름 가져오기 (채팅)
 	Member getUserNameInfoForChat(Member m);
+	
+	// 개인(네이버) 회원 가입
+	int insertNaverMember(Member m);
+	
+	// 비밀번호 찾기 후 임시비밀번호로 변경
+	int updateTmpPwd(Member m);
+	
+	// 비밀번호 변경
+	int updateMyPwd(Member m);
+	
+	// 닉네임 변경 시 중복 체크
+	int nickIsSame(Member m);
 	
 }

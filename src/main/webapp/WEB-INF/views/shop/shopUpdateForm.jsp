@@ -92,7 +92,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
                         </tr>
                     </table>
                     </div>
-                    <button type="submit" class="btn btn-primary" onclick="location.href=''" style="width: 50%;">상품 수정</button>
+                    <button type="submit" class="btn btn-primary" onclick="location.href='list.sh'" style="width: 50%;">상품 수정</button>
                     </div>
                 </div>
             </div>

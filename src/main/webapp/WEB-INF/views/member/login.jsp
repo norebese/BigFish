@@ -92,7 +92,7 @@
     <div id="personal-naverkakao" class="memberEnroll-btn-container">
     <button onclick="location.href='chooseEnroll.me'" type="button" class="btn btn-secondary" style="width: 450px; ">이메일로 가입하기</button>
       <div class="naverkakao" style="width:450px; height:38px; margin-top: 10px;">
-        <a href="<%=apiURL%>"><img style="width: 100%;" src="resources/images/login_naver.png" alt="네이버 로그인 아이콘"></a>
+        <a href="<%=apiURL%>"><img style="width: 100%; height: 50px;" src="resources/images/login_naver.png" alt="네이버 로그인 아이콘"></a>
         
       </div>
       <span class="gray-text">로그인 / 회원가입시 이용약관, 개인정보취급방침에 동의하게 됩니다.</span>
@@ -130,7 +130,7 @@
 	    </div>
     </form>
     <div id="company-naverkakao" style="display: none;" class="memberEnroll-btn-container">
-    <button onclick="location.href='chooseEnroll.me'" type="button" class="btn btn-secondary" style="width: 450px; ">이메일로 가입하기</button>
+    <button onclick="location.href='chooseEnroll.me'" type="button" class="btn btn-secondary" style="width: 450px;">이메일로 가입하기</button>
     <span class="gray-text">로그인 / 회원가입시 이용약관, 개인정보취급방침에 동의하게 됩니다.</span>
     <br><br><br><br><br><br><br><br><br><br>
     </div>

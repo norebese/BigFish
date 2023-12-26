@@ -39,6 +39,25 @@
 	    AND MEM_PWD = #{memPwd}
 	</select>
 	
+	<!-- 일반회원 로그인 쿼리문(아이디만) -->
+	<select id="loginMemberId" resultMap="memberResult">
+	SELECT MEM_NO,
+        MEM_ID,
+        MEM_PWD,
+        MEM_NICK,
+        PHONE,
+        ADDRESS,
+        ADDRESS_DETAIL,
+        POST_NO,
+        MEM_CREATE_DATE,
+        MEM_STATUS,
+        BUSINESS_STATUS,
+        MEM_ADMIN,
+        MEM_CHANGE_NAME
+	FROM MEMBER
+	WHERE MEM_ID = #{memId}
+	</select>
+	
 	<!-- 회원 가입 시 이메일 중복 체크 쿼리 -->
 	<select id="checkEmailId" resultType="_int">
 	SELECT COUNT(*)
@@ -77,6 +96,29 @@
 						#{postNo},
 						'resources/images/myProfile.png'
 						)		
+	</insert>
+	
+	<insert id="insertNaverMember">
+		INSERT INTO MEMBER(
+						MEM_NO,
+						MEM_ID,
+						MEM_NICK,
+						PHONE,
+						ADDRESS,
+						ADDRESS_DETAIL,
+						POST_NO,
+						MEM_CHANGE_NAME
+						)
+				VALUES(
+						SEQ_MEM_NO.NEXTVAL,
+						#{memId},
+						#{memNick},
+						#{phone},
+						#{address},
+						#{addressDetail},
+						#{postNo},
+						'resources/images/myProfile.png'
+						)
 	</insert>
 	
 	<!-- 사업자 회원 가입 -->
@@ -177,6 +219,7 @@
 	FROM MEMBER
 	WHERE MEM_NICK = #{memNick} AND PHONE = #{phone}
 	</select>
+	
 	<select id="findPwd" resultMap="memberResult">
 	SELECT MEM_NO,
 		MEM_ID,
@@ -185,6 +228,7 @@
 	FROM MEMBER
 	WHERE MEM_ID = #{memId} AND PHONE = #{phone}
 	</select>
+	
 	<select id="getMemberInfoForChat" resultMap="memberResult">
 	SELECT MEM_NO,
 			MEM_ID,
@@ -192,10 +236,29 @@
 	FROM MEMBER
 	WHERE MEM_NO = #{senderId}
 	</select>
+	
 	<select id="getUserNameInfoForChat" resultMap="memberResult">
 	SELECT MEM_NICK
 	FROM MEMBER
 	WHERE MEM_NO = #{memNo}
+	</select>
+	
+	<update id="updateTmpPwd">
+	UPDATE MEMBER
+	SET MEM_PWD = #{memPwd}
+	WHERE MEM_NO = #{memNo}
+	</update>
+	
+	<update id="updateMyPwd">
+	UPDATE MEMBER
+	SET MEM_PWD = #{memPwd}
+	WHERE MEM_NO = #{memNo}
+	</update>
+	
+	<select id="nickIsSame" resultType="_int">
+	SELECT COUNT(*)
+	FROM MEMBER
+	WHERE MEM_NICK = #{memNick}
 	</select>
 	
 </mapper>

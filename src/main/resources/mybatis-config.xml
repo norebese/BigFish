@@ -27,7 +27,8 @@
      	<typeAlias type="com.kh.bigFish.study.model.vo.StudyGood" alias="StudyGood"/>
      	<typeAlias type="com.kh.bigFish.shop.model.vo.KakaoRequestDto" alias="KakaoRequestDto"/>
      	<typeAlias type="com.kh.bigFish.chat.model.vo.Chat" alias="Chat"/>
-
+     	<typeAlias type="com.kh.bigFish.shop.model.vo.Shop" alias="Shop"/>
+		
      </typeAliases>
      <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야한다. -->
      
@@ -50,6 +51,7 @@
 		<mapper resource="/mappers/reply-mapper.xml"/>
 		<mapper resource="/mappers/chat-mapper.xml"/>
 		<mapper resource="/mappers/fish-mapper.xml"/>
+		<mapper resource="/mappers/shop-mapper.xml"/>
      </mappers>
      <!--  유의사항: 미리 등록해두려면 해당 mapper파일이 진짜 존재하고 있는 상태여야한다. + namespace도 작성되어 있어야한다. -->
      

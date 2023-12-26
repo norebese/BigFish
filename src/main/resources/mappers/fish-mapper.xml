@@ -10,21 +10,8 @@
  		<result column="FISH_COUNT" property="fishCount" />
  		<result column="FISH_STATUS" property="fishStatus" />
  		<result column="FISH_TYPE" property="fishType" />
+ 		<result column="FISH_TITLE_IMAGE" property="fishTitleImage" />
  	</resultMap>
- 	
- 	<resultMap type="Attachment" id="AttachmentResult">
-		<result column="FILE_NO" property="fileNo" />
-		<result column="ORIGIN_NAME" property="originName" />
-		<result column="CHANGE_NAME" property="changeName" />
-		<result column="FILE_PATH" property="filePath" />
-		<result column="UPLOAD_DATE" property="uploadDate" />
-		<result column="FILE_LEVEL" property="fileLevel" />
-		<result column="FILE_STATUS" property="fileStatus" />
-		<result column="RFISH_NO" property="rfishNo" />
-		<result column="RPRODUCT_NO" property="rproductNo" />
-		<result column="RFISHING_NO" property="rfishingNo" />
-		<result column="RSTORE_NO" property="rstoreNo" />
-	</resultMap>
  	
  	<select id="selectFreshListCount" resultType="_int">
  		SELECT COUNT (*)
@@ -98,5 +85,31 @@
  		   SET FISH_STATUS = 'N'
  	 	 WHERE FISH_NO = #{fishNo}
  	</update>
+ 	
+ 	<select id="selectSearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM FISH
+		 WHERE FISH_STATUS = 'Y'
+	     <if test="condition == 'fishName'"> 
+	       AND FISH_NAME
+	     </if>
+		  LIKE '%' || #{keyword} || '%'
+	</select>
+ 	
+ 	<select id="selectSearchList" resultMap="fishResult">
+		SELECT FISH_NO
+		      ,FISH_NAME
+		      ,FISH_COUNT
+		      ,FISH_CONTENT
+		 FROM FISH
+		 WHERE FISH_STATUS = 'Y'
+		 <choose>
+		     <when test="condition == 'fishName'"> 
+		       AND FISH_NAME
+		     </when>
+	  	 </choose>
+		  LIKE '%' || #{keyword} || '%'
+		  ORDER BY FISH_NO DESC
+	</select>
 	
 </mapper>
