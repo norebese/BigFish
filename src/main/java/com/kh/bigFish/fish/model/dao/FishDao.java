@@ -1,15 +1,14 @@
 package com.kh.bigFish.fish.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.fish.model.vo.Fish;
-import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
 
 @Repository
 public class FishDao {
@@ -68,4 +67,16 @@ public class FishDao {
 		return sqlSession.delete("fishMapper.deleteFish", fishNo);
 	}
 	
+	public int selectSearchListCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("fishMapper.selectSearchListCount", map);	
+	}
+	
+	public ArrayList<Fish> selectSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("fishMapper.selectSearchList", map, rowBounds);
+	}
+		
 }
