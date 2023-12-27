@@ -144,4 +144,10 @@
 	WHERE RN = 1
  	</select>
  	
+ 	<select id="countReservationList" resultType="_int">
+ 		SELECT COUNT(*)
+		FROM RESERVATION
+		WHERE RMEM_NO = #{memNo}
+ 	</select>
+ 	
  </mapper>

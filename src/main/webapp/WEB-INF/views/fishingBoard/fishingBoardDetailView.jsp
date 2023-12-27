@@ -96,7 +96,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 					style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">
 
 					<div style="text-align: left">
-						<h5 style="font-size: 26px;">${b.fishingTitle}</h5>
+						<h5 style="font-size: 26px;"><c:out value='${b.fishingTitle}'/></h5>
 						<input type="hidden" value="${b.fishingNo}" name="bno">
 					</div>
 					<div class="container"
