@@ -3,7 +3,7 @@ function sendPrompt(){
     const chatArea = document.querySelector("#chatArea");
     const prompt = proptInput.value;
     proptInput.value = "";
-    const appKey = "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";
+    const appKey = "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";
 
     chatArea.insertAdjacentHTML('beforeend','<div style="margin: 5px; font-weight: 700; display: flex; justify-content: flex-end;">'+
     '<div class="card" style="max-width: 50%; width: max-content;">'+

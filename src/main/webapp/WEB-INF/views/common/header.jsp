@@ -141,21 +141,21 @@ li::marker {
 			  <br><br>
 			  <div class="offcanvas-body">
 			
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">바다 낚시</a>
+			  		<a type="button" href="seaReservation" class="btn" style="background-color: rgb(59, 175, 252); color:white;">바다 낚시</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">민물 낚시</a>
+			  		<a type="button" href="fishReservation" class="btn" style="background-color: rgb(59, 175, 252); color:white;">민물 낚시</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">낚시 용품</a>
+			  		<a type="button" href="listasdf.SHbo" class="btn" style="background-color: rgb(59, 175, 252); color:white;">낚시 용품</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">어종</a>
+			  		<a type="button" href="fishInfo.fi" class="btn" style="background-color: rgb(59, 175, 252); color:white;">어종</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">자유 게시판</a>
+			  		<a type="button" href="list.fbo" class="btn" style="background-color: rgb(59, 175, 252); color:white;">자유 게시판</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">조황 게시판</a>
+			  		<a type="button" href="list.fibo" class="btn" style="background-color: rgb(59, 175, 252); color:white;">조황 게시판</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">예약</a>
+			  		<a type="button" href="list.st" class="btn" style="background-color: rgb(59, 175, 252); color:white;">학습 동영상</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">학습 동영상</a>
+			  		<a type="button" href="gofisingTeacher" class="btn" style="background-color: rgb(59, 175, 252); color:white;">낚시 빅선생</a>
 			  	
 			  </div>
 			</div>

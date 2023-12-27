@@ -94,7 +94,7 @@
       <div class="naverkakao" style="width:450px; height:38px; margin-top: 10px;">
         <a href="<%=apiURL%>"><img style="width: 100%; height: 50px;" src="resources/images/login_naver.png" alt="네이버 로그인 아이콘"></a>
         
-      </div>
+      </div><br>
       <span class="gray-text">로그인 / 회원가입시 이용약관, 개인정보취급방침에 동의하게 됩니다.</span>
       <br><br><br><br><br><br><br><br>
     </div>
@@ -151,6 +151,7 @@
       
       <div class="modal-body">
         <div id="findIdArea" style="display: flex; flex-direction: column; margin: 0px auto;">
+        <div style="margin: 0px auto; color: #dd2f35; font-size: 12px;">네이버 아이디의 경우 네이버에서 아이디 찾기를 진행해 주시길 바랍니다.</div><br>
         <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">닉네임 &nbsp;<input name="memNick" id="memNick" style="width: 60%;" class="form-control" type="text" placeholder="닉네임을 입력하세요."></div>
         <br>
         <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">전화번호 <input name="phone" id="phone" style="width: 60%;" class="form-control" type="text" placeholder="전화번호를 입력하세요."></div>
@@ -183,6 +184,7 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div id="findPwdArea" style="display: flex; flex-direction: column; margin: 0px auto;">
+          <div style="margin: 0px auto; color: #dd2f35; font-size: 12px;">네이버 아이디의 경우 네이버에서 비밀번호 찾기를 진행해 주시길 바랍니다.</div><br>
           <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">이메일(ID) <input name="email" id="email" style="width: 60%;" class="form-control" type="text" placeholder="닉네임을 입력하세요."></div>
           <br>
           <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">전화번호 <input name="phone" id="phonePwd" style="width: 60%;" class="form-control" type="text" placeholder="전화번호를 입력하세요."></div>
