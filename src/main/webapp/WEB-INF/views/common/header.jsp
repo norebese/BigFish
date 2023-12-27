@@ -5,11 +5,13 @@
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>BIG FISH</title>
+
 
 <!-- JS-->
 <script src="<%=contextPath%>/resources/js/header.js"></script>
@@ -96,7 +98,7 @@ li::marker {
 		</div>
 		<div class="header-menu">
 			<div class="search-area">
-				<input type="text" id="keyword" name="keyword" placeholder="검색어를 입력해 주세요"> 
+				<input type="text" id="keyword" name="keyword" placeholder="검색어를 입력해 주세요" value="<c:out value='${keyword}'/>">
 				<a class="search-btn" onclick="mainSearch();">
 					<img style="height: auto; width: 15px; margin-top: 7px; cursor: pointer;" src="resources/images/search_icon.png" alt="검색버튼">
 				</a>
@@ -139,21 +141,21 @@ li::marker {
 			  <br><br>
 			  <div class="offcanvas-body">
 			
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">바다 낚시</a>
+			  		<a type="button" href="seaReservation" class="btn" style="background-color: rgb(59, 175, 252); color:white;">바다 낚시</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">민물 낚시</a>
+			  		<a type="button" href="fishReservation" class="btn" style="background-color: rgb(59, 175, 252); color:white;">민물 낚시</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">낚시 용품</a>
+			  		<a type="button" href="listasdf.SHbo" class="btn" style="background-color: rgb(59, 175, 252); color:white;">낚시 용품</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">어종</a>
+			  		<a type="button" href="fishInfo.fi" class="btn" style="background-color: rgb(59, 175, 252); color:white;">어종</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">자유 게시판</a>
+			  		<a type="button" href="list.fbo" class="btn" style="background-color: rgb(59, 175, 252); color:white;">자유 게시판</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">조황 게시판</a>
+			  		<a type="button" href="list.fibo" class="btn" style="background-color: rgb(59, 175, 252); color:white;">조황 게시판</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">예약</a>
+			  		<a type="button" href="list.st" class="btn" style="background-color: rgb(59, 175, 252); color:white;">학습 동영상</a>
 			  		<br>
-			  		<a type="button" href="" class="btn" style="background-color: rgb(59, 175, 252); color:white;">학습 동영상</a>
+			  		<a type="button" href="gofisingTeacher" class="btn" style="background-color: rgb(59, 175, 252); color:white;">낚시 빅선생</a>
 			  	
 			  </div>
 			</div>

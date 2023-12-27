@@ -1,0 +1,30 @@
+.top-line{
+    border-bottom: 2px solid rgb(204, 204, 204);
+    margin: 0px auto 20px auto;
+    width: 90%;
+
+  }
+
+#chatArea{
+  overflow: auto;
+  width: 90%;
+  height: 60vh;
+  margin: 0px auto; 
+  border-bottom: none; 
+  border-radius: 10px 10px 0px 0px; 
+  border-top:2px solid rgb(59, 175, 252);
+  border-left:2px solid rgb(59, 175, 252);
+  border-right:2px solid rgb(59, 175, 252);
+  background-color: rgb(153, 212, 252);
+}
+
+#questionbar{
+  width: 90%;
+  height: 15vh;
+  margin: 0px auto;
+  border-radius: 0px 0px 10px 10px;
+  border:2px solid black;
+  display: flex;
+  flex-direction: row;
+  height: 92px;
+}

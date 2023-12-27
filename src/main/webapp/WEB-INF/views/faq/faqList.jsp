@@ -35,7 +35,9 @@
 		<div id="faq${f.faqNo}" class="collapse">
 		
 			<div class="faq-content">${f.faqContent}</div>
-
+			
+			<br><br>
+			
 			<c:if test="${ not empty loginUser and loginUser.memAdmin eq 'Y'}">
 				<div class="faq-btn-area">
 					<button class="btn btn-primary" onclick="location.href='faqEnrollForm.fa?fno=${f.faqNo}'">수정하기</button>		
@@ -72,7 +74,7 @@
 	<br>
 	
 	<c:if test="${ not empty loginUser }">
-		<div class="faq-btn-area">
+		<div class="faq-create-btn">
 			<button class="btn btn-primary" onclick="location.href='faqInsertForm.an'">작성하기</button>
 		</div>
 	</c:if>

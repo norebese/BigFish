@@ -14,6 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BIG FISH</title>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=93eacc44e9f87bdc7f981a6488721356&libraries=services"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -26,11 +27,16 @@
 	<!-- resAPI-->
 	<script src="<%=contextPath%>/resources/js/service/res-api.js"></script>
 </head>
-<body onload="buildCalendar(), init()">
+<body onload="buildCalendar(), init('${st.storeAddress}','${st.storeName}')">
 
 <jsp:include page="../common/header.jsp"/>
 	<div style="margin: 150px 100px 10px 100px; padding: 0; border-bottom: 1px solid; min-width: 100vh;">
-        <p class="page-title">민물 낚시</p>
+		<c:if test="${st.storeKind eq 'seaShip' or st.storeKind eq 'seaSeat'}">
+    		<p class="page-title">바다 낚시</p>
+		</c:if>
+        <c:if test="${st.storeKind eq 'FreshCafe' or st.storeKind eq 'FreshSeat'}">
+    		<p class="page-title">민물 낚시</p>
+		</c:if>
     </div>
 
     <div class="photo-info">
@@ -75,7 +81,7 @@
             <p class="baddress">
                 ${st.storeAddress }
             </p>
-            <div id="like-logo" onclick="updateLike()">
+            <div id="like-logo" onclick="updateLike('<%=loginUser%>')">
 	            <c:choose>
 	            <c:when test="${Slike.storeGoodStatus eq 'Y'}">
 	            	<img src="<%=contextPath%>/resources/images/heart-filled.png">
@@ -98,14 +104,12 @@
         </div>
         <div class="map-plus on">
             <div class="map-area">
-                <div class="kakao-map">
-					<div id="map">
-						
-            		</div>
+                <div id="map" class="kakao-map">
+
                 </div>
                 <div class="address-area">
                     <p class="title-address">위치 정보</p>
-                    <p class="detail-address">충남 당진시 석문면 난지3길 12</p>
+                    <p class="detail-address">${st.storeAddress}</p>
                 </div>
             </div>
             
@@ -228,7 +232,7 @@
                 </c:if>
                 </p>
                 <div class="detail-info">
-                    <p id="rDetail">${st.reservationDetail }</p>
+                    <p id="rDetail"><c:out value='${st.reservationDetail}'/></p>
                     <textarea class="form-control" id="updateRDetail" cols="55" rows="2" style="resize:none; width:100%; height: 80px; display: none;"></textarea>
                 </div>
             </div>
@@ -249,7 +253,7 @@
 		                        </i>
 		                        <span >${rl.replyWriter}</span>
 		                    </div>
-		                    <div class="col-md-8" style="display: flex; align-items: center;">${rl.replyContent}</div>
+		                    <div class="col-md-8" style="display: flex; align-items: center;"><c:out value='${rl.replyContent}'/></div>
 		                    <div class="col-sm" style="display: flex; align-items: center;">${rl.replyCreateDate}
 			                    <c:if test="${rl.rmemNo eq loginUser.memNo}">
 			                    <span id="dltBtn" onclick="dltReply('${rl.replyNo}')">삭제</span>

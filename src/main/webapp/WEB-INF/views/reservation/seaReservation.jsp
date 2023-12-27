@@ -21,7 +21,7 @@
         <p class="page-title">바다 낚시 지도</p>
     </div>
     <div class="main-section">
-	    <div class="main-area">
+	    <div id="seaMapArea" class="main-area">
 	        <!-- class에 'on' 이 들어가면 활성화 -->
 	        <div class="map-area1 on">
 	            <img id="main-img" src="<%=contextPath%>/resources/images/level01_1.png" alt="">

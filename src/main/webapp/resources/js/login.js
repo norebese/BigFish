@@ -114,8 +114,9 @@ function findPwd(){
     }
 
     const sendData = { memId : email.value,
-                        phone : phonePwd.value}
-
+                        phone : phonePwd.value};
+                        
+	findedPwdArea.innerHTML = '<div class="spinner-border text-primary"></div>';
     memberApi.findPwd(sendData, function(result){
         findPwdArea.style.display = "none";
         findedPwdArea.style.display = "flex";
@@ -123,7 +124,7 @@ function findPwd(){
         if(result==="N"){
             findedPwdArea.innerHTML = "비밀번호를 찾을 수 없습니다."
         }else{
-            findedPwdArea.innerHTML = "회원님의 이메일로 비밀번호를 보내드렸습니다.<br> 확인하시어 로그인을 진행해주세요."
+            findedPwdArea.innerHTML = "회원님의 이메일로 임시 비밀번호를 보내드렸습니다.<br>로그인 후 비밀번호를 꼭 변경해주세요."
         }
         
     })

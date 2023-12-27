@@ -10,21 +10,7 @@
 <meta charset="UTF-8">
 <title>Big Fish</title>
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/fishInfo.css?ver=1">
-<style>
-.fish-type-btn{
-	width: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.fish-type-btn > button {
-	border: none;
-    background-color: white;
-    width: 150px;
-    font-size: 30px;
-    font-weight: bolder;
-}
-</style>
+
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -36,8 +22,8 @@
 		
 		<br>	
 		<div class="fish-type-btn">
-			<button onclick="location.href='fishInfo.fi'">민물</button>
-			<button onclick="location.href='fishInfoSea.fi'">바다</button>
+			<button class="freshBtn" onclick="location.href='fishInfo.fi'">민물</button>
+			<button class="seaBtn" onclick="location.href='fishInfoSea.fi'">바다</button>
 		</div>
 		
 		<div class="border-line"></div>
@@ -95,6 +81,26 @@
 			</ul>
 		</div>
 		
+		
+		<form class="fish-search-area" id="fishSearchForm" action="searchfish.fi" method="get" align="center">
+			<div class="select">
+				<select id="selectbox" class="form-select pt-1 mt-4" name="condition" style="margin-bottom: 23px;">
+	                <option value="fishName">이름</option>
+	            </select>
+	         </div>
+	        <div class="text">
+	           	<input type="text" class="form-control" name="keyword">
+	        </div>
+	        <button type="submit" class="searchBtn btn btn-primary">검색</button>
+	     </form>
+	 <c:if test="${ not empty condition }">
+        <script>
+        	window.onload = function() {
+        		const opt = document.querySelector("#fish-search-area option[value=${condition}]")
+        		opt.setAttribute("selected", true);
+        	}
+        </script>
+	</c:if>
 	
 	<br><br><br><br><br><br>
 <jsp:include page="../common/footer.jsp"/>
