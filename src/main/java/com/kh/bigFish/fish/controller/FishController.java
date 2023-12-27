@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -248,5 +249,28 @@ public class FishController {
 	    return imgPaths;
 	}
 	
+	@RequestMapping(value="searchfish.fi")
+	public ModelAndView searchAnn(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		PageInfo pi = Pagenation.getPageInfo(fishService.selectSearchListCount(map), currentPage, 10, 5);
+		ArrayList<Fish> fishList = fishService.selectSearchList(map, pi);
+		
+		for (Fish f : fishList) {
+			String imgPaths = ImagePathFromContent(f.getFishContent());
+			f.setFishTitleImage(imgPaths);
+		}
+		
+		mv.addObject("pi",pi)
+		  .addObject("list", fishList)
+		  .addObject("condition", condition)
+		  .addObject("keyword", keyword)
+		  .setViewName("fishInfo/fishInfo");
+		
+		return mv;
+	}
 
 }

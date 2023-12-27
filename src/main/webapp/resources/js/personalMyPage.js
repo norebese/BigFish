@@ -97,3 +97,38 @@ function chatPopUp(){
     window.open("personalChat","popup Chat","width = 550, height = 600, top = 100, left = 200, location = no, status=no toolbars=no");
 }
 
+function checkUpdatePwd(){
+    let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+
+    const updatePwd = document.querySelector("#updatePwd");
+    const updatePwdArea = document.querySelector("#updatePwdArea");
+    const updatePwdBtn = document.querySelector("#updatePwdBtn");
+
+    if(reg.test(updatePwd.value)){
+        updatePwdArea.innerHTML = " &nbsp;O";
+        updatePwdArea.style.color = "#2f9947";
+        updatePwdBtn.removeAttribute("disabled");
+    }else{
+        updatePwdArea.innerHTML = " &nbsp;X";
+        updatePwdArea.style.color = "#dd2f35";
+        updatePwdBtn.setAttribute("disabled",true);
+    }
+
+}
+
+function sameUpdatePwd(){
+    const updatePwd = document.querySelector("#updatePwd");
+    const samePwd = document.querySelector("#samePwd");
+    const samePwdArea = document.querySelector("#samePwdArea");
+    const updatePwdBtn = document.querySelector("#updatePwdBtn");
+
+    if(updatePwd.value===samePwd.value){
+        samePwdArea.innerHTML = " &nbsp;O";
+        samePwdArea.style.color = "#2f9947";
+        updatePwdBtn.removeAttribute("disabled");
+    }else{
+        samePwdArea.innerHTML = " &nbsp;X";
+        samePwdArea.style.color = "#dd2f35";
+        updatePwdBtn.setAttribute("disabled",true);
+    }
+}

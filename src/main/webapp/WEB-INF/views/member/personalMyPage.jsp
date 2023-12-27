@@ -46,10 +46,7 @@
 	<div class="myPage">
 		<div class="myPageMenuList">
 			<button id="buttonProfile" onclick="showProfile()" style="width: 100%; border: none; background: rgb(28, 134, 204);" class="btn btn-secondary">프로필 관리</button><br><br>
-			<button id="buttonReservation" onclick="\
-			\
-			
-			()" style="width: 100%; border: none; background: rgb(59, 175, 252);" class="btn btn-secondary">예약 목록</button><br><br>
+			<button id="buttonReservation" onclick="showReservation()" style="width: 100%; border: none; background: rgb(59, 175, 252);" class="btn btn-secondary">예약 목록</button><br><br>
 			<button style="width: 100%; border: none; background: rgb(59, 175, 252); " class="btn btn-secondary">구매 목록</button><br><br>
 			<button style="width: 100%; border: none; background: rgb(59, 175, 252);" class="btn btn-secondary">장바구니</button>
 
@@ -108,9 +105,9 @@
 						</tr>
 					</form>
 				</table><br>
-
+				<c:if test="${not empty loginUser.memPwd}">
 				<button type="button" data-bs-toggle="modal" data-bs-target="#changePwd" class="btn btn-primary" style="border: none; background: rgb(59, 175, 252);">비밀번호 변경</button>
-				
+				</c:if>
 
 
 			</div>
@@ -188,25 +185,24 @@
 			</div>
 	
 			<!-- Modal body -->
-			<form action="">
+			<form action="updateMyPwd" method="post">
 			<div style="display: flex;" class="modal-body">
-				
+				<input type="hidden" name="memNo" value="${loginUser.memNo}">
 				<table style="width: 80%; margin: 0px auto;">
 					<tr>
-						<td><input placeholder="현재 비밀번호를 입력하세요." class="form-control" type="text"></td>
+						<td><input required placeholder="변경할 비밀번호를 입력하세요." onkeyup="checkUpdatePwd()" name="memPwd" id="updatePwd" class="form-control" type="password"></td>
+						<td id="updatePwdArea" style="font-size: 20px; color: #dd2f35;">&nbsp;X</td>
 					</tr>
 					<tr>
-						<td><input placeholder="변경할 비밀번호를 입력하세요." class="form-control" type="text"></td>
-					</tr>
-					<tr>
-						<td><input placeholder="다시 한번 변경할 비밀번호를 입력하세요." class="form-control" type="text"></td>
+						<td><input required placeholder="다시 한번 변경할 비밀번호를 입력하세요." onkeyup="sameUpdatePwd()" id="samePwd" class="form-control" type="password"></td>
+						<td id="samePwdArea" style="font-size: 20px; color: #dd2f35;">&nbsp;X</td>
 					</tr>
 				</table>
 			</div>
 	
 			<!-- Modal footer -->
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">변경하기</button>
+				<button id="updatePwdBtn" type="submit" disabled class="btn btn-primary">변경하기</button>
 				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
 				
 			</div>

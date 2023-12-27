@@ -89,7 +89,7 @@
 				style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">조황게시판</h2>
 			<c:if test="${not empty loginUser }">
 				<a class="btn btn-secondary"
-					style="float: right; background-color: rgb(59, 175, 252);"
+					style="float: right; border: none; background-color: rgb(59, 175, 252);"
 					href="enrollForm.fibo">글쓰기</a>
 
 			</c:if>
@@ -171,7 +171,7 @@
 						style="margin-top: 24px;">
 				</div>
 				<button type="submit" class="searchBtn btn btn-secondary"
-					style="margin-top: 24px; background-color: rgb(59, 175, 252);">검색</button>
+					style="margin-top: 24px; border: none; background-color: rgb(59, 175, 252);">검색</button>
 			</form>
 			<c:if test="${ not empty condition }">
 				<script>

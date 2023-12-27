@@ -1,16 +1,17 @@
 package com.kh.bigFish.fish.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.bigFish.attachment.model.vo.Attachment;
+
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.fish.model.dao.FishDao;
 import com.kh.bigFish.fish.model.vo.Fish;
-import com.kh.bigFish.freeBoard.model.vo.FreeBoard;
+
 
 @Service
 public class FishServiceImpl implements FishService {
@@ -64,6 +65,16 @@ public class FishServiceImpl implements FishService {
 	@Override
 	public int deleteFish(int fishNo) {
 		return fishDao.deleteFish(sqlSession, fishNo);
+	}
+
+	@Override
+	public int selectSearchListCount(HashMap<String, String> map) {
+		return fishDao.selectSearchListCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Fish> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		return fishDao.selectSearchList(sqlSession, map, pi);
 	}
 
 }

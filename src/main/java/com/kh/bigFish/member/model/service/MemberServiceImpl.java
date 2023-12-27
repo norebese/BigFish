@@ -92,6 +92,31 @@ public class MemberServiceImpl implements MemberService {
 	public Member getUserNameInfoForChat(Member m) {
 		return memberDao.getUserNameInfoForChat(sqlSession, m);
 	}
+
+	@Override
+	public Member loginMemberId(Member m) {
+		return memberDao.loginMemberId(sqlSession, m);
+	}
+
+	@Override
+	public int insertNaverMember(Member m) {
+		return memberDao.insertNaverMember(sqlSession, m);
+	}
+
+	@Override
+	public int updateTmpPwd(Member m) {
+		return memberDao.updateTmpPwd(sqlSession, m);
+	}
+
+	@Override
+	public int updateMyPwd(Member m) {
+		return memberDao.updateMyPwd(sqlSession, m);
+	}
+
+	@Override
+	public int nickIsSame(Member m) {
+		return memberDao.nickIsSame(sqlSession, m);
+	}
 	
 	
 }
