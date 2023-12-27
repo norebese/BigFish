@@ -128,7 +128,7 @@
              
                 <div class="col-sm-4" required>
                     <tr>
-                        <td><input required id="emailId" name="memId" placeholder="연락처을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
+                        <td><input required id="phone" name="phone" value="${loginUser.phone}" placeholder="연락처을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
                         
                     </tr>
                   </div>   
@@ -144,14 +144,14 @@
                 <div class="col-sm-10" style="display: flex; align-items: center; border-bottom: 2px solid #a7a7a7;margin-bottom: 10px;">
                     <table style="width: 100%; margin: 0px auto;">
                         <tr style="width: 100%;">
-                            <td><input name="postNo" id="postcode" placeholder="우편번호" readonly style="width: 100%;" class="form-control" type="text"></td>
+                            <td><input name="postNo" id="postcode" value="${loginUser.postNo}" placeholder="우편번호" readonly style="width: 100%;" class="form-control" type="text"></td>
                             <td><button type="button" onclick="sample6_execDaumPostcode()" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">주소 검색</button></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><input readonly id="address" name="address" placeholder="주소 검색 버튼으로 입력해주세요." style="width: 100%;" class="form-control" type="text"></td>
+                            <td colspan="2"><input readonly id="address" name="address" value="${loginUser.address}" placeholder="주소 검색 버튼으로 입력해주세요." style="width: 100%;" class="form-control" type="text"></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><input required id="addressDetail" name="addressDetail" placeholder="상세 주소를 입력해주세요." style="width: 100%;" class="form-control" type="text"></td>
+                            <td colspan="2"><input required id="addressDetail" name="addressDetail" value="${loginUser.addressDetail}" placeholder="상세 주소를 입력해주세요." style="width: 100%;" class="form-control" type="text"></td>
                         </tr>
                     </table>
                 </div>
@@ -188,7 +188,7 @@
                         <h5 style="display: inline-block;margin-left: 40px;text-align: center;">${s.productName}</h5>
                     </span>
                 </td>
-                <td style="border: 1px solid #a7a7a7; padding: 10px; width: 20%;text-align: center;">${s.product}개</td>
+                <td style="border: 1px solid #a7a7a7; padding: 10px; width: 20%;text-align: center;">개</td>
                 <td style="border: 1px solid #a7a7a7; padding: 10px; width: 20%; text-align: center;">${s.productPrice}</td>
             </tr> 
         </table>

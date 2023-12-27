@@ -115,4 +115,14 @@ public class StudyDao {
 		return sqlSession.selectOne("studyMapper.studyGoodCount", sno);
 	}
 
+	public int studyUpdateLike1(SqlSessionTemplate sqlSession, StudyGood sg) {
+		
+		Map<String, Object> params = new HashMap<>();
+		
+		params.put("rstudyNo", sg.getRstudyNo());
+		params.put("rmemNo", sg.getRmemNo());
+		
+		return sqlSession.selectOne("studyMapper.studyUpdateLike1", params);
+	}
+
 }

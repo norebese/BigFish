@@ -46,6 +46,29 @@
     align-items: flex-start;
 }
 
+.reply-area{
+    display: none;
+}
+.reply-area.on{
+    display: block;
+}
+.reply-line{
+    border-bottom: 1px solid black;
+    margin-top: 50px;
+}
+
+.replyImg{
+    display: flex;
+    height: 60px;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.replyImg img{
+    height: 35px;
+    width: 35px;
+    margin-right: 10px;
+}
+
 </style>
 <!-- 부트스트랩 css 사용 -->
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -53,8 +76,10 @@
      
 <!-- CSS-->
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/studyDetailView.css">
+
 <!-- JS-->
 <script src="<%=contextPath%>/resources/js/studyDetailView.js"></script>
+
     
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -101,54 +126,48 @@
                 </tr>    
                     <td style="font-size: 0.9rem;">${s.studyCreateDate}</td>
                     <td style="font-size: 0.8rem; text-align: right;">조회수: ${s.studyCount}</td>
-                    <td style="font-size: 0.8rem; width: 15%;">좋아요: ${likeNo}</td>  
+                    <td id="whgdkdy" style="font-size: 0.8rem; width: 15%;">좋아요: ${likeNo}</td>  
             </table>
 
-            <div id="like-logo" onclick="updateLike()">
+            <div align="right" id="like-logo" onclick="updateLike(this)">
 	            <c:choose>
 	            <c:when test="${studyGoodStatus.studyGoodStatus eq 'Y'}">
-	            	<img align="right" style="width: 25px; cursor: pointer;" src="<%=contextPath%>/resources/images/heart-filled.png">
+	            	<img style="cursor: pointer; width: 25px;" src="<%=contextPath%>/resources/images/heart-filled.png">
                     <span id="whgdkdy"></span>
 	            </c:when>
 	            <c:otherwise>
-	            	<img align="right" style="width: 25px; cursor: pointer;" src="<%=contextPath%>/resources/images/heart-notfill.png">
+	            	<img style="cursor: pointer; width: 25px;" src="<%=contextPath%>/resources/images/heart-notfill.png">
 	            </c:otherwise>
 	            </c:choose>
             </div>
 
             <script>
-            function updateLike(){
-                let likeImg = document.getElementById('like-logo');
-                let whgdkdy = document.getElementById('whgdkdy');
-                $.ajax({
-                    type: "GET",
-                    url: "updateLike.st",
-                    data: {
-                        studyNo: ${s.studyNo}
-                    },
-                    dataType: 'json', 
-                    success: function(data)    
-
-                        console.log(data.studyGoodStatus);
-                            if(data == 'Y'){
-                                likeImg.innerHTML = '<img src="<%=contextPath%>/resources/images/heart-filled.png">'
-
-                        console.log(data.status);
-                            if(data.status === 'Y'){
-                                likeImg.innerHTML = '<img src="/bigFish/resources/images/heart-filled.png">'
-
-                                whgdkdy.innerHTML = '<p>' + data.count + '</p>';
-                            }else{
-                                likeImg.innerHTML='<img src="/bigFish/resources/images/heart-notfill.png">'
-                                whgdkdy.innerHTML = '<p>' + data.count + '</p>';
+                function updateLike(likeLogo) {
+                    let likeImg = likeLogo;
+                    let whgdkdy = document.getElementById('whgdkdy');
+            
+                    $.ajax({
+                        type: "GET",
+                        url: "updateLike.st",
+                        data: {
+                            studyNo: ${s.studyNo}
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log(data.status);
+                            if (data.status === 'Y') {
+                                likeImg.innerHTML = '<img style="width: 25px; cursor: pointer;" src="<%=contextPath%>/resources/images/heart-filled.png">';
+                            } else {
+                                likeImg.innerHTML = '<img style="width: 25px; cursor: pointer;" src="<%=contextPath%>/resources/images/heart-notfill.png">';
                             }
+                            $(whgdkdy).html("좋아요: " + data.likeCount);
                             console.log("ajax 통신 성공");
-                    },
-                    error: function() {
-                        console.log("ajax 통신 실패");
-                    }
-                });
-            }
+                        },
+                        error: function() {
+                            console.log("ajax 통신 실패");
+                        }
+                    });
+                }
             </script>
 
             <br>
@@ -186,98 +205,98 @@
 				<br>
         <!-- 댓글 파트 -->
         <div style="width: 70%; margin: 0px auto;" >
-        <table id="replyArea" class="table" align="center" onload="">
-            <thead>
-                <c:choose>
-                    <c:when test="${ empty loginUser }">
-                        <tr>
-                            <th colspan="2">
-                                <textarea class="form-control" readonly cols="50" rows="2" style="resize: none; width: 100%;">로그인 후 이용가능 합니다.</textarea>
-                            </th>
-                            <th>
-                                <th style="vertical-align: middle;"><button class="btn btn-secondary disavled">등록하기</button></th>
-                            </th>
-                        </tr>
-                        </c:when>
-                        <c:otherwise>
+            <table id="replyArea" class="table" align="center" onload="">
+                <thead>
+                    <c:choose>
+                        <c:when test="${ empty loginUser }">
                             <tr>
                                 <th colspan="2">
-                                    <textarea class="form-control" id="content" cols="50" rows="2" style="resize: none; width: 100%;"></textarea>
+                                    <textarea class="form-control" readonly cols="50" rows="2" style="resize: none; width: 100%;">로그인 후 이용가능 합니다.</textarea>
                                 </th>
-                                <th style="vertical-align: middle;"><button class="btn btn-secondary" onclick="addReply()">등록하기</button></th>
+                                <th>
+                                    <th style="vertical-align: middle;"><button class="btn btn-secondary disavled">등록하기</button></th>
+                                </th>
                             </tr>
-                        </c:otherwise>
-                    </c:choose>
-                    <tr>
-                        <td colspan="3">댓글(<span id="rcount"></span>)</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tbody>
-            </table>
-        </div>
-
-
-    <!-- 댓글파트 -->
+                            </c:when>
+                            <c:otherwise>
+                                <tr>
+                                    <th colspan="2">
+                                        <textarea class="form-control" id="content" cols="50" rows="2" style="resize: none; width: 100%;"></textarea>
+                                    </th>
+                                    <th style="vertical-align: middle;"><button class="btn btn-secondary" onclick="addReply()">등록하기</button></th>
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
+                        <tr>
+                            <td colspan="3">댓글(<span id="rcount"></span>)</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tbody>
+                </table>
+            </div>
     
     
-    <script>
-        $(function(){
-            //댓글 조회하는 함수호출
-            selectReplyList();
-        })
-
-        function selectReplyList(){
-            $.ajax({
-                url: "rlist.st",
-                data: {
-                    sno: ${s.studyNo}
-                },
-                success: function(list){
-                    let str = "";
-                    for (reply of list){
-                        str += ("<tr>" + 
-                                    "<td>" + reply.replyWriter + "</td>" +
-                                    "<td>" + reply.replyContent + "</td>" +
-                                    "<td>" + reply.replyCreateDate + "</td>" +
-                                "</tr>")
-                    }
-
-                    //$("#replyArea tbody").html();
-                    document.querySelector("#replyArea tbody").innerHTML = str;
-                    document.querySelector("#rcount").innerHTML = list.length;
-                },
-                error: function(){
-                    console.log("ajax통신 실패")
-                }
+        <!-- 댓글파트 -->
+        
+        
+        <script>
+            $(function(){
+                //댓글 조회하는 함수호출
+                selectReplyList();
             })
-        }
-
-        //댓글 추가
-        function addReply(){
-            $.ajax({
-                url: "rinsert.st",
-                data: {
-                    rstudyNo: '${s.studyNo}',
-                    replyWriter: '${loginUser.memNick}',
-                    replyContent: $("#content").val()
-                },
-                success: function(res){
-                        //성공시 다시 그려주기
-                    if (res === "success") {
-                        selectReplyList();
-                        $("#content").val("");
+    
+            function selectReplyList(){
+                $.ajax({
+                    url: "rlist.st",
+                    data: {
+                        sno: ${s.studyNo}
+                    },
+                    success: function(list){
+                        let str = "";
+                        for (reply of list){
+                            str += ("<tr>" + 
+                                        "<td>" + reply.replyWriter + "</td>" +
+                                        "<td>" + reply.replyContent + "</td>" +
+                                        "<td>" + reply.replyCreateDate + "</td>" +
+                                    "</tr>")
+                        }
+    
+                        //$("#replyArea tbody").html();
+                        document.querySelector("#replyArea tbody").innerHTML = str;
+                        document.querySelector("#rcount").innerHTML = list.length;
+                    },
+                    error: function(){
+                        console.log("ajax통신 실패")
                     }
-                },
-                error: function(){
-                    console.log("ajax통신 실패")
-                }
-            })
-        }
-    </script>
+                })
+            }
+    
+            //댓글 추가
+            function addReply(){
+                $.ajax({
+                    url: "rinsert.st",
+                    data: {
+                        rstudyNo: '${s.studyNo}',
+                        replyWriter: '${loginUser.memNick}',
+                        replyContent: $("#content").val()
+                    },
+                    success: function(res){
+                            //성공시 다시 그려주기
+                        if (res === "success") {
+                            selectReplyList();
+                            $("#content").val("");
+                        }
+                    },
+                    error: function(){
+                        console.log("ajax통신 실패")
+                    }
+                })
+            }
+        </script>
     
     <!-- The Modal -->
     <div class="modal" id="deleteStudy">

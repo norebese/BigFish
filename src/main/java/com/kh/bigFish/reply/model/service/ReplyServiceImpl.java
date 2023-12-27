@@ -59,4 +59,14 @@ public class ReplyServiceImpl implements ReplyService{
 		return replyDao.freeReplyList(sqlSession, pi, sNum);
 	}
 
+	@Override
+	public int studyReplyCount(Reply r) {
+		return replyDao.studyReplyCount(sqlSession, r);
+	}
+
+	@Override
+	public ArrayList<Reply> studyReplyList(PageInfo pi, int sNum) {
+		return replyDao.studyReplyList(sqlSession, pi, sNum);
+	}
+
 }
