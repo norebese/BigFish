@@ -120,5 +120,10 @@ public class StudyServiceImpl implements StudyService {
 	public int studyGoodCount(int sno) {
 		return studyDao.studyGoodCount(sqlSession, sno);
 	}
+
+	@Override
+	public int studyUpdateLike1(StudyGood sg) {
+		return studyDao.studyUpdateLike1(sqlSession, sg);
+	}
 	
 }
