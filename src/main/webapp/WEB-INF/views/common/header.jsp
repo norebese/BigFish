@@ -5,11 +5,13 @@
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>BIG FISH</title>
+
 
 <!-- JS-->
 <script src="<%=contextPath%>/resources/js/header.js"></script>
@@ -96,7 +98,7 @@ li::marker {
 		</div>
 		<div class="header-menu">
 			<div class="search-area">
-				<input type="text" id="keyword" name="keyword" placeholder="검색어를 입력해 주세요"> 
+				<input type="text" id="keyword" name="keyword" placeholder="검색어를 입력해 주세요" value="<c:out value='${keyword}'/>">
 				<a class="search-btn" onclick="mainSearch();">
 					<img style="height: auto; width: 15px; margin-top: 7px; cursor: pointer;" src="resources/images/search_icon.png" alt="검색버튼">
 				</a>

@@ -317,9 +317,11 @@ public class StoreController {
 		PageInfo pi = Pagenation.getPageInfo(storeCount, currentPage, 10, 6);
 		
 		ArrayList<Store> storeList = storeService.storeList(pi);
-//		for (Store store : storeList) {
-//			System.out.println(store);
-//		}
+		for (Store store : storeList) {
+			if(store.getThumbnailImg() == null) {
+				store.setThumbnailImg("no Img.png");
+			}
+		}
 		model.addAttribute("storeList", storeList);
 		model.addAttribute("pi", pi);
 		
@@ -336,7 +338,11 @@ public class StoreController {
 		PageInfo pi = Pagenation.getPageInfo(storeCount, Page, 10, 6);
 		
 		ArrayList<Store> storeList = storeService.storeList(pi);
-		
+		for (Store store : storeList) {
+			if(store.getThumbnailImg() == null) {
+				store.setThumbnailImg("no Img.png");
+			}
+		}
 		result.put("list", storeList);
 	    result.put("storeCount", storeCount);
 	    result.put("pi", pi);
@@ -360,7 +366,11 @@ public class StoreController {
 		PageInfo piA = Pagenation.getPageInfo(storeCount, Page, 10, 6);
 		
 		ArrayList<Store> list = storeService.ajaxStoreList(S, piA);
-		
+		for (Store store : list) {
+			if(store.getThumbnailImg() == null) {
+				store.setThumbnailImg("no Img.png");
+			}
+		}
 		session.setAttribute("piA", piA);
 		
 		result.put("list", list);
@@ -425,7 +435,7 @@ public class StoreController {
 		
 		sk.setRmemNo(Mem.getMemNo());
 		sk.setRstoreNo(storeNum);
-		System.out.println(sk);
+		
 		Slike likeResult = storeService.likeResult(sk);
 		String result = null;
 		System.out.println("likeResult :"+likeResult);
@@ -435,7 +445,7 @@ public class StoreController {
 		}else {
 			result = "N";
 		}
-		System.out.println(result);
+		
 		int storeUpdateLike = storeService.storeUpdateLike(sk, result);
 		
 		try {
@@ -491,9 +501,12 @@ public class StoreController {
 		PageInfo pi = Pagenation.getPageInfo(seaStoreCount, currentPage, 10, 6);
 		
 		ArrayList<Store> seaStoreList = storeService.seaStoreList(pi);
-//		for (Store store : seaStoreList) {
-//			System.out.println(store);
-//		}
+		for (Store store : seaStoreList) {
+			if(store.getThumbnailImg() == null) {
+				store.setThumbnailImg("no Img.png");
+			}
+		}
+
 		model.addAttribute("seaStoreList", seaStoreList);
 		model.addAttribute("pi", pi);
 
@@ -510,6 +523,11 @@ public class StoreController {
 		PageInfo pi = Pagenation.getPageInfo(seaStoreCount, currentPage, 10, 6);
 		
 		ArrayList<Store> seaStoreList = storeService.seaStoreList(pi);
+		for (Store store : seaStoreList) {
+			if(store.getThumbnailImg() == null) {
+				store.setThumbnailImg("no Img.png");
+			}
+		}
 		
 		result.put("seaStoreList", seaStoreList);
 	    result.put("pi", pi);
@@ -533,6 +551,11 @@ public class StoreController {
 		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCount, 1, 10, 6);
 		
 		ArrayList<Store> list = storeService.ajaxSeaStoreList(piS, City1, City2, City3, City4, City5, City6);
+		for (Store store : list) {
+			if(store.getThumbnailImg() == null) {
+				store.setThumbnailImg("no Img.png");
+			}
+		}
 		
 		ArrayList<String> cityNames = new ArrayList<String>();
 		cityNames.add(City1);
@@ -581,6 +604,11 @@ public class StoreController {
 		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCount, sPage, 10, 6);
 		
 		ArrayList<Store> list = storeService.ajaxSeaAreaMore(piS, City1, City2, City3, City4, City5, City6);
+		for (Store store : list) {
+			if(store.getThumbnailImg() == null) {
+				store.setThumbnailImg("no Img.png");
+			}
+		}
 		
 		result.put("list", list);
 	    result.put("piS", piS);
@@ -604,8 +632,13 @@ public class StoreController {
 		int ajaxSeaStoreCountF = storeService.ajaxSeaStoreCountF(City1, City2, City3, City4, City5, City6, filterNum);
 		
 		PageInfo piS = Pagenation.getPageInfo(ajaxSeaStoreCountF, sfPage, 10, 6);
-		System.out.println(piS);
+		
 		ArrayList<Store> list = storeService.ajaxStoreKindFilter(piS, City1, City2, City3, City4, City5, City6, filterNum);
+		for (Store store : list) {
+			if(store.getThumbnailImg() == null) {
+				store.setThumbnailImg("no Img.png");
+			}
+		}
 		result.put("list", list);
 		result.put("count", ajaxSeaStoreCountF);
 	    result.put("piS", piS);
