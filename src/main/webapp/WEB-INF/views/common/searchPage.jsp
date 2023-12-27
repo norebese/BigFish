@@ -72,7 +72,7 @@
 		</div>
 		<br>
 		<div class="search-result">
-			<td>${keyword} 통합검색 결과</td>
+			<td><c:out value="${keyword}"/> 통합검색 결과</td>
 		</div>
 
 		<br>
