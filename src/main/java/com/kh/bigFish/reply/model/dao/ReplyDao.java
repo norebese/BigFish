@@ -1,5 +1,6 @@
 package com.kh.bigFish.reply.model.dao;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
@@ -55,4 +56,15 @@ public class ReplyDao {
 		return (ArrayList)sqlSession.selectList("replyMapper.freeReplyList", sNum, rowBounds);
 	}
 
+	public int studyReplyCount(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.selectOne("replyMapper.studyReplyCount", r);
+	}
+
+	public ArrayList<Reply> studyReplyList(SqlSessionTemplate sqlSession, PageInfo pi, int sNum) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("replyMapper.studyReplyList", sNum, rowBounds);
+	}
 }

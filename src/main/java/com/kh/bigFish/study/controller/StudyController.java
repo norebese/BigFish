@@ -3,6 +3,7 @@ package com.kh.bigFish.study.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,12 +65,26 @@ public class StudyController {
 	
 	@RequestMapping(value="/detail.st")
 	public String selectStudy(int sno, Model model, HttpSession session) {
-		
+		Member Mem = (Member) session.getAttribute("loginUser");
+		int likeNo = studyService.studyGoodCount(sno);
 		int result = studyService.increaseCount(sno);
+		
+		StudyGood checkLikeTable = new StudyGood();
+		
+		if(Mem != null) {
+			int memNo = Mem.getMemNo();
+			
+			checkLikeTable = studyService.checkLikeTable(memNo, sno);
+			if(checkLikeTable == null) {
+				int createLikeTable = studyService.createLikeTable(memNo, sno);
+			}
+		}
 		
 		if(result > 0) {
 			Study s = studyService.selectStudy(sno);
 			model.addAttribute("s", s);
+			model.addAttribute("likeNo", likeNo);
+			model.addAttribute("studyGoodStatus", checkLikeTable);
 			
 			return "study/studyDetailView";
 		} else {
@@ -115,35 +130,32 @@ public class StudyController {
 		}
 	}
 	
-	@RequestMapping("UpdateLike")
-	public void updateLike(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
-
+	@ResponseBody
+	@RequestMapping("updateLike.st")
+	public Map<String, Object> updateLike(int studyNo, HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+		Map<String, Object> result = new HashMap<>();
 		StudyGood sg = new StudyGood();
 		System.out.println(sg);
-		Study st = (Study) session.getAttribute("st");
+		
+//		Study st = (Study) session.getAttribute("st");
 		Member Mem = (Member) session.getAttribute("loginUser");
-		int studyNum = st.getStudyNo();
 		
 		sg.setRmemNo(Mem.getMemNo());
-		sg.setRstudyNo(studyNum);
+		sg.setRstudyNo(studyNo);
+		
 		StudyGood likeResult = studyService.likeResult(sg);
-		String result = null;
 		
-		if(likeResult.getStudyGoodStatus().equals("N")) {
-			result = "Y";
-		}else {
-			result = "N";
-		}
+		String status = (likeResult.getStudyGoodStatus().equals("N")) ? "Y" : "N";
 		
-		int studyUpdateLike = studyService.studyUpdateLike(sg, result);
+		int storeUpdateLike = studyService.studyUpdateLike(sg, status);
+		int storeUpdateCount = studyService.studyUpdateLike1(sg);
 		
-
-		try {
-			response.getWriter().print(result);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		
+		result.put("status", status);
+		result.put("likeCount", storeUpdateCount);
+		
+		return result;
+		
 	}
 	
 	/*
@@ -189,6 +201,12 @@ public class StudyController {
 		  .setViewName("study/studyListView");
 		
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="mainList.st", produces="application/json; charset=UTF-8")
+	public String ajaxTopBoardList() {
+		return new Gson().toJson(studyService.selectmainList());
 	}
 
 	//댓글 파트

@@ -179,4 +179,22 @@
 	     ORDER BY REPLY_NO DESC
 	</select>
 	
+	<select id="studyReplyCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REPLY
+		WHERE RSTUDY_NO = #{rstudyNo}
+		AND REPLY_STATUS = 'Y'
+	</select>
+	
+	<select id="studyReplyList" resultMap="replyResult">
+		SELECT REPLY_NO,
+			   REPLY_CONTENT,
+			   REPLY_WRITER,
+			    TO_CHAR(REPLY_CREATE_DATE, 'YYYY-MM-DD') AS REPLY_CREATE_DATE,
+			   RMEM_NO
+		   FROM REPLY
+	     WHERE REPLY_STATUS = 'Y'
+	       AND RSTUDY_NO = #{sNum}
+	     ORDER BY REPLY_NO DESC
+	</select>
 </mapper>

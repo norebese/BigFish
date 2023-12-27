@@ -50,6 +50,7 @@ public interface StudyService {
 	StudyGood likeResult(StudyGood sg);
 
 	int studyUpdateLike(StudyGood sg, String result);
+	int studyUpdateLike1(StudyGood sg);
 	
 	StudyGood checkLikeTable(int memNo, int sno);
 
@@ -61,5 +62,7 @@ public interface StudyService {
 	
 	//좋아요 갯수 중가
 	int studyGoodCount(int sno);
+
+	
 
 }
