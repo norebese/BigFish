@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 	const sNumArrayValue = localStorage.getItem('sNumArray');
 	const sNumArray = JSON.parse(sNumArrayValue);
-	console.log(sNumArray[4]);
+	
     let stores = [0, 0, 0, 0, 0];
     for (let i = 0; i < 5; i++) {
     if (sNumArray[i] !== undefined) {
