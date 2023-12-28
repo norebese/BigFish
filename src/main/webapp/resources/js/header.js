@@ -19,3 +19,9 @@ function mainSearch() {
     location.href = 'search.bo?keyword=' + encodedKeyword;
 }	
 
+function searchOnEnter(event) {
+    
+    if (event.keyCode === 13) {
+        mainSearch();
+    }
+}

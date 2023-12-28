@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.reservation.model.dao.ReservationDao;
 import com.kh.bigFish.reservation.model.vo.Reservation;
 import com.kh.bigFish.store.model.vo.Ticket;
@@ -27,8 +28,8 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public ArrayList<Reservation> selectReservationList(int memNo) {
-		return reservationDao.selectReservationList(sqlSession, memNo);
+	public ArrayList<Reservation> selectReservationList(int memNo, PageInfo pi) {
+		return reservationDao.selectReservationList(sqlSession, pi, memNo);
 	}
 	@Override
 	public int jungbokCheck(Reservation R) {
@@ -63,6 +64,11 @@ public class ReservationServiceImpl implements ReservationService{
 	@Override
 	public ArrayList<Reservation> getRevStoreForChat(int memNo) {
 		return reservationDao.getRevStoreForChat(sqlSession, memNo);
+	}
+
+	@Override
+	public int countReservationList(int memNo) {
+		return reservationDao.countReservationList(sqlSession, memNo);
 	}
 	
 	
