@@ -84,10 +84,11 @@
 						<div class="col" style="flex-grow: 1;">
 							<div
 								style="display: flex; align-items: center; justify-content: flex-end;">
-								<p style="margin: 0; margin-right: 10px; white-space: nowrap;">작성일</p>
-								<p style="margin: 0; margin-right: 10px; white-space: nowrap;">좋아요:50</p>
+								
 								<p style="margin: 0; margin-right: 10px; white-space: nowrap;">조회수:${b.count}</p>
-								<p style="margin: 0; white-space: nowrap;">${b.createDate }</p>
+								<p style="margin: 0; margin-right: 10px; white-space: nowrap;">작성일:${b.createDate }</p>
+								
+								<p style="margin: 0; white-space: nowrap;"></p>
 							</div>
 						</div>
 					</div>
@@ -404,36 +405,7 @@
 					
 				}
 				
-				/**
-				function updateLike(){
-			    	let likeImg = document.getElementById('like-logo');
-			    	
-			   		$.ajax({
-			               type: "GET",
-			               url: "ajaxUpdateFreeLike", 
-			               data: { 
-					        	
-					        	 freeNo :${b.freeNo}
-					        	 
-					           },
-					           dataType: 'json',
-			               success: function(data) {
-			            	   console.log(data+"고인물");
-								if(data == 'Y'){
-									 likeImg.innerHTML = '<img class="like-image" src="<%=contextPath%>/resources/images/heart-filled.png">';										
-							
-								}else{
-									likeImg.innerHTML='<img style="height: 19px !important;" src="<%=contextPath%>/resources/images/heart-notfill.png">'
-								}
-								console.log("ajax 통신 성공");
-			               },
-			               error: function() {
-			               	console.log("ajax 통신 실패");
-			               }
-			           });
-			   		
-			   	}
-				 */
+		
 				 function updateLike() {
 					    let likeImg = document.getElementById('like-logo');
 					    let whgdkdy =document.getElementById('whgdkdy');

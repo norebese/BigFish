@@ -38,6 +38,8 @@ import com.kh.bigFish.member.model.service.MemberService;
 import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reservation.model.service.ReservationService;
 import com.kh.bigFish.reservation.model.vo.Reservation;
+import com.kh.bigFish.shop.model.service.ShopService;
+import com.kh.bigFish.shop.model.vo.KakaoRequestDto;
 import com.kh.bigFish.store.model.service.StoreService;
 import com.kh.bigFish.store.model.vo.Store;
 import com.kh.bigFish.store.model.vo.Ticket;
@@ -51,6 +53,9 @@ public class MemberController {
 	
 	@Autowired
 	private StoreService storeService;
+	
+	@Autowired
+	private ShopService shopService;
 	
 	// 메일관련
 	@Autowired
@@ -236,11 +241,13 @@ public class MemberController {
 		
 		Member loginUser =  (Member)session.getAttribute("loginUser");
 		ArrayList<Reservation> reserList = reservationService.selectReservationList(loginUser.getMemNo());
-		
-		
+		ArrayList<KakaoRequestDto> payList = shopService.selectKakaoRequestDtoList(loginUser.getMemId());
+		System.out.println("여기다띱때끼야"+payList);
+	
 		
 		session.setAttribute("loginUser", loginUser);
 		model.addAttribute("reserList",reserList);
+		model.addAttribute("payList",payList);
 		
 		
 		return "member/personalMyPage";

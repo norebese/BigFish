@@ -28,6 +28,7 @@
      	<typeAlias type="com.kh.bigFish.shop.model.vo.KakaoRequestDto" alias="KakaoRequestDto"/>
      	<typeAlias type="com.kh.bigFish.chat.model.vo.Chat" alias="Chat"/>
      	<typeAlias type="com.kh.bigFish.shop.model.vo.Shop" alias="Shop"/>
+     	<typeAlias type="com.kh.bigFish.fishingBoard.model.vo.FiLike" alias="FiLike"/>
 		
      </typeAliases>
      <!-- 유의사항 : 미리 등록해두려면 해당 클래스가 진짜 존재하고 있는 상태여야한다. -->

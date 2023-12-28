@@ -6,7 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,9 @@ import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.common.template.Pagenation;
 import com.kh.bigFish.fishingBoard.model.service.FishingBoardService;
+import com.kh.bigFish.fishingBoard.model.vo.FiLike;
 import com.kh.bigFish.fishingBoard.model.vo.FishingBoard;
+import com.kh.bigFish.freeBoard.model.vo.Flike;
 import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reply.model.vo.Reply;
 
@@ -192,14 +196,30 @@ public class FishingBoardController {
 	
 	
 	@RequestMapping("detail.fibo")
-	public String selectBoard(int bno, Model model) {
-	
+	public String selectBoard(int bno, Model model, HttpSession session) {
+		Member Mem = (Member) session.getAttribute("loginUser");
+		int likeNo =fishingBoardService.fishGoodCount(bno);
 		int result = fishingBoardService.increaseCount(bno);
+		
+		FiLike checkLikeTable = new FiLike();
+		if(Mem != null) {
+			int memNo = Mem.getMemNo();
+			
+			checkLikeTable = fishingBoardService.checkLikeTable(memNo, bno);
+			System.out.println(likeNo+"12341234"+checkLikeTable);
+			if(checkLikeTable==null) {
+				int createLikeTable = fishingBoardService.createLikeTable(memNo, bno);
+				
+			}
+		}
+		
 		
 		if(result>0) {
 			FishingBoard b = fishingBoardService.selectBoard(bno);
 			System.out.println("1234바보"+b);
 			model.addAttribute("b", b);
+			 model.addAttribute("likeNo", likeNo);
+			 model.addAttribute("fishingGoodStatus", checkLikeTable);
 			
 			
 			return "fishingBoard/fishingBoardDetailView";
@@ -298,7 +318,31 @@ public class FishingBoardController {
 	public String ajaxTopBoardList() {
 		return new Gson().toJson(fishingBoardService.selectmainList());
 	}
+	//좋아요
+	@ResponseBody
+	@RequestMapping("ajaxUpdateFishingLike")
+	public Map<String, Object> ajaxUpdateLike(HttpServletRequest request, HttpSession session, int fishingNo) {
+	    Map<String, Object> result = new HashMap<>();
+	    FiLike fi = new FiLike();
+	    
+	    Member mem = (Member) session.getAttribute("loginUser");
+	    fi.setRmemNo(mem.getMemNo());
+	    fi.setRfishingNo(fishingNo);
+	 
+	    System.out.println("여기좀보소1234"+fi);
+	    FiLike likeResult = fishingBoardService.likeResult(fi);
+	    System.out.println("여기좀보소"+likeResult);
 	
+	    String status = (likeResult.getFishingGoodStatus().equals("N")) ? "Y" : "N";
+	    
+	    int storeUpdateLike = fishingBoardService.fishUpdateLike(fi, status);
+	    int storeUpdateCount = fishingBoardService.fishUpdateLike1(fi);
+	    System.out.println(fi+"에프알 찍는거"+status);
+	    result.put("status", status);
+	    result.put("likeCount", storeUpdateCount);
+	    System.out.println(result+"에프알 찍는거1234");
+	    return result;
+	}
 	//댓글 파트
 			@ResponseBody
 			@RequestMapping(value="rlist.fi", produces="application/json; charset=UTF-8")
@@ -322,6 +366,10 @@ public class FishingBoardController {
 					return "fail";
 				}
 			}
+			
+			
+			
+			
 }
 
 

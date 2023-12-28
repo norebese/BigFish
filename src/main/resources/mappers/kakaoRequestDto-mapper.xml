@@ -18,7 +18,12 @@
 		<result column="CANCEL_URL" property="cancel_url" />
 		<result column="PG_TOKEN" property="pg_token" />
 		<result column="PRODUCT_NO" property="productNo" />
+		<result column="PAY_DATE" property="payDate" />
+			<result column="FISHING_NO" property="fishingNo" />
+			<result column="CHANGE_NAME" property="changeName" />
+			<result column="RFISHING_NO" property="rfishingNo" />
 	</resultMap>
+	
 	<insert id="insertParameter">
 		INSERT INTO KAKOREQUESTDTO (
 		C_NO,
@@ -32,7 +37,8 @@
 		TAX_FREE_AMOUNT,
 		APPROVAL_URL,
 		FAIL_URL,
-		CANCEL_URL
+		CANCEL_URL,
+		PAY_DATE
 		)
 		VALUES (
 		SEQ_C_NO.NEXTVAL,
@@ -46,7 +52,8 @@
 		#{tax_free_amount},
 		#{approval_url},
 		#{fail_url},
-		#{cancel_url}
+		#{cancel_url},
+		SYSDATE
 		)
 	</insert>
 	<update id="updatePg_token">
@@ -56,5 +63,35 @@
 		WHERE C_NO = (SELECT C_NO FROM (SELECT C_NO FROM KAKOREQUESTDTO ORDER BY C_NO DESC) WHERE ROWNUM = 1)
 		
 	</update>
+	<select id="selectKakaoRequestDtoList"
+		resultMap="kakaoRequestDtoResult">
+		SELECT
+		K.C_NO,
+		K.C_ID,
+		K.PARTNER_ORDER_ID,
+		K.PARTNER_USER_ID,
+		TRIM(BOTH '"' FROM K.ITEM_NAME) AS ITEM_NAME,
+		K.QUANTITY,
+		K.TOTAL_AMOUNT,
+		K.VAT_AMOUNT,
+		K.TAX_FREE_AMOUNT,
+		K.APPROVAL_URL,
+		K.FAIL_URL,
+		K.CANCEL_URL,
+		K.PG_TOKEN,
+		K.PRODUCT_NO,
+		K.PAY_DATE,
+		F.FISHING_NO,
+		A.RFISHING_NO,
+		A.CHANGE_NAME
+		FROM
+		KAKOREQUESTDTO K
+		JOIN
+		FISHBOARD F ON K.PRODUCT_NO = F.FISHING_NO
+		JOIN
+		ATTACHMENT A ON F.FISHING_NO = A.RFISHING_NO
+		WHERE
+		K.PARTNER_USER_ID = #{MemId}
+	</select>
 
 </mapper>
