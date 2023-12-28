@@ -11,7 +11,7 @@
 	
 	
 
-function init(ad, name){
+function init(ad, name, sNum){
 
     let infobtn = document.querySelector('.detail-tab');
     let replybtn = document.querySelector('.reply-tab');
@@ -99,6 +99,16 @@ function init(ad, name){
         map.setCenter(coords);
     	} 
 	});  
+
+	const existingArray = JSON.parse(localStorage.getItem('sNumArray')) || [];
+	const newValue = sNum; 
+    existingArray.push(newValue);
+	if (existingArray.length > 5) {
+		existingArray.shift();
+	}
+	localStorage.setItem('sNumArray', JSON.stringify(existingArray));
+
+    console.log('Array stored in local storage:', existingArray);
 }
 
 function showDateAlert() {
@@ -192,7 +202,7 @@ function updateReplyList(date, memNum){
                 htmlContent += '<div class="" style="border-bottom: solid 2px rgb(204,204,204);">'
 	            +'<div class="row"><div class="col-sm" style="display: flex; align-items: center;">'
 	            +'<i class="replyImg"><img src="/bigFish/'+reply.memProfileImg+'"></i><span >'+reply.replyWriter+'</span></div>'
-	            +'<div class="col-md-8" style="display: flex; align-items: center;">'+reply.replyContent+'</div>'
+	            +`<div class="col-md-8" style="display: flex; align-items: center;">`+reply.replyContent+`</div>`
 	            +'<div class="col-sm" style="display: flex; align-items: center;">'+reply.replyCreateDate;
 	            
 	            if (reply.rmemNo == memNum) {
@@ -314,8 +324,15 @@ function pageReply(num){
 	})
 }
 
+function escapeHtml(text) {
+    let div = document.createElement('div');
+    div.innerText = text;
+    return div.innerHTML;
+}
+
 function addReply(){
-	let contentValue = document.getElementById('content').value;
+	//let contentValue = document.getElementById('content').value;
+	const contentValue = escapeHtml(document.getElementById('content').value);
 	const sendData = { contentValue: contentValue};
 	resApi.addReply(sendData,function(data){
 		updateReplyList(data.replyList, memNum);

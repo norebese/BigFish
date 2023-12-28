@@ -1,7 +1,9 @@
 function showProfile(){
     const profileWork = document.querySelector("#profileWork");
+
     const reservationWork = document.querySelector("#reservationWork");
      const goodspayList = document.querySelector("#goodspayList"); 
+
     const buttonProfile = document.querySelector("#buttonProfile");
     const buttonReservation = document.querySelector("#buttonReservation");
      const buttonGoodsPay = document.querySelector("#buttonGoodspayment");
@@ -15,9 +17,11 @@ function showProfile(){
 }
 
 function showReservation(){
+
   const profileWork = document.querySelector("#profileWork");
     const reservationWork = document.querySelector("#reservationWork");
      const goodspayList = document.querySelector("#goodspayList"); 
+
     const buttonProfile = document.querySelector("#buttonProfile");
     const buttonReservation = document.querySelector("#buttonReservation");
      const buttonGoodsPay = document.querySelector("#buttonGoodspayment");
@@ -121,3 +125,115 @@ function chatPopUp(){
     window.open("personalChat","popup Chat","width = 550, height = 600, top = 100, left = 200, location = no, status=no toolbars=no");
 }
 
+
+function checkUpdatePwd(){
+    let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+
+    const updatePwd = document.querySelector("#updatePwd");
+    const updatePwdArea = document.querySelector("#updatePwdArea");
+    const updatePwdBtn = document.querySelector("#updatePwdBtn");
+
+    if(reg.test(updatePwd.value)){
+        updatePwdArea.innerHTML = " &nbsp;O";
+        updatePwdArea.style.color = "#2f9947";
+        updatePwdBtn.removeAttribute("disabled");
+    }else{
+        updatePwdArea.innerHTML = " &nbsp;X";
+        updatePwdArea.style.color = "#dd2f35";
+        updatePwdBtn.setAttribute("disabled",true);
+    }
+
+}
+
+function sameUpdatePwd(){
+    const updatePwd = document.querySelector("#updatePwd");
+    const samePwd = document.querySelector("#samePwd");
+    const samePwdArea = document.querySelector("#samePwdArea");
+    const updatePwdBtn = document.querySelector("#updatePwdBtn");
+
+    if(updatePwd.value===samePwd.value){
+        samePwdArea.innerHTML = " &nbsp;O";
+        samePwdArea.style.color = "#2f9947";
+        updatePwdBtn.removeAttribute("disabled");
+    }else{
+        samePwdArea.innerHTML = " &nbsp;X";
+        samePwdArea.style.color = "#dd2f35";
+        updatePwdBtn.setAttribute("disabled",true);
+    }
+}
+
+let rPage = 1;
+function ajaxMoreResList(memNo){
+	rPage++;
+	const sendData = { memNo: memNo,
+						rPage: rPage};
+	resApi.moreResList(sendData,function(data){
+		if(document.getElementById("moreBtn") != null){
+        			document.getElementById("moreBtn").style.display = "none";
+        }
+		moreResList(data.reserList)
+		let moreButton = $(`<button id="moreBtnA" onclick="ajaxMoreResList(${memNo})">더 보기 `
+						+`<span>`+data.pi.currentPage+` </span>`
+						+`<span style="color: rgba(96,96,96,.5)">/ `+data.pi.maxPage+`</span>`
+						+`</button>`);
+       	$('.moreBtn-area').html(moreButton);
+        if(data.pi.currentPage === data.pi.maxPage){
+            document.getElementById("moreBtnA").style.display = "none";
+        }
+	})
+}
+
+function convertToDateObject(dateString) {
+    // "12월 27, 2023" 형식의 날짜 문자열을 JavaScript Date 객체로 변환
+    let parts = dateString.split(" ");
+    let month = parts[0].replace("월", "");
+    let day = parts[1].replace(",", "");
+    let year = parts[2];
+
+    // 날짜 문자열을 JavaScript Date 객체로 변환
+    let dateObject = new Date(month + " " + day + ", " + year);
+
+    return dateObject;
+}
+function dateFix(dateString) {
+    // Date 객체를 ISO 형식("YYYY-MM-DD")으로 변환
+    let dateObject = convertToDateObject(dateString);
+    let isoString = dateObject.toISOString().split("T")[0];
+
+    return isoString;
+}
+
+function moreResList(data){
+	let showListArea = $("#reservationWork");
+	let Content = '';
+	
+	$.each(data, function (index, res) {
+                Content += `<div style="margin-bottom: 30px;" class="card">`
+						+ `<div class="card-header" style="padding-bottom: 3px; cursor: pointer;" onclick="location.href='myReservationDetail?revNo=`
+						+ res.revNo+`'"><div style="display: flex; flex-direction: row; justify-content: space-between;">`
+						+ `<span style="font-weight: bold;">`+res.rstoreName+`</span><span style="font-size: 13px;">No. `+res.revNo+`</span></div>`
+						+ `<div style="display: flex; flex-direction: row; justify-content: space-between;">`
+						+ `<span style="font-size: 13px;">`+dateFix(res.revDate)+`</span>`;
+						
+				if(res.revStatus == 'WAITREV'){
+					Content += `<span>예약 대기</span>`;
+				}else if(res.revStatus == 'OKREV'){
+					Content += `<span>예약 완료</span>`;
+				}else if(res.revStatus == 'CANCELREV'){
+					Content += `<span>예약 취소</span>`;
+				}else if(res.revStatus == 'DONEREV'){
+					Content += `<span>이용 완료</span>`;
+				}
+				
+				Content += `</div></div><div class="card-body"><div style="display: flex; flex-direction: row; justify-content: space-between;">`
+						+ `<span>`+res.rticketName+`</span><span>`+res.rticketPrice*res.revPeople+`원</span></div></div>`
+						+ `<div class="card-footer"><div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">`
+						+ `<span style="font-size: 13px;">예약한 시간에 도착하지 못할 경우 예약이 취소될 수 있습니다.</span><span>`
+						+ `<button onclick="chatPopUp()" class="btn btn-sm btn-primary">1:1 문의</button>`
+						+ `<button class="btn btn-sm btn-primary" onclick="location.href='resDetailPage?storeNumber=`+res.rstoreNo+`'">예약 바로가기</button>`
+						+ `</span></div></div></div>`;
+            });
+	
+	showListArea.append(Content);
+}
+    

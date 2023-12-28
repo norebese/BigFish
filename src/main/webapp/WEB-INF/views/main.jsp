@@ -10,137 +10,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-.header-box {
-	margin-top: 70px;
-	display: flex;
-	flex-direction: row;
-}
-
-.left_box {
-	background-color: rgb(52, 152, 219);
-	width: 25%;
-	height: 286px;
-}
-
-.centerbox {
-	display: flex;
-	flex-direction: row;
-	background-color: rgb(59, 175, 252);
-	width: 100%;
-	max-width: 1200px;
-	height: 286px;
-	justify-content: space-evenly;
-	align-items: center;
-}
-
-.right_box {
-	background-color: rgb(52, 152, 219);
-	width: 25%;
-	height: 286px;
-}
-
-.container {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	box-sizing: border-box; /* 추가: border와 padding이 width에 포함되도록 설정 */
-	/* 중앙 정렬을 위한 부분을 flex로 대체 */
-	align-items: center;
-}
-
-.main {
-	box-sizing: border-box;
-	background-color: #eee;
-	color: #000000;
-	text-align: center;
-	width: 792px;
-	max-width: 792px;
-	height: 380px;
-	flex-shrink: 0; /* 이 부분을 추가하여 축소되지 않도록 설정 */
-	margin: auto; /* 가운데 정렬을 위해 추가 */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top: 20px;
-}
-
-.sub {
-	box-sizing: border-box;
-	background-color: #ffffff;
-	color: #000000;
-	text-align: center;
-	width: 792px;
-	max-width: 792px;
-	height: 300px;
-	flex-shrink: 0; /* 이 부분을 추가하여 축소되지 않도록 설정 */
-	margin: auto; /* 가운데 정렬을 위해 추가 */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	display: flex;
-	flex-direction: column;
-}
-
-.banner {
-	width: 200px;
-}
-
-.banner {
-	box-sizing: border-box;
-	background-color: #ffffff;
-	color: #fff;
-	text-align: center;
-	display: flex;
-	align-items: center; /* 세로 방향 가운데 정렬을 추가합니다. */
-	justify-content: center; /* 가로 방향 가운데 정렬을 추가합니다. */
-}
-
-.banner img {
-	display: block;
-	max-width: 100%;
-	max-height: 100%;
-}
-
-.main img {
-	display: block;
-	max-width: 50%;
-	max-height: 60%;
-	margin: auto; /* 이미지를 가운데 정렬하기 위해 추가 */
-	margin-top: 30px;
-}
-
-.center_box {
-	display: flex;
-	flex-direction: row;
-	background-color: rgb(59, 175, 252);
-	width: 100%;
-	max-width: 1200px;
-	height: 286px;
-	justify-content: space-evenly;
-	align-items: center;
-}
-
-.sub>div {
-	flex: 1;
-}
-
-@media screen and (max-width: 1200px) {
-	.banner:nth-child(1), .banner:nth-child(3) {
-		width: 0;
-		display: none;
-	}
-	.main {
-		width: 100%;
-	}
-}
-
-.row iframe{
-	margin: 0px 61px; 
-	width: 85%;
-	height: 85%;
-}
-</style>
 <title>BIG FISH</title>
 <!-- 부트스트랩 css 사용 -->
 <link
@@ -150,11 +19,13 @@
 	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-
+<script src="<%=contextPath%>/resources/js/service/store-api.js"></script>
 	
 <!-- CSS-->
 <link rel="stylesheet"
 	href="<%=contextPath%>/resources/css/freeBoardUpdateForm.css">
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/main.css">
+<script src="<%=contextPath%>/resources/js/main.js"></script>
 </head>
 
 <body>
@@ -188,9 +59,15 @@
 
 	</div>
 	<div class="container">
-		<div class="banner">
-			<img src="<%=contextPath%>/resources/images/banner.png"
-				alt="Your Image">
+		<div class="recentStore">
+			<ul>
+				<li>최근 본 가게</li>
+				<li>
+					<div class="recent_list">
+						
+					</div>
+				</li>
+			</ul>
 		</div>
 
 		<div class="main">
@@ -206,7 +83,7 @@
 						src="<%=contextPath%>/resources/images/1701241622051.png"
 						alt="Your Image">
 						<p style="font-size: large; font-weight: 700;">민물 낚시</p>
-					</a> <a href="listasdf.SHbo" class="col h-100"
+					</a> <a href="list.sh" class="col h-100"
 						style="text-decoration: none; color: black;"> <img
 						src="<%=contextPath%>/resources/images/1701241622193.png"
 						alt="Your Image">

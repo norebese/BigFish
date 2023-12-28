@@ -237,5 +237,20 @@ const storeApi = {
                	console.log("ajax 통신 실패");
                }
            });
-	}
+	},
+	showRecentStore : function(data,callback){
+		$.ajax({
+               type: "GET",
+               url: "showRecentStore",
+               data: data,
+               dataType: 'json',
+               success: function(data) {
+               	console.log("Success: ", data);
+            	   callback(data);
+               },
+               error: function() {
+               	console.log("ajax 통신 실패");
+               }
+           });
+     }
 }

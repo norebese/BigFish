@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kh.bigFish.attachment.model.vo.Attachment;
+import com.kh.bigFish.common.model.vo.PageInfo;
+import com.kh.bigFish.common.template.Pagenation;
 import com.kh.bigFish.member.model.service.MemberService;
 import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reservation.model.service.ReservationService;
@@ -240,6 +243,7 @@ public class MemberController {
 	public String personalMyPage(HttpSession session,Model model) {
 		
 		Member loginUser =  (Member)session.getAttribute("loginUser");
+
 		ArrayList<Reservation> reserList = reservationService.selectReservationList(loginUser.getMemNo());
 		ArrayList<KakaoRequestDto> payList = shopService.selectKakaoRequestDtoList(loginUser.getMemId());
 		System.out.println("여기다띱때끼야"+payList);
@@ -249,6 +253,7 @@ public class MemberController {
 		model.addAttribute("reserList",reserList);
 		model.addAttribute("payList",payList);
 		
+
 		
 		return "member/personalMyPage";
 	}
@@ -725,7 +730,23 @@ public class MemberController {
 		
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value="moreResList", produces="application/json; charset=UTF-8")
+	public Map<String, Object> moreResList(HttpServletRequest request) {
+		Map<String, Object> result = new HashMap<>();
+		int Page =Integer.parseInt(request.getParameter("rPage"));
+		int memNo =Integer.parseInt(request.getParameter("memNo"));
+		int resCount = reservationService.countReservationList(memNo);
+		
+		PageInfo pi = Pagenation.getPageInfo(resCount, Page, 10, 5);
+		
+		ArrayList<Reservation> reserList = reservationService.selectReservationList(memNo, pi);
+
+		result.put("reserList", reserList);
+	    result.put("pi", pi);
+		
+		return result;
+	}
 	
 	
 	

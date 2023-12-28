@@ -105,7 +105,7 @@
 						onclick="location.href='detail.fibo?bno=${b.fishingNo}'">
 						<img src="<%=contextPath%>${b.changeName}" alt="Your Image"
 							style="width: 80%; height: 80%; object-fit: contain; cursor: pointer;">
-						<h6 style="font-weight: 800;">${b.fishingTitle}</h6>
+						<h6 style="font-weight: 800;"><c:out value='${b.fishingTitle}'/></h6>
 						<!-- 이 밑에 p태그는 나중에 기능개발할때 구체적으로 작성하면 좋겠습니다. -->
 						<p>글쓴이:${b.fishingWriter} 좋아요:9</p>
 						<p>조회수:${b.fishingCount} 날짜:${b.fishingCreateDate}</p>

@@ -2,6 +2,11 @@ package com.kh.bigFish.reservation.model.service;
 
 import java.util.ArrayList;
 
+
+import org.apache.ibatis.annotations.Param;
+
+import com.kh.bigFish.common.model.vo.PageInfo;
+
 import com.kh.bigFish.reservation.model.vo.Reservation;
 import com.kh.bigFish.shop.model.vo.KakaoRequestDto;
 import com.kh.bigFish.store.model.vo.Ticket;
@@ -11,8 +16,13 @@ public interface ReservationService {
 	// 예약 삽입
 	int insertReservation(Reservation R);
 	
+	int countReservationList(int memNo);
+	
 	// 예약 목록 불러오기(멤버기준)
+
 	ArrayList<Reservation> selectReservationList(int memNo);
+
+	ArrayList<Reservation> selectReservationList(int memNo, PageInfo pi);
 
 	
 	// 중복체크

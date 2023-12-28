@@ -60,6 +60,18 @@ const memberApi = {
             success : function(result){
                 callback(result)
             },
+            beforeSend : function(){
+                const findPwdArea = document.querySelector("#findPwdArea");
+                const findedPwdArea = document.querySelector("#findedPwdArea");
+
+                
+                findPwdArea.style.display = "none";
+
+                findedPwdArea.innerHTML = '<div style="display: flex; flex-direction: column;">'+
+                '<div class="spinner-border text-muted"></div>'+
+                '</div>';
+                findedPwdArea.style.display = "flex";
+            },
             error : function(){
                 console.log("ajax 비밀번호 찾기 통신 실패");
             }

@@ -2,9 +2,11 @@ package com.kh.bigFish.reservation.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.reservation.model.vo.Reservation;
 import com.kh.bigFish.store.model.vo.Ticket;
 
@@ -16,8 +18,12 @@ public class ReservationDao {
 		return sqlSession.insert("reservationMapper.insertReservation", R);
 	}
 	
-	public ArrayList<Reservation> selectReservationList(SqlSessionTemplate sqlSession, int memNo){
-		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationList", memNo);
+	public ArrayList<Reservation> selectReservationList(SqlSessionTemplate sqlSession, PageInfo pi, int memNo){
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationList", memNo, rowBounds);
 	}
 
 	public int jungbokCheck(SqlSessionTemplate sqlSession, Reservation r) {
@@ -46,6 +52,10 @@ public class ReservationDao {
 	
 	public ArrayList<Reservation> getRevStoreForChat(SqlSessionTemplate sqlSession, int memNo){
 		return (ArrayList)sqlSession.selectList("reservationMapper.getRevStoreForChat", memNo);
+	}
+
+	public int countReservationList(SqlSessionTemplate sqlSession, int memNo) {
+		return sqlSession.selectOne("reservationMapper.countReservationList", memNo);
 	}
 
 }
