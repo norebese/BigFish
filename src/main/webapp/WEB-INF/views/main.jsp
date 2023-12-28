@@ -61,7 +61,7 @@
 	<div class="container">
 		<div class="recentStore">
 			<ul>
-				<li>최근 본 가게</li>
+				<li class="recentText">최근 본 가게</li>
 				<li>
 					<div class="recent_list">
 						
