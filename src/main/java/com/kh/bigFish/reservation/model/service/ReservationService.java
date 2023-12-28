@@ -20,7 +20,7 @@ public interface ReservationService {
 	
 	// 예약 목록 불러오기(멤버기준)
 
-	ArrayList<Reservation> selectReservationList(int memNo);
+
 
 	ArrayList<Reservation> selectReservationList(int memNo, PageInfo pi);
 
