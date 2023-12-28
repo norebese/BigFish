@@ -790,5 +790,21 @@ public class StoreController {
 		
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="showRecentStore")
+	public ArrayList<Store> showRecentStore(HttpServletRequest request){
+
+		ArrayList<Store> storeList = new ArrayList<>();
+
+		for (int i = 1; i <= 5; i++) {
+	        int storeNumber = Integer.parseInt(request.getParameter("store" + i));
+	        if(storeNumber != 0) {
+	        	storeList.add(storeService.showRecentStore(storeNumber));
+	        }
+	    }
+	    System.out.println(storeList);
+		return storeList;
+	}
 }
 

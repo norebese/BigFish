@@ -11,7 +11,7 @@
 	
 	
 
-function init(ad, name){
+function init(ad, name, sNum){
 
     let infobtn = document.querySelector('.detail-tab');
     let replybtn = document.querySelector('.reply-tab');
@@ -99,6 +99,16 @@ function init(ad, name){
         map.setCenter(coords);
     	} 
 	});  
+
+	const existingArray = JSON.parse(localStorage.getItem('sNumArray')) || [];
+	const newValue = sNum; 
+    existingArray.push(newValue);
+	if (existingArray.length > 5) {
+		existingArray.shift();
+	}
+	localStorage.setItem('sNumArray', JSON.stringify(existingArray));
+
+    console.log('Array stored in local storage:', existingArray);
 }
 
 function showDateAlert() {

@@ -113,7 +113,7 @@
 			</div>
 			<!-- 예약 목록 -->
 			<div id="reservationWorkArea" style="display: none; flex-direction: column; align-items: center;">
-				<div id="reservationWork" style="flex-direction: column; align-items: center;">
+				<div id="reservationWork" style="flex-direction: column; align-items: center; width: 70%;">
 				<c:choose>
 					<c:when test="${not empty reserList}">
 						<c:forEach var="r" items="${reserList}">
@@ -171,7 +171,10 @@
 				</div>
 				<c:if test="${pi.maxPage > 1}">
 					<div class="moreBtn-area">
-						<button id="moreBtn" onclick="ajaxMoreResList(${loginUser.memNo})">더 보기</button>
+						<button id="moreBtn" onclick="ajaxMoreResList(${loginUser.memNo})">더 보기
+							<span>${pi.currentPage}</span>
+			        		<span style="color: rgba(96,96,96,.5)">/ ${pi.maxPage}</span>
+						</button>
 					</div>
 				</c:if>
 			</div>

@@ -144,7 +144,7 @@ function ajaxMoreResList(memNo){
         }
 		moreResList(data.reserList)
 		let moreButton = $(`<button id="moreBtnA" onclick="ajaxMoreResList(${memNo})">더 보기 `
-						+`<span>`+data.pi.currentPage+`</span>`
+						+`<span>`+data.pi.currentPage+` </span>`
 						+`<span style="color: rgba(96,96,96,.5)">/ `+data.pi.maxPage+`</span>`
 						+`</button>`);
        	$('.moreBtn-area').html(moreButton);

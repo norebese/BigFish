@@ -101,6 +101,8 @@ public interface StoreService {
 	
 	String getFishNo(String fish);
 	
+	Store showRecentStore(int store);
+	
 }
 
 
