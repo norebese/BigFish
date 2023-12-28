@@ -29,7 +29,7 @@ function drawRecentStore(data){
 	$.each(data, function (index, store) {
                 htmlContent += '<a href="resDetailPage?storeNumber=' + store.storeNo + '">'
 							+ `<img class="recentImg" src="/bigFish/resources/uploadFiles/`+store.thumbnailImg+`">`
-							+ `<div>`+ store.storeName +`</div></a>`;
+							+ `<div class="rSName">`+ store.storeName +`</div></a>`;
             });
 	
 	divToUpdate.html(htmlContent);

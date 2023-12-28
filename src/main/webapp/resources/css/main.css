@@ -152,3 +152,9 @@ ul{
 .recentImg{
 	height: 80px;
 }
+.rSName{
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	width: 135px;
+}
