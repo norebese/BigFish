@@ -244,7 +244,9 @@ public class MemberController {
 		
 		Member loginUser =  (Member)session.getAttribute("loginUser");
 
-		ArrayList<Reservation> reserList = reservationService.selectReservationList(loginUser.getMemNo());
+		int resCount = reservationService.countReservationList(loginUser.getMemNo());
+		PageInfo pi = Pagenation.getPageInfo(resCount, 1, 10, 5);
+		ArrayList<Reservation> reserList = reservationService.selectReservationList(loginUser.getMemNo(), pi);
 		ArrayList<KakaoRequestDto> payList = shopService.selectKakaoRequestDtoList(loginUser.getMemId());
 		System.out.println("여기다띱때끼야"+payList);
 	
