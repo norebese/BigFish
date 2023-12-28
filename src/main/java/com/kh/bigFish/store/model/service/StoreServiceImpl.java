@@ -238,6 +238,11 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.getFishNo(sqlSession, fish);
 	}
 
+	@Override
+	public Store showRecentStore(int store) {
+		return storeDao.showRecentStore(sqlSession, store);
+	}
+
 
 
 	

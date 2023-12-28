@@ -31,7 +31,7 @@
 <!-- 주소 검색 API (다음카카오)-->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-
+<script src="<%=contextPath%>/resources/js/service/res-api.js"></script>
 </head>
 <body>
 	  <jsp:include page="../common/header.jsp"/>
@@ -112,12 +112,13 @@
 
 			</div>
 			<!-- 예약 목록 -->
-			<div id="reservationWork" style="display: none; flex-direction: column; align-items: center;">
+			<div id="reservationWorkArea" style="display: none; flex-direction: column; align-items: center;">
+				<div id="reservationWork" style="flex-direction: column; align-items: center; width: 70%;">
 				<c:choose>
 					<c:when test="${not empty reserList}">
 						<c:forEach var="r" items="${reserList}">
 						<!-- 카드 -->
-							<div style="width: 70%; margin-bottom: 30px;" class="card">
+							<div style="margin-bottom: 30px;" class="card">
 								<div class="card-header" style="padding-bottom: 3px; cursor: pointer;" onclick="location.href='myReservationDetail?revNo=${r.revNo}'">
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
 										<span style="font-weight: bold;">${r.rstoreName}</span>
@@ -167,6 +168,15 @@
 						<h2>예약 목록이 없습니다.</h2>
 					</c:otherwise>
 				</c:choose>
+				</div>
+				<c:if test="${pi.maxPage > 1}">
+					<div class="moreBtn-area">
+						<button id="moreBtn" onclick="ajaxMoreResList(${loginUser.memNo})">더 보기
+							<span>${pi.currentPage}</span>
+			        		<span style="color: rgba(96,96,96,.5)">/ ${pi.maxPage}</span>
+						</button>
+					</div>
+				</c:if>
 			</div>
 		</div>
 

@@ -295,5 +295,10 @@ public class StoreDao {
 		return sqlSession.selectOne("storeMapper.getFishNo", fish);
 	}
 
+	public Store showRecentStore(SqlSessionTemplate sqlSession, int store) {
+		
+		return sqlSession.selectOne("storeMapper.showRecentStore",store);
+	}
+
 
 }

@@ -112,7 +112,7 @@
 					<c:forEach var="b" items="${list}">
 						<tr onclick="location.href='detail.fbo?bno=${b.freeNo}'">
 							<td>${b.freeNo}</td>
-							<td>${b.freeTitle}</td>
+							<td><c:out value='${b.freeTitle}'/></td>
 							<td>${b.freeWriter}</td>
 							<td>${b.count}</td>
 							<td>55</td>
