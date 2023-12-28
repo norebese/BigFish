@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
+import com.kh.bigFish.shop.model.vo.KakaoRequestDto;
 import com.kh.bigFish.shop.model.vo.Shop;
 
 @Repository
@@ -106,4 +107,12 @@ System.out.println("99834234"+paramMap);
 
         return resultMap;
     }
+	
+	public ArrayList<KakaoRequestDto> selectKakaoRequestDtoList(SqlSessionTemplate sqlSession, String MemId){
+	
+		ArrayList<KakaoRequestDto> list = (ArrayList)sqlSession.selectList("kakaoRequestDtoMapper.selectKakaoRequestDtoList", MemId);
+	
+		
+		return list;
+	}
 }

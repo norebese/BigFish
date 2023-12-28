@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.shop.model.dao.ShopDao;
+import com.kh.bigFish.shop.model.vo.KakaoRequestDto;
 import com.kh.bigFish.shop.model.vo.Shop;
 
 @Service
@@ -68,5 +69,10 @@ public class ShopServiceImpl implements ShopService{
 	@Override
 	public int updatePg_token(String j) {
 		return shopDao.updatePg_token(sqlSession,j);
+	}
+
+	@Override
+	public ArrayList<KakaoRequestDto> selectKakaoRequestDtoList(String MemId) {
+		return shopDao.selectKakaoRequestDtoList(sqlSession, MemId);
 	}
 }
