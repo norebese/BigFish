@@ -190,7 +190,7 @@
           <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">전화번호 <input name="phone" id="phonePwd" style="width: 60%;" class="form-control" type="text" placeholder="전화번호를 입력하세요."></div>
           </div>
           <div id="findedPwdArea" style="display: none; flex-direction: row; justify-content: center; font-size: 20px;">
-            비밀번호 표시
+
           </div>
       </div>
 

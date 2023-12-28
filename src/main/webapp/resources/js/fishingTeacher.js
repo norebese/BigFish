@@ -3,7 +3,7 @@ function sendPrompt(){
     const chatArea = document.querySelector("#chatArea");
     const prompt = proptInput.value;
     proptInput.value = "";
-    const appKey = "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";
+    
 
     chatArea.insertAdjacentHTML('beforeend','<div style="margin: 5px; font-weight: 700; display: flex; justify-content: flex-end;">'+
     '<div class="card" style="max-width: 50%; width: max-content;">'+
@@ -34,7 +34,7 @@ function sendPrompt(){
         method : "post",
         headers : {
             "Content-Type" : "application/json",
-            "Authorization" : "Bearer "+appKey,
+            "Authorization" : "Bearer "+KEY,
         },
         data : JSON.stringify({
             model : "gpt-3.5-turbo",
@@ -48,7 +48,17 @@ function sendPrompt(){
 			    '&nbsp;빅선생<div class="card" style="max-width: 50%; width: max-content;">'+
 				'<div class="card-body">'+resText+'</div>'+
 			  '</div>');
-
+            chatArea.scrollTop = chatArea.scrollHeight;
+        },
+        beforeSend : function(){
+            chatArea.insertAdjacentHTML('beforeend','<div id="waitingTeacher" style="display: flex; flex-direction: column; align-items: center;">'+
+			'<div style="margin: 15px 0px; font-weight: 500;">빅선생이 대답을 준비중이에요 조금만 기다려주세요.</div>'+
+			'<div class="spinner-border text-muted"></div>'+
+		    '</div>');
+        },
+        complete : function(){
+            const waitingTeacher = document.querySelector("#waitingTeacher");
+            waitingTeacher.remove();
         },
         error : function(){
             console.log("gpt 실패!")
