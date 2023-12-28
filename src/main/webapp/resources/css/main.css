@@ -134,7 +134,7 @@ ul{
 }
 .recentText{
 	color: #222;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
     letter-spacing: -1.5px;
 }
@@ -144,6 +144,10 @@ ul{
     text-align: center;
     background: #fff;
     box-shadow: 0 0px 15px 0 rgb(0 0 0 / 6%);
+}
+.recentStore a{
+	text-decoration: none;
+	color: black;
 }
 .recentImg{
 	height: 80px;
