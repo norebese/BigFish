@@ -27,7 +27,7 @@
 	<!-- resAPI-->
 	<script src="<%=contextPath%>/resources/js/service/res-api.js"></script>
 </head>
-<body onload="buildCalendar(), init('${st.storeAddress}','${st.storeName}')">
+<body onload="buildCalendar(), init('${st.storeAddress}','${st.storeName}','${st.storeNo}')">
 
 <jsp:include page="../common/header.jsp"/>
 	<div style="margin: 150px 100px 10px 100px; padding: 0; border-bottom: 1px solid; min-width: 100vh;">

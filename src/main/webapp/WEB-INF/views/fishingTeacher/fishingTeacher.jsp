@@ -10,6 +10,9 @@
 <meta charset="UTF-8">
 <title>BIG FISH</title>
 
+<!-- GPT KEY -->
+<script src="<%=contextPath%>/resources/js/GPTAppKey.js"></script>
+
 <!-- JS-->
 <script src="<%=contextPath%>/resources/js/fishingTeacher.js"></script>
 
@@ -42,11 +45,13 @@
 	</div>
 	<div id="questionbar">
 		<textarea id="questionArea" style="width: 80%; height: 90%; border: none; resize: none; margin-top: 3.5px;"></textarea>
-		<button onclick="sendPrompt()" style="width: 20%; background:rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">질문하기</button>
+		<button onclick="sendPrompt()" style="width: 20%; background:rgb(59, 175, 252); border: none; border-radius: 10px 0px 5px 10px;" class="btn btn-sm btn-primary">질문하기</button>
 	</div>
 
 	
 	<br><br>
 	<jsp:include page="../common/footer.jsp"/>
+	
 </body>
 </html>
+

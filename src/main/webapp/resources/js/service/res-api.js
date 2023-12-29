@@ -93,8 +93,21 @@ const resApi = {
             	console.log("ajax 통신 실패");
             }
         });
+	},
+	moreResList : function(data, callback){
+		$.ajax({
+	           type: "GET",
+	           url: "moreResList",
+	           data: data,
+	           dataType: 'json',
+	           success: function(data) {
+	        	   callback(data)
+	           },
+	           error: function() {
+	           	console.log("ajax 통신 실패");
+	           }
+	       });
 	}
-	
 
 
 
