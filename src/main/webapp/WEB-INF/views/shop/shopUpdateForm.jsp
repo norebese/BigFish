@@ -99,7 +99,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             <div align="center">
                 <td id="content"></td> <h6><상품 상세></h6>
-                <textarea id="summernote" name="shopContent"
+                <textarea id="summernote" name="productDetail"
                 style="resize: none; margin-bottom: 20px; height: 100%;text-align: left; " required></textarea>
             </div>
         </form>

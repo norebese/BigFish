@@ -24,5 +24,6 @@ public class Shop {
 	private String originName;
 	private String changeName;
 	private String rproductNo;
-	
+	private int productQuantity;
+	private int productTotalPrice;	
 }

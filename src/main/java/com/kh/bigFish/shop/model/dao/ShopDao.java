@@ -107,6 +107,7 @@ System.out.println("99834234"+paramMap);
 
         return resultMap;
     }
+
 	
 	public ArrayList<KakaoRequestDto> selectKakaoRequestDtoList(SqlSessionTemplate sqlSession, String MemId){
 	
@@ -115,4 +116,23 @@ System.out.println("99834234"+paramMap);
 		
 		return list;
 	}
+
+
+	public int selectSearchListCount(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("shopMapper.selectSearchListCount", map);
+	}
+
+	public ArrayList<Shop> selectSearchList(SqlSessionTemplate sqlSession, HashMap<String, String> map, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList)sqlSession.selectList("shopMapper.selectSearchList", map, rowBounds);
+	}
+
+	public Shop buyShop(SqlSessionTemplate sqlSession, int sno) {
+		return sqlSession.selectOne("shopMapper.buyShop", sno);
+	}
+
+
 }

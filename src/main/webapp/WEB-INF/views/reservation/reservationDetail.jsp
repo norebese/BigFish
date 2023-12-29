@@ -45,7 +45,7 @@
 			  <div class="carousel-inner">
 			  <c:forEach var="photo" items="${storePhoto}" varStatus="loopStatus">
 				    <div class="carousel-item${loopStatus.first ? ' active' : ''}">
-				      <img src="<%=contextPath%>${photo.filePath }${photo.changeName }" class="d-block w-100">
+				      <img src="<%=contextPath%>/resources/uploadFiles/${photo.changeName }" class="d-block w-100">
 				    </div>
 			    </c:forEach>
 			  </div>
