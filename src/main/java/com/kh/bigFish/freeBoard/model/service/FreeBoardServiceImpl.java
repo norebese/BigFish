@@ -134,4 +134,9 @@ public class FreeBoardServiceImpl  implements FreeBoardService {
 		return i;
 	}
 
+	@Override
+	public int deleteReply(int replyNo) {
+		return freeBoardDao.deleteReply(sqlSession,replyNo);
+	}
+
 }

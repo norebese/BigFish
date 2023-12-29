@@ -73,6 +73,10 @@
     color: #000000;
     margin-top: 10px;
     margin-bottom: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 250px;
 }
 .fish-info{
     margin: 0;

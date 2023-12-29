@@ -807,7 +807,6 @@ public class StoreController {
 	        	storeList.add(list);
 	        }
 	    }
-	    System.out.println(storeList);
 		return storeList;
 	}
 }

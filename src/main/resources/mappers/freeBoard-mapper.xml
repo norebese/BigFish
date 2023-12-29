@@ -98,6 +98,14 @@
 		FREE_NO = #{freeNo}
 		AND FREE_STATUS = 'Y'
 	</update>
+	
+	<update id="deleteReply">
+		UPDATE REPLY
+		SET REPLY_STATUS = 'N'
+		WHERE
+		REPLY_NO = #{replyNo}
+		
+	</update>
 
 	<select id="selectBoard" resultMap="freeBoardResult">
 		SELECT FREE_NO

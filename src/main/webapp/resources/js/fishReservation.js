@@ -99,7 +99,7 @@ function updateList(date){
 				+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 	            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 	            +'<span class="reply">'
-	            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'
+	            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">'+store.replyCount+'</span>'
 	            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png" alt="">'+store.likeCount +'</span>'
 	            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
             });
@@ -123,7 +123,7 @@ function nextList(date){
 				+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 	            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 	            +'<span class="reply">'
-	            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">22</span>'
+	            +'<img style="height: 12px;" src="resources/images/reply.png" alt="">'+store.replyCount+'</span>'
 	            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png" alt="">'+store.likeCount +'</span>'
 	            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
             });

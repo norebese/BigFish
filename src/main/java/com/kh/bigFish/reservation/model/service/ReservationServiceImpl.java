@@ -70,6 +70,8 @@ public class ReservationServiceImpl implements ReservationService{
 	public int countReservationList(int memNo) {
 		return reservationDao.countReservationList(sqlSession, memNo);
 	}
+
+
 	
 	
 }
