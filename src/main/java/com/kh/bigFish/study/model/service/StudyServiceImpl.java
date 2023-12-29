@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
+import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reply.model.vo.Reply;
@@ -125,5 +126,4 @@ public class StudyServiceImpl implements StudyService {
 	public int studyUpdateLike1(StudyGood sg) {
 		return studyDao.studyUpdateLike1(sqlSession, sg);
 	}
-	
 }

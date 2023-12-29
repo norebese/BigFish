@@ -24,6 +24,17 @@
 		<result column="COUNT" property="count" />
 	</resultMap>
 	
+	<resultMap type="Attachment" id="attachmentResult">
+		<result column="FILE_NO" property="fileNo" />
+		<result column="ORIGIN_NAME" property="originName" />
+		<result column="CHANGE_NAME" property="changeName" />
+		<result column="FILE_PATH" property="filePath" />
+		<result column="UPLOAD_DATE" property="uploadDate" />
+		<result column="FILE_LEVEL" property="fileLevel" />
+		<result column="FILE_STATUS" property="fileStatus" />
+		<result column="RSTORE_NO" property="rstoreNo" />
+	</resultMap>
+	
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*)
 		 FROM STUDY
@@ -184,4 +195,5 @@
  		WHERE STUDY_GOOD_STATUS = 'Y'
  		AND RSTUDY_NO = #{rstudyNo}
  	</select>
+ 	
 </mapper>

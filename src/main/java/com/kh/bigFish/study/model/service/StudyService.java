@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.gson.JsonElement;
 import com.kh.bigFish.announce.model.vo.Announce;
+import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.reply.model.vo.Reply;
@@ -62,7 +63,4 @@ public interface StudyService {
 	
 	//좋아요 갯수 중가
 	int studyGoodCount(int sno);
-
-	
-
 }
