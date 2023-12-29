@@ -23,4 +23,8 @@ public interface ReplyService {
 	
 	
 	ArrayList<Reply> freeReplyList(PageInfo pi, int sNum);
+
+	int studyReplyCount(Reply r);
+
+	ArrayList<Reply> studyReplyList(PageInfo pi, int sNum);
 }

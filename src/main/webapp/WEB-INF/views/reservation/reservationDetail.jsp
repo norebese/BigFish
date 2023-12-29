@@ -27,11 +27,16 @@
 	<!-- resAPI-->
 	<script src="<%=contextPath%>/resources/js/service/res-api.js"></script>
 </head>
-<body onload="buildCalendar(), init('${st.storeAddress}','${st.storeName}')">
+<body onload="buildCalendar(), init('${st.storeAddress}','${st.storeName}','${st.storeNo}')">
 
 <jsp:include page="../common/header.jsp"/>
 	<div style="margin: 150px 100px 10px 100px; padding: 0; border-bottom: 1px solid; min-width: 100vh;">
-        <p class="page-title">민물 낚시</p>
+		<c:if test="${st.storeKind eq 'seaShip' or st.storeKind eq 'seaSeat'}">
+    		<p class="page-title">바다 낚시</p>
+		</c:if>
+        <c:if test="${st.storeKind eq 'FreshCafe' or st.storeKind eq 'FreshSeat'}">
+    		<p class="page-title">민물 낚시</p>
+		</c:if>
     </div>
 
     <div class="photo-info">
@@ -227,7 +232,7 @@
                 </c:if>
                 </p>
                 <div class="detail-info">
-                    <p id="rDetail">${st.reservationDetail }</p>
+                    <p id="rDetail"><c:out value='${st.reservationDetail}'/></p>
                     <textarea class="form-control" id="updateRDetail" cols="55" rows="2" style="resize:none; width:100%; height: 80px; display: none;"></textarea>
                 </div>
             </div>
@@ -248,7 +253,7 @@
 		                        </i>
 		                        <span >${rl.replyWriter}</span>
 		                    </div>
-		                    <div class="col-md-8" style="display: flex; align-items: center;">${rl.replyContent}</div>
+		                    <div class="col-md-8" style="display: flex; align-items: center;"><c:out value='${rl.replyContent}'/></div>
 		                    <div class="col-sm" style="display: flex; align-items: center;">${rl.replyCreateDate}
 			                    <c:if test="${rl.rmemNo eq loginUser.memNo}">
 			                    <span id="dltBtn" onclick="dltReply('${rl.replyNo}')">삭제</span>

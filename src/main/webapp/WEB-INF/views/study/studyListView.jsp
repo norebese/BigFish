@@ -68,7 +68,7 @@
                         <td>${s.studyTitle}</td>
                         <td>${s.studyCreateDate}</td>
                         <td>${s.studyCount}</td>
-                        <td>${likeNo}</td>
+                        <td>${likeCount}</td>
                     </tr>
 					</c:forEach>
                 </tbody>

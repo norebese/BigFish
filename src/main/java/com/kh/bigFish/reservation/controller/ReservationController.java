@@ -133,6 +133,5 @@ public class ReservationController {
 		
 		return result+"";
 	}
-	
-	
+
 }

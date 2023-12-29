@@ -22,3 +22,20 @@ body{
 .myPageContent{
     width: 100%;
 }
+.moreBtn-area{
+	width: 70%;
+}
+#moreBtn{
+	width: 100%;
+    background: white;
+    line-height: 40px;
+    font-weight: 600;
+    border: 1px solid #ebebeb;
+}
+#moreBtnA{
+	width: 100%;
+    background: white;
+    line-height: 40px;
+    font-weight: 600;
+    border: 1px solid #ebebeb;
+}

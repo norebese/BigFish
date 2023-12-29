@@ -693,3 +693,6 @@ target/
 .classpath
 .idea/
 nbproject/
+
+## 특정 파일 이그노어
+GPTAppKey.js

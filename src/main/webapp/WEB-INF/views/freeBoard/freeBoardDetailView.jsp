@@ -66,7 +66,7 @@
 				style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">
 
 				<div style="text-align: left">
-					<h5 style="font-size: 26px;">${b.freeTitle}</h5>
+					<h5 style="font-size: 26px;"><c:out value='${b.freeTitle}'/></h5>
 				</div>
 				<div class="container"
 					style="margin-top: 10px; border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 0px;">

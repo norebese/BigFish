@@ -10,6 +10,9 @@
 <meta charset="UTF-8">
 <title>BIG FISH</title>
 
+<!-- GPT KEY -->
+<script src="<%=contextPath%>/resources/js/GPTAppKey.js"></script>
+
 <!-- JS-->
 <script src="<%=contextPath%>/resources/js/fishingTeacher.js"></script>
 
@@ -31,21 +34,24 @@
 		<h1 class="head-text" style="color: rgb(59, 175, 252);">낚시 빅선생</h1>
 	</div>
 	<br><br>
-
-	<div id="chatArea" style="overflow: auto; width: 90%; height: 60vh; margin: 0px auto; border:2px solid black">
+	<div style="width: 90%; color: #2f9947; font-size: 15px; margin: 0px auto;">빅선생은 ChatGPT 3.5 turbo 기반으로 작동하며, 사실이 아닌 말을 출력할 때도 있으니 활용 전 점검 후 사용해주세요!</div>
+	<br>
+	<div id="chatArea">
 		<div style="margin: 5px; font-weight: 700;">
 			&nbsp;빅선생<div class="card" style="max-width: 50%; width: max-content;">
 				<div class="card-body">낚시에 관한 궁금한 점을 물어봐주세요.</div>
 			  </div>
 		</div>
 	</div>
-	<div style="width: 90%; height: 15vh; margin: 0px auto; border:2px solid black; display: flex; flex-direction: row; height: 92px;">
+	<div id="questionbar">
 		<textarea id="questionArea" style="width: 80%; height: 90%; border: none; resize: none; margin-top: 3.5px;"></textarea>
-		<button onclick="sendPrompt()" style="width: 20%; background:rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">질문하기</button>
+		<button onclick="sendPrompt()" style="width: 20%; background:rgb(59, 175, 252); border: none; border-radius: 10px 0px 5px 10px;" class="btn btn-sm btn-primary">질문하기</button>
 	</div>
 
 	
 	<br><br>
 	<jsp:include page="../common/footer.jsp"/>
+	
 </body>
 </html>
+
