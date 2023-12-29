@@ -124,8 +124,8 @@
 		</div>
 
 		<div class="banner">
-			<img src="<%=contextPath%>/resources/images/banner1.png"
-				alt="Your Image">
+			<img src="<%=contextPath%>/resources/images/bigFishOpen.png"
+				alt="Your Image" style="border-radius: 10px; width: 163px; height: 212px;">
 		</div>
 	</div>
 	<br>
