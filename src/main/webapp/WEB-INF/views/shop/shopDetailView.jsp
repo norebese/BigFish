@@ -14,6 +14,8 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 <!-- JS
 <script src="<%=contextPath%>/resources/js/shopDetailView.js"></script> -->
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
@@ -39,11 +41,11 @@ String alertMsg = (String) session.getAttribute("alertMsg");
             </div>
             <br>
             <div class="quantity-container" align="right"> 
-                수량 : <input type="hidden" name="sell_price" value="${s.productPrice}">
-                <input type="text" name="amount" value="0" size="3" max="">
+                수량 : <input type="hidden"  name="sell_price" value="${s.productPrice}">
+                <input type="text" id="quantity" name="quantity" value="1" size="3">
                 <input type="button" value=" + " name="add">
                 <input type="button" value=" - " name="minus">
-                총 상품 금액 : <input type="text" name="sum" size="11" readonly>원
+                총 상품 금액 : <input type="text" id="total_amount" name="sum" value="${s.productPrice}" size="11" readonly>원
             </div>
             
               <br>
@@ -57,7 +59,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
                     <div align="right"><button class="btn btn-secondary" onclick="location.href='list.sh'">목록으로</button></div>
                 </c:when>
                 <c:otherwise>
-                    <button align="center" class="btn" onclick="location.href='listasdf.SHbo?sno=${s.productNo}'" style="background-color: rgb(52, 152, 219); color: white; float:right;">구매하기</button>
+                    <button align="center" class="btn" onclick="buyShop(${s.productNo})" style="background-color: rgb(52, 152, 219); color: white; float:right;">구매하기</button>
                     <div style="margin-left: 52%;"><button class="btn btn-secondary" onclick="location.href='list.st'">목록으로</button></div>
                 </c:otherwise>
             </c:choose>  
@@ -119,49 +121,66 @@ String alertMsg = (String) session.getAttribute("alertMsg");
     </div>
 
     <script>
-        // 수량 필드와 버튼 요소 가져오기
-        const amountInput = document.querySelector('input[name="amount"]');
-        const addButton = document.querySelector('input[name="add"]');
-        const minusButton = document.querySelector('input[name="minus"]');
-        const sumInput = document.querySelector('input[name="sum"]');
+        function buyShop(sno) {
+    const quantity = document.getElementById("quantity").value
+    const total_amount = document.getElementById("total_amount").value
+
+    console.log(quantity)
+    console.log(total_amount)
+    location.href="listasdf.SHbo?sno=" + sno + "&quantity=" + quantity + "&total_amount=" + total_amount;
+}
+
+        // + 버튼 클릭 시 수량 증가
+        document.querySelector('input[name="add"]').addEventListener('click', function() {
+            var quantityInput = document.querySelector('input[name="quantity"]');
+            var sumInput = document.querySelector('input[name="sum"]');
+            var sellPriceInput = document.querySelector('input[name="sell_price"]');
     
-        // 수량 증가 버튼 클릭 시 이벤트 처리
-        addButton.addEventListener('click', function() {
-            let amount = parseInt(amountInput.value);
-            amount += 1;
-            amountInput.value = amount;
-            calculateTotal();
+            var quantity = parseInt(quantityInput.value);
+            var sellPrice = parseInt(sellPriceInput.value);
+    
+            quantity++;
+            quantityInput.value = quantity;
+            sumInput.value = quantity * sellPrice;
+
+            
         });
     
-        // 수량 감소 버튼 클릭 시 이벤트 처리
-        minusButton.addEventListener('click', function() {
-            let amount = parseInt(amountInput.value);
-            if (amount > 1) {
-                amount -= 1;
-                amountInput.value = amount;
-                calculateTotal();
+        // - 버튼 클릭 시 수량 감소
+        document.querySelector('input[name="minus"]').addEventListener('click', function() {
+            var quantityInput = document.querySelector('input[name="quantity"]');
+            var sumInput = document.querySelector('input[name="sum"]');
+            var sellPriceInput = document.querySelector('input[name="sell_price"]');
+    
+            var quantity = parseInt(quantityInput.value);
+            var sellPrice = parseInt(sellPriceInput.value);
+    
+            if (quantity > 1) {
+                quantity--;
+                quantityInput.value = quantity;
+                sumInput.value = quantity * sellPrice;
             }
         });
-    
-        // 수량 변경 시 이벤트 처리
-        amountInput.addEventListener('input', function() {
-            let amount = parseInt(amountInput.value);
-            if (amount < 1 || isNaN(amount)) {
-                amount = 1;
-                amountInput.value = amount;
-            }
-            calculateTotal();
+
+        $(document).ready(function() {
+            $('input[name="add"]').click(function() {
+            var sellPrice = $('input[name="sell_price"]').val();
+            var quantity = $('input[name="quantity"]').val();
+
+            $.ajax({
+                url: "Payment.jsp",
+                method: "POST",
+                data: { sell_price: sellPrice, quantity: quantity },
+                success: function(response) {
+                // 성공적으로 응답을 받았을 때 수행할 동작
+                },
+                error: function(xhr, status, error) {
+                // 오류 발생 시 수행할 동작
+                }
+            });
+            });
         });
-    
-        // 총 상품 금액 계산 함수
-        function calculateTotal() {
-            const sellPrice = parseInt(document.querySelector('input[name="sell_price"]').value);
-            const amount = parseInt(amountInput.value);
-            const total = sellPrice * amount;
-            sumInput.value = total;
-        }
-    
-        </script>
+    </script>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <jsp:include page="../common/footer.jsp" />
 </body>
