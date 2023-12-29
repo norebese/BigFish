@@ -141,5 +141,10 @@ public int deleteBoard(SqlSessionTemplate sqlSession, int freeNo) {
 		}
 	
 	
+	
+	public int deleteReply(SqlSessionTemplate sqlSession,int replyNo) {
+		return sqlSession.update("freeBoardMapper.deleteReply", replyNo);
+	}
+	
 
 }
