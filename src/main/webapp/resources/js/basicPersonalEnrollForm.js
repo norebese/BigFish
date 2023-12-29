@@ -5,11 +5,13 @@ function checkPwd(){
     const passwordRule = document.querySelector("#passwordRule");
     const passwordRuleOK = document.querySelector("#passwordRuleOK");
     const enrollBtn = document.querySelector("#enroll-btn");
+    
 
     if(!reg.test(pwd.value)){
         passwordRuleOK.style.display = "none";
         passwordRule.style.display = "block";
         enrollBtn.setAttribute("disabled",ture);
+        
         return;
     }
 
@@ -17,6 +19,7 @@ function checkPwd(){
     passwordRuleOK.style.display = "block";
     pwd.setAttribute("readonly",true);
     enrollBtn.removeAttribute("disabled");
+    
     
 }
 

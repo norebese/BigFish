@@ -6,11 +6,6 @@
 	
 	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
-<%
-  String sellPrice = request.getParameter("sell_price");
-  String quantity = request.getParameter("quantity");
-  // 받아온 값을 사용하여 필요한 처리 수행
-%>
 
 <!DOCTYPE html>
 <html lang="en">

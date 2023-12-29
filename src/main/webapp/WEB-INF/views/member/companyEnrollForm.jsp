@@ -62,7 +62,10 @@
 				<tr id="passwordRule" style="display: none;">
 					<td><div class="warning-text" style=" width: 100%; margin: 0px auto; color: red;">&nbsp;비밀번호는 영문, 숫자, 특수문자 조합으로 8~15자여야합니다.</div></td>
 				</tr>
-			
+				<tr id="passwordRuleOK" style="display: none;">
+					<td colspan="2"><div class="warning-text" style=" width: 100%; margin: 0px auto; color: #2f9947;">&nbsp;사용 가능한 비밀번호 입니다!</div></td>
+				</tr>
+				
 			</table>
 			<br>
 			<input id="pwdAgain" onkeyup="samePwd()" required placeholder="비밀번호를 한번 더 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="password">
