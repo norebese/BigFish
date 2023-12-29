@@ -356,13 +356,13 @@ public class ShopController {
 		
 		                                
 		   String pg_token=kakaoRequestDto.getPg_token();
-		   int bno=kakaoRequestDto.getProductNo();
+		   int sno=kakaoRequestDto.getProductNo();
 		   
 		
-		   String j=pg_token+","+bno;
+		   String j=pg_token+","+sno;
 		   
 		   int result1 = shopService.updatePg_token(j);
-	    System.out.println(bno+"파라미터"+pg_token);
+	    System.out.println(sno+"파라미터"+pg_token);
         
         // TODO: 여기에 원하는 로직을 추가하세요.
 

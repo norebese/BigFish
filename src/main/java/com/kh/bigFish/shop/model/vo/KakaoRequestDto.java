@@ -30,7 +30,7 @@ public class KakaoRequestDto {
     private int productNo;
 	private Date payDate;
 	  private int fishingNo;
-	  private int rfishingNo;
+	  private int rproductNo;
 	  private String changeName;
     
     

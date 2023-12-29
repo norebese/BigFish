@@ -21,7 +21,7 @@
 		<result column="PAY_DATE" property="payDate" />
 			<result column="FISHING_NO" property="fishingNo" />
 			<result column="CHANGE_NAME" property="changeName" />
-			<result column="RFISHING_NO" property="rfishingNo" />
+			<result column="RPRODUCT_NO" property="rproductNo" />
 	</resultMap>
 	
 	<insert id="insertParameter">
@@ -81,15 +81,14 @@
 		K.PG_TOKEN,
 		K.PRODUCT_NO,
 		K.PAY_DATE,
-		F.FISHING_NO,
+	
 		A.RFISHING_NO,
 		A.CHANGE_NAME
 		FROM
 		KAKOREQUESTDTO K
+	
 		JOIN
-		FISHBOARD F ON K.PRODUCT_NO = F.FISHING_NO
-		JOIN
-		ATTACHMENT A ON F.FISHING_NO = A.RFISHING_NO
+		ATTACHMENT A ON K.PRODUCT_NO = A.RFISHING_NO
 		WHERE
 		K.PARTNER_USER_ID = #{MemId}
 	</select>
