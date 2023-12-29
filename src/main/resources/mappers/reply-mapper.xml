@@ -17,14 +17,16 @@
 	</resultMap>
 	
 	<select id="selectReplyList" resultMap="replyResult">
-		SELECT REPLY_NO,
-			   REPLY_CONTENT,
-			   REPLY_WRITER,
-			   TO_CHAR(REPLY_CREATE_DATE, 'YYYY-MM-DD') AS REPLY_CREATE_DATE
-		   FROM REPLY
-	     WHERE REPLY_STATUS = 'Y'
-	       AND RSTUDY_NO = #{sno}
-	     ORDER BY REPLY_NO DESC
+		SELECT R.REPLY_NO,
+		R.REPLY_CONTENT,
+		R.REPLY_WRITER,
+		TO_CHAR(R.REPLY_CREATE_DATE, 'YYYY-MM-DD') AS REPLY_CREATE_DATE,
+		M.MEM_CHANGE_NAME
+		FROM REPLY R
+		JOIN MEMBER M ON R.REPLY_WRITER = M.MEM_NICK
+		WHERE R.REPLY_STATUS = 'Y'
+		AND R.RSTUDY_NO = #{sno}
+		ORDER BY R.REPLY_NO DESC
 	</select>
 	<select id="selectfreeReplyList" resultMap="replyResult">
 		SELECT R.REPLY_NO,
@@ -56,14 +58,16 @@
 		INSERT INTO REPLY (
 			 REPLY_NO,
 			 REPLY_CONTENT,
-			 RSTUDY_NO,
-			 REPLY_WRITER 
+			 REPLY_WRITER ,
+			
+			  RSTUDY_NO
 		     )
 		 VALUES (
 		 	SEQ_REPLY_NO.NEXTVAL,
 		 	#{replyContent},
-		 	#{rstudyNo},
-		 	#{replyWriter}
+		 	#{replyWriter},
+		 	
+		 	#{rstudyNo}
 		   )
 	</insert>
 	<insert id="insertfreeReply" >

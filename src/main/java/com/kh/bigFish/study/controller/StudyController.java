@@ -230,4 +230,14 @@ public class StudyController {
 			return "fail";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping("delete.str")
+	public int deleteReply(int replyNo) {
+	
+		int result = studyService.deleteReply(replyNo);
+	
+		return result;
+	
+	}
 }
