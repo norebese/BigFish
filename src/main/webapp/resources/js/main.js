@@ -9,15 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
     	}
 	}
     console.log(stores);
-    const sendData = {store1 : stores[0],
-    					store2 : stores[1],
+    const sendData = {store5 : stores[0],
+    					store4 : stores[1],
     					store3 : stores[2],
-    					store4 : stores[3],
-    					store5 : stores[4]
+    					store2 : stores[3],
+    					store1 : stores[4]
     					};
 	storeApi.showRecentStore(sendData,function(data){
 		drawRecentStore(data);
-		console.log("ajax", data[0]);
 	})
 
 });
