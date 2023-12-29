@@ -55,9 +55,30 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 	justify-content: space-around;
 	align-items: flex-start;
 }
+#rerere{
+	
+	margin-left: 5px;
+	 text-align: right;
+	 color: #ff0000;
+	 cursor: pointer;
+}
+.replyImg{
+    display: flex;
+    height: 60px;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.replyImg img{
+    height: 35px;
+    width: 35px;
+    margin-right: 10px;
+}
 </style>
 </head>
 <body>
+<script>
+  const loginUserNick = "${loginUser.memNick}";
+</script>
 	<jsp:include page="../common/header.jsp" />
 	<br>
 	<br>
@@ -152,17 +173,17 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 									<c:when test="${fishingGoodStatus.fishingGoodStatus eq 'Y'}">
 										<img style="height: 19px;"
 											src="<%=contextPath%>/resources/images/heart-filled.png">
-
 									</c:when>
 									<c:otherwise>
 										<img style="height: 19px;"
 											src="<%=contextPath%>/resources/images/heart-notfill.png">
+												 
 									</c:otherwise>
 								</c:choose>
+								
 							</div>
-							<span id="whgdkdy" style="margin-right: 15px;">${likeNo}</span> <span
-								style="margin-right: 15px;">댓글 </span>
-								<span style="margin-right: 15px;">댓글 5</span>
+						<span id="whgdkdy" style="margin-right: 15px;">${likeNo}</span> 
+								
 							</h6>
 						</div>
 
@@ -237,24 +258,32 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 		        url: "rlist.fi",
 		        data: {
 		            bno: ${b.fishingNo}
+		    		
 		        },
 		        success: function(list){
+		        	console.log(list)
 		            let str = "";
 		            for (reply of list){
 		                str += (
-		                    "<div class='row'>" +
-		                        "<div class='col-sm' style='display: flex; align-items: center;'>" +
-		                            "<i class='bi bi-person' style='font-size: 40px;'></i>" + "<span>" + reply.replyWriter + "</span>" +
-		                        "</div>" +
-		                        "<div class='col-md-8' style='display: flex; align-items: center;'>" + reply.replyContent + "</div>" +
-		                        "<div class='col-sm' style='display: flex; align-items: center;'>" + reply.replyCreateDate + "</div>" +
-		                    "</div>"
+		                		"<div class='row'>" +
+		                	    "<div class='col-sm' style='display: flex; align-items: center;'>" +
+		                	        "<i class='replyImg'><img src='/bigFish/" + reply.memProfileImg + "'></i>" +
+		                	        "<span>" + reply.replyWriter + "</span>" +
+		                	    "</div>" +
+		                	    "<div class='col-md-8' style='display: flex; align-items: center;'>" +
+		                	        reply.replyContent +
+		                	    "</div>" +
+		                	    "<div class='col-sm' style='display: flex; align-items: center;'>" +
+		                	        reply.replyCreateDate +
+		                	        (reply.replyWriter === loginUserNick ? "<span id='rerere' onclick='deletefire("+reply.replyNo+")'>삭제</span>" : "") +
+		                	    "</div>" +
+		                	"</div>"
 		                );
 		            }
 
 		            //$("#replyArea tbody").html();
 		            document.querySelector("#replyAreaa").innerHTML = str;
-		            document.querySelector("#rcount").innerHTML = list.length;
+		    
 		        },
 		        error: function(){
 		            console.log("ajax통신 실패");
@@ -296,7 +325,8 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 			        },
 			        dataType: 'json',
 			        success: function(data) {
-			            console.log(data.status); // 이 부분을 통해 상태 값을 확인
+			            console.log(data); // 이 부분을 통해 상태 값을 확인
+			            console.log(whgdkdy)
 			            if (data.status === 'Y') {
 			            	  likeImg.innerHTML = '<img style="height: 19px;" src="<%=contextPath%>/resources/images/heart-filled.png">';
 			            	  $(whgdkdy).html(data.likeCount);
@@ -312,6 +342,24 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 			        }
 			    });
 			}
+	     //댓글삭제
+	     function deletefire(replyNo) {
+	    	  console.log(replyNo);
+		    $.ajax({
+		        url: "delete.frr",
+		        data: {
+		            replyNo: replyNo
+		        },
+		        success: function(res) {
+		        	selectReplyList();
+		        },
+		        error: function() {
+		        	selectReplyList();
+		            console.log("ajax 통신 실패");
+		        }
+		    });
+			}
+	        
 		</script>
 </body>
 </html>

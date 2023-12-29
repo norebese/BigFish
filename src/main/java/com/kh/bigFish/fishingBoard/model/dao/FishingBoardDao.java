@@ -93,7 +93,9 @@ public ArrayList<FishingBoard> selectmainList(SqlSessionTemplate sqlSession) {
 	return (ArrayList)sqlSession.selectList("fishingBoardMapper.selectmainList");
 }
 public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bno) {
-	return (ArrayList)sqlSession.selectList("replyMapper.selectfreeReplyList", bno);
+	 ArrayList<Reply> A = (ArrayList)sqlSession.selectList("replyMapper.selectfreeReplyList", bno);
+	 System.out.println("그러ㅏㅎ게다"+A);
+	return A;
 }
 public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
 	return sqlSession.insert("replyMapper.insertfiReply", r);
