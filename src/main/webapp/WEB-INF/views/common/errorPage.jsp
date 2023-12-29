@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BIG FISH</title>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
