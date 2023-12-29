@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.shop.model.dao.ShopDao;
+import com.kh.bigFish.shop.model.vo.KakaoRequestDto;
 import com.kh.bigFish.shop.model.vo.Shop;
 
 @Service
@@ -72,6 +73,12 @@ public class ShopServiceImpl implements ShopService{
 	}
 
 	@Override
+
+	public ArrayList<KakaoRequestDto> selectKakaoRequestDtoList(String MemId) {
+		return shopDao.selectKakaoRequestDtoList(sqlSession, MemId);
+	}
+
+	@Override
 	public int selectSearchListCount(HashMap<String, String> map) {
 		return shopDao.selectSearchListCount(sqlSession, map);
 	}
@@ -85,5 +92,6 @@ public class ShopServiceImpl implements ShopService{
 	public Shop buyShop(int sno) {
 		return shopDao.buyShop(sqlSession, sno);
 	}
+
 
 }

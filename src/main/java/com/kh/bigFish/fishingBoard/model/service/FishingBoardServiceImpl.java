@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
 import com.kh.bigFish.fishingBoard.model.dao.FishingBoardDao;
+import com.kh.bigFish.fishingBoard.model.vo.FiLike;
 import com.kh.bigFish.fishingBoard.model.vo.FishingBoard;
+import com.kh.bigFish.freeBoard.model.vo.Flike;
 import com.kh.bigFish.reply.model.vo.Reply;
 
 
@@ -99,6 +101,40 @@ public class FishingBoardServiceImpl  implements FishingBoardService{
 	@Override
 	public int insertReply(Reply r) {
 		return fishingBoardDao.insertReply(sqlSession, r);
+	}
+
+	@Override
+	public FiLike likeResult(FiLike fi) {
+		return fishingBoardDao.likeResult(sqlSession, fi);
+	}
+
+	@Override
+	public int fishUpdateLike(FiLike fi, String result) {
+		int i =fishingBoardDao.fishUpdateLike(sqlSession, fi, result);
+		System.out.println("지1234금찍는거"+fi+"12342314sksmsqkqh"+result+"12342314sksmsqkqh"+i);
+		return i;
+	}
+
+	@Override
+	public int fishUpdateLike1(FiLike fi) {
+		int i =fishingBoardDao.fishUpdateLike1(sqlSession, fi);
+		System.out.println("지금찍는거123432134"+fi+"12342314"+i);
+		return i;
+	}
+
+	@Override
+	public int fishGoodCount(int bno) {
+		return fishingBoardDao.fishGoodCount(sqlSession, bno);
+	}
+
+	@Override
+	public FiLike checkLikeTable(int memNo, int rfishingNo) {
+		return fishingBoardDao.checkLikeTable(sqlSession, memNo, rfishingNo);
+	}
+
+	@Override
+	public int createLikeTable(int memNo, int bno) {
+		return fishingBoardDao.createLikeTable(sqlSession, memNo, bno);
 	}
 	
 	
