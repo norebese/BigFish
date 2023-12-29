@@ -133,6 +133,7 @@ ul{
     margin: 0;
 }
 .recentText{
+	margin-bottom: 8px;
 	color: #222;
     font-size: 15px;
     font-weight: bold;
@@ -151,8 +152,10 @@ ul{
 }
 .recentImg{
 	height: 80px;
+	width: 135px;
 }
 .rSName{
+	display: inline-block;
 	white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
