@@ -29,6 +29,7 @@
 
 .container {
 	display: flex;
+	position: relative;
 	justify-content: space-between;
 	width: 100%;
 	box-sizing: border-box; /* 추가: border와 padding이 width에 포함되도록 설정 */
@@ -41,11 +42,11 @@
 	background-color: #eee;
 	color: #000000;
 	text-align: center;
-	width: 792px;
+	width: 70%;
 	max-width: 792px;
 	height: 380px;
 	flex-shrink: 0; /* 이 부분을 추가하여 축소되지 않도록 설정 */
-	margin: auto; /* 가운데 정렬을 위해 추가 */
+	margin-left: 250px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -71,6 +72,10 @@
 
 .banner {
 	width: 200px;
+	position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 30px;
 }
 
 .banner {
@@ -140,6 +145,8 @@ ul{
     letter-spacing: -1.5px;
 }
 .recentStore{
+	position: absolute;
+    top: 0;
 	width: 150px;
 	margin-top: 30px;
     text-align: center;
