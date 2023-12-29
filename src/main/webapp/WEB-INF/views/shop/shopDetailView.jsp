@@ -122,13 +122,13 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 
     <script>
         function buyShop(sno) {
-    const quantity = document.getElementById("quantity").value
-    const total_amount = document.getElementById("total_amount").value
+            const quantity = document.getElementById("quantity").value
+            const total_amount = document.getElementById("total_amount").value
 
-    console.log(quantity)
-    console.log(total_amount)
-    location.href="listasdf.SHbo?sno=" + sno + "&quantity=" + quantity + "&total_amount=" + total_amount;
-}
+            console.log(quantity)
+            console.log(total_amount)
+            location.href="listasdf.SHbo?sno=" + sno + "&quantity=" + quantity + "&total_amount=" + total_amount;
+        }
 
         // + 버튼 클릭 시 수량 증가
         document.querySelector('input[name="add"]').addEventListener('click', function() {
@@ -162,24 +162,6 @@ String alertMsg = (String) session.getAttribute("alertMsg");
             }
         });
 
-        $(document).ready(function() {
-            $('input[name="add"]').click(function() {
-            var sellPrice = $('input[name="sell_price"]').val();
-            var quantity = $('input[name="quantity"]').val();
-
-            $.ajax({
-                url: "Payment.jsp",
-                method: "POST",
-                data: { sell_price: sellPrice, quantity: quantity },
-                success: function(response) {
-                // 성공적으로 응답을 받았을 때 수행할 동작
-                },
-                error: function(xhr, status, error) {
-                // 오류 발생 시 수행할 동작
-                }
-            });
-            });
-        });
     </script>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <jsp:include page="../common/footer.jsp" />

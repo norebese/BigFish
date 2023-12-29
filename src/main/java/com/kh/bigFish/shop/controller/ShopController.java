@@ -282,22 +282,6 @@ public class ShopController {
 	    }
 	}
 	
-	 @PostMapping("/Payment.jsp")
-	  public String processPayment(@RequestParam("sell_price") String sellPrice,
-	                               @RequestParam("quantity") String quantity,
-	                               Model model) {
-	    // 받아온 값을 사용하여 필요한 처리 수행
-	    // 예를 들어, 결제 로직이나 데이터 처리 등을 수행할 수 있습니다.
-
-	    // 처리 결과를 View에 전달하기 위해 Model에 값을 추가
-	    model.addAttribute("sellPrice", sellPrice);
-	    model.addAttribute("quantity", quantity);
-
-	    // 결과를 보여줄 View의 이름을 리턴
-	    return "goodsPayment.jsp";
-	  }
-	
-	
 	@ResponseBody
 	@RequestMapping("kakao.fr")
 	public String kakao(@RequestBody KakaoRequestDto kakaoRequestDto) throws IOException  {
