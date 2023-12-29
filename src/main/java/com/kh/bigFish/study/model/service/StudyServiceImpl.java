@@ -126,4 +126,9 @@ public class StudyServiceImpl implements StudyService {
 	public int studyUpdateLike1(StudyGood sg) {
 		return studyDao.studyUpdateLike1(sqlSession, sg);
 	}
+
+	@Override
+	public int deleteReply(int replyNo) {
+		return studyDao.deleteReply(sqlSession, replyNo);
+	}
 }

@@ -50,8 +50,9 @@ public class StudyDao {
 		return sqlSession.update("studyMapper.updateStudy", s);
 	}
 	
-	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bno) {
-		return (ArrayList)sqlSession.selectList("replyMapper.selectReplyList", bno);
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int sno) {
+		ArrayList<Reply> A = (ArrayList)sqlSession.selectList("replyMapper.selectReplyList", sno);
+		return A;
 	}
 	
 	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
@@ -124,6 +125,10 @@ public class StudyDao {
 		params.put("rmemNo", sg.getRmemNo());
 		
 		return sqlSession.selectOne("studyMapper.studyUpdateLike1", params);
+	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.update("studyMapper.deleteReply", replyNo);
 	}
 
 }

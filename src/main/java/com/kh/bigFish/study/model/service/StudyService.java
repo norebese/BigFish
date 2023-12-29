@@ -63,4 +63,6 @@ public interface StudyService {
 	
 	//좋아요 갯수 중가
 	int studyGoodCount(int sno);
+
+	int deleteReply(int replyNo);
 }
