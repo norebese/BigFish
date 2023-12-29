@@ -1,6 +1,7 @@
 package com.kh.bigFish.shop.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,4 +70,20 @@ public class ShopServiceImpl implements ShopService{
 	public int updatePg_token(String j) {
 		return shopDao.updatePg_token(sqlSession,j);
 	}
+
+	@Override
+	public int selectSearchListCount(HashMap<String, String> map) {
+		return shopDao.selectSearchListCount(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Shop> selectSearchList(HashMap<String, String> map, PageInfo pi) {
+		return shopDao.selectSearchList(sqlSession, map, pi);
+	}
+
+	@Override
+	public Shop buyShop(int sno) {
+		return shopDao.buyShop(sqlSession, sno);
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.kh.bigFish.shop.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
@@ -29,4 +30,11 @@ public interface ShopService {
 	int insertParameter(String parameter);
 	
 	int updatePg_token(String j);
+
+	int selectSearchListCount(HashMap<String, String> map);
+
+	ArrayList<Shop> selectSearchList(HashMap<String, String> map, PageInfo pi);
+
+	Shop buyShop(int sno);
+
 }

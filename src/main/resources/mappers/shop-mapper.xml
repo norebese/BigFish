@@ -15,6 +15,9 @@
  		<result column="ORIGIN_NAME" property="originName"/>
  		<result column="CHANGE_NAME" property="changeName"/>
  		<result column="RPRODUCT_NO" property="rproductNo"/>
+ 		<result column="PRODUCT_QUANTITY" property="productQuantity"/>
+ 		<result column="PRODUCT_TOTAL_PRICE" property="productTotalPrice"/>
+ 		
  	</resultMap>
  	
  	<resultMap type="Attachment" id="AttachmentResult">
@@ -130,5 +133,59 @@
 		 SET PRODUCT_STATUS = 'N'
 		WHERE PRODUCT_NO = #{prodcutNo}
 	</update>
+	
+	<select id="selectSearchListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM SHOP
+		WHERE PRODUCT_STATUS = 'Y'
+		<if test="condition == 'productName'">
+		   AND PRODUCT_NAME
+		</if>
+		<if test="condition == 'productBrand'">
+		  AND PRODUCT_BRAND
+		</if>	
+		LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="selectSearchList" resultMap="shopResult">
+		SELECT SH.PRODUCT_NO,
+			   SH.PRODUCT_NAME,
+			   SH.PRODUCT_PRICE,
+			   SH.PRODUCT_ORIGIN,
+			   SH.PRODUCT_BRAND,
+			   AT.ORIGIN_NAME,
+			   AT.CHANGE_NAME
+		  FROM SHOP SH
+		  JOIN ATTACHMENT AT ON SH.PRODUCT_NO = AT.RPRODUCT_NO
+		  WHERE PRODUCT_STATUS = 'Y'
+		  <choose>
+		  		<when test="condition == 'productName'">
+		  			AND PRODUCT_NAME
+		  		</when>
+		  		<otherwise>
+		  			AND PRODUCT_BRAND
+		  		</otherwise>
+		  </choose>
+		  LIKE '%' || #{keyword} || '%'
+		  ORDER BY PRODUCT_NO DESC
+	</select>
+	
+	<select id="buyShop" resultMap="shopResult"> 
+		SELECT
+			SH.PRODUCT_NO,
+			SH.PRODUCT_NAME,
+			SH.PRODUCT_PRICE,
+			SH.PRODUCT_STATUS,
+			SH.PRODUCT_ORIGIN,
+			SH.PRODUCT_DETAIL,
+			SH.PRODUCT_BRAND,
+			
+			AT.CHANGE_NAME,
+			AT.ORIGIN_NAME
+		 FROM SHOP SH
+		 INNER JOIN ATTACHMENT AT ON SH.PRODUCT_NO = AT.RPRODUCT_NO
+		 WHERE SH.PRODUCT_STATUS = 'Y'
+		 AND SH.PRODUCT_NO = #{productNo}
+	</select>
  </mapper>
  

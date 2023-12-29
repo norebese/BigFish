@@ -6,6 +6,11 @@
 	
 	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
+<%
+  String sellPrice = request.getParameter("sell_price");
+  String quantity = request.getParameter("quantity");
+  // 받아온 값을 사용하여 필요한 처리 수행
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -188,8 +193,8 @@
                         <h5 style="display: inline-block;margin-left: 40px;text-align: center;">${s.productName}</h5>
                     </span>
                 </td>
-                <td style="border: 1px solid #a7a7a7; padding: 10px; width: 20%;text-align: center;">개</td>
-                <td style="border: 1px solid #a7a7a7; padding: 10px; width: 20%; text-align: center;">${s.productPrice}</td>
+                <td id="quantity" name="quantity" style="border: 1px solid #a7a7a7; padding: 10px; width: 20%;text-align: center;">${quantity}개</td>
+                <td id="total_amount" name="sum" style="border: 1px solid #a7a7a7; padding: 10px; width: 20%; text-align: center;">${total_amount}원</td>
             </tr> 
         </table>
     </div>
@@ -208,7 +213,7 @@
         <table style="width: 100%; margin: 0px auto; border-collapse: collapse;">
             <tr style="height: 80px; background-color: #bfbfbf;text-align: left;">
                 <td style="border: 1px solid #bfbfbf; padding: 10px; width: 20%; "><h5>최종결제금액</h5></td>
-                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 80%;"><input id="productPrice" value="${s.productPrice}" readonly style="background-color: #bfbfbf; color: #ff0000; border: none;"></input><h5 style="color: #ff0000; ">원</h5></td>
+                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 80%;" id="productPrice"  readonly style="background-color: #bfbfbf; border: none;"><h5>${total_amount}원</h5></td>
              
             </tr>
            
@@ -216,8 +221,8 @@
         </table>
         <br>
         <div style="text-align: center;">
-            <button  class="btn btn-danger" style="height: 64px;width: 276px; background-color: white;"><h5 style=" color: red; ">취소</h5></button>
-            <button class="btn btn-primary" style="height: 64px;width: 276px; margin-left: 50px;" onclick="kakao();"><h5>결제하기</h5></button>
+            <button class="btn btn-primary" style="height: 64px;width: 276px;" onclick="kakao();"><h5>결제하기</h5></button>
+            <button  class="btn btn-danger" style="height: 64px;width: 276px; margin-left: 50px; background-color: white;"><h5 style=" color: red; ">취소</h5></button>     
         </div>
       
 
