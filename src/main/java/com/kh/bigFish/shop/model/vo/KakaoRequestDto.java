@@ -28,7 +28,10 @@ public class KakaoRequestDto {
     private String cancel_url;
     private String pg_token;
     private int productNo;
-    
+	private Date payDate;
+	  private int fishingNo;
+	  private int rfishingNo;
+	  private String changeName;
     
     
 

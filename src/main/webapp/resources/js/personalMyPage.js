@@ -1,26 +1,54 @@
 function showProfile(){
     const profileWork = document.querySelector("#profileWork");
-    const reservationWork = document.querySelector("#reservationWorkArea");
+
+    const reservationWork = document.querySelector("#reservationWork");
+     const goodspayList = document.querySelector("#goodspayList"); 
+
     const buttonProfile = document.querySelector("#buttonProfile");
     const buttonReservation = document.querySelector("#buttonReservation");
+     const buttonGoodsPay = document.querySelector("#buttonGoodspayment");
 
     profileWork.style.display = "flex";
     reservationWork.style.display = "none";
+    goodspayList.style.display = "none";
     buttonProfile.style.background = "rgb(28, 134, 204)";
     buttonReservation.style.background = "rgb(59, 175, 252)";
+    buttonGoodsPay.style.background = "rgb(59, 175, 252)";
 }
 
 function showReservation(){
-    const profileWork = document.querySelector("#profileWork");
-    const reservationWork = document.querySelector("#reservationWorkArea");
+
+  const profileWork = document.querySelector("#profileWork");
+    const reservationWork = document.querySelector("#reservationWork");
+     const goodspayList = document.querySelector("#goodspayList"); 
+
     const buttonProfile = document.querySelector("#buttonProfile");
     const buttonReservation = document.querySelector("#buttonReservation");
+     const buttonGoodsPay = document.querySelector("#buttonGoodspayment");
+
 
     profileWork.style.display = "none";
     reservationWork.style.display = "flex";
+    goodspayList.style.display = "none";
     buttonProfile.style.background = "rgb(59, 175, 252)";
     buttonReservation.style.background = "rgb(28, 134, 204)";
+  buttonGoodsPay.style.background = "rgb(59, 175, 252)";
+}
 
+function showGoodsPayment() {
+ const profileWork = document.querySelector("#profileWork");
+    const reservationWork = document.querySelector("#reservationWork");
+     const goodspayList = document.querySelector("#goodspayList"); 
+    const buttonProfile = document.querySelector("#buttonProfile");
+    const buttonReservation = document.querySelector("#buttonReservation");
+     const buttonGoodsPay = document.querySelector("#buttonGoodspayment");
+
+    profileWork.style.display = "none";
+    reservationWork.style.display = "none";
+    goodspayList.style.display = "flex";
+    buttonProfile.style.background = "rgb(59, 175, 252)";
+    buttonReservation.style.background = "rgb(59, 175, 252)";
+     buttonGoodsPay.style.background = "rgb(28, 134, 204)";
 }
 
 // 주소 검색 API
@@ -96,6 +124,7 @@ function profileImgChange(){
 function chatPopUp(){
     window.open("personalChat","popup Chat","width = 550, height = 600, top = 100, left = 200, location = no, status=no toolbars=no");
 }
+
 
 function checkUpdatePwd(){
     let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;

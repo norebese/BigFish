@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.kh.bigFish.attachment.model.vo.Attachment;
 import com.kh.bigFish.common.model.vo.PageInfo;
+import com.kh.bigFish.shop.model.vo.KakaoRequestDto;
 import com.kh.bigFish.shop.model.vo.Shop;
 
 public interface ShopService {
@@ -31,10 +32,15 @@ public interface ShopService {
 	
 	int updatePg_token(String j);
 
+	
+	ArrayList<KakaoRequestDto> selectKakaoRequestDtoList(String MemId);
+
+
 	int selectSearchListCount(HashMap<String, String> map);
 
 	ArrayList<Shop> selectSearchList(HashMap<String, String> map, PageInfo pi);
 
 	Shop buyShop(int sno);
+
 
 }

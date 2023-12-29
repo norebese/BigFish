@@ -28,6 +28,9 @@ public interface FreeBoardService {
 	
 	//좋아요 갯수
 	int freeGoodCount(int bno);
+	
+	//리플삭제
+		int deleteReply(int replyNo);
 
 	//게시글 상세조회(select)
 	FreeBoard selectBoard(int freeNo);
