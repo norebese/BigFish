@@ -87,29 +87,27 @@
  	</update>
  	
  	<select id="selectSearchListCount" resultType="_int">
-		SELECT COUNT(*)
-		  FROM FISH
-		 WHERE FISH_STATUS = 'Y'
-	     <if test="condition == 'fishName'"> 
-	       AND FISH_NAME
-	     </if>
-		  LIKE '%' || #{keyword} || '%'
+    SELECT COUNT(*)
+    FROM FISH
+    WHERE FISH_STATUS = 'Y'
+    <if test="condition == 'fishName' and keyword != null and keyword.trim() != ''"> 
+        AND FISH_NAME LIKE '%' || #{keyword} || '%'
+    </if>
 	</select>
- 	
- 	<select id="selectSearchList" resultMap="fishResult">
-		SELECT FISH_NO
-		      ,FISH_NAME
-		      ,FISH_COUNT
-		      ,FISH_CONTENT
-		 FROM FISH
-		 WHERE FISH_STATUS = 'Y'
-		 <choose>
-		     <when test="condition == 'fishName'"> 
-		       AND FISH_NAME
-		     </when>
-	  	 </choose>
-		  LIKE '%' || #{keyword} || '%'
-		  ORDER BY FISH_NO DESC
-	</select>
+
+<select id="selectSearchList" resultMap="fishResult">
+    SELECT FISH_NO
+        ,FISH_NAME
+        ,FISH_COUNT
+        ,FISH_CONTENT
+    FROM FISH
+    WHERE FISH_STATUS = 'Y'
+    <choose>
+        <when test="condition == 'fishName' and keyword != null and keyword.trim() != ''"> 
+            AND FISH_NAME LIKE '%' || #{keyword} || '%'
+        </when>
+    </choose>
+    ORDER BY FISH_NO DESC
+</select>
 	
 </mapper>

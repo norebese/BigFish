@@ -129,12 +129,35 @@
 }
 ul{
 	list-style: none;
-    padding: 0;
+    padding: 0 !important;
     margin: 0;
 }
+.recentText{
+	margin-bottom: 8px;
+	color: #222;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: -1.5px;
+}
 .recentStore{
-	
+	width: 150px;
+	margin-top: 30px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 0px 15px 0 rgb(0 0 0 / 6%);
+}
+.recentStore a{
+	text-decoration: none;
+	color: black;
 }
 .recentImg{
-	height: 50px;
+	height: 80px;
+	width: 135px;
+}
+.rSName{
+	display: inline-block;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	width: 135px;
 }

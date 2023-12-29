@@ -522,6 +522,7 @@ p {
     justify-content: flex-start;
     overflow: auto;
     box-shadow: 0 0 0 1px #dadcdf, 0 4px 8px 0 rgba(0,0,0,.15);
+    text-align: center;
 }
 .fishPhoto{
 	width: 300px;
@@ -608,6 +609,10 @@ p {
     color: #000000;
     margin-top: 10px;
     margin-bottom: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 250px;
 }
 .fish-info{
     margin: 0;

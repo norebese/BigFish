@@ -29,7 +29,7 @@
         <div class="shop-section">
 	        <div class="shop-list">
 	            <div class="filter-area">
-	            	<p style="text-wrap: nowrap;">카테고리 제목</p>
+	            	<p style="text-wrap: nowrap;">카테고리 목록</p>
 	                <div class="insertFilter">
 	                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="width: 300px; height: 50px;">지역별</button>
 	                </div>

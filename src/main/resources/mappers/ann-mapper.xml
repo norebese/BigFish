@@ -73,10 +73,10 @@
 		SELECT COUNT(*)
 		  FROM ANNOUNCE
 		 WHERE ANN_STATUS = 'Y'
-	     <if test="condition == 'annTitle'"> 
+	     <if test="condition == 'annTitle' and keyword != null and keyword.trim() != ''"> 
 	       AND ANN_TITLE
 	     </if>
-	     <if test="condition == 'annContent'"> 
+	     <if test="condition == 'annContent' and keyword != null and keyword.trim() != ''"> 
 	       AND ANN_CONTENT
 	  	 </if>
 		  LIKE '%' || #{keyword} || '%'
@@ -90,7 +90,7 @@
 		 FROM ANNOUNCE
 		 WHERE ANN_STATUS = 'Y'
 		 <choose>
-		     <when test="condition == 'annTitle'"> 
+		     <when test="condition == 'annTitle' and keyword != null and keyword.trim() != ''"> 
 		       AND ANN_TITLE
 		     </when>
 		     <otherwise> 

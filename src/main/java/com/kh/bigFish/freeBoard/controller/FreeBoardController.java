@@ -323,6 +323,20 @@ public class FreeBoardController {
 			}
 		}
 		
+		@ResponseBody
+		@RequestMapping("delete.frr")
+		public int deleteReply(int replyNo) {
+		
+			int result = freeboardService.deleteReply(replyNo);
+		
+			System.out.println(result+"동인씨");
+			return result;
+		
+		}
+		
+		
+		
+
 		
 //		@ResponseBody
 //		@PostMapping("/kakao.fr")

@@ -45,7 +45,7 @@
 			  <div class="carousel-inner">
 			  <c:forEach var="photo" items="${storePhoto}" varStatus="loopStatus">
 				    <div class="carousel-item${loopStatus.first ? ' active' : ''}">
-				      <img src="<%=contextPath%>${photo.filePath }${photo.changeName }" class="d-block w-100">
+				      <img src="<%=contextPath%>/resources/uploadFiles/${photo.changeName }" class="d-block w-100">
 				    </div>
 			    </c:forEach>
 			  </div>
@@ -244,6 +244,11 @@
             </div>
             
             <div id="showReplyArea">
+	            <c:if test="${empty replyList}">
+				    <div class="no-reply">
+				        댓글이 존재하지 않습니다.
+				    </div>
+				</c:if>
             	<c:forEach var="rl" items="${replyList}" varStatus="loopStatus">
 		            <div class="" style="border-bottom: solid 2px rgb(204,204,204); ">
 		                <div class="row">

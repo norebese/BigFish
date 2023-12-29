@@ -26,10 +26,31 @@
 <!-- CSS-->
 <link rel="stylesheet"
 	href="<%=contextPath%>/resources/css/freeBoardDetailView.css">
-
-
+<style>
+#rerere{
+	
+	margin-left: 5px;
+	 text-align: right;
+	 color: #ff0000;
+	 cursor: pointer;
+}
+.replyImg{
+    display: flex;
+    height: 60px;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.replyImg img{
+    height: 35px;
+    width: 35px;
+    margin-right: 10px;
+}
+</style>
 </head>
 <body>
+<script>
+  const loginUserNick = "${loginUser.memNick}";
+</script>
 	<jsp:include page="../common/header.jsp" />
 	<br>
 	<br>
@@ -84,10 +105,11 @@
 						<div class="col" style="flex-grow: 1;">
 							<div
 								style="display: flex; align-items: center; justify-content: flex-end;">
-								<p style="margin: 0; margin-right: 10px; white-space: nowrap;">작성일</p>
-								<p style="margin: 0; margin-right: 10px; white-space: nowrap;">좋아요:50</p>
+								
 								<p style="margin: 0; margin-right: 10px; white-space: nowrap;">조회수:${b.count}</p>
-								<p style="margin: 0; white-space: nowrap;">${b.createDate }</p>
+								<p style="margin: 0; margin-right: 10px; white-space: nowrap;">작성일:${b.createDate }</p>
+								
+								<p style="margin: 0; white-space: nowrap;"></p>
 							</div>
 						</div>
 					</div>
@@ -404,36 +426,7 @@
 					
 				}
 				
-				/**
-				function updateLike(){
-			    	let likeImg = document.getElementById('like-logo');
-			    	
-			   		$.ajax({
-			               type: "GET",
-			               url: "ajaxUpdateFreeLike", 
-			               data: { 
-					        	
-					        	 freeNo :${b.freeNo}
-					        	 
-					           },
-					           dataType: 'json',
-			               success: function(data) {
-			            	   console.log(data+"고인물");
-								if(data == 'Y'){
-									 likeImg.innerHTML = '<img class="like-image" src="<%=contextPath%>/resources/images/heart-filled.png">';										
-							
-								}else{
-									likeImg.innerHTML='<img style="height: 19px !important;" src="<%=contextPath%>/resources/images/heart-notfill.png">'
-								}
-								console.log("ajax 통신 성공");
-			               },
-			               error: function() {
-			               	console.log("ajax 통신 실패");
-			               }
-			           });
-			   		
-			   	}
-				 */
+		
 				 function updateLike() {
 					    let likeImg = document.getElementById('like-logo');
 					    let whgdkdy =document.getElementById('whgdkdy');
@@ -477,19 +470,25 @@
 					            let str = "";
 					            for (reply of list){
 					                str += (
-					                    "<div class='row'>" +
-					                        "<div class='col-sm' style='display: flex; align-items: center;'>" +
-					                            "<i class='bi bi-person' style='font-size: 40px;'></i>" + "<span>" + reply.replyWriter + "</span>" +
-					                        "</div>" +
-					                        "<div class='col-md-8' style='display: flex; align-items: center;'>" + reply.replyContent + "</div>" +
-					                        "<div class='col-sm' style='display: flex; align-items: center;'>" + reply.replyCreateDate + "</div>" +
-					                    "</div>"
+					                		"<div class='row'>" +
+					                	    "<div class='col-sm' style='display: flex; align-items: center;'>" +
+					                	        "<i class='replyImg'><img src='/bigFish/" + reply.memProfileImg + "'></i>" +
+					                	        "<span>" + reply.replyWriter + "</span>" +
+					                	    "</div>" +
+					                	    "<div class='col-md-8' style='display: flex; align-items: center;'>" +
+					                	        reply.replyContent +
+					                	    "</div>" +
+					                	    "<div class='col-sm' style='display: flex; align-items: center;'>" +
+					                	        reply.replyCreateDate +
+					                	        (reply.replyWriter === loginUserNick ? "<span id='rerere' onclick='deletefire("+reply.replyNo+")'>삭제</span>" : "") +
+					                	    "</div>" +
+					                	"</div>"
 					                );
 					            }
 
 					            //$("#replyArea tbody").html();
 					            document.querySelector("#replyAreaa").innerHTML = str;
-					            document.querySelector("#rcount").innerHTML = list.length;
+					          
 					        },
 					        error: function(){
 					            console.log("ajax통신 실패");
@@ -517,8 +516,25 @@
 				                error: function(){
 				                    console.log("ajax통신 실패")
 				                }
-				            })
+				            });
 				        }
+				        //댓글삭제
+				     function deletefire(replyNo) {
+				    	  console.log(replyNo);
+					    $.ajax({
+					        url: "delete.frr",
+					        data: {
+					            replyNo: replyNo
+					        },
+					        success: function(res) {
+					        	selectReplyList();
+					        },
+					        error: function() {
+					        	selectReplyList();
+					            console.log("ajax 통신 실패");
+					        }
+					    });
+						}
 				        
 				        
 				        

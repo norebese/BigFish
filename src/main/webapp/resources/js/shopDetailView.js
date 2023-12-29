@@ -39,3 +39,11 @@ function calculateTotal() {
     const total = sellPrice * amount;
     sumInput.value = total;
 }
+
+function buyShop(sno) {
+    const quantity = document.getElementById("quantity").value
+    const total_amount = document.getElementById("total_amount").value
+
+    console.log(quantity)
+    console.log(total_amount)
+}

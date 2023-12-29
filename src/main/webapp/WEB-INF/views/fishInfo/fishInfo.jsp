@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String contextPath = request.getContextPath();
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>     
 <!DOCTYPE html>
 <html>
@@ -103,6 +104,6 @@
 	</c:if>
 	
 	<br><br><br><br><br><br>
-<jsp:include page="../common/footer.jsp"/>
+<jsp:include page="../common/footer.jsp" />
 </body>
 </html>
