@@ -10,7 +10,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +35,7 @@ import com.kh.bigFish.member.model.vo.Member;
 import com.kh.bigFish.shop.model.service.ShopService;
 import com.kh.bigFish.shop.model.vo.KakaoRequestDto;
 import com.kh.bigFish.shop.model.vo.Shop;
+import com.kh.bigFish.study.model.vo.Study;
 
 
 @Controller
@@ -244,11 +248,55 @@ public class ShopController {
 		}
 	}
 	
-	@RequestMapping(value="/listasdf.SHbo")
-	public String freeBoardList() {
+	@RequestMapping(value="search.sh")
+	public ModelAndView searchShop(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {
 		
-		return "shop/goodsPayment";
+		HashMap<String, String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		PageInfo pi = Pagenation.getPageInfo(shopService.selectSearchListCount(map), currentPage, 8, 5);
+		ArrayList<Shop> list = shopService.selectSearchList(map, pi);
+		
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .addObject("condition", condition)
+		  .addObject("keyword", keyword)
+		  .setViewName("shop/shopListView");
+		return mv;
 	}
+	
+	@RequestMapping(value="/listasdf.SHbo")
+	public String freeBoardList(int sno, int quantity, int total_amount, Model model) {
+		
+		Shop s = shopService.buyShop(sno);
+	    
+	    if (s != null) {
+	        model.addAttribute("s", s);
+	        model.addAttribute("quantity", quantity);
+	        model.addAttribute("total_amount", total_amount);
+	        return "shop/goodsPayment";
+	    } else {
+	        model.addAttribute("errorMsg", "게시글 작성 실패");
+	        return "common/errorMsg";
+	    }
+	}
+	
+	 @PostMapping("/Payment.jsp")
+	  public String processPayment(@RequestParam("sell_price") String sellPrice,
+	                               @RequestParam("quantity") String quantity,
+	                               Model model) {
+	    // 받아온 값을 사용하여 필요한 처리 수행
+	    // 예를 들어, 결제 로직이나 데이터 처리 등을 수행할 수 있습니다.
+
+	    // 처리 결과를 View에 전달하기 위해 Model에 값을 추가
+	    model.addAttribute("sellPrice", sellPrice);
+	    model.addAttribute("quantity", quantity);
+
+	    // 결과를 보여줄 View의 이름을 리턴
+	    return "goodsPayment.jsp";
+	  }
+	
 	
 	@ResponseBody
 	@RequestMapping("kakao.fr")

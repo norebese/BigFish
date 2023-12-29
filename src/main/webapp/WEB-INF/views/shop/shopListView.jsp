@@ -9,6 +9,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BIG FISH</title>
 
+<!-- CSS-->
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/studyListView.css">
+
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
@@ -37,6 +40,7 @@
     </div>
     <br><br>
 
+	<div>
     <nav aria-label="Page navigation example"
 				class="d-flex justify-content-center">
 				<ul class="pagination">
@@ -71,8 +75,31 @@
 					</c:choose>
 				</ul>
 			</nav>
-    
-    
+			<div style="margin-left: 8%;">
+			<form class="sh-search-area" id="searchForm" action="search.sh" method="get" align="center">
+                <div class="select" style="margin: none; width: 17%;">
+                    <select id="selectbox" name="condition" onchange="" class="form-select pt-1 mt-4">
+                        <option value="productName">상품 이름</option>
+                        <option value="productBrand">상품 브랜드</option>
+                    </select>
+                </div>
+                <div class="text">
+                    <input type="text" class="form-control" name="keyword" value="${keyword}" style="margin-top: 24px;">
+                </div>
+                <button type="submit" class="searchBtn btn btn-secondary"
+                    style="margin-top: 28px;">검색</button>
+            </form>
+            <c:if test="${ not empty condition }">
+		        <script>
+		        	window.onload = function() {
+		        		const opt = document.querySelector("#st-search-area option[value=${condition}]")
+		        		opt.setAttribute("selected", true);
+		        	}
+		        </script>
+			</c:if>
+		</div>
+    </div>
+    <br><br><br><br><br>
     <jsp:include page="../common/footer.jsp" />
 </body>
 </html>
