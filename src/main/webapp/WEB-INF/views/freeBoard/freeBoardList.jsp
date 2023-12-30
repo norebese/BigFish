@@ -61,6 +61,11 @@
     justify-content: space-around;
     align-items: flex-start;
 }
+.current-page {
+    background-color: #007bff; /* 원하는 배경색 지정 */
+    color: #fff; /* 원하는 텍스트 색상 지정 */
+    cursor: not-allowed; /* 필요에 따라 커서 모양 변경 */
+}
 
 </style>
 </head>
@@ -74,7 +79,7 @@
             <h2>자유게시판</h2>
             <br>
                 <tr>
-                    <td>자유롭게 소통을 해보세용~!</td>
+                    <td>환영합니다! 여기는 자유게시판입니다. 다양한 주제로 자유롭게 이야기 나누어 보세요.</td>
                 </tr>
             </div>
             <div class="study-image" style="color: white;">              
@@ -125,36 +130,50 @@
 
 			<br>
 
-			<nav aria-label="Page navigation example"
-				class="d-flex justify-content-center">
-				<ul class="pagination">
-					<c:choose>
-                		<c:when test="${pi.currentPage eq 1 }">
-                    		<li class="page-item disabled"><a class="page-link"><span aria-hidden="true">&laquo;</span>
-					</a></li>
-                    	</c:when>
-                    	<c:otherwise>
-                    		<li class="page-item"><a class="page-link" href="list.fbo?cpage=${pi.currentPage - 1 }"><span aria-hidden="true">&laquo;</span>
-					</a></li>
-                    	</c:otherwise>
-                    </c:choose>
-					
-					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-                   <li class="page-item"><a class="page-link" href="list.fbo?cpage=${p }">${p }</a></li>
-                    </c:forEach>
-					
-					 <c:choose>
-                		<c:when test="${pi.currentPage eq pi.maxPage }">
-                    		<li class="page-item disabled"><a class="page-link"><span aria-hidden="true">&raquo;</span>
-					</a></li>
-                    	</c:when>
-                    	<c:otherwise>
-                    		<li class="page-item"><a class="page-link" href="list.fbo?cpage=${pi.currentPage + 1 }"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-                    	</c:otherwise>
-                    </c:choose>
-				</ul>
-			</nav>
+			<nav aria-label="Page navigation example" class="d-flex justify-content-center">
+    <ul class="pagination">
+        <c:choose>
+            <c:when test="${pi.currentPage eq 1 }">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a>
+                </li>
+            </c:when>
+            <c:otherwise>
+                <li class="page-item">
+                    <a class="page-link" href="list.fbo?cpage=${pi.currentPage - 1 }"><span aria-hidden="true">&laquo;</span></a>
+                </li>
+            </c:otherwise>
+        </c:choose>
+
+        <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+            <c:choose>
+                <c:when test="${p eq pi.currentPage}">
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">${p}</span>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item">
+                        <a class="page-link" href="list.fbo?cpage=${p}">${p}</a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+
+        <c:choose>
+            <c:when test="${pi.currentPage eq pi.maxPage}">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-current="page"><span aria-hidden="true">&raquo;</span></a>
+                </li>
+            </c:when>
+            <c:otherwise>
+                <li class="page-item">
+                    <a class="page-link" href="list.fbo?cpage=${pi.currentPage + 1}"><span aria-hidden="true">&raquo;</span></a>
+                </li>
+            </c:otherwise>
+        </c:choose>
+    </ul>
+</nav>
 
 
 			<form id="searchForm" action="fsearchForm.bo" method="get" align="center">
@@ -169,18 +188,22 @@
 					  <input type="hidden" value="${b.changeName}" name="changeName">
 				</div>
 				<div class="text">
-					<input type="text" class="form-control" name="keyword"
-						style="margin-top: 24px;">
-				</div>
-				<button type="submit" class="btn btn-primary"
-					style="margin-top: 28px;background-color: rgb(59, 175, 252);">검색</button>
+    <input type="text" class="form-control" name="keyword" id="myInput" style="margin-top: 24px;" oninput="myFunction()">
+</div>
+<button type="submit" class="btn btn-primary" style="margin-top: 28px;background-color: rgb(59, 175, 252);" id="myButton" disabled>검색</button>
+
 			</form>
 
 
 
 		</div>
 		<script>
-		
+		 function myFunction() {
+		        var inputValue = document.getElementById("myInput").value;
+
+		        // 값이 비어있으면 버튼 비활성화, 아니면 활성화
+		        document.getElementById("myButton").disabled = inputValue.trim() === "";
+		    }
 		</script>
 		  <jsp:include page="../common/footer.jsp"/>
 </body>

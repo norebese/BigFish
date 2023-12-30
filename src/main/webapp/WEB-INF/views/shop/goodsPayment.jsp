@@ -237,7 +237,7 @@
             quantity: parseInt(payAmount), // 수량을 정수로 변환
             total_amount: parseInt(payValue), // 총 결제 금액을 정수로 변환
             tax_free_amount: 0,
-            approval_url: "http://localhost:8987/bigFish/",//  detail.sh?sno=${s.productNo}&pg_token=", // 여러분의 approval_url로 교체하세요
+            approval_url: "http://localhost:8987/bigFish/detail.sh?sno=${sno}",//  detail.sh?sno=${s.productNo}&pg_token=", // 여러분의 approval_url로 교체하세요
             fail_url: "http://localhost:8987/fail",
             cancel_url: "http://localhost:8987/cancel"
         };
@@ -268,9 +268,12 @@
 	    var pgToken = getParameterByName('pg_token');
 	    
 	    // bno 추출
-	    var bno = getParameterByName('sno');
+	    var sno = getParameterByName('sno');
+	    console.log('pgToken:', pgToken);
+	    console.log('sno:', sno);
 
-	    // 서버로 pg_token 및 bno 전송
+
+	    // 서버로 pg_token 및 sno 전송
 	    sendTokenToServer(pgToken, sno);
 	});
 

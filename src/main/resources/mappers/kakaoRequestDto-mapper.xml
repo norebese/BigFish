@@ -50,7 +50,7 @@
 		#{total_amount},
 		#{vat_amount},
 		#{tax_free_amount},
-		#{approval_url},
+		COALESCE(#{approval_url}, 'DEFAULT_URL'),
 		#{fail_url},
 		#{cancel_url},
 		SYSDATE

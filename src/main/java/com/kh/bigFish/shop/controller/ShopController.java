@@ -275,6 +275,7 @@ public class ShopController {
 	        model.addAttribute("s", s);
 	        model.addAttribute("quantity", quantity);
 	        model.addAttribute("total_amount", total_amount);
+	        model.addAttribute("sno",sno);
 	        return "shop/goodsPayment";
 	    } else {
 	        model.addAttribute("errorMsg", "게시글 작성 실패");
@@ -285,6 +286,7 @@ public class ShopController {
 	@ResponseBody
 	@RequestMapping("kakao.fr")
 	public String kakao(@RequestBody KakaoRequestDto kakaoRequestDto) throws IOException  {
+		System.out.println("여기는 오나요?");
 		URL pay;
 
 			pay = new URL("https://kapi.kakao.com/v1/payment/ready");
@@ -309,7 +311,7 @@ public class ShopController {
             "&cancel_url=" + kakaoRequestDto.getCancel_url());
 			OutputStream i =conn.getOutputStream();
 			DataOutputStream j =new DataOutputStream(i);
-			System.out.println(parameter);
+			
 			j.writeBytes(parameter);
 			int result1 = shopService.insertParameter(parameter);
 			
@@ -342,7 +344,7 @@ public class ShopController {
 		   String pg_token=kakaoRequestDto.getPg_token();
 		   int sno=kakaoRequestDto.getProductNo();
 		   
-		
+		System.out.println(sno+"ROQKFWKSMSDURLEK"+pg_token);
 		   String j=pg_token+","+sno;
 		   
 		   int result1 = shopService.updatePg_token(j);
