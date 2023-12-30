@@ -23,11 +23,11 @@ function init(ad, name, sNum){
     let replyInfo = document.querySelector('.reply-tab');
     
     storeInfo.addEventListener('click', function () {
-        storeInfo.style.backgroundColor = 'rgb(180 207 242)';
+        storeInfo.style.backgroundColor = 'rgb(41, 128, 185)';
         replyInfo.style.backgroundColor = '';
     });
     replyInfo.addEventListener('click', function () {
-        replyInfo.style.backgroundColor = 'rgb(180 207 242)';
+        replyInfo.style.backgroundColor = 'rgb(41, 128, 185)';
         storeInfo.style.backgroundColor = '';
     });
 
@@ -102,13 +102,22 @@ function init(ad, name, sNum){
 
 	const existingArray = JSON.parse(localStorage.getItem('sNumArray')) || [];
 	const newValue = sNum; 
-    existingArray.push(newValue);
+	
+	const index = existingArray.indexOf(newValue);
+	if (index !== -1) {
+	  // 중복된 값이 이미 배열에 있을 경우 해당 값을 제거
+	  existingArray.splice(index, 1);
+	}
+	
+	// 새로운 값을 배열의 맨 앞에 삽입
+	existingArray.unshift(newValue);
+	
+	// 배열의 길이가 5를 초과하는 경우 마지막 항목 제거
 	if (existingArray.length > 5) {
-		existingArray.shift();
+	  existingArray.pop();
 	}
 	localStorage.setItem('sNumArray', JSON.stringify(existingArray));
 
-    console.log('Array stored in local storage:', existingArray);
 }
 
 function showDateAlert() {
@@ -232,8 +241,8 @@ function updatePageBtn(startPage, endPage, currentPage){
 }
 
 function updateReplyBtn(endPage, maxPage, currentPage){
-
-	if(maxPage == 1){
+	console.log(maxPage);
+	if(maxPage == 1 || maxPage == 0){
 		document.getElementById("prevBtn").style.display = "none";
 		document.getElementById("nextBtn").style.display = "none";
 	}else if(currentPage == 1){

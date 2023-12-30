@@ -422,7 +422,6 @@ public class StoreController {
 		session.setAttribute("replyCount", storeReplyCount);
 		session.setAttribute("replyPi", pi);
 		session.setAttribute("storePhoto", storePhoto);
-		
 		return "reservation/reservationDetail";
 	}
 	
