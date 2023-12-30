@@ -57,15 +57,15 @@
 		)
 	</insert>
 	<update id="updatePg_token">
-		UPDATE KAKOREQUESTDTO
-    SET PG_TOKEN = COALESCE(#{paramMap.pg_token}, 'DEFAULT_URL'),
-        PRODUCT_NO = #{paramMap.productNo}
-    WHERE C_NO = (SELECT C_NO
-                  FROM (SELECT C_NO
-                        FROM KAKOREQUESTDTO
-                        ORDER BY C_NO DESC)
-                  WHERE ROWNUM = 1)
-	</update>
+	UPDATE KAKOREQUESTDTO
+	SET PG_TOKEN = COALESCE(#{pg_token}, 'DEFAULT_URL'),
+	PRODUCT_NO = #{productNo}
+	WHERE C_NO = (SELECT C_NO
+	FROM (SELECT C_NO
+	FROM KAKOREQUESTDTO
+	ORDER BY C_NO DESC)
+	WHERE ROWNUM = 1)
+</update>
 	<select id="selectKakaoRequestDtoList"
 		resultMap="kakaoRequestDtoResult">
 		SELECT

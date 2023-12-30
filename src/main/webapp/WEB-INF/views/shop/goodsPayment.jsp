@@ -263,19 +263,55 @@
             }
         });
     }
- $(document).ready(function() {
-	    // pg_token 추출
-	    var pgToken = getParameterByName('pg_token');
-	    
-	    // bno 추출
-	    var sno = getParameterByName('sno');
-	    console.log('pgToken:', pgToken);
-	    console.log('sno:', sno);
+    $(document).ready(function() {
+        // pg_token 추출
+        var pgToken = getParameterByName('pg_token');
+        
+        // pg_token이 존재하는 경우에만 처리
+        if (pgToken) {
+            // bno 추출
+            var sno = getParameterByName('sno');
+            console.log('pgToken:', pgToken);
+            console.log('sno:', sno);
 
+            // 서버로 pg_token 및 sno 전송
+            sendTokenToServer(pgToken, sno);
+        } else {
+            console.log('pg_token이 없습니다.');
+            // pg_token이 없을 경우에 대한 처리를 추가할 수 있습니다.
+        }
+    });
 
-	    // 서버로 pg_token 및 sno 전송
-	    sendTokenToServer(pgToken, sno);
-	});
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function sendTokenToServer(pgToken, sno) {
+        // Ajax 요청으로 pgToken 및 bno을 서버로 전송
+        $.ajax({
+            url: "pay.fr",  // 서버의 실제 엔드포인트로 교체하세요
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                pg_token: pgToken,
+                productNo: sno
+            }),
+            success: function(response) {
+                console.log("서버 응답:", response);
+                // 서버로 전송 성공 시 원하는 동작 수행
+            },
+            error: function(error) {
+                console.error("서버 오류:", error.responseText);
+                // 서버 오류 시 처리
+            }
+        });
+    }
 
 	function getParameterByName(name, url) {
 	    if (!url) url = window.location.href;
