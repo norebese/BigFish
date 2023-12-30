@@ -1,3 +1,4 @@
+<%@page import="com.kh.bigFish.store.model.vo.Store"%>
 <%@page import="com.kh.bigFish.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -7,6 +8,7 @@
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	Store st = (Store)session.getAttribute("st");
 %> 
 
 <!DOCTYPE html>
@@ -97,7 +99,7 @@
     <div class="detail-reply">
         <div class="tab-area">
             <ul class="half">
-                <li class="detail-tab" style="background-color: rgb(180, 207, 242);">낚시터 정보</li>
+                <li class="detail-tab" style="background-color: rgb(41, 128, 185);">낚시터 정보</li>
                 <li style="display: table-cell; width: 90px;"></li>
                 <li class="reply-tab">댓글</li>
             </ul>
@@ -286,20 +288,20 @@
 						    </c:forEach>
 				       </ul>
 				       <c:choose>
-				       <c:when test="(${replyPi.maxPage eq 1 or replyPi.maxPage eq 0})">
-				          <li id="nextBtn" class="page-item" onclick="pageReply('next')" style="display: none;">
-					            <a class="page-link" href="#" aria-label="Next">
-					              <span aria-hidden="true">&raquo;</span>
-					            </a>
-				          </li>
-			          </c:when>
-			          <c:otherwise>
-			          		<li id="nextBtn" class="page-item" onclick="pageReply('next')">
-					            <a class="page-link" href="#" aria-label="Next">
-					              <span aria-hidden="true">&raquo;</span>
-					            </a>
-				          </li>
-			          </c:otherwise>
+					       <c:when test="${empty replyPi or replyPi.maxPage < 1}">
+					          <li id="nextBtn" class="page-item" onclick="pageReply('next')" style="display: none;">
+						            <a class="page-link" href="#" aria-label="Next">
+						              <span aria-hidden="true">&raquo;</span>
+						            </a>
+					          </li>
+				          </c:when>
+				          <c:when test="${replyPi.maxPage > 1}">
+				          		<li id="nextBtn" class="page-item" onclick="pageReply('next')">
+						            <a class="page-link" href="#" aria-label="Next">
+						              <span aria-hidden="true">&raquo;</span>
+						            </a>
+					          </li>
+				          </c:when>
 			          </c:choose>
 			        </ul>
 			      </nav>
@@ -344,7 +346,7 @@
 	
     <div class="btn-fixed">
     	<div class="btn-inner">
-    		<button class="fixed-btn" onclick="saveSelectedDate()" <%= (loginUser == null) ? "disabled style='background:gray'" : "" %>>예약하기</button>
+    		<button class="fixed-btn" onclick="saveSelectedDate()" <%= (loginUser == null || loginUser.getMemNo() == st.getRmemNo()) ? "disabled style='background: gray'" : "" %>>예약하기</button>
     	</div>
     </div>
     <jsp:include page="../common/footer.jsp"/>
