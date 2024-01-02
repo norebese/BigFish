@@ -247,21 +247,33 @@
 					<c:when test="${not empty payList}">
 						<c:forEach var="r" items="${payList}">
 							<div style="width: 70%; height: 30px; margin-bottom: 105px;">
-								<table style="width: 100%;  border: 2px solid rgb(236, 236, 236); border-radius: 8px; border-collapse:separate;">
-									<tr style=" background-color:#f8f8f8 ; border-bottom: 1px solid  rgb(236, 236, 236);">
-										<th style="border:none;text-align: left; width: 20%;">주문일/구매번호</th>
-										<th style="border: none ;text-align: center;width: 60%;">상품정보</th>
-										<th style="border: none;text-align: right; width: 20%;">상태</th>
+								<table
+									style="width: 100%; border: 2px solid rgb(236, 236, 236); border-radius: 8px; border-collapse: separate;">
+									<tr
+										style="background-color: #f8f8f8; border-bottom: 1px solid rgb(236, 236, 236);">
+										<th style="border: none; text-align: left; width: 20%;">주문일/구매번호</th>
+										<th style="border: none; text-align: center; width: 60%;">상품정보</th>
+										<th style="border: none; text-align: right; width: 20%;">상태</th>
 									</tr>
 									<tr>
-										<td style="border: none;">${r.payDate} /${r.payNo}</td>
+										<td style="border: none;">${r.payDate}/${r.payNo}</td>
 										<td style="border: none;">
 											<div style="display: flex; align-items: center;">
-												<img src="<%=contextPath%>${r.changeName}" alt="Product Image" style="width: 120px; height: auto;">
-												<span style="margin-left: 20px;">${r.item_name}</span> <span style="text-align: right; margin-left: auto;">수량:${r.quantity}개 총금액:${r.total_amount}원</span>
+												<img src="<%=contextPath%>${r.changeName}"
+													alt="Product Image" style="width: 120px; height: auto;">
+												<div
+													style="margin-left: 20px; flex-grow: 1; text-align: left;">
+													<div style="float: left; width: 50%; margin-top:10px;">
+														<span>${r.item_name}</span>
+													</div>
+													<div style="float: right; width: 50%; text-align: right;">
+														<span>수량: ${r.quantity}개</span><br> <span>총금액:
+															${r.total_amount}원</span>
+													</div>
+												</div>
 											</div>
 										</td>
-										<td style="border:  none;text-align: right;">구매완료</td>
+										<td style="border: none; text-align: right;">구매완료</td>
 									</tr>
 								</table>
 							</div>
