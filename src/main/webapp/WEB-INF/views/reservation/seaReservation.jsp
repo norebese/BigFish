@@ -241,7 +241,7 @@
 		           <div class="fishKindAmount">
 			           	<ul id="fish-group" class="list-group" style="width: 100%;">
 			           		<li>
-			           		지도에서 지역을 선택하시면 해당 지역<br> 사업장에서 취급하는 어종을 확인할 수<br> 있습니다.
+			           		<br><br>지도에서 지역을 선택하시면 해당 지역<br> 사업장에서 취급하는 어종을 확인할 수<br> 있습니다.
 			           		</li>
 						</ul>
 		           </div>
