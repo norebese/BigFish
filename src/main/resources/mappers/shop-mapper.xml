@@ -187,5 +187,14 @@
 		 WHERE SH.PRODUCT_STATUS = 'Y'
 		 AND SH.PRODUCT_NO = #{productNo}
 	</select>
+	
+	<select id="selectShopList" resultMap="shopResult">
+		SELECT PRODUCT_NO,
+			   PRODUCT_NAME
+			FROM SHOP
+		WHERE PRODUCT_STATUS = 'Y'
+		AND PRODUCT_NAME LIKE '%' || #{keyword} || '%'
+		AND ROWNUM &lt;= 2
+	</select>
  </mapper>
  

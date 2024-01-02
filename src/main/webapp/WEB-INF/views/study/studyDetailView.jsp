@@ -208,24 +208,24 @@
 				<br>
         <!-- 댓글 파트 -->
                 <div
-					style="border-top: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">
+					style="width: 70%; border-top: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">
 					<h6 style="text-align: left; margin-bottom: 10px;">댓글</h6>
 					<th colspan="2">
 						<div style="display: flex; align-items: center;">
 							<textarea class="form-control" id="content" cols="55" rows="2"
 								style="resize: none; width: 100%; height: 80px;"></textarea>
 							<button type="button" class="btn btn-primary"
-								style="height: 80px; width: 120px; margin-left: 10px; background-color: rgb(59, 175, 252);"
+								style="height: 80px; width: 120px; margin-left: 10px; border: none; background-color: rgb(59, 175, 252);"
 								onclick="addReply();">댓글등록</button>
 						</div>
 					</th>
-				</div>
-			</div>
+				
+			
 			<div id="replyAreaa">
 				<!-- 댓글파트 -->
 
 			</div>
-    
+        </div>
     
         <!-- 댓글파트 -->
         
@@ -247,17 +247,17 @@ function selectReplyList(){
             let str = "";
             for (let reply of list){
                 str += (
-                    "<div class='row'>" +
+                    "<div class='row' style='border-bottom: solid 2px rgb(204,204,204);'>" +
                     "<div class='col-sm' style='display: flex; align-items: center;'>" +
                     "<i class='replyImg'><img src='/bigFish/" + reply.memProfileImg + "'></i>" +
                     "<span>" + reply.replyWriter + "</span>" +
                     "</div>" +
-                    "<div class='col-md-8' style='display: flex; align-items: center;'>" +
+                    "<div class='col-md-8' style='display: flex; width: 55%; align-items: center; '>" +
                     reply.replyContent +
                     "</div>" +
                     "<div class='col-sm' style='display: flex; align-items: center;'>" +
-                    reply.replyCreateDate +
-                    (reply.replyWriter === loginUserNick ? "<span id='rerere' onclick='deletefire(" + reply.replyNo + ")'>삭제</span>" : "") +
+                    reply.replyCreateDate + 
+                    (reply.replyWriter === loginUserNick ? "<span id='rerere' style='color: red; cursor: pointer; margin-left: 25%' onclick='deletefire(" + reply.replyNo + ")'>삭제</span>" : "") +
                     "</div>" +
                     "</div>"
                 );
@@ -272,6 +272,17 @@ function selectReplyList(){
     });
 }
     
+            var loginUser = false; // 로그인 여부를 확인하는 변수 (true: 로그인 상태, false: 로그인하지 않은 상태)
+
+            // 댓글 등록 버튼 클릭 이벤트 처리
+            document.getElementById("replyButton").addEventListener("click", function() {
+                if (loginUser) { // 로그인한 경우에만 댓글 등록 가능
+                    addReply();
+                } else {
+                    alert("로그인 후에 댓글을 등록할 수 있습니다.");
+                }
+            });
+
             //댓글 추가
             function addReply(){
                 $.ajax({

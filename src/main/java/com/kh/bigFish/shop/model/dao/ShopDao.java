@@ -136,5 +136,9 @@ System.out.println("99834234"+paramMap);
 		return sqlSession.selectOne("shopMapper.buyShop", sno);
 	}
 
+	public ArrayList<Shop> selectShopList(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("shopMapper.selectShopList", keyword);
+	}
+
 
 }
