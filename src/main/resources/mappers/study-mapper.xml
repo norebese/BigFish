@@ -42,15 +42,25 @@
 	</select>
 	
 	<select id="selectList" resultMap="studyResult">
-		SELECT STUDY_NO,
-			   STUDY_TITLE,
-			   TO_CHAR(STUDY_CREATE_DATE, 'YYYY-MM-DD') AS "STUDY_CREATE_DATE",
-			   STUDY_COUNT
-			   
-			FROM STUDY
-		LEFT JOIN STUDYGOOD ON (STUDY_NO = RSTUDY_NO)
-		WHERE STUDY_STATUS = 'Y'
-	</select>
+    SELECT
+        S.STUDY_NO,
+        S.STUDY_TITLE,
+        TO_CHAR(S.STUDY_CREATE_DATE, 'YYYY-MM-DD') AS "STUDY_CREATE_DATE",
+        S.STUDY_COUNT,
+        COALESCE(G.LIKE_COUNT, 0) AS "LIKE_COUNT"
+    FROM
+        STUDY S
+    LEFT JOIN (
+        SELECT RSTUDY_NO, COUNT(*) AS LIKE_COUNT
+        FROM STUDYGOOD
+        WHERE STUDY_GOOD_STATUS = 'Y'
+        GROUP BY RSTUDY_NO
+    ) G ON S.STUDY_NO = G.RSTUDY_NO
+    WHERE
+        S.STUDY_STATUS = 'Y'
+    ORDER BY
+        S.STUDY_NO DESC
+</select>
 	
 	<insert id="insertStudy">
 		INSERT INTO STUDY(

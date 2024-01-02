@@ -36,6 +36,7 @@ public class StudyController {
 	
 	@RequestMapping(value="/list.st")
 	public ModelAndView selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv) {
+		
 		PageInfo pi = Pagenation.getPageInfo(studyService.selectListCount(), currentPage, 10, 5);
 		
 		mv.addObject("pi", pi)
