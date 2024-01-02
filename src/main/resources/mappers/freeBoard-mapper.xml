@@ -15,6 +15,7 @@
 		<result column="LIKE_COUNT" property="likeCount" />
 		<result column="ORIGIN_NAME" property="OriginName" />
 		<result column="CHANGE_NAME" property="ChangeName" />
+		<result column="LIKECOUNT" property="likeCount" />
 
 	</resultMap>
 	<resultMap type="Attachment" id="attachmentResult">
@@ -79,16 +80,27 @@
 
 	<!-- 게시글 조회 쿼리문 -->
 	<select id="selectList" resultMap="freeBoardResult">
-		SELECT FREE_NO
-		,FREE_TITLE
-		,FREE_WRITER
-		,FREE_COUNT
-		,TO_CHAR(FREE_CREATE_DATE, 'YYYY-MM-DD') AS
-		"FREE_CREATE_DATE"
-		FROM FREEBOARD
-		WHERE FREE_STATUS = 'Y'
-		ORDER BY
-		FREE_NO DESC
+		SELECT
+    FB.FREE_NO,
+    FB.FREE_TITLE,
+    FB.FREE_WRITER,
+    FB.FREE_COUNT,
+    TO_CHAR(FB.FREE_CREATE_DATE, 'YYYY-MM-DD') AS "FREE_CREATE_DATE",
+    COUNT(DISTINCT g.RFREE_NO) AS LIKECOUNT
+FROM
+    FREEBOARD FB
+LEFT JOIN
+    FREEGOOD g ON FB.FREE_NO = g.RFREE_NO AND g.FREE_GOOD_STATUS = 'Y'
+WHERE
+    FB.FREE_STATUS = 'Y'
+GROUP BY
+    FB.FREE_NO,
+    FB.FREE_TITLE,
+    FB.FREE_WRITER,
+    FB.FREE_COUNT,
+    TO_CHAR(FB.FREE_CREATE_DATE, 'YYYY-MM-DD')
+ORDER BY
+    FB.FREE_NO DESC
 	</select>
 
 	<update id="increaseCount">
@@ -154,6 +166,9 @@
 		<if test="condition == 'fTitle'">
 			AND FREE_TITLE
 		</if>
+		<if test="condition == 'fContent'">
+			AND FREE_CONTENT
+		</if>
 		<if test="condition == 'fwriter'">
 			AND FREE_WRITER
 		</if>
@@ -172,6 +187,9 @@
 		<choose>
 			<when test="condition == 'fTitle'">
 				AND FREE_TITLE
+			</when>
+			<when test="condition == 'fContent'">
+				AND FREE_CONTENT
 			</when>
 			<otherwise>
 				AND FREE_WRITER

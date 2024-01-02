@@ -16,6 +16,7 @@
 		<result column="ORIGIN_NAME" property="originName" />
 		<result column="CHANGE_NAME" property="changeName" />
 		<result column="RFISHING_NO" property="rfishingNo" />
+		<result column="FISHGOODS" property="fishGoods" />
 
 	</resultMap>
 
@@ -85,20 +86,30 @@
 	<!-- 게시글 조회 쿼리문 -->
 	<select id="selectList" resultMap="fishingBoardResult">
 		SELECT
-		FB.FISHING_NO,
-		AT.CHANGE_NAME,
-		FB.FISHING_TITLE,
-		FB.FISHING_WRITER,
-		FB.FISHING_COUNT,
-		TO_CHAR(FB.FISHING_CREATE_DATE, 'YYYY-MM-DD') AS "FISHING_CREATE_DATE"
-		FROM
-		FISHBOARD FB
-		JOIN
-		ATTACHMENT AT ON FB.FISHING_NO = AT.RFISHING_NO
-		WHERE
-		FB.FISHING_STATUS = 'Y'
-		ORDER BY
-		FB.FISHING_NO DESC
+    FB.FISHING_NO,
+    AT.CHANGE_NAME,
+    FB.FISHING_TITLE,
+    FB.FISHING_WRITER,
+    FB.FISHING_COUNT,
+    TO_CHAR(FB.FISHING_CREATE_DATE, 'YYYY-MM-DD') AS "FISHING_CREATE_DATE",
+    COUNT(DISTINCT g.RFISHING_NO) AS FISHGOODS
+FROM
+    FISHBOARD FB
+JOIN
+    ATTACHMENT AT ON FB.FISHING_NO = AT.RFISHING_NO
+LEFT JOIN
+    FISHGOOD g ON FB.FISHING_NO = g.RFISHING_NO AND g.FISH_GOOD_STATUS = 'Y'
+WHERE
+    FB.FISHING_STATUS = 'Y'
+GROUP BY
+    FB.FISHING_NO,
+    AT.CHANGE_NAME,
+    FB.FISHING_TITLE,
+    FB.FISHING_WRITER,
+    FB.FISHING_COUNT,
+    TO_CHAR(FB.FISHING_CREATE_DATE, 'YYYY-MM-DD')
+ORDER BY
+    FB.FISHING_NO DESC
 	</select>
 
 	<update id="increaseCount">
@@ -159,6 +170,9 @@
 		<if test="condition == 'fiwriter'">
 			AND FISHING_WRITER
 		</if>
+		<if test="condition == 'fiContent'">
+			AND FISHING_CONTENT
+		</if>
 		LIKE '%' || #{keyword} || '%'
 	</select>
 
@@ -176,6 +190,9 @@
 		<choose>
 			<when test="condition == 'fiTitle'">
 				AND FISHING_TITLE
+			</when>
+			<when test="condition == 'fiContent'">
+				AND FISHING_CONTENT
 			</when>
 			<otherwise>
 				AND FISHING_WRITER

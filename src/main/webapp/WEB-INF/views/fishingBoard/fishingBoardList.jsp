@@ -107,7 +107,7 @@
 							style="width: 80%; height: 80%; object-fit: contain; cursor: pointer;">
 						<h6 style="font-weight: 800;"><c:out value='${b.fishingTitle}'/></h6>
 						<!-- 이 밑에 p태그는 나중에 기능개발할때 구체적으로 작성하면 좋겠습니다. -->
-						<p>글쓴이:${b.fishingWriter} 좋아요:9</p>
+						<p>글쓴이:${b.fishingWriter} 좋아요:${b.fishGoods}</p>
 						<p>조회수:${b.fishingCount} 날짜:${b.fishingCreateDate}</p>
 					</div>
 				</c:forEach>
@@ -172,6 +172,7 @@
 						class="form-select pt-1 mt-4">
 						<option value="fiTitle">제목</option>
 						<option value="fiwriter">작성자</option>
+						<option value="fiContent">내용</option>
 					</select>
 					 <input type="hidden" value="${b.originName}" name="originName">
 					  <input type="hidden" value="${b.changeName}" name="changeName">
@@ -179,7 +180,7 @@
 				<div class="text">
     <input type="text" class="form-control" name="keyword" id="myInput" style="margin-top: 24px;" oninput="myFunction()">
 </div>
-<button type="submit" class="btn btn-primary" style="margin-top: 25px;background-color: rgb(59, 175, 252);" id="myButton" disabled>검색</button>
+<button type="submit" class="btn btn-primary" style=" border: rgb(59, 175, 252);margin-top: 25px;background-color: rgb(59, 175, 252);" id="myButton" disabled>검색</button>
 
 			</form>
 			

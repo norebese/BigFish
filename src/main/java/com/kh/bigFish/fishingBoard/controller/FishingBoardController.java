@@ -50,6 +50,7 @@ public class FishingBoardController {
 				
 		PageInfo pi = Pagenation.getPageInfo(fishingBoardService.selectListCount(), currentPage, 10, 9);
 		System.out.println("12341234"+pi+"1253532151235"+mv);
+		
 		//ModelAndView는 메서드 체인(이어쓰기) 가능함
 		mv.addObject("pi", pi).addObject("list", fishingBoardService.selectList(pi)).setViewName("fishingBoard/fishingBoardList");
 		System.out.println(mv);
