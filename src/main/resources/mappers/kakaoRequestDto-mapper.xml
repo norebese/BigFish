@@ -21,7 +21,7 @@
 		<result column="PAY_DATE" property="payDate" />
 			<result column="FISHING_NO" property="fishingNo" />
 			<result column="CHANGE_NAME" property="changeName" />
-			<result column="RFISHING_NO" property="rfishingNo" />
+			<result column="RPRODUCT_NO" property="rproductNo" />
 	</resultMap>
 	
 	<insert id="insertParameter">
@@ -50,48 +50,47 @@
 		#{total_amount},
 		#{vat_amount},
 		#{tax_free_amount},
-		#{approval_url},
+		COALESCE(#{approval_url}, 'DEFAULT_URL'),
 		#{fail_url},
 		#{cancel_url},
 		SYSDATE
 		)
 	</insert>
 	<update id="updatePg_token">
-		UPDATE KAKOREQUESTDTO
-		SET PG_TOKEN =	#{pg_token},
-		PRODUCT_NO=#{productNo}
-		WHERE C_NO = (SELECT C_NO FROM (SELECT C_NO FROM KAKOREQUESTDTO ORDER BY C_NO DESC) WHERE ROWNUM = 1)
-		
-	</update>
+	UPDATE KAKOREQUESTDTO
+	SET PG_TOKEN = COALESCE(#{pg_token}, 'DEFAULT_URL'),
+	PRODUCT_NO = #{productNo}
+	WHERE C_NO = (SELECT C_NO
+	FROM (SELECT C_NO
+	FROM KAKOREQUESTDTO
+	ORDER BY C_NO DESC)
+	WHERE ROWNUM = 1)
+</update>
 	<select id="selectKakaoRequestDtoList"
 		resultMap="kakaoRequestDtoResult">
 		SELECT
-		K.C_NO,
-		K.C_ID,
-		K.PARTNER_ORDER_ID,
-		K.PARTNER_USER_ID,
-		TRIM(BOTH '"' FROM K.ITEM_NAME) AS ITEM_NAME,
-		K.QUANTITY,
-		K.TOTAL_AMOUNT,
-		K.VAT_AMOUNT,
-		K.TAX_FREE_AMOUNT,
-		K.APPROVAL_URL,
-		K.FAIL_URL,
-		K.CANCEL_URL,
-		K.PG_TOKEN,
-		K.PRODUCT_NO,
-		K.PAY_DATE,
-		F.FISHING_NO,
-		A.RFISHING_NO,
-		A.CHANGE_NAME
+		k.C_NO,
+		k.C_ID,
+		k.PARTNER_ORDER_ID,
+		k.PARTNER_USER_ID,
+		k.ITEM_NAME,
+		k.QUANTITY,
+		k.TOTAL_AMOUNT,
+		k.VAT_AMOUNT,
+		k.TAX_FREE_AMOUNT,
+		k.APPROVAL_URL,
+		k.FAIL_URL,
+		k.CANCEL_URL,
+		k.PRODUCT_NO,
+		k.PG_TOKEN,
+		k.PAY_DATE,
+		a.CHANGE_NAME
 		FROM
-		KAKOREQUESTDTO K
+		KAKOREQUESTDTO k
 		JOIN
-		FISHBOARD F ON K.PRODUCT_NO = F.FISHING_NO
-		JOIN
-		ATTACHMENT A ON F.FISHING_NO = A.RFISHING_NO
+		ATTACHMENT a ON k.PRODUCT_NO = a.RPRODUCT_NO
 		WHERE
-		K.PARTNER_USER_ID = #{MemId}
+		k.PARTNER_USER_ID = #{MemId}
 	</select>
 
 </mapper>

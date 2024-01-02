@@ -849,5 +849,23 @@
 		LEFT JOIN ATTACHMENT ON STORE_NO = RSTORE_NO AND FILE_LEVEL = 1
 		WHERE STORE_NO = #{store}
 	</select>
-
+	
+	<select id="selectStoreList" resultMap="storeResult">
+		SELECT STORE_NO,
+			   STORE_NAME
+			FROM STORE
+		WHERE STORE_STATUS = 'open'
+		AND STORE_NAME LIKE '%' || #{keyword} || '%'
+		AND ROWNUM &lt;= 2
+	</select>
+	
+	<select id="selectFishStoreList" resultMap="storeResult">
+		SELECT STORE_NO,
+			   STORE_NAME
+			FROM STORE
+		WHERE STORE_STATUS = 'open'
+		AND STORE_NAME LIKE '%' || #{keyword} || '%'
+		AND ROWNUM &lt;= 2
+	</select>
+	
 </mapper>

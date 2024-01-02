@@ -90,7 +90,9 @@ System.out.println("99834234"+paramMap);
 	public int updatePg_token(SqlSessionTemplate sqlSession, String j) {
 		  Map<String, String> paramMap = gettokenMap(j);
 		  System.out.println("헷akstp"+paramMap);
-		return sqlSession.update("kakaoRequestDtoMapper.updatePg_token", paramMap);
+		  int i =sqlSession.update("kakaoRequestDtoMapper.updatePg_token", paramMap);
+		  System.out.println("헷akstp"+i);
+		  return i;
 	}
 	public Map<String, String> gettokenMap(String input) {
         Map<String, String> resultMap = new HashMap<>();
@@ -132,6 +134,10 @@ System.out.println("99834234"+paramMap);
 
 	public Shop buyShop(SqlSessionTemplate sqlSession, int sno) {
 		return sqlSession.selectOne("shopMapper.buyShop", sno);
+	}
+
+	public ArrayList<Shop> selectShopList(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("shopMapper.selectShopList", keyword);
 	}
 
 

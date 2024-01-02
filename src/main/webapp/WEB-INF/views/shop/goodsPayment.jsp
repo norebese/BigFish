@@ -184,8 +184,8 @@
             <tr style="height: 100px;">
                 <td style="border: 1px solid #a7a7a7; padding: 10px; width: 60%; text-align: left; vertical-align: left;">
                     <span>
-                        <img src="<%=contextPath%>${s.changeName}" alt="Your Image" style="height: 78px; width: 83px; ">
-                        <h5 style="display: inline-block;margin-left: 40px;text-align: center;">${s.productName}</h5>
+                        <img id="qwerrewq" src="<%=contextPath%>${s.changeName}" alt="Your Image" style="height: 78px; width: 83px; ">
+                        <h5 id="asdffdsa" style="display: inline-block;margin-left: 40px;text-align: center;">${s.productName}</h5>
                     </span>
                 </td>
                 <td id="quantity" name="quantity" style="border: 1px solid #a7a7a7; padding: 10px; width: 20%;text-align: center;">${quantity}개</td>
@@ -208,7 +208,7 @@
         <table style="width: 100%; margin: 0px auto; border-collapse: collapse;">
             <tr style="height: 80px; background-color: #bfbfbf;text-align: left;">
                 <td style="border: 1px solid #bfbfbf; padding: 10px; width: 20%; "><h5>최종결제금액</h5></td>
-                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 80%;" id="productPrice"  readonly style="background-color: #bfbfbf; border: none;"><h5>${total_amount}원</h5></td>
+                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 80%;" id="productPrice"  readonly style="background-color: #bfbfbf; border: none;"><h5 id="rewqqwer">${total_amount}</h5><h5>원</h5></td>
              
             </tr>
            
@@ -225,54 +225,93 @@
     <jsp:include page="../common/footer.jsp"/>
     <script>
     function kakao() {
-    	 let payValue = document.getElementById('payValue').value;
-	    let requestData = {
-	        cid: "TC0ONETIME",
-	        partner_order_id: "partner_order_id",
-	        partner_user_id: `${loginUser.memId}`,
-	        item_name: "SDFASD-ASDF-S",
-	        quantity: 4,
-	        total_amount: payValue,
-	        tax_free_amount: 0,
-	        approval_url:`http://localhost:8987/bigFish/listasdf.SHbo&pg_token=`,//`http://localhost:8987/bigFish/detail.fbo?bno=${b.freeNo}&pg_token=`,
-	        fail_url: "http://localhost:8987/fail",
-	        cancel_url: "http://localhost:8987/cancel"
-	    }
+        let payValue = document.getElementById('rewqqwer').innerText;
+        let payName = document.getElementById('asdffdsa').innerText;
+        let payAmount = document.getElementById('quantity').innerText;
 
-	    $.ajax({
-	        url: "kakao.fr", // 여러분의 Kakao API 엔드포인트로 교체하세요
-	        type: 'POST',
-	        contentType: 'application/json',
-	        data: JSON.stringify(requestData),
-	        success: function(data) {
-	            console.log(data+"이곳이문제");
-	            alert("카카오페이 결제를 완료해주세요");
-	            data1 = JSON.parse(data); 
-	            let box = data1.next_redirect_pc_url;
-	            console.log(box+"이곳이문제2");
-	            
-	            location.href = box;
-	            
-	     
-	           
-	            
-	        },
-	        error: function(error) {
-	            alert(error.responseText); // 서버에서 반환된 오류 메시지를 표시하세요
-	            console.log("에러 발생");
-	        }
-	    });
-	}
- $(document).ready(function() {
-	    // pg_token 추출
-	    var pgToken = getParameterByName('pg_token');
-	    
-	    // bno 추출
-	    var bno = getParameterByName('bno');
+        let requestData = {
+            cid: "TC0ONETIME",
+            partner_order_id: "partner_order_id",
+            partner_user_id: `${loginUser.memId}`,
+            item_name: payName,
+            quantity: parseInt(payAmount), // 수량을 정수로 변환
+            total_amount: parseInt(payValue), // 총 결제 금액을 정수로 변환
+            tax_free_amount: 0,
+            approval_url: "http://localhost:8987/bigFish/detail.sh?sno=${sno}",//  detail.sh?sno=${s.productNo}&pg_token=", // 여러분의 approval_url로 교체하세요
+            fail_url: "http://localhost:8987/fail",
+            cancel_url: "http://localhost:8987/cancel"
+        };
+        console.log(requestData)
 
-	    // 서버로 pg_token 및 bno 전송
-	    sendTokenToServer(pgToken, bno);
-	});
+        $.ajax({
+            url: "kakao.fr", // 여러분의 Kakao API 엔드포인트로 교체하세요
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(requestData),
+            success: function(data) {
+                console.log(data + "이곳이문제");
+                alert("카카오페이 결제를 완료해주세요");
+                data1 = JSON.parse(data);
+                let box = data1.next_redirect_pc_url;
+                console.log(box + "이곳이문제2");
+
+                location.href = box;
+            },
+            error: function(error) {
+                alert(error.responseText); // 서버에서 반환된 오류 메시지를 표시하세요
+                console.log("에러 발생");
+            }
+        });
+    }
+    $(document).ready(function() {
+        // pg_token 추출
+        var pgToken = getParameterByName('pg_token');
+        
+        // pg_token이 존재하는 경우에만 처리
+        if (pgToken) {
+            // bno 추출
+            var sno = getParameterByName('sno');
+            console.log('pgToken:', pgToken);
+            console.log('sno:', sno);
+
+            // 서버로 pg_token 및 sno 전송
+            sendTokenToServer(pgToken, sno);
+        } else {
+            console.log('pg_token이 없습니다.');
+            // pg_token이 없을 경우에 대한 처리를 추가할 수 있습니다.
+        }
+    });
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function sendTokenToServer(pgToken, sno) {
+        // Ajax 요청으로 pgToken 및 bno을 서버로 전송
+        $.ajax({
+            url: "pay.fr",  // 서버의 실제 엔드포인트로 교체하세요
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                pg_token: pgToken,
+                productNo: sno
+            }),
+            success: function(response) {
+                console.log("서버 응답:", response);
+                // 서버로 전송 성공 시 원하는 동작 수행
+            },
+            error: function(error) {
+                console.error("서버 오류:", error.responseText);
+                // 서버 오류 시 처리
+            }
+        });
+    }
 
 	function getParameterByName(name, url) {
 	    if (!url) url = window.location.href;
@@ -284,7 +323,7 @@
 	    return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
 
-	function sendTokenToServer(pgToken, bno) {
+	function sendTokenToServer(pgToken, sno) {
 	    // Ajax 요청으로 pgToken 및 bno을 서버로 전송
 	    $.ajax({
 	        url: "pay.fr",  // 서버의 실제 엔드포인트로 교체하세요
@@ -292,7 +331,7 @@
 	        contentType: 'application/json',
 	        data: JSON.stringify({
 	            pg_token: pgToken,
-	            productNo: bno
+	            productNo: sno
 	        }),
 	        success: function(response) {
 	            console.log("서버 응답:", response);

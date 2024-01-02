@@ -145,7 +145,7 @@ li::marker {
 			  		<br>
 			  		<a type="button" href="fishReservation" class="btn" style="background-color: rgb(59, 175, 252); color:white;">민물 낚시</a>
 			  		<br>
-			  		<a type="button" href="listasdf.SHbo" class="btn" style="background-color: rgb(59, 175, 252); color:white;">낚시 용품</a>
+			  		<a type="button" href="list.sh" class="btn" style="background-color: rgb(59, 175, 252); color:white;">낚시 용품</a>
 			  		<br>
 			  		<a type="button" href="fishInfo.fi" class="btn" style="background-color: rgb(59, 175, 252); color:white;">어종</a>
 			  		<br>

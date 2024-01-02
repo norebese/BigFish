@@ -35,7 +35,7 @@
 					  <div class="tab-pane container active" id="home">
 						<c:forEach var="f" items="${list}">  
 							<div class="name-section">
-					   			<img src="<%=contextPath%>${f.fishTitleImage}" style="width: 150px; height:150px;" />
+					   			<img src="<%=contextPath%>${f.fishTitleImage}" style="width: 150px; height:150px;" onclick="location.href='fishInfoDetail.fi?fno=${f.fishNo}'" />
 					            <div class="tag-section">
 					                <p class="fish-name">${f.fishName}</p>
 					                <a class="fish-tag" href="fishInfoDetail.fi?fno=${f.fishNo}">자세히보기...</a>
@@ -87,6 +87,7 @@
 			<div class="select">
 				<select id="selectbox" class="form-select pt-1 mt-4" name="condition" style="margin-bottom: 23px;">
 	                <option value="fishName">이름</option>
+	                 <option value="fishContent">내용</option>
 	            </select>
 	         </div>
 	        <div class="text">

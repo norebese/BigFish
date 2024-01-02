@@ -93,5 +93,10 @@ public class ShopServiceImpl implements ShopService{
 		return shopDao.buyShop(sqlSession, sno);
 	}
 
+	@Override
+	public ArrayList<Shop> selectShopList(String keyword) {
+		return shopDao.selectShopList(sqlSession, keyword);
+	}
+
 
 }

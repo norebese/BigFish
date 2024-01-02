@@ -243,6 +243,17 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.showRecentStore(sqlSession, store);
 	}
 
+	// 통합검색
+	@Override
+	public ArrayList<Store> selectStoreList(String keyword) {
+		return storeDao.selectStoreList(sqlSession, keyword);
+	}
+
+	@Override
+	public ArrayList<Store> selectFishStoreList(String keyword) {
+		return storeDao.selectFishStoreList(sqlSession, keyword);
+	}
+
 
 
 	

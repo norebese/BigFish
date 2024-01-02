@@ -73,11 +73,44 @@
 	
 	<br>
 	
-	<c:if test="${ not empty loginUser }">
+	<c:if test="${  not empty loginUser and loginUser.memAdmin eq 'Y' }">
 		<div class="faq-create-btn">
 			<button class="btn btn-primary" onclick="location.href='faqInsertForm.an'">작성하기</button>
 		</div>
 	</c:if>
+	
+	 <div id="pagingArea" class="pagingArea">
+    	<ul class="pagination">
+	        <c:choose>
+	            <c:when test="${pi.currentPage eq 1}">
+	                <li class="page-item disabled"><a class="page-link">이전</a></li>
+	            </c:when>
+	            <c:otherwise>
+	                <li class="page-item"><a class="page-link" href="faqList.fa?cpage=${pi.currentPage - 1}">이전</a></li>
+	            </c:otherwise>
+	        </c:choose>
+	
+	        <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+	            <c:choose>
+	                <c:when test="${pi.currentPage eq p}">
+	                    <li class="page-item active"><a class="page-link" href="faqList.fa?cpage=${p}">${p}</a></li>
+	                </c:when>
+	                <c:otherwise>
+	                    <li class="page-item"><a class="page-link" href="faqList.fa?cpage=${p}">${p}</a></li>
+	                </c:otherwise>
+	            </c:choose>
+	        </c:forEach>
+	
+	        <c:choose>
+	            <c:when test="${pi.currentPage eq pi.maxPage}">
+	                <li class="page-item disabled"><a class="page-link">다음</a></li>
+	            </c:when>
+	            <c:otherwise>
+	                <li class="page-item"><a class="page-link" href="faqList.fa?cpage=${pi.currentPage + 1}">다음</a></li>
+	            </c:otherwise>
+	        </c:choose>
+	    </ul>
+	</div>
 	
 	<br><br><br><br><br><br>
 	<jsp:include page="../common/footer.jsp"/>	

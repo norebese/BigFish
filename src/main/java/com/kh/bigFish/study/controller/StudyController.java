@@ -147,12 +147,12 @@ public class StudyController {
 		
 		String status = (likeResult.getStudyGoodStatus().equals("N")) ? "Y" : "N";
 		
-		int storeUpdateLike = studyService.studyUpdateLike(sg, status);
-		int storeUpdateCount = studyService.studyUpdateLike1(sg);
+		int studyUpdateLike = studyService.studyUpdateLike(sg, status);
+		int studyUpdateCount = studyService.studyUpdateLike1(sg);
 		
 		
 		result.put("status", status);
-		result.put("likeCount", storeUpdateCount);
+		result.put("likeCount", studyUpdateCount);
 		
 		return result;
 		

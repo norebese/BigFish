@@ -135,5 +135,25 @@ public class ReservationController {
 		
 		return result+"";
 	}
+	
+	@ResponseBody
+	@RequestMapping("getRevforMonth")
+	public String getRevforMonth(String month, String year, int storeNo) {
+		String yearMonth = year.substring(2)+"/"+month;
+		
+		Reservation r = new Reservation();
+		r.setRstoreNo(storeNo);
+		r.setChoiceDate(yearMonth);
+		System.out.println(r);
+		ArrayList<Reservation> arrList = reservationService.getRevforMonth(r);
+		
+		for(Reservation rr : arrList) {
+			rr.setRevStart(rr.getRevStart().substring(8, 10));
+			
+		}
+		
+		return new Gson().toJson(arrList);
+		
+	}
 
 }

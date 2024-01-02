@@ -42,5 +42,7 @@ public interface ShopService {
 
 	Shop buyShop(int sno);
 
+	ArrayList<Shop> selectShopList(String keyword);
+
 
 }
