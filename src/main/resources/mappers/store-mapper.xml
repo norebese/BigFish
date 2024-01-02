@@ -851,21 +851,39 @@
 	</select>
 	
 	<select id="selectStoreList" resultMap="storeResult">
-		SELECT STORE_NO,
-			   STORE_NAME
-			FROM STORE
-		WHERE STORE_STATUS = 'open'
-		AND STORE_NAME LIKE '%' || #{keyword} || '%'
-		AND ROWNUM &lt;= 2
+		SELECT * FROM (
+    	SELECT STORE_NO, STORE_NAME, CHANGE_NAME, STORE_ADDRESS, COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price
+            , (SELECT COUNT(g.RSTORE_NO) FROM STOREGOOD g WHERE g.RSTORE_NO = s.STORE_NO AND g.STORE_GOOD_STATUS = 'Y') AS like_count
+            , COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count
+            , ROW_NUMBER() OVER (ORDER BY STORE_NO) AS rnum
+        FROM STORE s
+        LEFT JOIN ATTACHMENT a ON s.STORE_NO = a.RSTORE_NO AND FILE_LEVEL = 1
+        LEFT JOIN TICKET t ON s.STORE_NO = t.RSTORE_NO
+        LEFT JOIN STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
+        LEFT JOIN REPLY r ON s.STORE_NO = r.RSTORE_NO
+        WHERE STORE_STATUS = 'open'
+          AND STORE_NAME LIKE '%' || #{keyword} || '%'
+          AND (STORE_KIND = 'seaSeat' OR STORE_KIND = 'seaShip')
+        GROUP BY STORE_NO, STORE_NAME, CHANGE_NAME, STORE_ADDRESS
+		) WHERE rnum &lt;= 4
 	</select>
 	
 	<select id="selectFishStoreList" resultMap="storeResult">
-		SELECT STORE_NO,
-			   STORE_NAME
-			FROM STORE
-		WHERE STORE_STATUS = 'open'
-		AND STORE_NAME LIKE '%' || #{keyword} || '%'
-		AND ROWNUM &lt;= 2
+		SELECT * FROM (
+    	SELECT STORE_NO, STORE_NAME, CHANGE_NAME, STORE_ADDRESS, COALESCE(MIN(t.TICKET_PRICE), 0) AS min_price
+            , (SELECT COUNT(g.RSTORE_NO) FROM STOREGOOD g WHERE g.RSTORE_NO = s.STORE_NO AND g.STORE_GOOD_STATUS = 'Y') AS like_count
+            , COUNT(DISTINCT CASE WHEN r.REPLY_STATUS = 'Y' THEN r.REPLY_NO END) AS reply_count
+            , ROW_NUMBER() OVER (ORDER BY STORE_NO) AS rnum
+        FROM STORE s
+        LEFT JOIN ATTACHMENT a ON s.STORE_NO = a.RSTORE_NO AND FILE_LEVEL = 1
+        LEFT JOIN TICKET t ON s.STORE_NO = t.RSTORE_NO
+        LEFT JOIN STOREGOOD g ON s.STORE_NO = g.RSTORE_NO
+        LEFT JOIN REPLY r ON s.STORE_NO = r.RSTORE_NO
+        WHERE STORE_STATUS = 'open'
+          AND STORE_NAME LIKE '%' || #{keyword} || '%'
+          AND (STORE_KIND = 'FreshCafe' OR STORE_KIND = 'FreshSeat')
+        GROUP BY STORE_NO, STORE_NAME, CHANGE_NAME, STORE_ADDRESS
+		) WHERE rnum &lt;= 4
 	</select>
 	
 </mapper>
