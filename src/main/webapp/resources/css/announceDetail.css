@@ -41,11 +41,14 @@
 .ann-btn-area{
 	width: 40%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     margin: 10px auto;
 }
 .ann-btn-area > .btn{
 	width:130px;
 	height: 40px;	
+}
+.ann-btn-area > a{    
+	margin: auto 10px;
 }

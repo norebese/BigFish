@@ -123,6 +123,17 @@ function checkEmailId(){
     const checkEmailIdSpace = document.querySelector("#checkEmailIdSpace");
     const enrollBtn = document.querySelector("#enroll-btn");
     
+    let reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+    if(!reg.test(emailId.value)){
+
+        checkEmailIdSpace.innerHTML ="이메일 아이디로만 가입 가능합니다.";
+        checkEmailIdSpace.style.color = "#dd2f35";
+        enrollBtn.setAttribute("disabled",true);
+
+        return;
+    }
+
     const sendData = {emailId : emailId.value};
     memberApi.checkId(sendData, function(result){
         if(result==="Y"){
@@ -138,6 +149,46 @@ function checkEmailId(){
         }
     })
 
+}
+
+function checkPhone(){
+    let cellPhoneRule = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+
+    const checkPhoneSpace = document.querySelector("#checkPhoneSpace");
+    const phone = document.querySelector("#phone");
+    const enrollBtn = document.querySelector("#enroll-btn");
+    
+    
+
+    if(!cellPhoneRule.test(phone.value)){
+        checkPhoneSpace.style.visibility = "visible";
+        checkPhoneSpace.innerHTML = "&nbsp;잘못된 번호입니다.";
+        checkPhoneSpace.style.color = "#dd2f35";
+        enrollBtn.setAttribute("disabled",true);
+        return;
+    }
+    checkPhoneSpace.style.color = "#2f9947";
+    checkPhoneSpace.innerHTML = "&nbsp;사용할 수 있는 휴대폰 번호입니다.";
+    enrollBtn.removeAttribute("disabled");
+}
+
+function checkStorePhone(){
+    let phoneRule = /^\d{2,3}-?\d{3,4}-?\d{4}$/;
+
+    const storePhone = document.querySelector("#storePhone");
+    const checkstorePhoneSpace = document.querySelector("#checkstorePhoneSpace");
+    const enrollBtn = document.querySelector("#enroll-btn");
+
+    if(!phoneRule.test(storePhone.value)){
+        checkstorePhoneSpace.style.visibility = "visible";
+        checkstorePhoneSpace.innerHTML = "&nbsp;잘못된 번호입니다.";
+        checkstorePhoneSpace.style.color = "#dd2f35";
+        enrollBtn.setAttribute("disabled",true);
+        return;
+    }
+    checkstorePhoneSpace.style.color = "#2f9947";
+    checkstorePhoneSpace.innerHTML = "&nbsp;사용할 수 있는 전화번호입니다.";
+    enrollBtn.removeAttribute("disabled");
 }
 
 // 사업자 번호 유효성 체크 및 중복 체크 공공데이터 API

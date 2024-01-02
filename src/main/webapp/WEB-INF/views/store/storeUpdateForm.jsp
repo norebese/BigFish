@@ -311,7 +311,7 @@
         </table><br>
 
         <div style="display: flex; margin: 0px auto; width: 40%;">
-            <button id="enroll-btn" type="submit" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">회원가입</button></td>
+            <button id="enroll-btn" type="submit" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">사업장 수정</button></td>
         </div>
     </form>
     </div>

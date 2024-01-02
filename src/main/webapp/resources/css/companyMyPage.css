@@ -68,4 +68,8 @@ body{
 .Calendar .btn{
 	position: absolute;
 	right: 0;
-} 
+}
+
+.revDay{
+	background-color: #f56969;
+}

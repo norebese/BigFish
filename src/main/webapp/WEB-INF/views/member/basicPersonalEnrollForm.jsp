@@ -75,7 +75,16 @@
 					<td id="checkNickSpace" style="height: 30px;"></td>
 				</tr>
 			</table>
-			<input required id="phone" name="phone" placeholder="휴대폰 번호를 입력해주세요. (-미포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
+			<table style="width:40%; margin: 0px auto;">
+				<tr>
+					<input required id="phone" onkeyup="checkPhone()" name="phone" placeholder="휴대폰 번호를 입력해주세요. (-미포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text">
+				</tr>
+				<tr>
+					<td id="checkPhoneSpace" style="visibility: hidden; height: 30px; font-size: 15px; color: #dd2f35;">&nbsp;잘못된 번호입니다.</td>
+				</tr>
+			</table>
+			
+			
 			<table style="width: 40%; margin: 0px auto;">
 				<tr style="width: 100%;">
 					<td><input name="postNo" id="postcode" placeholder="우편번호" readonly style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
