@@ -84,7 +84,9 @@ public class ReservationController {
 		String name = request.getParameter("revName");
 		String phone = request.getParameter("revPhone");
 		String requestment = request.getParameter("revRequest");
-		System.out.println(phone);
+		if(requestment == "") {
+			requestment = " ";
+		}
 		
 		Rev.setRstoreNo(st.getStoreNo());
 		Rev.setRevName(name);

@@ -210,27 +210,33 @@
 		    	<div>지도에서 지역을 선택하시면 날씨전망 및 어종을 확인할 수 있습니다.</div>
 	           <div class="weather-area">
 					<div class="weather-table">
-						<div><span class="word-date">오늘</span> 
-							<span id="dayOne"><br><br></span>
+						<div><span class="word-date">오늘 </span> 
+							<span id="dayOne"><br><br> </span>
 						</div>
 						<div class="table-inner">
-							
+							<div class="spinner-border" role="status">
+							  <span class="visually-hidden">Loading...</span>
+							</div>
 						</div>
 					</div>
 					<div class="weather-table">
-						<div><span class="word-date">내일</span>
+						<div><span class="word-date">내일 </span>
 							<span id="dayTwo"><br><br></span>
 						</div>
 						<div class="table-inner2">
-
+							<div class="spinner-border" role="status">
+							  <span class="visually-hidden">Loading...</span>
+							</div>
 						</div>
 					</div>
 					<div class="weather-table">
-						<div><span class="word-date">모레</span>
+						<div><span class="word-date">모레 </span>
 							<span id="dayThree"><br><br></span>
 						</div>
 						<div class="table-inner3">
-
+							<div class="spinner-border" role="status">
+							  <span class="visually-hidden">Loading...</span>
+							</div>
 						</div>
 					</div>
 	           </div>
