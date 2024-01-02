@@ -87,6 +87,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+	const nextBtnHover = document.getElementById('more');
+	nextBtnHover.addEventListener('mouseover', function (event) {
+    	const target = event.target;
+    	target.style.backgroundColor = 'rgb(238 238 238)';
+	});
+	nextBtnHover.addEventListener('mouseout', function (event) {
+    	const target = event.target;
+    	target.style.backgroundColor = '';
+	});
+	
+	
+
 });
 
 function updateList(date){
@@ -163,6 +175,11 @@ let selectedCity;
             	}
             }
 		})
+	$('#moreBtn').on('mouseover', '#moreA', function () {
+    $(this).css('background-color', 'rgb(238 238 238)');
+	}).on('mouseout', '#moreA', function () {
+	    $(this).css('background-color', '');
+	});
 	}
 	
 function ajaxStoreListMore(){
@@ -182,6 +199,11 @@ function ajaxStoreListMore(){
     		document.getElementById("moreA").style.display = "none";
     	}
 	})
+	$('#moreBtn').on('mouseover', '#moreA', function () {
+    $(this).css('background-color', 'rgb(238 238 238)');
+	}).on('mouseout', '#moreA', function () {
+	    $(this).css('background-color', '');
+	});
 }
 
 let cpage = 1;
@@ -199,4 +221,11 @@ function addpage(){
     		document.getElementById("moreA").style.display = "none";
 			}
 	})
+	$('#moreBtn').on('mouseover', '#moreA', function () {
+    $(this).css('background-color', 'rgb(238 238 238)');
+	}).on('mouseout', '#moreA', function () {
+	    $(this).css('background-color', '');
+	});
 }
+
+

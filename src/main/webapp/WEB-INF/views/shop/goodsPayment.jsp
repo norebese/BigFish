@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%String contextPath = request.getContextPath();%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%String contextPath = request.getContextPath();%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	
 	String alertMsg = (String)session.getAttribute("alertMsg");
@@ -20,210 +20,342 @@
 	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">
 
-	<!-- CSS-->
-<link rel="stylesheet" href="<%=contextPath%>/resources/css/freeBoardList.css">
+<!-- CSS-->
+<link rel="stylesheet"
+	href="<%=contextPath%>/resources/css/freeBoardList.css">
 <!-- JS-->
 <style>
-
-.header-box{
-    display: flex;
-    flex-direction: row;
-    
+.header-box {
+	display: flex;
+	flex-direction: row;
 }
 
-.left_box{
-    background-color: rgb(52, 152, 219);  
-    width: 25%; 
-    height: 286px;
+.left_box {
+	background-color: rgb(52, 152, 219);
+	width: 25%;
+	height: 286px;
 }
 
-.center_box{
-    display: flex;
-    flex-direction: row;
-    background-color: rgb(59, 175, 252); 
-    width: 100%; 
-    max-width: 1200px;
-    height: 286px;
-    justify-content: space-evenly;
-    align-items: center;
-    
+.center_box {
+	display: flex;
+	flex-direction: row;
+	background-color: rgb(59, 175, 252);
+	width: 100%;
+	max-width: 1200px;
+	height: 286px;
+	justify-content: space-evenly;
+	align-items: center;
 }
 
-.right_box{
-    background-color: rgb(52, 152, 219); 
-    width: 25%; 
-    height: 286px;
+.right_box {
+	background-color: rgb(52, 152, 219);
+	width: 25%;
+	height: 286px;
 }
 
-.study-image{
-    color: white;
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
+.study-image {
+	color: white;
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-start;
 }
-
 </style>
 </head>
 <body style="text-align: center;">
-    <jsp:include page="../common/header.jsp" />
-    <br><br><br><br><br><br><br>
-    <div style="width: 80%; max-width: 1200px; display: inline-block; text-align: left;">
-      
-        <div>
-          <h2 style="border-bottom: 3px solid #515151; padding-bottom: 15px;">주문자 정보</h2>
-          <div class="container text-center">
-            <div class="row" style=" border-bottom: 2px solid #a7a7a7;padding-top: 10px; padding-bottom: 10px;">
-              <div class="col-sm-2"><h4>이름</h4></div>
-              <div class="col-sm-4" required>
-                <tr>
-					<td><input required id="name" name="name" placeholder="이름을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>					
-				</tr>
-              </div>   
-              <div class="col-sm-4"></div>
-            
-            </div>
-        </div>
-        <div class="container text-center">
-            <div class="row" style=" border-bottom: 2px solid #a7a7a7; padding-top: 10px; padding-bottom: 10px;">
-              <div class="col-sm-2"><h4>이메일</h4></div>
-             
-              <div class="col-sm-4" required>
-                <tr>
-					<td><input required id="memId" name="memId" value="${loginUser.memId}" placeholder="이메일을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
-					
-				</tr>
-              </div>  
-              <div class="col-sm-4"></div>
-             
-            </div>
-        </div>
-        
-        <div class="container text-center">
-            <div class="row" style=" border-bottom: 2px solid #a7a7a7; padding-top: 10px; padding-bottom: 10px;">
-              <div class="col-sm-2"><h4>연락처</h4></div>
-             
-           
-              <div class="col-sm-4" required>
-                <tr>
-					<td><input required id="phone" name="phone" value="${loginUser.phone}" placeholder="연락처을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
-					
-				</tr>
-              </div>   
-             
-            </div>
-        </div>
+	<jsp:include page="../common/header.jsp" />
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div
+		style="width: 80%; max-width: 1200px; display: inline-block; text-align: left;">
 
-    </div>
-     <br><br><br>
+		<div>
+			<h2 style="border-bottom: 3px solid #515151; padding-bottom: 15px;">주문자
+				정보</h2>
+			<div class="container text-center">
+				<div class="row"
+					style="border-bottom: 2px solid #a7a7a7; padding-top: 10px; padding-bottom: 10px;">
+					<div class="col-sm-2">
+						<h4>이름</h4>
+					</div>
+					<div class="col-sm-4" required>
+						<tr>
+							<td><input required id="name" name="name"
+								placeholder="이름을 입력하세요." style="width: 100%; margin: 0px auto;"
+								class="form-control" type="text"></td>
+						</tr>
+					</div>
+					<div class="col-sm-4"></div>
+
+				</div>
+			</div>
+			<div class="container text-center">
+				<div class="row"
+					style="border-bottom: 2px solid #a7a7a7; padding-top: 10px; padding-bottom: 10px;">
+					<div class="col-sm-2">
+						<h4>이메일</h4>
+					</div>
+
+					<div class="col-sm-4" required>
+						<tr>
+							<td><input required id="memId" name="memId"
+								value="${loginUser.memId}" placeholder="이메일을 입력하세요."
+								style="width: 100%; margin: 0px auto;" class="form-control"
+								type="text"></td>
+
+						</tr>
+					</div>
+					<div class="col-sm-4"></div>
+
+				</div>
+			</div>
+
+			<div class="container text-center">
+				<div class="row"
+					style="border-bottom: 2px solid #a7a7a7; padding-top: 10px; padding-bottom: 10px;">
+					<div class="col-sm-2">
+						<h4>연락처</h4>
+					</div>
 
 
-    <div style="width: 100%; max-width: 1200px; display: inline-block; text-align: left;">
-      
-        <div>
-          <h2 style="border-bottom: 3px solid #515151; padding-bottom: 15px;">배송지 정보</h2>
-          <div class="container text-center">
-            <div class="row" style=" border-bottom: 2px solid #a7a7a7; padding-top: 10px; padding-bottom: 10px;">
-                <div class="col-sm-2"><h4>연락처</h4></div>
-               
-             
-                <div class="col-sm-4" required>
-                    <tr>
-                        <td><input required id="phone" name="phone" value="${loginUser.phone}" placeholder="연락처을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
-                        
-                    </tr>
-                  </div>   
-                
-               
-              </div>
-        </div>
-        <div class="container text-center">
-            <div class="row" style="border-bottom: 2px solid #a7a7a7; padding-top: 10px; padding-bottom: 10px;">
-                <div class="col-sm-2" style=" align-items: center;  border-bottom: 2px solid #a7a7a7;margin-bottom: 10px;">
-                    <h4 style="margin-top: 45px;">주소</h4>
-                </div>
-                <div class="col-sm-10" style="display: flex; align-items: center; border-bottom: 2px solid #a7a7a7;margin-bottom: 10px;">
-                    <table style="width: 100%; margin: 0px auto;">
-                        <tr style="width: 100%;">
-                            <td><input name="postNo" id="postcode" value="${loginUser.postNo}" placeholder="우편번호" readonly style="width: 100%;" class="form-control" type="text"></td>
-                            <td><button type="button" onclick="sample6_execDaumPostcode()" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">주소 검색</button></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><input readonly id="address" name="address" value="${loginUser.address}" placeholder="주소 검색 버튼으로 입력해주세요." style="width: 100%;" class="form-control" type="text"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"><input required id="addressDetail" name="addressDetail" value="${loginUser.addressDetail}" placeholder="상세 주소를 입력해주세요." style="width: 100%;" class="form-control" type="text"></td>
-                        </tr>
-                    </table>
-                </div>
-              
-                <div class="col-sm-2" style=" align-items: center;">
-                    <h4 style="margin-top: 30px;">배송메세지(100글자내외)</h4>
-                </div>
-                <div class="col-sm-10" style="display: flex; align-items: center;">
-                    <table style="width: 100%; margin: 0px auto;">
-                        <tr style="width: 100%;">
-                            <td colspan="3"><textarea  id="postcode" placeholder="내용을 입력해주세요"  style="width: 100%; resize: none;   " class="form-control" type="text"></textarea>                        
-                        </tr>              
-                    </table>
-                </div>           
-            </div>
-        </div>
-    </div>
-    <br><br><br>
+					<div class="col-sm-4" required>
+						<tr>
+							<td><input required id="phone" name="phone"
+								value="${loginUser.phone}" placeholder="연락처을 입력하세요."
+								style="width: 100%; margin: 0px auto;" class="form-control"
+								type="text"></td>
 
-    <div style="width: 100%; max-width: 1200px; display: inline-block; text-align: left;">
-        <div>
-          <h2 style="border-bottom: 3px solid #bfbfbf; padding-bottom: 15px;">주문 상품 정보</h2>
-        </div>
-        <table style="width: 100%; margin: 0px auto; border-collapse: collapse;">
-            <tr style="height: 80px; background-color: #bfbfbf;text-align: center;">
-                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 60%; ">상품/옵션정보</td>
-                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 20%;">수량</td>
-                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 20%;">주문금액</td>
-            </tr>
-            <tr style="height: 100px;">
-                <td style="border: 1px solid #a7a7a7; padding: 10px; width: 60%; text-align: left; vertical-align: left;">
-                    <span>
-                        <img id="qwerrewq" src="<%=contextPath%>${s.changeName}" alt="Your Image" style="height: 78px; width: 83px; ">
-                        <h5 id="asdffdsa" style="display: inline-block;margin-left: 40px;text-align: center;">${s.productName}</h5>
-                    </span>
-                </td>
-                <td id="quantity" name="quantity" style="border: 1px solid #a7a7a7; padding: 10px; width: 20%;text-align: center;">${quantity}개</td>
-                <td id="total_amount" name="sum" style="border: 1px solid #a7a7a7; padding: 10px; width: 20%; text-align: center;">${total_amount}원</td>
-            </tr> 
-        </table>
-    </div>
-    <br><br><br>
+						</tr>
+					</div>
 
-    <div style="width: 100%; max-width: 1200px; display: inline-block; text-align: left;border-bottom: 3px solid #515151;">
-      
-        <div>
-          <h2 style="border-bottom: 3px solid #515151; padding-bottom: 15px;">주문자 동의</h2>
-         
-        </div>
-        <div>
-            <img src="<%=contextPath%>/resources/images/agreee.png" alt="" style="width: 100%;">
-        </div>
+				</div>
+			</div>
 
-        <table style="width: 100%; margin: 0px auto; border-collapse: collapse;">
-            <tr style="height: 80px; background-color: #bfbfbf;text-align: left;">
-                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 20%; "><h5>최종결제금액</h5></td>
-                <td style="border: 1px solid #bfbfbf; padding: 10px; width: 80%;" id="productPrice"  readonly style="background-color: #bfbfbf; border: none;"><h5 id="rewqqwer">${total_amount}</h5><h5>원</h5></td>
-             
-            </tr>
-           
-          
-        </table>
-        <br>
-        <div style="text-align: center;">
-            <button class="btn btn-primary" style="height: 64px;width: 276px;" onclick="kakao();"><h5>결제하기</h5></button>
-            <button  class="btn btn-danger" style="height: 64px;width: 276px; margin-left: 50px; background-color: white;"><h5 style=" color: red; ">취소</h5></button>     
-        </div>
-      
+		</div>
+		<br> <br> <br>
 
-    </div>
-    <jsp:include page="../common/footer.jsp"/>
-    <script>
+
+		<div
+			style="width: 100%; max-width: 1200px; display: inline-block; text-align: left;">
+
+			<div>
+				<h2 style="border-bottom: 3px solid #515151; padding-bottom: 15px;">배송지
+					정보</h2>
+				<div class="container text-center">
+					<div class="row"
+						style="border-bottom: 2px solid #a7a7a7; padding-top: 10px; padding-bottom: 10px;">
+						<div class="col-sm-2">
+							<h4>연락처</h4>
+						</div>
+
+
+						<div class="col-sm-4" required>
+							<tr>
+								<td><input required id="phone" name="phone"
+									value="${loginUser.phone}" placeholder="연락처을 입력하세요."
+									style="width: 100%; margin: 0px auto;" class="form-control"
+									type="text"></td>
+
+							</tr>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="container text-center">
+					<div class="row"
+						style="border-bottom: 2px solid #a7a7a7; padding-top: 10px; padding-bottom: 10px;">
+						<div class="col-sm-2"
+							style="align-items: center; border-bottom: 2px solid #a7a7a7; margin-bottom: 10px;">
+							<h4 style="margin-top: 45px;">주소</h4>
+						</div>
+						<div class="col-sm-10"
+							style="display: flex; align-items: center; border-bottom: 2px solid #a7a7a7; margin-bottom: 10px;">
+							<table style="width: 100%; margin: 0px auto;">
+								<tr style="width: 100%;">
+									<td><input name="postNo" id="postcode"
+										value="${loginUser.postNo}" placeholder="우편번호" readonly
+										style="width: 100%;" class="form-control" type="text"></td>
+									<td><button type="button"
+											onclick="sample6_execDaumPostcode()"
+											style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;"
+											class="btn btn-sm btn-primary">주소 검색</button></td>
+								</tr>
+								<tr>
+									<td colspan="2"><input readonly id="address"
+										name="address" value="${loginUser.address}"
+										placeholder="주소 검색 버튼으로 입력해주세요." style="width: 100%;"
+										class="form-control" type="text"></td>
+								</tr>
+								<tr>
+									<td colspan="2"><input required id="addressDetail"
+										name="addressDetail" value="${loginUser.addressDetail}"
+										placeholder="상세 주소를 입력해주세요." style="width: 100%;"
+										class="form-control" type="text"></td>
+								</tr>
+							</table>
+						</div>
+
+						<div class="col-sm-2" style="align-items: center;">
+							<h4 style="margin-top: 30px;">배송메세지(100글자내외)</h4>
+						</div>
+						<div class="col-sm-10" style="display: flex; align-items: center;">
+							<table style="width: 100%; margin: 0px auto;">
+								<tr style="width: 100%;">
+									<td colspan="3"><textarea id="postcode"
+											placeholder="내용을 입력해주세요" style="width: 100%; resize: none;"
+											class="form-control" type="text"></textarea>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br> <br> <br>
+
+			<div
+				style="width: 100%; max-width: 1200px; display: inline-block; text-align: left;">
+				<div>
+					<h2 style="border-bottom: 3px solid #bfbfbf; padding-bottom: 15px;">주문
+						상품 정보</h2>
+				</div>
+				<table
+					style="width: 100%; margin: 0px auto; border-collapse: collapse;">
+					<tr
+						style="height: 80px; background-color: #bfbfbf; text-align: center;">
+						<td style="border: 1px solid #bfbfbf; padding: 10px; width: 60%;">상품/옵션정보</td>
+						<td style="border: 1px solid #bfbfbf; padding: 10px; width: 20%;">수량</td>
+						<td style="border: 1px solid #bfbfbf; padding: 10px; width: 20%;">주문금액</td>
+					</tr>
+					<tr style="height: 100px;">
+						<td
+							style="border: 1px solid #a7a7a7; padding: 10px; width: 60%; text-align: left; vertical-align: left;">
+							<span> <img id="qwerrewq"
+								src="<%=contextPath%>${s.changeName}" alt="Your Image"
+								style="height: 78px; width: 83px;">
+								<h5 id="asdffdsa"
+									style="display: inline-block; margin-left: 40px; text-align: center;">${s.productName}</h5>
+						</span>
+						</td>
+						<td id="quantity" name="quantity"
+							style="border: 1px solid #a7a7a7; padding: 10px; width: 20%; text-align: center;">${quantity}개</td>
+						<td id="total_amount" name="sum"
+							style="border: 1px solid #a7a7a7; padding: 10px; width: 20%; text-align: center;">${total_amount}원</td>
+					</tr>
+				</table>
+			</div>
+			<br> <br> <br>
+
+			<div
+				style="width: 100%; max-width: 1200px; display: inline-block; text-align: left; border-bottom: 3px solid #515151;">
+
+				<div>
+					<h2 style="border-bottom: 3px solid #515151; padding-bottom: 15px;">주문자
+						동의</h2>
+
+				</div>
+				<div style="border-bottom: 2px solid #a7a7a7;">
+					<div class="row">
+						<div
+							class="col-2 d-flex align-items-center justify-content-center">
+							<h4 style="font-size: 18px;">청약철회 방침</h4>
+						</div>
+						<div class="col-10" style="font-size: 14px;">
+							[청약철회 등]<br>① BigFish와 상품등의 구매에 관한 계약을 체결한 이용자는 전자상거래법 등 관련
+							법령에 따라 상품등을 공급받거나 공급이 시작된 날 부터 7일 이내에 반품 또는 교환 신청 (청약철회)을 할 수
+							있습니다. 단,이용자에게 책임이 있는 사유로 상품 등이 멸실 또는 훼손된 경우 등 전자상거래법제17조 제2항에 따른
+							청약철회 제한 사유가 있는 경우에는 청약철회가 제한될 수 있습니다.<br> ② 이용자는 상품 등을 배송 받은
+							경우 다음 각 호의 1에 해당하는 경우에는 반품 및 교환을 할 수 없습니다.<br>1.이용자에게 책임 있는
+							사유로 상품 등이 멸실 또는 훼손된 경우(다만 상품등의 내용을 확인하기 위하여 포장등을 훼손한 경우에는 상품이 불량일
+							경우 청약철회를 할 수 있습니다.)<br>2.이용자의 사용 또는 일부 소비에 의하여 상품 등의 가치가 현저히
+							감소한 경우<br>3.시간의 경과에 의하여 재판매가 곤란할 정도로 상품등의 가치가 현저히 감소한 경우<br>4.같은
+							성능을 지닌 상품 등으로 복제가 가능한 경우 그 원본인 상품 등의 포장을 훼손한 경우<br>③전항의 규정에도
+							불구하고, 이용자는 상품등의 내용이 표시 광고 내용과 다르거나 계약 내용과 다르게 이행된 경우에는 해당 상품 등을
+							공급받은 날부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30일 이내에 청약철회를 할수있습니다.
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<div class="row" style="margin-top: 20px;">
+						<div
+							class="col-3 d-flex align-items-center justify-content-center">
+							<h4 style="font-size: 18px;">개인정보 수집 및 이용</h4>
+						</div>
+						<div class="col-9" style="font-size: 14px;">
+							<table style="width: 100%; border-collapse: collapse;">
+								<thead>
+									<tr
+										style="height: 70px; background-color: #bfbfbf; text-align: center;">
+										<th
+											style="width: 33%; text-align: center; border: 2px solid #a7a7a7;">목적</th>
+										<th
+											style="width: 33%; text-align: center; border: 2px solid #a7a7a7;">항목</th>
+										<th
+											style="width: 33%; text-align: center; border: 2px solid #a7a7a7;">보유기간</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td style="text-align: center; border: 2px solid #a7a7a7;">주문자
+											정보 확인 , 주문 내역 안내, 주문 내역 조회</td>
+										<td style="text-align: center; border: 2px solid #a7a7a7;">주문자
+											정보(연락처,이메일)</td>
+										<td style="text-align: center; border: 2px solid #a7a7a7;"
+											rowspan="3">주문일로부터 90일까지 보유하며,관련 법령에 따라 5년간 보관</td>
+									</tr>
+									<tr>
+										<td style="text-align: center; border: 2px solid #a7a7a7;">상품배송(구매/환불/취소/교환)을
+											위한 수취인 정보</td>
+										<td style="text-align: center; border: 2px solid #a7a7a7;">수취인
+											정보(이름,연락처1,연락처2,주소)</td>
+									</tr>
+									<tr>
+										<td style="text-align: center; border: 2px solid #a7a7a7;">무통장
+											결제 내역 확인을 위한 입금자명</td>
+										<td style="text-align: center; border: 2px solid #a7a7a7;">무통장
+											입금자명(미입력시 주문자명 사용)</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<table
+					style="width: 100%; margin: 0px auto; border-collapse: collapse; margin-top: 20px;">
+					<tr
+						style="height: 80px; background-color: #bfbfbf; text-align: left;">
+						<td style="border: 1px solid #bfbfbf; padding: 10px; width: 20%;"><h5>최종결제금액</h5></td>
+						<td
+							style="border: 1px solid #bfbfbf; padding: 10px; width: 80%; background-color: #bfbfbf; border: none; white-space: nowrap;">
+							<h5 id="rewqqwer" style="display: inline; margin: 0;">${total_amount}</h5>
+							<h5 style="display: inline; margin: 0;">원</h5>
+						</td>
+					</tr>
+
+
+				</table>
+				<br>
+				<div style="text-align: center;">
+					<button class="btn btn-primary" style="height: 64px; width: 276px;"
+						onclick="kakao();">
+						<h5>결제하기</h5>
+					</button>
+					<button class="btn btn-danger"
+						style="height: 64px; width: 276px; margin-left: 50px; background-color: white;">
+						<h5 style="color: red;">취소</h5>
+					</button>
+				</div>
+
+
+			</div>
+			<jsp:include page="../common/footer.jsp" />
+			<script>
     function kakao() {
         let payValue = document.getElementById('rewqqwer').innerText;
         let payName = document.getElementById('asdffdsa').innerText;
@@ -344,5 +476,5 @@
 	    });
 	}	
 	</script>
- </body>
+</body>
 </html>

@@ -42,7 +42,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
             <br>
             <div class="quantity-container" align="right"> 
                 수량 : <input type="hidden"  name="sell_price" value="${s.productPrice}">
-                <input type="text" id="quantity" name="quantity" value="1" size="3" readonly>
+                <input type="text" id="quantity" name="quantity" value="1" size="3">
                 <input type="button" value=" + " name="add">
                 <input type="button" value=" - " name="minus">
                 총 상품 금액 : <input type="text" id="total_amount" name="sum" value="${s.productPrice}" size="11" readonly>원
@@ -59,7 +59,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
                     <div align="right"><button class="btn btn-secondary" onclick="location.href='list.sh'">목록으로</button></div>
                 </c:when>
                 <c:otherwise>
-                    <button align="center" class="btn" onclick="buyShop(${s.productNo})" style="background-color: rgb(52, 152, 219); color: white; float:right;">구매하기</button>
+                    <button align="center" class="btn" id="buyButton" style="background-color: rgb(52, 152, 219); color: white; float:right;">구매하기</button>
                     <div style="margin-left: 52%;"><button class="btn btn-secondary" onclick="location.href='list.st'">목록으로</button></div>
                 </c:otherwise>
             </c:choose>  
@@ -243,6 +243,21 @@ String alertMsg = (String) session.getAttribute("alertMsg");
     	        }
     	    });
     	}	
+    	
+    	  // 로그인된 경우에만 버튼 클릭 가능하도록 설정
+    	  var buyButton = document.getElementById("buyButton");
+
+    	  // loginUser가 존재하는 경우에만 이벤트 리스너 추가
+    	  if (${loginUser ne null}) {
+    	    buyButton.addEventListener("click", function() {
+    	      buyShop(${s.productNo});
+    	    });
+    	  } else {
+    	    // 로그인되지 않은 경우 클릭 시 알림
+    	    buyButton.addEventListener("click", function() {
+    	      alert("로그인이 필요합니다.");
+    	    });
+    	  }
 
     </script>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

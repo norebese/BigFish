@@ -52,7 +52,7 @@ public class SearchController {
 		System.out.println(list);
 		System.out.println(list1);
 		System.out.println(list2);
-		System.out.println(seaStoreList);
+		System.out.println(fishStoreList);
 		
 		mv.addObject("list", list)
 		  .addObject("list1", list1)
