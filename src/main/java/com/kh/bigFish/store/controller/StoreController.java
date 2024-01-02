@@ -2,6 +2,7 @@ package com.kh.bigFish.store.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -322,6 +324,7 @@ public class StoreController {
 				store.setThumbnailImg("no Img.png");
 			}
 		}
+		
 		model.addAttribute("storeList", storeList);
 		model.addAttribute("pi", pi);
 		

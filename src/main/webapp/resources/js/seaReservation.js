@@ -161,6 +161,10 @@ function updateFishKindList(date){
 	let divToUpdate = $('#fish-group');
 	let htmlContent = '';
 	
+	if(date == ''){
+		htmlContent = `<p>물고기 정보가 없습니다</p>`;
+		divToUpdate.html(htmlContent);
+	}
 	$.each(date, function (index, fish) {
         htmlContent += `<li onclick="showFish(`+"'"+fish.key+"'"+`)" class="list-group-item d-flex justify-content-between align-items-center">` +
             fish.key + '<span class="badge bg-primary rounded-pill">' + fish.value + '</span></li>';
@@ -557,6 +561,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	    if (target.tagName === 'SPAN') {
 	        target.style.backgroundColor = '';
 	    }
+	});
+	const nextBtnHover = document.getElementById('more');
+	nextBtnHover.addEventListener('mouseover', function (event) {
+    	const target = event.target;
+    	target.style.backgroundColor = 'rgb(238 238 238)';
+	});
+	nextBtnHover.addEventListener('mouseout', function (event) {
+    	const target = event.target;
+    	target.style.backgroundColor = '';
 	});
 })
 

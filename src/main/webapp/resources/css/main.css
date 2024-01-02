@@ -60,7 +60,6 @@
 	text-align: center;
 	width: 792px;
 	max-width: 792px;
-	height: 300px;
 	flex-shrink: 0; /* 이 부분을 추가하여 축소되지 않도록 설정 */
 	margin: auto; /* 가운데 정렬을 위해 추가 */
 	display: flex;
@@ -68,6 +67,7 @@
 	justify-content: center;
 	display: flex;
 	flex-direction: column;
+	margin-left: 250px;
 }
 
 .banner {
@@ -128,9 +128,8 @@
 }
 
 .row iframe{
-	margin: 0px 61px; 
-	width: 85%;
-	height: 85%;
+	height: 100%;
+	width: 100%;
 }
 ul{
 	list-style: none;
@@ -167,4 +166,47 @@ ul{
     overflow: hidden;
     text-overflow: ellipsis;
 	width: 135px;
+}
+.studyCardArea{
+	display: flex;
+	width: 792px;
+	margin-left: 5px;
+}
+.studyCard{
+	margin-right: 35px;
+}
+.studyCardA{
+	border-radius: 1.2rem;
+    box-shadow: 0 0.4rem 1.6rem rgba(0,0,0, 0.15 );
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    position: relative;
+}
+.studyTube{
+	width: 240px;
+	height: 300px;
+}
+.fishTube{
+	width: 240px;
+	height: 200px;
+}
+.studyName{
+	padding: 1.2rem;
+}
+.studyLink{
+	text-decoration: none;
+	color: black;
+}
+.pageMore{
+	text-decoration: none;
+	color: #5655b7;
+	font-weight: bold;
+}
+.mainImgs{
+	width: 100%;
+	height: 100%;
+}
+.titleH4{
+	margin-bottom: 10px;
 }

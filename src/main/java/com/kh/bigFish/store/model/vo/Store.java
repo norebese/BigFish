@@ -33,7 +33,7 @@ public class Store {
 	private String businessNo;
 	private String storeStatus;
 	private int likeCount;
-	private int minPrice;
+	private String minPrice;
 	private int replyCount;
 	private String thumbnailImg;
 }
