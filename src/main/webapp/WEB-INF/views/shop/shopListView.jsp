@@ -8,6 +8,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BIG FISH</title>
+<style>
+	.header-box{
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.left_box{
+    background-color: rgb(52, 152, 219);  
+    width: 25%; 
+    height: 286px;
+}
+
+.center_box{
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(59, 175, 252); 
+    width: 100%; 
+    max-width: 1200px;
+    height: 286px;
+    justify-content: space-evenly;
+    align-items: center;
+    
+}
+
+.right_box{
+    background-color: rgb(52, 152, 219); 
+    width: 25%; 
+    height: 286px;
+}
+
+.shop-image{
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+</style>
 
 <!-- CSS-->
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/studyListView.css">
@@ -17,13 +55,30 @@
 	<jsp:include page="../common/header.jsp" />
 	<br><br><br>
 
-    <div class="header-box" style="margin: 5%; border-bottom: solid 2px rgb(204, 204, 204);">
-		<c:if test="${loginUser.memAdmin eq 'Y'}">
-        	<button class="btn" onclick="location.href='enrollForm.sh'" style="background-color: rgb(52, 152, 219); color: white; float:right;">상품 등록</button>
-		</c:if>
-        <br>
-        <h6>NEW ITEM</h6>
+	<div class="header-box">
+        <div class="left_box"></div>
+        <div class="center_box">
+            <div style="color: white;">
+            <h2>낚시 용품</h2>
+            <br>
+                <tr>
+                    <td>BIG FISH 낚시 용품점입니다!</td>
+                </tr>
+            </div>
+            <div class="study-image" style="color: white;">              
+                <img style="width: 150px;" src="resources/images/shop-icon.png">
+            </div>
+        </div>
+        <div class="right_box"></div>
     </div>
+
+    <div class="header-box" style="margin: 5%; border-bottom: solid 2px rgb(204, 204, 204); display: flex; justify-content: space-between;">
+		<h6 style="margin: 2%;">NEW ITEM</h6>
+		<br>
+		<c:if test="${loginUser.memAdmin eq 'Y'}">
+			<button class="btn" onclick="location.href='enrollForm.sh'" style="margin: 1%; background-color: rgb(52, 152, 219); color: white;">상품 등록</button>
+		</c:if>
+	</div>
     <div
         style="display: flex; justify-content: center; margin: 0 auto; flex-wrap: wrap; border-bottom: solid 2px gray; padding-bottom: 15px;">        
         <c:forEach var="s" items="${list}">

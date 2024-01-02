@@ -68,13 +68,15 @@
                         <td>${s.studyTitle}</td>
                         <td>${s.studyCreateDate}</td>
                         <td>${s.studyCount}</td>
-                        <td>${likeCount}</td>
+                        <td>${s.likeCount}</td>
                     </tr>
 					</c:forEach>
                 </tbody>
             </table>
 
-            <br>
+            
+
+            <br><br><br>
 
             <div id="pagingArea">
                 <ul class="pagination">
@@ -113,19 +115,42 @@
                 <div class="text">
                     <input type="text" class="form-control" name="keyword" value="${keyword}" style="margin-top: 24px;">
                 </div>
-                <button type="submit" class="searchBtn btn btn-secondary"
-                    style="margin-top: 28px;">검색</button>
+                <button type="submit" class="searchBtn btn btn-secondary" style="margin-top: 28px;">검색</button>
             </form>
-            <c:if test="${ not empty condition }">
-		        <script>
-		        	window.onload = function() {
-		        		const opt = document.querySelector("#st-search-area option[value=${condition}]")
-		        		opt.setAttribute("selected", true);
-		        	}
-		        </script>
-			</c:if>
+            
+            <c:if test="${empty searchResults}">
+                <c:set var="hasSearch" value="false" />
+            </c:if>
+            
+            <c:if test="${not empty searchResults}">
+                <c:set var="hasSearch" value="true" />
+            </c:if>
+            
+            <c:if test="${hasSearch eq 'true'}">
+                <script>
+                    window.onload = function() {
+                        const opt = document.querySelector("#st-search-area option[value=${condition}]");
+                        opt.setAttribute("selected", true);
+                    }
+                </script>
+            </c:if>
+            
+            <c:if test="${hasSearch eq 'false'}">
+                <script>
+                    window.onload = function() {
+                        const selectBox = document.querySelector("#selectbox");
+                        const defaultOption = selectBox.querySelector("option[value=studyTitle]");
+                        defaultOption.selected = true;
+                    }
+                </script>
+            </c:if>
+            
+            <c:if test="${hasSearch eq 'false' and not empty keyword}">
+                <p style="text-align: center; margin-top: -12%;">검색 내용이 없습니다.</p>
+            </c:if>
         </div>
     </div>
+    <br><br><br>
         <jsp:include page="../common/footer.jsp" />
 </body>
 
