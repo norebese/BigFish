@@ -92,7 +92,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 				<h2>조황게시판</h2>
 				<br>
 				<tr>
-					<td>당신의 대물을 자랑하시오!</td>
+					<td>어제의 조황, 오늘의 실황, 내일의 기대 등 다양한 얘기를 나누는 공간입니다.</td>
 				</tr>
 			</div>
 			<div class="study-image" style="color: white;">

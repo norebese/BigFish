@@ -46,4 +46,7 @@ public interface ReservationService {
 	// 예약정보가 있는 사업장 리스트 불러오기 (채팅)
 	ArrayList<Reservation> getRevStoreForChat(int memNo);
 	
+	// 달력에 예약 표시를 위해 예약 목록 가져오기
+	ArrayList<Reservation> getRevforMonth(Reservation r);
+	
 }

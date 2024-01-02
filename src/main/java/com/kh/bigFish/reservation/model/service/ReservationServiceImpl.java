@@ -71,6 +71,11 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationDao.countReservationList(sqlSession, memNo);
 	}
 
+	@Override
+	public ArrayList<Reservation> getRevforMonth(Reservation r) {
+		return reservationDao.getRevforMonth(sqlSession, r);
+	}
+
 
 	
 	

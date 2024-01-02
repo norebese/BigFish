@@ -29,12 +29,12 @@
 		<br>
 		<div class="choose-container">
 			<div class="choose-btn">
-				<img style="width: 350px;" src="resources/images/fishing.png" alt="개인 회원가입">
+				<img onclick="location.href='basicPersonalEnrollForm.me'" style="width: 350px; cursor: pointer;" src="resources/images/fishing.png" alt="개인 회원가입">
 				<br>
 				<button onclick="location.href='basicPersonalEnrollForm.me'" class="btn btn-primary btn-sm">개인 회원가입</button>
 			</div>
 			<div class="choose-btn">
-				<img style="width: 360px;" src="resources/images/fishing-boat.png" alt="사업자 회원가입">
+				<img onclick="location.href='companyEnrollForm.me'" style="width: 360px; cursor: pointer;" src="resources/images/fishing-boat.png" alt="사업자 회원가입">
 				<br>
 				<button onclick="location.href='companyEnrollForm.me'" class="btn btn-success btn-sm">사업자 회원가입</button>
 			</div>

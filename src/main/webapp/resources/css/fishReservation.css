@@ -171,3 +171,6 @@
     bottom: 0;
     margin: auto;
 }
+#footer-1>p{
+	padding-top: 15px !important;
+}

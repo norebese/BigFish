@@ -1,3 +1,22 @@
+function checkStorePhone(){
+    let phoneRule = /^\d{2,3}-?\d{3,4}-?\d{4}$/;
+
+    const storePhone = document.querySelector("#storePhone");
+    const checkstorePhoneSpace = document.querySelector("#checkstorePhoneSpace");
+    const enrollBtn = document.querySelector("#enroll-btn");
+
+    if(!phoneRule.test(storePhone.value)){
+        checkstorePhoneSpace.style.visibility = "visible";
+        checkstorePhoneSpace.innerHTML = "&nbsp;잘못된 번호입니다.";
+        checkstorePhoneSpace.style.color = "#dd2f35";
+        enrollBtn.setAttribute("disabled",true);
+        return;
+    }
+    checkstorePhoneSpace.style.color = "#2f9947";
+    checkstorePhoneSpace.innerHTML = "&nbsp;사용할 수 있는 전화번호입니다.";
+    enrollBtn.removeAttribute("disabled");
+}
+
 function loadImg(inputFile, num){
     
     //inputFile : 현재 변화가 생긴 input type=file 요소객체
