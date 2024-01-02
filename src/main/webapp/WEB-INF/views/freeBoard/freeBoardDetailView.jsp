@@ -64,7 +64,7 @@
 				<h2>자유게시판</h2>
 				<br>
 				<tr>
-					<td>자유롭게 소통을 해보세용~!</td>
+					<td>환영합니다! 여기는 자유게시판입니다. 다양한 주제로 자유롭게 이야기 나누어 보세요.</td>
 				</tr>
 			</div>
 			<div class="study-image" style="color: white;">

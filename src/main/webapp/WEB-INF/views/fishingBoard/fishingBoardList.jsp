@@ -71,7 +71,7 @@
 				<h2>조황게시판</h2>
 				<br>
 				<tr>
-					<td>당신의 대물을 자랑하시오!</td>
+					<td>어제의 조황, 오늘의 실황, 내일의 기대 등 다양한 얘기를 나누는 공간입니다.</td>
 				</tr>
 			</div>
 			<div class="study-image" style="color: white;">
@@ -117,40 +117,50 @@
 
 			</div>
 
-			<nav aria-label="Page navigation example"
-				class="d-flex justify-content-center">
-				<ul class="pagination">
-					<c:choose>
-						<c:when test="${pi.currentPage eq 1 }">
-							<li class="page-item disabled"><a class="page-link"><span
-									aria-hidden="true">&laquo;</span> </a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item"><a class="page-link"
-								href="list.fibo?cpage=${pi.currentPage - 1 }"><span
-									aria-hidden="true">&laquo;</span> </a></li>
-						</c:otherwise>
-					</c:choose>
+			<nav aria-label="Page navigation example" class="d-flex justify-content-center">
+    <ul class="pagination">
+        <c:choose>
+            <c:when test="${pi.currentPage eq 1 }">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a>
+                </li>
+            </c:when>
+            <c:otherwise>
+                <li class="page-item">
+                    <a class="page-link" href="list.fbo?cpage=${pi.currentPage - 1 }"><span aria-hidden="true">&laquo;</span></a>
+                </li>
+            </c:otherwise>
+        </c:choose>
 
-					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-						<li class="page-item"><a class="page-link"
-							href="list.fibo?cpage=${p }">${p }</a></li>
-					</c:forEach>
+        <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+            <c:choose>
+                <c:when test="${p eq pi.currentPage}">
+                    <li class="page-item active" aria-current="page" style="background-color: #3baffc;">
+                        <span class="page-link">${p}</span>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item">
+                        <a class="page-link" href="list.fbo?cpage=${p}">${p}</a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
 
-					<c:choose>
-						<c:when test="${pi.currentPage eq pi.maxPage }">
-							<li class="page-item disabled"><a class="page-link"><span
-									aria-hidden="true">&raquo;</span> </a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item"><a class="page-link"
-								href="list.fibo?cpage=${pi.currentPage + 1 }"> <span
-									aria-hidden="true">&raquo;</span>
-							</a></li>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-			</nav>
+        <c:choose>
+            <c:when test="${pi.currentPage eq pi.maxPage}">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-current="page"><span aria-hidden="true">&raquo;</span></a>
+                </li>
+            </c:when>
+            <c:otherwise>
+                <li class="page-item">
+                    <a class="page-link" href="list.fbo?cpage=${pi.currentPage + 1}"><span aria-hidden="true">&raquo;</span></a>
+                </li>
+            </c:otherwise>
+        </c:choose>
+    </ul>
+</nav>
 
 
 
@@ -166,19 +176,28 @@
 					 <input type="hidden" value="${b.originName}" name="originName">
 					  <input type="hidden" value="${b.changeName}" name="changeName">
 				</div>
-				<div class="text" style="margin-right: 10px;">
-					<input type="text" class="form-control" name="keyword"
-						style="margin-top: 24px;">
-				</div>
-				<button type="submit" class="searchBtn btn btn-secondary"
-					style="margin-top: 24px; border: none; background-color: rgb(59, 175, 252);">검색</button>
+				<div class="text">
+    <input type="text" class="form-control" name="keyword" id="myInput" style="margin-top: 24px;" oninput="myFunction()">
+</div>
+<button type="submit" class="btn btn-primary" style="margin-top: 25px;background-color: rgb(59, 175, 252);" id="myButton" disabled>검색</button>
+
 			</form>
+			
+			<script>
+			 function myFunction() {
+ 		        var inputValue = document.getElementById("myInput").value;
+
+ 		        // 값이 비어있으면 버튼 비활성화, 아니면 활성화
+ 		        document.getElementById("myButton").disabled = inputValue.trim() === "";
+ 		    }
+			 </script>
 			<c:if test="${ not empty condition }">
 				<script>
         	window.onload = function() {
         		const opt = document.querySelector("#ann-search-area option[value=${condition}]")
         		opt.setAttribute("selected", true);
         	}
+        	
         </script>
 			</c:if>
 
