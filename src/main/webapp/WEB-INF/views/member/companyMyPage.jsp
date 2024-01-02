@@ -163,6 +163,7 @@
 					</table>
 					<div style="display: flex; flex-direction: column; justify-content: center;">
 						<div style="display: flex; width: 100%; justify-content: center; flex-direction: column; align-items: center;">
+							<div style="margin-bottom: 25%;"><img src="resources/images/red.png"> : 예약된 날짜 &nbsp;<img src="resources/images/blue.png"> : 선택된 날짜 &nbsp;<img src="resources/images/orange.png"> : 오늘 날짜&nbsp;</div>
 							<div style="display: flex; flex-direction: column; align-items: center;">
 								<img style="width: 100px; height: 100px;" src="resources/images/groupImg.png" alt="">
 								<p style="padding: 5px; background: rgb(59, 175, 252); color: white; border-radius: 8px;">선택된 날짜 총 예약</p>
@@ -220,7 +221,7 @@
 	</div>
 
 	  
-	  <br><br>
+	  <br><br><br><br><br><br><br><br><br>
 	  <jsp:include page="../common/footer.jsp"/>
 
 </body>

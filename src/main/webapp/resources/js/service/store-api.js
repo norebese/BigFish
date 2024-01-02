@@ -252,5 +252,18 @@ const storeApi = {
                	console.log("ajax 통신 실패");
                }
            });
-     }
+     },
+    getRevforMonth : function(data,callback){
+        $.ajax({
+            url : "getRevforMonth",
+            data : data,
+            contentType : "application/text; charset:UTF-8",
+            success : function(result){
+                callback(result);
+            },
+            error : function(){
+                console.log("예약 표시 가져오기 ajax 실패");
+            }
+        })
+    }
 }
