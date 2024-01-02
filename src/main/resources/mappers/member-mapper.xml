@@ -94,7 +94,7 @@
 						#{address},
 						#{addressDetail},
 						#{postNo},
-						'resources/images/myProfile.png'
+						'resources/images/basicProfile.png'
 						)		
 	</insert>
 	
@@ -117,7 +117,7 @@
 						#{address},
 						#{addressDetail},
 						#{postNo},
-						'resources/images/myProfile.png'
+						'resources/images/basicProfile.png'
 						)
 	</insert>
 	
@@ -139,7 +139,7 @@
 					#{memNick},
 					#{phone},
 					'Y',
-					'resources/images/myProfile.png'
+					'resources/images/basicProfile.png'
 					)
 	</insert>
 	

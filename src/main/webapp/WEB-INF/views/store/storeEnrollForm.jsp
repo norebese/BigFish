@@ -45,7 +45,14 @@
 			<div class="infoTitle">사업장 정보</div>
 			<form class="input-form" method="post" action="storeEnroll" enctype="multipart/form-data">
 				<input required name="storeName" placeholder="사업장 이름을 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
-				<input required name="storePhone" placeholder="사업장 전화번호를 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
+				<table style="width:40%; margin: 0px auto;">
+					<tr>
+						<input required id="storePhone" name="storePhone" onkeyup="checkStorePhone()" placeholder="사업장 전화번호를 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="text">
+					</tr>
+					<tr>
+						<td id="checkstorePhoneSpace" style="visibility: hidden; height: 30px; font-size: 15px; color: #dd2f35;">&nbsp;잘못된 번호입니다.</td>
+					</tr>
+				</table>
 				<table style="width: 40%; margin: 0px auto;">
 					<tr style="width: 100%;">
 						<td><input name="businessNo" id="businessNo" required placeholder="사업자 번호를 입력해주세요. (-미포함)" style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
@@ -321,7 +328,7 @@
 				</table><br>
 	
 				<div style="display: flex; margin: 0px auto; width: 40%;">
-					<button id="enroll-btn" disabled type="submit" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">회원가입</button></td>
+					<button id="enroll-btn" disabled type="submit" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">사업장 등록</button></td>
 				</div>
 			</form>
 		</div>

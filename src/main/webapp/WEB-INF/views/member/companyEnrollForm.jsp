@@ -80,13 +80,28 @@
 					<td id="checkNickSpace" style="height: 25px;"></td>
 				</tr>
 			</table>
-			<input required name="phone" placeholder="휴대폰 번호를 입력해주세요. (-미포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
+			<table style="width:40%; margin: 0px auto;">
+				<tr>
+					<input required id="phone" onkeyup="checkPhone()" name="phone" placeholder="휴대폰 번호를 입력해주세요. (-미포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text">
+				</tr>
+				<tr>
+					<td id="checkPhoneSpace" style="visibility: hidden; height: 30px; font-size: 15px; color: #dd2f35;">&nbsp;잘못된 번호입니다.</td>
+				</tr>
+			</table>
 
 
 			<div class="infoTitle">사업장 정보</div>
 
 			<input required name="storeName" placeholder="사업장 이름을 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
-			<input required name="storePhone" placeholder="사업장 전화번호를 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
+			<table style="width:40%; margin: 0px auto;">
+				<tr>
+					<input required id="storePhone" name="storePhone" onkeyup="checkStorePhone()" placeholder="사업장 전화번호를 입력해주세요." style="width: 40%; margin: 0px auto;" class="form-control" type="text">
+				</tr>
+				<tr>
+					<td id="checkstorePhoneSpace" style="visibility: hidden; height: 30px; font-size: 15px; color: #dd2f35;">&nbsp;잘못된 번호입니다.</td>
+				</tr>
+			</table>
+			
 			<table style="width: 40%; margin: 0px auto;">
 				<tr style="width: 100%;">
 					<td><input name="businessNo" id="businessNo" required placeholder="사업자 번호를 입력해주세요. (-미포함)" style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>

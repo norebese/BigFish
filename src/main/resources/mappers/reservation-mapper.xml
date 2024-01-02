@@ -150,4 +150,21 @@
 		WHERE RMEM_NO = #{memNo}
  	</select>
  	
+ 	<select id="getRevforMonth" resultMap="reservationResult">
+ 	SELECT REV_NO,
+ 			RMEM_NO,
+ 			RSTORE_NO,
+ 			RTICKET_NO,
+ 			REV_DATE,
+ 			REV_PEOPLE,
+ 			REV_START,
+ 			REV_END,
+ 			REV_STATUS,
+ 			REV_REQUEST,
+ 			REV_NAME,
+ 			REV_PHONE
+ 	FROM RESERVATION
+ 	WHERE RSTORE_NO = #{rstoreNo} AND REV_START LIKE '%'||#{choiceDate}||'%'
+ 	</select>
+ 	
  </mapper>

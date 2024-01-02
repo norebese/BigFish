@@ -58,6 +58,7 @@ function showSample1(storeNo){
     businessWork.style.display = "none";
     sample1Work.style.display = "flex";
     storeNoForReservation.value = storeNo;
+    buildCalendar();
 
     for(let btn of btns){
         btn.style.background = "rgb(59, 175, 252)";
@@ -132,6 +133,25 @@ function buildCalendar() {
             nowColumn.onclick = function () { choiceDate(this); }
         }
     }
+    
+    const mData = {
+            month : document.querySelector("#calMonth").innerText,
+            year : document.querySelector("#calYear").innerText,
+            storeNo : document.querySelector("#storeNoForReservation").value
+        }
+        
+    storeApi.getRevforMonth(mData,function(result){
+        const resultJson = JSON.parse(result);
+        const days = document.getElementsByClassName("futureDay");
+        for(let revList of resultJson){
+            for(let day of days){
+                if(revList.revStart === day.innerText){
+                    day.style.background = "#f56969";
+                }
+            }
+        }
+
+    })
 }
 
 // 날짜 선택 및 예약불러오기

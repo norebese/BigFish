@@ -57,5 +57,9 @@ public class ReservationDao {
 	public int countReservationList(SqlSessionTemplate sqlSession, int memNo) {
 		return sqlSession.selectOne("reservationMapper.countReservationList", memNo);
 	}
+	
+	public ArrayList<Reservation> getRevforMonth(SqlSessionTemplate sqlSession, Reservation r){
+		return (ArrayList)sqlSession.selectList("reservationMapper.getRevforMonth", r);
+	}
 
 }
