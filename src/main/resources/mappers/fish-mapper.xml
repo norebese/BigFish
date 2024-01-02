@@ -102,11 +102,12 @@
         ,FISH_CONTENT
     FROM FISH
     WHERE FISH_STATUS = 'Y'
-    <choose>
-        <when test="condition == 'fishName' and keyword != null and keyword.trim() != ''"> 
-            AND FISH_NAME LIKE '%' || #{keyword} || '%'
-        </when>
-    </choose>
+    <if test="condition == 'fishName' and keyword != null and keyword.trim() != ''"> 
+         AND FISH_NAME LIKE '%' || #{keyword} || '%'
+    </if>
+    <if test="condition == 'fishContent' and keyword != null and keyword.trim() != ''"> 
+	     AND FISH_CONTENT LIKE '%' || #{keyword} || '%'
+	</if>
     ORDER BY FISH_NO DESC
 </select>
 	

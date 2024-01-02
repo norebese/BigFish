@@ -48,7 +48,7 @@
 			
 			<br><br>
 			
-			<button class="ann-button" onclick="location.href='annList.an'">목록으로</button>
+			<a class="ann-button" onclick="location.href='annList.an'">목록으로</a>
 			<button type="submit" class="ann-button">수정하기</button>
 		</form>
 
