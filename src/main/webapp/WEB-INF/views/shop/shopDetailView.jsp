@@ -42,7 +42,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
             <br>
             <div class="quantity-container" align="right"> 
                 수량 : <input type="hidden"  name="sell_price" value="${s.productPrice}">
-                <input type="text" id="quantity" name="quantity" value="1" size="3">
+                <input type="text" id="quantity" name="quantity" value="1" size="3" readonly>
                 <input type="button" value=" + " name="add">
                 <input type="button" value=" - " name="minus">
                 총 상품 금액 : <input type="text" id="total_amount" name="sum" value="${s.productPrice}" size="11" readonly>원

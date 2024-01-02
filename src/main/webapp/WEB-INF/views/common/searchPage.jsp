@@ -28,6 +28,24 @@
 		position: relative;
 	}
 
+	.seaReservation-board{
+		background-color: rgb(224, 224, 224);
+		width: 100%;
+		height: 100px;
+	}
+
+	.fishReservation-board{
+		background-color: rgb(224, 224, 224);
+		width: 100%;
+		height: 100px;
+	}
+
+	.shop-board{
+		background-color: rgb(224, 224, 224);
+		width: 100%;
+		height: 100px;
+	}
+
 	.study-board{
 		background-color: rgb(224, 224, 224);
 		width: 100%;
@@ -78,6 +96,69 @@
 		<br>
 		
 		<div class="boardList">
+			<div id="seaReservation-board" class="seaReservation-board">
+				<div class="board-title">
+					<h5>바다 낚시터</h5>
+				</div>
+				<table class="seaReservation_table">
+					<c:forEach var="ssl" items="${seaStoreList}" varStatus="loopStatus">
+					<tr>		
+						<td>
+							<a onclick="location.href='resDetailPage?storeNumber=${ssl.storeNo}'" style="cursor: pointer;">${ssl.storeName}</a>
+						</td>
+					</tr>	
+					</c:forEach>
+				</table>
+				<br>
+				<div class="all-see">
+					<a href="list.st">더보기</a>
+				</div>
+			</div>
+	
+			<br><br>
+
+			<div id="fishReservation-board" class="fishReservation-board">
+				<div class="board-title">
+					<h5>민물 낚시터</h5>
+				</div>
+				<table class="fishReservation_table">
+					<c:forEach var="sl" items="${fishStoreList}" varStatus="loopStatus">
+					<tr>		
+						<td>
+							<a onclick="location.href='resDetailPage?storeNumber=${sl.storeNo}'" style="cursor: pointer;">${sl.storeName}</a>
+						</td>
+					</tr>	
+					</c:forEach>
+				</table>
+				<br>
+				<div class="all-see">
+					<a href="list.st">더보기</a>
+				</div>
+			</div>
+	
+			<br><br>
+
+			<div id="shop-board" class="shop-board">
+				<div class="board-title">
+					<h5>낚시 용품</h5>
+				</div>
+				<table class="shop_table">
+					<c:forEach var="s" items="${shopList}">
+					<tr>		
+						<td>
+							<a onclick="location.href='detail.sh?sno=${s.productNo}'" style="cursor: pointer;">${s.productName}</a>
+						</td>
+					</tr>	
+					</c:forEach>
+				</table>
+				<br>
+				<div class="all-see">
+					<a href="list.sh">더보기</a>
+				</div>
+			</div>
+	
+			<br><br>
+
 			<div id="study-board" class="study-board">
 				<div class="board-title">
 					<h5>학습동영상</h5>
@@ -147,9 +228,14 @@
 		const studyboard = document.querySelector("#study-board");
 		const fishingboard = document.querySelector("#fishing-board");
 		const freeboard = document.querySelector("#free-board");
+		const seaReservationboard = document.querySelector("#seaReservation-board");
+		const fishReservationboard = document.querySelector("#fishReservation-board");
+		const shopboard = document.querySelector("#shop-board")
 			console.log(${empty list})
 			console.log(${empty list1})
 			console.log(${empty list2})
+			console.log(${empty seaReservationboard})
+			console.log(${empty fishReservationboard})
 		if (${empty list} || ${list.size()} === 0) {
 			studyboard.style.display = "none";
 		}
@@ -161,10 +247,19 @@
 		if (${empty list2} || ${list2.size()} === 0) {
 			freeboard.style.display = "none";
 		}
-	}
-	</script>
-	<script>
 		
+		if (${empty seaStoreList} || ${seaStoreList.size()} === 0) {
+			seaReservationboard.style.display = "none";
+		}
+
+		if (${empty fishStoreList} || ${fishStoreList.size()} === 0) {
+			fishReservationboard.style.display = "none";
+		}
+
+		if (${empty shopList} || ${shopList.size()} === 0) {
+			shopboard.style.display = "none";
+		}
+	}
 	</script>
 	<jsp:include page="../common/footer.jsp"/>
 </body>

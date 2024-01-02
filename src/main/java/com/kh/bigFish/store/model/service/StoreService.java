@@ -103,6 +103,11 @@ public interface StoreService {
 	
 	Store showRecentStore(int store);
 	
+	//통합검색 -고이환-
+	ArrayList<Store> selectStoreList(String keyword);
+
+	ArrayList<Store> selectFishStoreList(String keyword);
+	
 }
 
 

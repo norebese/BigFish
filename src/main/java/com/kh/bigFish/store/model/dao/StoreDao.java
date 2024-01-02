@@ -300,5 +300,15 @@ public class StoreDao {
 		return sqlSession.selectOne("storeMapper.showRecentStore",store);
 	}
 
+	// 통합검색
+	public ArrayList<Store> selectStoreList(SqlSessionTemplate sqlSession, String keyword) {
+//		System.out.println(keyword);
+		return (ArrayList)sqlSession.selectList("storeMapper.selectStoreList", keyword);
+	}
+
+	public ArrayList<Store> selectFishStoreList(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("storeMapper.selectFishStoreList", keyword);
+	}
+
 
 }
