@@ -34,7 +34,7 @@
 					  <div class="tab-pane container active" id="home">
 						<c:forEach var="f" items="${list}">  
 					        <div class="name-section">
-						   		<img src="<%=contextPath%>${f.fishTitleImage}" style="width: 150px; height:150px;" />
+						   		<img src="<%=contextPath%>${f.fishTitleImage}" style="width: 150px; height:150px;" onclick="location.href='fishInfoDetail.fi?fno=${f.fishNo}'" />
 					            <div class="tag-section">
 					                <p class="fish-name">${f.fishName}</p>
 					                <a class="fish-tag" href="fishInfoDetail.fi?fno=${f.fishNo}">자세히보기...</a>

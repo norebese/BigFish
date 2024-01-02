@@ -23,6 +23,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    margin-left: 700px;
 }
 .faq-create-btn {
 	width: 90%;
@@ -39,6 +40,11 @@
 }
 li::marker {
   	color: rgb(41, 128, 185);
+}
+.pagingArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .faq-btn{
 	border:none;
