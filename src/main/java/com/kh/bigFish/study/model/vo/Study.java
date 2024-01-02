@@ -25,6 +25,6 @@ public class Study {
 	private Date studyCreateDate;
 	private int rmemNo;
 	private String studyGoodStatus;
-	private int likeCount;
+	private int likeNo;
 }
 

@@ -14,7 +14,7 @@
 		<result column="STUDY_CREATE_DATE" property="studyCreateDate"/>
 		<result column="RMEM_NO" property="rmemNo"/>
 		<result column="STUDY_GOOD_STATUS" property="studyGoodStatus"/>
-		<result column="LIKE_COUNT" property="likeCount"/>
+		<result column="LIKE_NO" property="likeNo"/>
 	</resultMap>
 	
 	<resultMap type="StudyGood" id="studyGoodResult">
