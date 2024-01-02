@@ -51,7 +51,7 @@
 			<div style="width: 40%; margin: 0px auto; font-size: 12px;">※ 중복 확인 버튼을 모두 눌러주세요.</div>
 			<table style="width:40%; margin: 0px auto;">
 				<tr>
-					<td><input required id="emailId" name="memId" placeholder="이메일을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
+					<td><input readonly required id="emailId" name="memId" placeholder="이메일을 입력하세요." style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>
 					<td><button type="button" onclick="checkEmailId()" style="width: 100%; height: 38px; background: rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">중복 확인</button></td>
 				</tr>
 				
@@ -71,7 +71,7 @@
 					<td id="checkNickSpace" style="height: 30px;"></td>
 				</tr>
 			</table>
-			<input required id="phone" name="phone" placeholder="휴대폰 번호를 입력해주세요. (-미포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
+			<input readonly required id="phone" name="phone" placeholder="휴대폰 번호를 입력해주세요. (-미포함)" style="width: 40%; margin: 0px auto;" class="form-control" type="text"><br>
 			<table style="width: 40%; margin: 0px auto;">
 				<tr style="width: 100%;">
 					<td><input name="postNo" id="postcode" placeholder="우편번호" readonly style="width: 100%; margin: 0px auto;" class="form-control" type="text"></td>

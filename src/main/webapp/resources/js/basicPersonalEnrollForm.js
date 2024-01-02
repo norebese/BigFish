@@ -45,26 +45,16 @@ function checkEmailId(){
     const checkEmailIdSpace = document.querySelector("#checkEmailIdSpace");
     const enrollBtn = document.querySelector("#enroll-btn");
 
-    // $.ajax({
-    //     url : "checkEmailId",
-    //     data : {emailId : emailId.value},
-    //     success : function(result){
-    //         if(result==="Y"){
-    //             // 사용 가능한 경우
-    //             checkEmailIdSpace.innerHTML = "사용 가능한 아이디입니다.";
-    //             checkEmailIdSpace.style.color = "#2f9947";
-    //         }else{
-    //             // 사용 불가능한 경우
-    //             checkEmailIdSpace.innerHTML = "사용 불가능한 아이디입니다.";
-    //             checkEmailIdSpace.style.color = "#dd2f35";
-    //             enrollBtn.setAttribute("disabled",true);
-    //         }
+    let reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
-    //     },
-    //     error : function(){
-    //         console.log("ajax 중복 체크 통신 실패");
-    //     }
-    // })
+    if(!reg.test(emailId.value)){
+
+        checkEmailIdSpace.innerHTML ="이메일 아이디로만 가입 가능합니다.";
+        checkEmailIdSpace.style.color = "#dd2f35";
+        enrollBtn.setAttribute("disabled",true);
+
+        return;
+    }
     
     const sendData = {emailId : emailId.value};
     memberApi.checkId(sendData, function(result){
@@ -102,6 +92,27 @@ function checkNick(){
         }
     })
 
+}
+
+function checkPhone(){
+    let cellPhoneRule = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+
+    const checkPhoneSpace = document.querySelector("#checkPhoneSpace");
+    const phone = document.querySelector("#phone");
+    const enrollBtn = document.querySelector("#enroll-btn");
+    
+    
+
+    if(!cellPhoneRule.test(phone.value)){
+        checkPhoneSpace.style.visibility = "visible";
+        checkPhoneSpace.innerHTML = "&nbsp;잘못된 번호입니다.";
+        checkPhoneSpace.style.color = "#dd2f35";
+        enrollBtn.setAttribute("disabled",true);
+        return;
+    }
+    checkPhoneSpace.style.color = "#2f9947";
+    checkPhoneSpace.innerHTML = "&nbsp;사용할 수 있는 휴대폰 번호입니다.";
+    enrollBtn.removeAttribute("disabled");
 }
 
 
