@@ -145,14 +145,14 @@
 								</c:choose>
 							</div>
 							<span id="whgdkdy" style="margin-right: 15px;">${likeNo}</span> <span
-								style="margin-right: 15px;">댓글 </span>
+								style="border: rgb(59, 175, 252); margin-right: 15px;">댓글 </span>
 						</h6>
 					</div>
 					<c:if test="${loginUser.memNick eq b.freeWriter }">
 						<div class="col-6 col-md-4">
 							<button type="button" class="btn btn-success"
 								onclick="location.href='freeUpdateForm.bo?bno=${b.freeNo}'"
-								style="background-color: rgb(59, 175, 252);">글수정</button>
+								style="border: rgb(59, 175, 252);background-color: rgb(59, 175, 252);">글수정</button>
 							<button type="button" class="btn btn-danger"
 								data-bs-toggle="modal" data-bs-target="#staticBackdrop"
 								style="margin-left: 20px;">글삭제</button>
@@ -236,9 +236,11 @@
 						<div style="display: flex; align-items: center;">
 							<textarea class="form-control" id="content" cols="55" rows="2"
 								style="resize: none; width: 100%; height: 80px;"></textarea>
-							<button type="button" class="btn btn-primary"
-								style="height: 80px; width: 120px; margin-left: 10px; background-color: rgb(59, 175, 252);"
-								onclick="addReply();">댓글등록</button>
+							<button type="button" class="btn btn-primary" 
+        style="border: rgb(59, 175, 252); height: 80px; width: 120px; margin-left: 10px; background-color: rgb(59, 175, 252);" 
+        onclick="${loginUser != null ? 'addReply();' : 'return false;'}">
+    댓글등록
+</button>
 						</div>
 					</th>
 				</div>

@@ -190,7 +190,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 						<c:if test="${loginUser.memNick eq b.fishingWriter}">
 							<div class="col-6 col-md-4">
 								<button type="button" class="btn btn-success"
-									style="background-color: rgb(59, 175, 252);"
+									style=" border: rgb(59, 175, 252);background-color: rgb(59, 175, 252);"
 									onclick="location.href='fishingUpdateForm.bo?bno=${b.fishingNo}'">글수정
 								</button>
 								<button type="button" class="btn btn-danger"
@@ -210,7 +210,10 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 								<textarea class="form-control" id="content" cols="55" rows="2"
 									style="resize: none; width: 100%; height: 80px;"></textarea>
 								<button type="button" class="btn btn-primary" 
-									style="height: 80px; width: 120px; margin-left: 10px; background-color: rgb(59, 175, 252);" onclick="addReply();">댓글등록</button>
+        style="border: rgb(59, 175, 252); height: 80px; width: 120px; margin-left: 10px; background-color: rgb(59, 175, 252);" 
+        onclick="${loginUser != null ? 'addReply();' : 'return false;'}">
+    댓글등록
+</button>
 							</div>
 						</th>
 					</div>
