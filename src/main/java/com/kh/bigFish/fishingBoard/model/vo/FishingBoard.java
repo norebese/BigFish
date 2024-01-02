@@ -25,4 +25,5 @@ public class FishingBoard {
 	private String originName;
 	private String changeName;
 	private String rfishingNo;
+	private int fishGoods;
 }

@@ -96,7 +96,7 @@
 			<br>
 			<!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
 			<c:if test="${not empty loginUser }">
-				<a class="btn btn-primary" style="float: right; background-color: rgb(59, 175, 252);"
+				<a class="btn btn-primary" style="float: right; background-color: rgb(59, 175, 252); border: rgb(59, 175, 252);"
 					href="freeEnrollForm.bo">글쓰기</a>
 				<br>
 			</c:if>
@@ -120,7 +120,7 @@
 							<td><c:out value='${b.freeTitle}'/></td>
 							<td>${b.freeWriter}</td>
 							<td>${b.count}</td>
-							<td>55</td>
+							<td>${b.likeCount}</td>
 							<td>${b.createDate}</td>
 						</tr>
 					</c:forEach>
@@ -182,6 +182,7 @@
 						class="form-select pt-1 mt-4">
 						<option value="fTitle">제목</option>
 						<option value="fwriter">글쓴이</option>
+						<option value="fContent">내용</option>
 
 					</select>
 					 <input type="hidden" value="${b.originName}" name="originName">
@@ -190,7 +191,7 @@
 				<div class="text">
     <input type="text" class="form-control" name="keyword" id="myInput" style="margin-top: 24px;" oninput="myFunction()">
 </div>
-<button type="submit" class="btn btn-primary" style="margin-top: 28px;background-color: rgb(59, 175, 252);" id="myButton" disabled>검색</button>
+<button type="submit" class="btn btn-primary" style=" border: rgb(59, 175, 252); margin-top: 28px;background-color: rgb(59, 175, 252);" id="myButton" disabled>검색</button>
 
 			</form>
 
