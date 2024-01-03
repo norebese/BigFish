@@ -73,9 +73,47 @@
 					</c:forEach>
                 </tbody>
             </table>
+                <!-- <script>
+                    function nextList(date){
+                
+                    let boardList = $("#boardList");
+                    let Content = '';
+                    
+                    $.each(date, function (index, study) {
+                                Content += '<a class="table table-hover" href="detail.st?sno='+study.studyNo +'"><div class="list-img-box"><div class="img-box">'
+                                +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+study.likeCount +'</span>';
+                            });
+                    
+                        boardList.append(Content);
+                }
 
-            
+                function nextListFiltered(date){
+	
+                let boardList = $("#boardList");
+                let Content = '';
+                
+                $.each(date, function (index, study) {
+                                Content += '<a class="table table-hover" href="detail.st?sno='+study.studyNo +'"><div class="list-img-box"><div class="img-box">'
+                                +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+study.likeCount +'</span>';
+                            });
+                
+                    boardList.append(Content);
+            }
 
+
+            function updateSeaList(date){
+
+            let boardList = $('#boardList');
+            let htmlContent = '';
+
+            $.each(date, function (index, study) {
+                                Content += '<a class="table table-hover" href="detail.st?sno='+study.studyNo +'"><div class="list-img-box"><div class="img-box">'
+                                +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+study.likeCount +'</span>';
+                            });
+
+            divInnerOuter.html(htmlContent);
+            }
+                </script> -->
             <br><br><br>
 
             <div id="pagingArea">
