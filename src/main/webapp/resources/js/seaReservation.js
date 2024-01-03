@@ -98,13 +98,14 @@
 		let Content = '';
 		
 		$.each(date, function (index, store) {
+		let formattedMinPrice = new Intl.NumberFormat().format(store.minPrice);
 	                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
 					+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 		            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 		            +'<span class="reply">'
 		            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'
 		            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+store.likeCount +'</span>'
-		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
+		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+formattedMinPrice+'<span>원</span></p></div></div></div></a>';
 	            });
 		
 		showListArea.append(Content);
@@ -116,13 +117,14 @@
 		let Content = '';
 		
 		$.each(date, function (index, store) {
+		let formattedMinPrice = new Intl.NumberFormat().format(store.minPrice);
 	                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
 					+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 		            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 		            +'<span class="reply">'
 		            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'
 		            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+store.likeCount +'</span>'
-		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
+		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+formattedMinPrice+'<span>원</span></p></div></div></div></a>';
 	            });
 		
 		showListArea.append(Content);
@@ -135,13 +137,14 @@ function updateSeaList(date){
 	let htmlContent = '';
 	
 	$.each(date, function (index, store) {
+	let formattedMinPrice = new Intl.NumberFormat().format(store.minPrice);
                 htmlContent += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
 				+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 	            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 	            +'<span class="reply">'
 	            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'
 	            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+store.likeCount +'</span>'
-	            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';         
+	            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+formattedMinPrice+'<span>원</span></p></div></div></div></a>';         
             });
 	
 	divToUpdate.html(htmlContent);
@@ -161,6 +164,10 @@ function updateFishKindList(date){
 	let divToUpdate = $('#fish-group');
 	let htmlContent = '';
 	
+	if(date == ''){
+		htmlContent = `<p>물고기 정보가 없습니다</p>`;
+		divToUpdate.html(htmlContent);
+	}
 	$.each(date, function (index, fish) {
         htmlContent += `<li onclick="showFish(`+"'"+fish.key+"'"+`)" class="list-group-item d-flex justify-content-between align-items-center">` +
             fish.key + '<span class="badge bg-primary rounded-pill">' + fish.value + '</span></li>';
@@ -557,6 +564,15 @@ document.addEventListener('DOMContentLoaded', function () {
 	    if (target.tagName === 'SPAN') {
 	        target.style.backgroundColor = '';
 	    }
+	});
+	const nextBtnHover = document.getElementById('more');
+	nextBtnHover.addEventListener('mouseover', function (event) {
+    	const target = event.target;
+    	target.style.backgroundColor = 'rgb(238 238 238)';
+	});
+	nextBtnHover.addEventListener('mouseout', function (event) {
+    	const target = event.target;
+    	target.style.backgroundColor = '';
 	});
 })
 

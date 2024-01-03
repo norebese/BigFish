@@ -136,17 +136,21 @@
 		<div class="sub">
 			<div
 				style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
-				<h4>학습 동영상</h4>
+				<h4 class="titleH4">학습 동영상</h4>
 			</div>
-			<div class="container text-center1" style="flex: 4; overflow: hidden;">
+			<div style="flex: 4;">
 				<div class="d-flex justify-content-between">
 					<div class="row" id="studyList">
-						
+						<div style="position: relative;">
+							<ul id="studyCardAreaID" class="studyCardArea">
+
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
-				<a href="list.st">학습 동영상 모두보기 <i class="bi bi-arrow-right"></i></a>
+			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221); margin-top: 10px;">
+				<a class="pageMore" href="list.st">학습 동영상 모두보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
 		</div>
 		<div class="banner"></div>
@@ -157,17 +161,21 @@
 		<div class="sub">
 			<div
 				style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
-				<h4>조황게시판</h4>
+				<h4 class="titleH4">조황게시판</h4>
 			</div>
-			<div class="container text-center1" style="flex: 4; overflow: hidden;">
+			<div style="flex: 4; overflow: hidden;">
 				<div class="d-flex justify-content-between">
 					<div class="row" id="fishBoardList" >
-						
+						<div style="position: relative;">
+							<ul id="fishCardAreaID" class="studyCardArea">
+								
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
-				<a href="list.fibo">조황게시판 모두보기 <i class="bi bi-arrow-right"></i></a>
+			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221); margin-top: 10px;">
+				<a class="pageMore" href="list.fibo">조황게시판 모두보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
 		</div>
 
@@ -182,18 +190,22 @@
 		<div class="sub">
 			<div
 				style="flex: 1; align-self: flex-start; color: rgb(41, 90, 221);">
-				<h4>자유게시판</h4>
+				<h4 class="titleH4">자유게시판</h4>
 			</div>
-			<div class="container text-center" style="flex: 4; overflow: hidden;">
+			<div style="flex: 4; overflow: hidden;">
 					<div class="d-flex justify-content-between">
 					<div class="row" id="freeBoardList" >
-						
+						<div style="position: relative;">
+							<ul id="freeCardAreaID" class="studyCardArea">
+								
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
+			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221); margin-top: 10px;">
 
-				<a href="list.fbo">자유게시판 모두보기 <i class="bi bi-arrow-right"></i></a>
+				<a class="pageMore" href="list.fbo">자유게시판 모두보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
 		</div>
 
@@ -209,7 +221,6 @@
 			$.ajax({
 				url: "mainList.fibo",
 				success: function(data){
-					console.log(data)
 					 drawBoardRow(data)
 				},
 				error: function(){
@@ -219,20 +230,13 @@
 		}
 		
 		function drawBoardRow(data) {
-			console.log(data)
 		    for (let rowData of data) {
 		        // 각각의 게시물을 추가하는 부분입니다.
-		        document.getElementById("fishBoardList").innerHTML +=
-		        	'<a href="detail.fibo?bno='+rowData.fishingNo+'" class="col-4" style="text-decoration: none; color: black;">'+
-						'<div style="height: 80%;">'+
-							'<img src="<%=contextPath%>'+ rowData.changeName + 
-								'"alt="Your Image" style="width: 239px; height: 175.8px; object-fit: contain; cursor: pointer;">' +
-						'</div>'+
-						<!-- p태그 부분: 높이의 20% -->
-						'<div style="height: 20%;">'+
-							'<p>'+rowData.fishingTitle+'</p>'+
-						'</div>'+
-					'</a>'		
+		        document.getElementById("fishCardAreaID").innerHTML +=
+					`<li class="studyCard">`
+					+`<article class="studyCardA"><a class="studyLink" href="detail.fibo?bno=`+rowData.fishingNo+`"><div class="fishTube">`
+					+`<img class="mainImgs" src="/bigFish`+rowData.changeName+`"></div>`
+					+`<div class="studyName">`+rowData.fishingTitle+`</div></a></article></li>`
 		    }
 		}
 
@@ -245,7 +249,6 @@
 			$.ajax({
 				url: "mainList.st",
 				success: function(data){
-					console.log(data)
 					drawStudyRow(data)
 				},
 				error: function(){
@@ -258,9 +261,7 @@
 			$.ajax({
 				url: "mainList.fbo",
 				success: function(freedata){
-					console.log(freedata)
 					 drawFreeBoardRow(freedata)
-
 				},
 				error: function(){
 					console.log("ajax 실패")
@@ -270,19 +271,12 @@
 
 
 		function drawStudyRow(data) {
-			console.log(data)
+			
 			for (let rowData of data) {
 				// 각각의 게시물을 추가하는 부분입니다.
-				document.getElementById("studyList").innerHTML +=
-					'<a href="detail.st?sno='+rowData.studyNo+'" class="col-4" style="text-decoration: none; color: black; margin-left: -6%">'+
-							 rowData.studyLink + 
-						'</div>'+
-						<!-- p태그 부분: 높이의 20% -->
-						'<div style="height: 20%;">'+
-							'<p style="margin-left:38%">'+rowData.studyTitle+'</p>'+
-						'</div>'+
-					'</a>'		
-					console.log(data)
+				document.getElementById("studyCardAreaID").innerHTML +=	
+					`<li class="studyCard"><article class="studyCardA"><a class="studyLink" href="detail.st?sno=`+rowData.studyNo+`">`
+					+`<div class="studyTube">`+rowData.studyLink+`</div><div class="studyName">`+rowData.studyTitle+`</div></a></article></li>`
 			}
 		}
 		
@@ -290,18 +284,11 @@
 			
 		    for (let rowData of freedata) {
 		        // 각각의 게시물을 추가하는 부분입니다.
-		        document.getElementById("freeBoardList").innerHTML +=
-		        	'<a href="detail.fbo?bno='+rowData.freeNo+'" class="col-4" style="text-decoration: none; color: black;">'+
-						'<div style="height: 80%;">'+
-							'<img src="'+ rowData.freeContent + 
-								'"alt="Your Image" style="width: 239px; height: 175.8px; object-fit: contain; cursor: pointer;">' +
-						'</div>'+
-						<!-- p태그 부분: 높이의 20% -->
-						'<div style="height: 20%;">'+
-							'<p>'+rowData.freeTitle+'</p>'+
-						'</div>'+
-					'</a>'
-						
+		        document.getElementById("freeCardAreaID").innerHTML +=
+						`<li class="studyCard">`
+						+`<article class="studyCardA"><a class="studyLink" href="detail.fbo?bno=`+rowData.freeNo+`"><div class="fishTube">`
+						+`<img class="mainImgs" src="`+rowData.freeContent+`"></div>`
+						+`<div class="studyName">`+rowData.freeTitle+`</div></a></article></li>`
 		    }
 
 		}

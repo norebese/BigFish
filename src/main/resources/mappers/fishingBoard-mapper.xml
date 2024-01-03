@@ -206,11 +206,14 @@ ORDER BY
 	<!-- 통합 검색을 위해 만든 것 -고이환- -->
 	<select id="selectFishingList" resultMap="fishingBoardResult">
 		SELECT FISHING_NO,
-		FISHING_TITLE
+		FISHING_TITLE,
+        FISHING_WRITER,
+        CHANGE_NAME
 		FROM FISHBOARD
+        JOIN ATTACHMENT ON FISHING_NO = RFISHING_NO
 		WHERE FISHING_STATUS = 'Y'
 		AND FISHING_TITLE LIKE '%' || #{keyword} || '%'
-		AND ROWNUM &lt;= 2
+		AND ROWNUM &lt;= 3
 	</select>
 
 	<select id="selectmainList" resultMap="fishingBoardResult">

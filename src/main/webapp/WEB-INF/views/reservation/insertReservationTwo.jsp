@@ -13,6 +13,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="<%=contextPath%>/resources/css/insertReservationTwo.css">
+    <script src="<%=contextPath%>/resources/js/insertReservationTwo.js"></script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -30,8 +31,8 @@
 	            <span style="margin-left: 240px;">휴대폰 번호</span>
 	        </div>
 	        <div class="input-area">
-	            <input name="revName" type="text" placeholder="이름을 입력해주세요" value="${M.memNick}">
-	            <input name="revPhone" style="margin-left: 85px;" type="text" placeholder="전화번호를 입력해주세요" value="${M.phone}">
+	            <input id="input1" name="revName" oninput="checkInputs()" type="text" placeholder="이름을 입력해주세요" value="${M.memNick}">
+	            <input id="input2" name="revPhone" oninput="checkInputs()" style="margin-left: 85px;" type="text" placeholder="전화번호를 입력해주세요" value="${M.phone}">
 	        </div>
 	    </div>
 	    <div class="section">
@@ -66,7 +67,7 @@
 	    </div>
 	    <div class="next-btn">
 	        <button type="button" class="btn btn-primary" style="position: absolute; right: 0; margin-top: 5px; margin-right: 100px; background: red; border: none;">예약취소</button>
-	        <button type="submit" class="btn btn-primary" style="position: absolute; right: 0; margin-top: 5px;">예약하기</button>
+	        <button type="submit" id="subBtn" class="btn btn-primary" style="position: absolute; right: 0; margin-top: 5px;">예약하기</button>
 	    </div>
     </form>
     

@@ -190,11 +190,14 @@
 	
 	<select id="selectShopList" resultMap="shopResult">
 		SELECT PRODUCT_NO,
-			   PRODUCT_NAME
-			FROM SHOP
+        PRODUCT_NAME,
+        PRODUCT_PRICE,
+        CHANGE_NAME
+		FROM SHOP
+        JOIN ATTACHMENT ON PRODUCT_NO = RPRODUCT_NO
 		WHERE PRODUCT_STATUS = 'Y'
 		AND PRODUCT_NAME LIKE '%' || #{keyword} || '%'
-		AND ROWNUM &lt;= 2
+		AND ROWNUM &lt;= 3
 	</select>
  </mapper>
  

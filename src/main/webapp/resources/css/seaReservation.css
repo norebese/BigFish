@@ -764,6 +764,8 @@ p {
     margin: 2px auto 0;
     color: #fff;
     background-color: #323232;
+    margin-right: 5px;
+    font-size: small;
 }
 .list-group-item{
 	cursor: pointer;
