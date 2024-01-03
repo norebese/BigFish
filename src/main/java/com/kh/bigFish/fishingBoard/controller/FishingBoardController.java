@@ -350,7 +350,7 @@ public class FishingBoardController {
 			public String selectReplyList(int bno) {
 			
 				ArrayList<Reply> list = fishingBoardService.selectReplyList(bno);
-				System.out.println("여기까진됩니다.12342134"+list);
+			
 				
 				return new Gson().toJson(list);
 			}

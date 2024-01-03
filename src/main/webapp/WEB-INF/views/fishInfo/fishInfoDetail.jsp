@@ -27,13 +27,13 @@
 			<div class="fish-content">${f.fishContent}</div>
 			
 			<br><br><br>
-			<c:if test=" ${ not empty loginUser and loginUser.memAdmin eq 'Y' }">
 				<div class="fishInfo-btn-area">
 					<button class="btn btn-primary" onclick="location.href='fishInfo.fi'">목록으로</button>
-					<button class="btn btn-primary" onclick="location.href='fishUpdateForm.fi?fno=${f.fishNo}'">수정하기</button>
-					<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>
+					<c:if test=" ${ loginUser.memAdmin eq 'Y' }">
+						<button class="btn btn-primary" onclick="location.href='fishUpdateForm.fi?fno=${f.fishNo}'">수정하기</button>
+						<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</button>
+					</c:if>
 				</div>
-			</c:if>
 		</div>
 		
 			<!-- The Modal -->
