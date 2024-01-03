@@ -178,6 +178,7 @@ function updateTicket(date){
 	let htmlContent = '';
 	
 	$.each(date, function (index, ticket) {
+		let formattedMinPrice = new Intl.NumberFormat().format(ticket.ticketPrice);
 				if(ticket.amount == 0){
 					htmlContent += '<li class="option-item disabled-option">'
 				}else{
@@ -187,7 +188,7 @@ function updateTicket(date){
         		+'<div class="checkbox-icon"><label for="myCheckbox'+ticket.ticketNo+'"><input type="checkbox" id="myCheckbox'+ticket.ticketNo+'" class="myCheckbox" data-target="#checkboxLabel'+ticket.ticketNo
                 +`" onclick="handleCheckboxClick('myCheckbox` + ticket.ticketNo+`','`+ticket.ticketTime+ `')" value="`+ticket.ticketNo+'">'
         		+'</label></div><div class="option-info"><div class="info-text"><div class="boucher-title">'+ticket.ticketName+'</div>'
-        		+'<div class="info-content"><span>남은 수량 : '+ticket.amount+' <br></span><span>가격 : '+ticket.ticketPrice+'<br></span><span>이용가능 시간 :</span>'
+        		+'<div class="info-content"><span>남은 수량 : '+ticket.amount+' <br></span><span>가격 : '+formattedMinPrice+' 원<br></span><span>이용가능 시간 : </span>'
         		+'<span class="timeval">'+ticket.ticketTime+'</span><span>hr</span></div></div></div></label><div class="modal" id="myModal'+ticket.ticketNo+'">'
 				+'<div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">인원수 설정</h4>'
 				+'<button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><label for="quantity'+ticket.ticketNo+'">인원수:</label>'

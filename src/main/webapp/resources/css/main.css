@@ -171,13 +171,15 @@ ul{
 	display: flex;
 	width: 792px;
 	margin-left: 5px;
+	margin-top: 5px;
+    margin-bottom: 5px
 }
 .studyCard{
 	margin-right: 35px;
 }
 .studyCardA{
 	border-radius: 1.2rem;
-    box-shadow: 0 0.4rem 1.6rem rgba(0,0,0, 0.15 );
+    box-shadow: 0 0.4rem 1.2rem rgba(0,0,0, 0.15 );
     height: 100%;
     position: relative;
     overflow: hidden;

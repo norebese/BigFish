@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
@@ -10,126 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BIG FISH</title>
-<style>
-	.header-box{
-		color: rgb(59, 175, 252);
-		width: 70%;
-		height: 40px;
-		margin-left: 15%;
-		border-bottom: 2px solid gray;
-		
-	}
-	
-	.search-result{
-		width: 70%;
-		height: 50px;
-		margin-left: 15%;
-		border-bottom: 2px solid gray;
-		position: relative;
-	}
-
-	.seaReservation-board{
-		display: inline-table;
-		width: 100%;
-		height: 100px;
-	}
-
-	.fishReservation-board{
-		display: inline-table;
-		width: 100%;
-		height: 100px;
-	}
-
-	.shop-board{
-		background-color: rgb(224, 224, 224);
-		width: 100%;
-		height: 100px;
-	}
-
-	.study-board{
-		background-color: rgb(224, 224, 224);
-		width: 100%;
-		height: 100px;
-	}
-
-	.fishing-board{
-		background-color: rgb(224, 224, 224);
-		width: 100%;
-		height: 100px;
-	}
-
-	.free-board{
-		background-color: rgb(224, 224, 224);
-		width: 100%;
-		height: 100px;
-	}
-
-	.boardList{
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		width: 70%;
-		align-items: center;
-		margin: 0px auto;
-	}
-
-	.all-see{
-		display: flex;
-		color: rgb(41, 90, 221);
-		justify-content: flex-end;
-	}
-	.list-box-area{
-    padding-right: 20px;
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 0;
-    position: relative;
-    display: block;
-    margin-top: 20px;
-    background: #fff;
-    border: 1px solid #d5d5d5;
-    border-radius: 0.3rem;
-    }
-    .list-img-box{
-    display: flex;
-}
-.img-box{
-    width: 0;
-    height: 165px;
-    width: 275px;
-    padding-left: 317px;
-    overflow: hidden;
-    position: relative;
-    
-}
-.img-box img{
-    position: absolute;
-    top: 0;
-    left: 50%;
-    height: 100%;
-    width: auto;
-    transform: translate(-57%, 0);
-}
-.list-txt-box{
-    float: left;
-    width: calc(100% - 275px);
-    padding-left: 15px;
-    margin: 0;
-    padding: 0;
-}
-.list-name{
-    font-size: 22px;
-    font-weight: bold;
-    color: #000000;
-    margin-top: 10px;
-    margin-bottom: 7px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 250px;
-}
-</style>
+<link rel="stylesheet" href="<%=contextPath%>/resources/css/searchPage.css">
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"/>
@@ -152,6 +34,9 @@
 					<h5>바다 낚시터</h5>
 				</div>
 				<table class="seaReservation_table">
+					<c:if test="${empty seaStoreList}">
+					    <p>검색 결과가 없습니다.</p>
+					</c:if>
 					<c:forEach var="ssl" items="${seaStoreList}" varStatus="loopStatus">
 						<a class="list-box-area" href="resDetailPage?storeNumber=${ssl.storeNo}">
 			                <div class="list-img-box">
@@ -177,7 +62,7 @@
 			                        </p>
 			                        <div class="price-area">
 			                            <p>
-			                                ${ssl.minPrice}
+			                                <fmt:formatNumber value="${ssl.minPrice}"/>
 			                                <span>원</span>
 			                            </p>
 			                        </div>
@@ -188,7 +73,7 @@
 				</table>
 				<br>
 				<div class="all-see">
-					<a href="list.st">더보기</a>
+					<a href="seaReservation">바다낚시터 바로가기 ></a>
 				</div>
 			</div>
 	
@@ -199,6 +84,9 @@
 					<h5>민물 낚시터</h5>
 				</div>
 				<table class="fishReservation_table">
+					<c:if test="${empty fishStoreList}">
+					    <p>검색 결과가 없습니다.</p>
+					</c:if>
 					<c:forEach var="sl" items="${fishStoreList}" varStatus="loopStatus">
 						<a class="list-box-area" href="resDetailPage?storeNumber=${sl.storeNo}">
 			                <div class="list-img-box">
@@ -224,7 +112,7 @@
 			                        </p>
 			                        <div class="price-area">
 			                            <p>
-			                                ${sl.minPrice}
+			                            	<fmt:formatNumber value="${sl.minPrice}"/>
 			                                <span>원</span>
 			                            </p>
 			                        </div>
@@ -235,7 +123,7 @@
 				</table>
 				<br>
 				<div class="all-see">
-					<a href="list.st">더보기</a>
+					<a href="fishReservation">민물낚시터 바로가기 ></a>
 				</div>
 			</div>
 	
@@ -246,17 +134,26 @@
 					<h5>낚시 용품</h5>
 				</div>
 				<table class="shop_table">
-					<c:forEach var="s" items="${shopList}">
-					<tr>		
-						<td>
-							<a onclick="location.href='detail.sh?sno=${s.productNo}'" style="cursor: pointer;">${s.productName}</a>
-						</td>
-					</tr>	
-					</c:forEach>
+					<div class="fishBox">
+					<c:if test="${empty shopList}">
+					    <p>검색 결과가 없습니다.</p>
+					</c:if>
+						<c:forEach var="s" items="${shopList}">
+							<a class="list-box-area2" href="detail.sh?sno=${s.productNo}">
+								<div class="list-visual-box2">
+									<img alt="조황사진" src="/bigFish${s.changeName}">
+								</div>
+								<div class="list-box2">
+									<p class="list-name">${s.productName}</p>
+									<p class="list-price"><fmt:formatNumber value="${s.productPrice}" type="currency" /></p>
+								</div>
+							</a>	
+						</c:forEach>
+					</div>
 				</table>
 				<br>
 				<div class="all-see">
-					<a href="list.sh">더보기</a>
+					<a href="list.sh">낚시용품 바로가기 ></a>
 				</div>
 			</div>
 	
@@ -267,17 +164,25 @@
 					<h5>학습동영상</h5>
 				</div>
 				<table class="study_table">
-					<c:forEach var="s" items="${list}">
-					<tr>		
-						<td>
-							<a onclick="location.href='detail.st?sno=${s.studyNo}'" style="cursor: pointer;">${s.studyTitle}</a>
-						</td>
-					</tr>	
-					</c:forEach>
+					<div class="fishBox">
+					<c:if test="${empty list}">
+					    <p>검색 결과가 없습니다.</p>
+					</c:if>
+						<c:forEach var="s" items="${list}">
+							<a class="list-box-area2" href="detail.st?sno=${s.studyNo}">
+								<div class="list-visual-box2">
+									${s.studyLink}
+								</div>
+								<div class="list-box2">
+									<p class="list-name">${s.studyTitle}</p>
+								</div>
+							</a>
+						</c:forEach>
+					</div>
 				</table>
 				<br>
 				<div class="all-see">
-					<a href="list.st">더보기</a>
+					<a href="list.st">학습동영상 바로가기 ></a>
 				</div>
 			</div>
 	
@@ -288,17 +193,26 @@
 					<h5>조황게시판</h5>
 				</div>
 				<table class="fishing-table">
-					<c:forEach var="b" items="${list1}">
-					<tr>		
-						<td>
-							<a onclick="location.href='detail.fibo?bno=${b.fishingNo}'" style="cursor: pointer;">${b.fishingTitle}</a>
-						</td>
-					</tr>	
-					</c:forEach>
+					<div class="fishBox">
+					<c:if test="${empty list1}">
+					    <p>검색 결과가 없습니다.</p>
+					</c:if>
+						<c:forEach var="b" items="${list1}">
+							<a class="list-box-area2" href="detail.fibo?bno=${b.fishingNo}">
+								<div class="list-visual-box2">
+									<img alt="조황사진" src="/bigFish${b.changeName}">
+								</div>
+								<div class="list-box2">
+									<p class="list-name">${b.fishingTitle}</p>
+									<p class="lsit-writer">${b.fishingWriter}</p>
+								</div>
+							</a>
+						</c:forEach>
+					</div>
 				</table>
 				<br>
 				<div class="all-see">
-					<a href="list.fibo">더보기</a>
+					<a href="list.fibo">조황게시판 바로가기 ></a>
 				</div>
 			</div>
 			
@@ -309,61 +223,30 @@
 					<h5>자유게시판</h5>
 				</div>
 				<table class="free_table">
-					<c:forEach var="b" items="${list2}">
-					<tr>		
-						<td>
-							<a onclick="location.href='detail.fbo?bno=${b.freeNo}'" style="cursor: pointer;">${b.freeTitle}</a>
-						</td>
-					</tr>	
-					</c:forEach>
+					<div class="freeList">
+					<c:if test="${empty list2}">
+					    <p>검색 결과가 없습니다.</p>
+					</c:if>
+						<c:forEach var="b" items="${list2}">
+							<a class="freeArea" href="detail.fbo?bno=${b.freeNo}">
+								<p class="freeTitle">${b.freeTitle}</p>
+								<p class="freeContent">${b.freeContent}</p>
+								<p class="freeWriter">
+									<span>${b.freeWriter}</span>
+									<span>| ${b.createDate}</span>
+								</p>
+							</a>
+						</c:forEach>
+					</div>
 				</table>
 				<br>
 				<div class="all-see">
-					<a href="list.fbo">더보기</a>
+					<a href="list.fbo">자유게시판 바로가기 ></a>
 				</div>
 			</div>
 		</div>
 	</form>
 	</div>
-
-	<script>
-		window.onload = function() {
-		const studyboard = document.querySelector("#study-board");
-		const fishingboard = document.querySelector("#fishing-board");
-		const freeboard = document.querySelector("#free-board");
-		const seaReservationboard = document.querySelector("#seaReservation-board");
-		const fishReservationboard = document.querySelector("#fishReservation-board");
-		const shopboard = document.querySelector("#shop-board")
-			console.log(${empty list})
-			console.log(${empty list1})
-			console.log(${empty list2})
-			console.log(${empty seaReservationboard})
-			console.log(${empty fishReservationboard})
-		if (${empty list} || ${list.size()} === 0) {
-			studyboard.style.display = "none";
-		}
-		
-		if (${empty list1} || ${list1.size()} === 0) {
-			fishingboard.style.display = "none";
-		}
-		
-		if (${empty list2} || ${list2.size()} === 0) {
-			freeboard.style.display = "none";
-		}
-		
-		if (${empty seaStoreList} || ${seaStoreList.size()} === 0) {
-			seaReservationboard.style.display = "none";
-		}
-
-		if (${empty fishStoreList} || ${fishStoreList.size()} === 0) {
-			fishReservationboard.style.display = "none";
-		}
-
-		if (${empty shopList} || ${shopList.size()} === 0) {
-			shopboard.style.display = "none";
-		}
-	}
-	</script>
 	<jsp:include page="../common/footer.jsp"/>
 </body>
 </html>
