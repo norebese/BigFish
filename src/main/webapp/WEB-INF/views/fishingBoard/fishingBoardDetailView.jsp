@@ -55,36 +55,39 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 	justify-content: space-around;
 	align-items: flex-start;
 }
-#rerere{
-	
+
+#rerere {
 	margin-left: 5px;
-	 text-align: right;
-	 color: #ff0000;
-	 cursor: pointer;
+	text-align: right;
+	color: #ff0000;
+	cursor: pointer;
 }
-.replyImg{
-    display: flex;
-    height: 60px;
-    flex-wrap: wrap;
-    align-content: center;
+
+.replyImg {
+	display: flex;
+	height: 60px;
+	flex-wrap: wrap;
+	align-content: center;
 }
-.replyImg img{
-    height: 35px;
-    width: 35px;
-    margin-right: 10px;
+
+.replyImg img {
+	height: 35px;
+	width: 35px;
+	margin-right: 10px;
 }
- #footer {
-        width:100%;
-        margin:auto;
-        margin-top:50px;
-        margin-bottom: 0px;
-        background-color: rgb(59, 175, 252);
-        text-align: left;
-    }
+
+#footer {
+	width: 100%;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 0px;
+	background-color: rgb(59, 175, 252);
+	text-align: left;
+}
 </style>
 </head>
 <body>
-<script>
+	<script>
   const loginUserNick = "${loginUser.memNick}";
 </script>
 	<jsp:include page="../common/header.jsp" />
@@ -119,63 +122,65 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 			<br>
 
 
-			
-				<table id="contentArea" algin="center" class="table"
-					style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">
 
-					<div style="text-align: left">
-						<h5 style="font-size: 26px;"><c:out value='${b.fishingTitle}'/></h5>
-						<input type="hidden" value="${b.fishingNo}" name="bno">
-					</div>
-					<div class="container"
-						style="margin-top: 10px; border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 0px;">
-						<div class="row" style="display: flex; align-items: center;">
-							<div class="col" style="flex-grow: 1;">
-								<div
-									style="text-align: left; display: flex; align-items: center;">
-									<i class="bi bi-person-circle"
-										style="font-size: 40px; margin-right: 10px;"></i>
-									<h6
-										style="margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${b.fishingWriter}</h6>
-								</div>
-							</div>
+			<table id="contentArea" algin="center" class="table"
+				style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">
 
-							<div class="col" style="flex-grow: 1;">
-								<div
-									style="display: flex; align-items: center; justify-content: flex-end;">
-
-									<p style="margin: 0; margin-right: 10px; white-space: nowrap;">조회수:${b.fishingCount}</p>
-									<p style="margin: 0; white-space: nowrap;">작성일:${b.fishingCreateDate}</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div
-						style="flex: 1; display: flex; margin-top: 20px; justify-content: flex-start;">
-						<!-- 이미지를 감싸는 div -->
-						<div
-							style="width: 100%; height: 400px; margin-bottom: 20px; overflow: hidden; display: flex; justify-content: flex-start;">
-							<!-- 실제로는 이미지의 경로를 적어주세요. -->
-							<img src="<%=contextPath%>/${b.changeName}" alt="Your Image"
-								style="height: 352px;">
-						</div>
-					</div>
-
-
-					<tr>
-						<td colspan="4">${b.fishingContent}
-							</p>
-						</td>
-					</tr>
-				</table>
+				<div style="text-align: left">
+					<h5 style="font-size: 26px;">
+						<c:out value='${b.fishingTitle}' />
+					</h5>
+					<input type="hidden" value="${b.fishingNo}" name="bno">
+				</div>
 				<div class="container"
-					style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px; padding-left: 0px; padding-right: 0px;">
+					style="margin-top: 10px; border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 0px;">
+					<div class="row" style="display: flex; align-items: center;">
+						<div class="col" style="flex-grow: 1;">
+							<div
+								style="text-align: left; display: flex; align-items: center;">
+								<i class="bi bi-person-circle"
+									style="font-size: 40px; margin-right: 10px;"></i>
+								<h6
+									style="margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${b.fishingWriter}</h6>
+							</div>
+						</div>
 
-					<div class="row">
-						<div class="col-md-8">
-							<h6 align="left" style="margin-bottom: 0px; margin-top: 15px;">
-								
-								<div id="like-logo" onclick="updateLike()"
+						<div class="col" style="flex-grow: 1;">
+							<div
+								style="display: flex; align-items: center; justify-content: flex-end;">
+
+								<p style="margin: 0; margin-right: 10px; white-space: nowrap;">조회수:${b.fishingCount}</p>
+								<p style="margin: 0; white-space: nowrap;">작성일:${b.fishingCreateDate}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div
+					style="flex: 1; display: flex; margin-top: 20px; justify-content: flex-start;">
+					<!-- 이미지를 감싸는 div -->
+					<div
+						style="width: 100%; height: 400px; margin-bottom: 20px; overflow: hidden; display: flex; justify-content: flex-start;">
+						<!-- 실제로는 이미지의 경로를 적어주세요. -->
+						<img src="<%=contextPath%>/${b.changeName}" alt="Your Image"
+							style="height: 352px;">
+					</div>
+				</div>
+
+
+				<tr>
+					<td colspan="4">${b.fishingContent}
+						</p>
+					</td>
+				</tr>
+			</table>
+			<div class="container"
+				style="border-bottom: solid 2px rgb(204, 204, 204); padding-bottom: 15px; padding-left: 0px; padding-right: 0px;">
+
+				<div class="row">
+					<div class="col-md-8">
+						<h6 align="left" style="margin-bottom: 0px; margin-top: 15px;">
+
+							<div id="like-logo" onclick="updateLike()"
 								style="display: inline-block; margin-right: 15px; cursor: pointer;">
 								<c:choose>
 									<c:when test="${fishingGoodStatus.fishingGoodStatus eq 'Y'}">
@@ -185,62 +190,60 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 									<c:otherwise>
 										<img style="height: 19px;"
 											src="<%=contextPath%>/resources/images/heart-notfill.png">
-												 
+
 									</c:otherwise>
 								</c:choose>
-								
-							</div>
-						<span id="whgdkdy" style="margin-right: 15px;">${likeNo}</span> 
-								
-							</h6>
-						</div>
 
-						
-							<div class="col-6 col-md-4">
-							<c:if test="${loginUser.memNick eq b.fishingWriter}">
-									<button type="button" class="btn btn-success"
-									style=" border: rgb(59, 175, 252);background-color: rgb(59, 175, 252);"
-									onclick="location.href='list.fibo'">목록으로
-								</button>
-								<button type="button" class="btn btn-success"
-									style=" border: rgb(59, 175, 252);background-color: rgb(59, 175, 252);"
-									onclick="location.href='fishingUpdateForm.bo?bno=${b.fishingNo}'">글수정
-								</button>
-								<button type="button" class="btn btn-danger"
-									data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-									글삭제</button>
-										</c:if>
-									
 							</div>
-						
-					
-							
+							<span id="whgdkdy" style="margin-right: 15px;">${likeNo}</span>
+
+						</h6>
 					</div>
 
-					<br>
 
-					<div
-						style="border-top: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">
-						<h6 style="text-align: left; margin-bottom: 10px;">댓글</h6>
-						<th colspan="2">
-							<div style="display: flex; align-items: center;">
-								<textarea class="form-control" id="content" cols="55" rows="2"
-									style="resize: none; width: 100%; height: 80px;"></textarea>
-								<button type="button" class="btn btn-primary" 
-        style="border: rgb(59, 175, 252); height: 80px; width: 120px; margin-left: 10px; background-color: rgb(59, 175, 252);" 
-        onclick="${loginUser != null ? 'addReply();' : 'return false;'}">
-    댓글등록
-</button>
-							</div>
-						</th>
+					<div class="col-6 col-md-4">
+						<c:if test="${loginUser.memNick eq b.fishingWriter}">
+							<button type="button" class="btn btn-success"
+								style="border: rgb(59, 175, 252); background-color: rgb(59, 175, 252);"
+								onclick="location.href='list.fibo'">목록으로</button>
+							<button type="button" class="btn btn-success"
+								style="border: rgb(59, 175, 252); background-color: rgb(59, 175, 252);"
+								onclick="location.href='fishingUpdateForm.bo?bno=${b.fishingNo}'">글수정
+							</button>
+							<button type="button" class="btn btn-danger"
+								data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+								글삭제</button>
+						</c:if>
+
 					</div>
+
+
+
 				</div>
-				<div id="replyAreaa">
+
+				<br>
+
+				<div
+					style="border-top: solid 2px rgb(204, 204, 204); padding-bottom: 15px;">
+					<h6 style="text-align: left; margin-bottom: 10px;">댓글</h6>
+					<th colspan="2">
+						<div style="display: flex; align-items: center;">
+							<textarea class="form-control" id="content" cols="55" rows="2"
+								style="resize: none; width: 100%; height: 80px;"></textarea>
+							<button type="button" class="btn btn-primary"
+								style="border: rgb(59, 175, 252); height: 80px; width: 120px; margin-left: 10px; background-color: rgb(59, 175, 252);"
+								onclick="${loginUser != null ? 'addReply();' : 'return false;'}">
+								댓글등록</button>
+						</div>
+					</th>
+				</div>
+			</div>
+			<div id="replyAreaa">
 				<!-- 댓글파트 -->
-				
-</div>
-				<!-- Modal -->
-				<form method="post" action="delete.fibo"
+
+			</div>
+			<!-- Modal -->
+			<form method="post" action="delete.fibo"
 				enctype="multipart/form-data">
 				<div class="modal fade" id="staticBackdrop"
 					data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -257,13 +260,13 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">닫기</button>
 								<button type="submit" class="btn btn-danger">글삭제</button>
-									<input type="hidden" value="${b.fishingNo}" name="bno">
+								<input type="hidden" value="${b.fishingNo}" name="bno">
 							</div>
 						</div>
 					</div>
 				</div>
-				</form>
-			
+			</form>
+
 		</div>
 		<jsp:include page="../common/footer.jsp" />
 
