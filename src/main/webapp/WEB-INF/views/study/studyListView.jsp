@@ -183,7 +183,7 @@
                 </script>
             </c:if>
             
-            <c:if test="${hasSearch eq 'false' and not empty keyword}">
+            <c:if test="${empty list}">
                 <p style="text-align: center; margin-top: -12%;">검색 내용이 없습니다.</p>
             </c:if>
         </div>

@@ -60,7 +60,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
                 </c:when>
                 <c:otherwise>
                     <button align="center" class="btn" id="buyButton" style="background-color: rgb(52, 152, 219); color: white; float:right;">구매하기</button>
-                    <div style="margin-left: 52%;"><button class="btn btn-secondary" onclick="location.href='list.st'">목록으로</button></div>
+                    <div style="margin-left: 52%;"><button class="btn btn-secondary" onclick="location.href='list.sh'">목록으로</button></div>
                 </c:otherwise>
             </c:choose>  
         </div>
