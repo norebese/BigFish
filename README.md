@@ -26,29 +26,16 @@ Java Spring 낚시터 예약 등 종합 낚시사이트
 - 국세청_사업자등록정보 진위확인 및 상태조회서비스
 
 ## 실행 방법
+톰켓 버전 설치, 자바 버전, 메이븐 몇, 그리고 프로젝트 올려서 실행
+1. apache-tomcat-8.5.94 설치
 
-1. 프로젝트 레포지토리를 클론합니다.
+2. java-1.8.0 설치
 
-```sh
-$ git clone https://kdt-gitlab.elice.io/ai_track/class05/ai_project/team05/team05.git
-```
+3. apache-maven-3.9.5 설치
 
-2. 프로젝트 실행에 필요한 패키지를 설치합니다.
-
-```sh
-$ cd front
-$ npm i
-
-$ cd back
-$ npm i
-```
-
-3. development server을 실행합니다.
-```sh
-$ npm run dev
-# or
-$ yarn dev
-```
+4. sts-3.9.13.RELEASE 설치
+   
+5. 프로젝트 클론 및 실행
 
 ## 🎣프로젝트 소개
 이 프로젝트는 낚시를 좋아하는 사람들을 위한 기존 사이트를 참고하여 새로운 UI와 기능을 추가해보았습니다.
