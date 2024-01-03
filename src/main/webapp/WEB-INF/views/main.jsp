@@ -149,7 +149,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
+			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221); margin-top: 10px;">
 				<a class="pageMore" href="list.st">학습 동영상 모두보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
 		</div>
@@ -174,7 +174,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
+			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221); margin-top: 10px;">
 				<a class="pageMore" href="list.fibo">조황게시판 모두보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
 		</div>
@@ -203,7 +203,7 @@
 					</div>
 				</div>
 			</div>
-			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221);">
+			<div style="flex: 1; align-self: flex-end; color: rgb(41, 90, 221); margin-top: 10px;">
 
 				<a class="pageMore" href="list.fbo">자유게시판 모두보기 <i class="bi bi-arrow-right"></i></a>
 			</div>
@@ -221,7 +221,6 @@
 			$.ajax({
 				url: "mainList.fibo",
 				success: function(data){
-					console.log(data)
 					 drawBoardRow(data)
 				},
 				error: function(){
@@ -250,7 +249,6 @@
 			$.ajax({
 				url: "mainList.st",
 				success: function(data){
-					console.log(data)
 					drawStudyRow(data)
 				},
 				error: function(){
@@ -263,9 +261,7 @@
 			$.ajax({
 				url: "mainList.fbo",
 				success: function(freedata){
-					console.log(freedata)
 					 drawFreeBoardRow(freedata)
-
 				},
 				error: function(){
 					console.log("ajax 실패")
@@ -275,7 +271,7 @@
 
 
 		function drawStudyRow(data) {
-			console.log(data)
+			
 			for (let rowData of data) {
 				// 각각의 게시물을 추가하는 부분입니다.
 				document.getElementById("studyCardAreaID").innerHTML +=	

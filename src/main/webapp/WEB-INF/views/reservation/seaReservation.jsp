@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
@@ -299,7 +300,7 @@
 	                        </p>
 	                        <div class="price-area">
 	                            <p>
-	                                ${ssl.minPrice}
+	                                <fmt:formatNumber value="${ssl.minPrice}"/>
 	                                <span>원</span>
 	                            </p>
 	                        </div>
