@@ -189,7 +189,7 @@
 					  <input type="hidden" value="${b.changeName}" name="changeName">
 				</div>
 				<div class="text">
-    <input type="text" class="form-control" name="keyword" id="myInput" style="margin-top: 24px;" oninput="myFunction()">
+    <input type="text" class="form-control" name="keyword" value="${keyword}"id="myInput" style="margin-top: 24px;" oninput="myFunction()">
 </div>
 <button type="submit" class="btn btn-primary" style=" border: rgb(59, 175, 252); margin-top: 28px;background-color: rgb(59, 175, 252);" id="myButton" disabled>검색</button>
 
