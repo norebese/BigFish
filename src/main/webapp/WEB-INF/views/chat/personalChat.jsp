@@ -67,7 +67,7 @@
 			console.log(result);
 
 			for(let s of result){
-				chooseStoreArea.insertAdjacentHTML('beforeend','<div onclick="getChat('+s.rstoreNo+',`'+s.rstoreName+'`)" style="cursor: pointer; width: 100%; height: 10%; border: 1px solid white;">'+s.rstoreName+'</div>')
+				chooseStoreArea.insertAdjacentHTML('beforeend','<div class="choiceStore" onclick="getChat(this,'+s.rstoreNo+',`'+s.rstoreName+'`)" style="cursor: pointer; width: 100%; height: 10%; border: 1px solid white;">'+s.rstoreName+'</div>')
 			}
 
 
@@ -142,7 +142,14 @@
 	}
 	
 
-	function getChat(storeNo,rstoreName){
+	function getChat(ev,storeNo,rstoreName){
+		console.log(ev);
+		
+		const choiceStore = document.getElementsByClassName("choiceStore");
+		for(let c of choiceStore){
+			c.style.background = "white";
+		}
+		ev.style.background = "rgb(59, 175, 252)";
 		const chatSend = document.querySelector("#chatSend");
 		chatSend.removeAttribute("onclick");
 		chatSend.setAttribute("onclick","sendMsg("+storeNo+")");

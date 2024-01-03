@@ -249,7 +249,7 @@ public class MemberController {
 		ArrayList<Reservation> reserList = reservationService.selectReservationList(loginUser.getMemNo(), pi);
 		ArrayList<KakaoRequestDto> payList = shopService.selectKakaoRequestDtoList(loginUser.getMemId());
 		
-	
+	System.out.println(payList);
 		
 		session.setAttribute("loginUser", loginUser);
 		model.addAttribute("reserList",reserList);
