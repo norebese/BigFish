@@ -188,6 +188,21 @@ public class StudyController {
 	@RequestMapping(value="search.st")
 	public ModelAndView searchStudy(@RequestParam(value="cpage", defaultValue="1") int currentPage, String condition,String keyword,ModelAndView mv) {
 		
+		// 공백 또는 null 체크
+	    if (condition != null && keyword != null) {
+	        condition = condition.trim(); // 조건에 따라 trim 적용
+	        keyword = keyword.trim();
+
+	        // 둘 중 하나라도 비어있으면 검색을 수행하지 않음
+	        if (condition.isEmpty() || keyword.isEmpty()) {
+	            // 검색 조건이 부족하므로 적절한 처리를 할 수 있도록 구현
+	            // 예를 들면 오류 메시지를 설정하거나, 다른 페이지로 리다이렉트 등을 수행할 수 있음
+	            mv.setViewName("study/studyListView"); // 예시로 에러 페이지로 이동하도록 설정
+	            mv.addObject("alertMsg", "검색 조건이 부족합니다.");
+	            return mv;
+	        }
+	    }
+		
 		HashMap<String, String> map = new HashMap<>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
