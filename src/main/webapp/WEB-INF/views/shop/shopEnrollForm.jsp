@@ -52,7 +52,7 @@ String alertMsg = (String) session.getAttribute("alertMsg");
                         <!-- 이미지를 감싸는 div -->
                         <div style="height: 100%; margin-bottom: 20px;">
                             <!-- 실제로는 이미지의 경로를 적어주세요. -->
-                            <img id="yourImageContainer" style="max-width: 100%;">
+                            <img id="yourImageContainer" style="width: 500px; height: 300px; max-width: 100%;">
                         </div>
                     </div>
                 </table>					 

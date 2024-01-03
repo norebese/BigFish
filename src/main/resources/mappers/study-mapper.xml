@@ -111,35 +111,35 @@
 	</update>
 	
 	<select id="selectSearchListCount" resultType="_int">
-		SELECT COUNT(*)
-		  FROM STUDY
-		 WHERE STUDY_STATUS = 'Y'
-	     <if test="condition == 'studyTitle'"> 
-	       AND STUDY_TITLE
-	     </if>
-	     <if test="condition == 'studyContent'"> 
-	       AND STUDY_CONTENT
-	  	 </if>
-		  LIKE '%' || #{keyword} || '%'
+	    SELECT COUNT(*)
+	     FROM STUDY
+	    WHERE STUDY_STATUS = 'Y'
+	    <if test="condition == 'studyTitle' and keyword != null and keyword.trim() != ''"> 
+	        AND STUDY_TITLE
+	    </if>
+	    <if test="condition == 'studyContent' and keyword != null and keyword.trim() != ''"> 
+	        AND STUDY_CONTENT
+	    </if>
+	    LIKE '%' || #{keyword} || '%'
 	</select>
- 	
- 	<select id="selectSearchList" resultMap="studyResult">
-		SELECT STUDY_NO
-		      ,STUDY_TITLE
-		      ,STUDY_COUNT
-		      ,STUDY_CREATE_DATE
-		 FROM STUDY
-		 WHERE STUDY_STATUS = 'Y'
-		 <choose>
-		     <when test="condition == 'studyTitle'"> 
-		       AND STUDY_TITLE
-		     </when>
-		     <otherwise> 
-		       AND STUDY_CONTENT
-		  	 </otherwise>
-	  	 </choose>
-		  LIKE '%' || #{keyword} || '%'
-		  ORDER BY STUDY_NO DESC
+	
+	<select id="selectSearchList" resultMap="studyResult">
+	    SELECT STUDY_NO
+	        ,STUDY_TITLE
+	        ,STUDY_COUNT
+	        ,STUDY_CREATE_DATE
+	    FROM STUDY
+	    WHERE STUDY_STATUS = 'Y'
+	    <choose>
+	        <when test="condition == 'studyTitle' and keyword != null and keyword.trim() != ''">
+	            AND STUDY_TITLE
+	        </when>
+	        <otherwise> 
+	            AND STUDY_CONTENT
+	        </otherwise>
+	    </choose>
+	    LIKE '%' || #{keyword} || '%'
+	    ORDER BY STUDY_NO DESC
 	</select>
 	
 	<update id="studyUpdateLike">
@@ -175,7 +175,7 @@
  		   FROM STUDY
  		 WHERE STUDY_STATUS = 'Y'	
  		 AND STUDY_TITLE LIKE '%' || #{keyword} || '%'
-         AND ROWNUM &lt;= 3 
+         AND ROWNUM &lt;= 3
  	</select>
  	
  	<select id="selectmainList" resultMap="studyResult">
