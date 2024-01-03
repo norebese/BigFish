@@ -127,7 +127,7 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="list.fbo?cpage=${pi.currentPage - 1 }"><span aria-hidden="true">&laquo;</span></a>
+                    <a class="page-link" href="list.fibo?cpage=${pi.currentPage - 1 }"><span aria-hidden="true">&laquo;</span></a>
                 </li>
             </c:otherwise>
         </c:choose>
@@ -155,7 +155,7 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="list.fbo?cpage=${pi.currentPage + 1}"><span aria-hidden="true">&raquo;</span></a>
+                    <a class="page-link" href="list.fibo?cpage=${pi.currentPage + 1}"><span aria-hidden="true">&raquo;</span></a>
                 </li>
             </c:otherwise>
         </c:choose>
