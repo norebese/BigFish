@@ -69,28 +69,30 @@
 	<select id="selectKakaoRequestDtoList"
 		resultMap="kakaoRequestDtoResult">
 		SELECT
-		k.C_NO,
-		k.C_ID,
-		k.PARTNER_ORDER_ID,
-		k.PARTNER_USER_ID,
-		k.ITEM_NAME,
-		k.QUANTITY,
-		k.TOTAL_AMOUNT,
-		k.VAT_AMOUNT,
-		k.TAX_FREE_AMOUNT,
-		k.APPROVAL_URL,
-		k.FAIL_URL,
-		k.CANCEL_URL,
-		k.PRODUCT_NO,
-		k.PG_TOKEN,
-		k.PAY_DATE,
-		a.CHANGE_NAME
-		FROM
-		KAKOREQUESTDTO k
-		JOIN
-		ATTACHMENT a ON k.PRODUCT_NO = a.RPRODUCT_NO
-		WHERE
-		k.PARTNER_USER_ID = #{MemId}
+    k.C_NO,
+    k.C_ID,
+    k.PARTNER_ORDER_ID,
+    k.PARTNER_USER_ID,
+    k.ITEM_NAME,
+    k.QUANTITY,
+    k.TOTAL_AMOUNT,
+    k.VAT_AMOUNT,
+    k.TAX_FREE_AMOUNT,
+    k.APPROVAL_URL,
+    k.FAIL_URL,
+    k.CANCEL_URL,
+    k.PRODUCT_NO,
+    k.PG_TOKEN,
+    k.PAY_DATE,
+    a.CHANGE_NAME
+FROM
+    KAKOREQUESTDTO k
+JOIN
+    ATTACHMENT a ON k.PRODUCT_NO = a.RPRODUCT_NO
+WHERE
+    k.PARTNER_USER_ID = #{MemId}
+ORDER BY
+    k.C_NO DESC
 	</select>
 
 </mapper>
