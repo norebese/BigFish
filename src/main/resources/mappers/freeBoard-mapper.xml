@@ -145,11 +145,14 @@ ORDER BY
   	<!-- 통합 검색을 위해 만든 것 -고이환- -->
   	<select id="selectFreeList" resultMap="freeBoardResult">
   		SELECT FREE_NO,
-  			   FREE_TITLE
+  			   FREE_TITLE,
+  			   FREE_CONTENT,
+  			   FREE_WRITER,
+  			   FREE_CREATE_DATE
   		  FROM FREEBOARD
   		WHERE FREE_STATUS = 'Y'
   		AND FREE_TITLE LIKE '%' || #{keyword} || '%'
-  		AND ROWNUM &lt;= 2
+  		AND ROWNUM &lt;= 3
   	</select>
 
 	<update id="deleteBoard">
@@ -201,20 +204,22 @@ ORDER BY
 
 	<select id="selectmainList" resultMap="freeBoardResult">
 	SELECT *
-    FROM (
-        SELECT
-            FREE_NO,
-            FREE_TITLE,
-            FREE_WRITER,
-            COALESCE(NULLIF(REGEXP_SUBSTR(FREE_CONTENT, '/bigFish/resources/uploadFiles/[^"]+', 1, 1), ''), '/bigFish/resources/images/1701241591458.png') AS FREE_CONTENT,
-            FREE_STATUS
-        FROM
-            FREEBOARD
-        ORDER BY
-            FREE_NO DESC
-    )
+FROM (
+    SELECT
+        FREE_NO,
+        FREE_TITLE,
+        FREE_WRITER,
+        COALESCE(NULLIF(REGEXP_SUBSTR(FREE_CONTENT, '/bigFish/resources/uploadFiles/[^"]+', 1, 1), ''), '/bigFish/resources/images/1701241591458.png') AS FREE_CONTENT,
+        FREE_STATUS
+    FROM
+        FREEBOARD
     WHERE
-        ROWNUM &lt;= 3
+        FREE_STATUS = 'Y'
+    ORDER BY
+        FREE_NO DESC
+)
+WHERE
+    ROWNUM &lt;= 3
 	</select>
 
 	<select id="checkLikeTable" resultMap="flikeResult">

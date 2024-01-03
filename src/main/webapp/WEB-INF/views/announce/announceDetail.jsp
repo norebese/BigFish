@@ -30,7 +30,7 @@
 		
 		<br><br>
 		
-		<c:if test="${ not empty loginUser }">
+		
 			<div class="ann-btn-area">
 				<a class="btn btn-primary" onclick="location.href='annList.an'">목록으로</a>
 				<c:if test="${ loginUser.memAdmin eq 'Y' }">
@@ -38,7 +38,6 @@
 					<a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModal">삭제하기</a>
 				</c:if>
 			</div>
-		</c:if>
 	</div>
 
 	<br><br><br><br>

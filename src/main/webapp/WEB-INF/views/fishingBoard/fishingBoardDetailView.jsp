@@ -187,8 +187,13 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 							</h6>
 						</div>
 
-						<c:if test="${loginUser.memNick eq b.fishingWriter}">
+						
 							<div class="col-6 col-md-4">
+							<c:if test="${loginUser.memNick eq b.fishingWriter}">
+									<button type="button" class="btn btn-success"
+									style=" border: rgb(59, 175, 252);background-color: rgb(59, 175, 252);"
+									onclick="location.href='list.fibo'">목록으로
+								</button>
 								<button type="button" class="btn btn-success"
 									style=" border: rgb(59, 175, 252);background-color: rgb(59, 175, 252);"
 									onclick="location.href='fishingUpdateForm.bo?bno=${b.fishingNo}'">글수정
@@ -196,8 +201,12 @@ String alertMsg = (String) session.getAttribute("alertMsg");
 								<button type="button" class="btn btn-danger"
 									data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 									글삭제</button>
+										</c:if>
+									
 							</div>
-						</c:if>
+						
+					
+							
 					</div>
 
 					<br>

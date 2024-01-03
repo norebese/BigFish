@@ -98,13 +98,14 @@
 		let Content = '';
 		
 		$.each(date, function (index, store) {
+		let formattedMinPrice = new Intl.NumberFormat().format(store.minPrice);
 	                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
 					+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 		            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 		            +'<span class="reply">'
 		            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'
 		            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+store.likeCount +'</span>'
-		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
+		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+formattedMinPrice+'<span>원</span></p></div></div></div></a>';
 	            });
 		
 		showListArea.append(Content);
@@ -116,13 +117,14 @@
 		let Content = '';
 		
 		$.each(date, function (index, store) {
+		let formattedMinPrice = new Intl.NumberFormat().format(store.minPrice);
 	                Content += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
 					+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 		            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 		            +'<span class="reply">'
 		            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'
 		            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+store.likeCount +'</span>'
-		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';
+		            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+formattedMinPrice+'<span>원</span></p></div></div></div></a>';
 	            });
 		
 		showListArea.append(Content);
@@ -135,13 +137,14 @@ function updateSeaList(date){
 	let htmlContent = '';
 	
 	$.each(date, function (index, store) {
+	let formattedMinPrice = new Intl.NumberFormat().format(store.minPrice);
                 htmlContent += '<a class="list-box-area" href="resDetailPage?storeNumber='+store.storeNo +'"><div class="list-img-box"><div class="img-box">'
 				+'<img src="/bigFish/resources/uploadFiles/'+store.thumbnailImg+'"></div>'
 	            +'<div class="list-txt-box"><p class="list-name">'+store.storeName+'</p><p class="fish-info">'
 	            +'<span class="reply">'
 	            +'<img style="height: 12px;" src="resources/images/reply.png">'+' '+store.replyCount +' '+'</span>'
 	            +'<span class="like"><img style="height: 12px;" src="resources/images/like.png">'+' '+store.likeCount +'</span>'
-	            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+store.minPrice +'<span>원</span></p></div></div></div></a>';         
+	            +'</p><p class="address"><span>'+store.storeAddress+'</span></p><div class="price-area"><p>'+formattedMinPrice+'<span>원</span></p></div></div></div></a>';         
             });
 	
 	divToUpdate.html(htmlContent);

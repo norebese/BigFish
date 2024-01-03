@@ -1,0 +1,212 @@
+.header-box{
+	color: rgb(59, 175, 252);
+	width: 70%;
+	height: 40px;
+	margin-left: 15%;
+	border-bottom: 2px solid gray;
+}
+
+.search-result{
+	width: 70%;
+	height: 50px;
+	margin-left: 15%;
+	border-bottom: 2px solid gray;
+	position: relative;
+}
+
+.seaReservation-board{
+	display: inline-table;
+	width: 100%;
+	height: 100px;
+}
+
+.fishReservation-board{
+	display: inline-table;
+	width: 100%;
+	height: 100px;
+}
+
+.shop-board{
+	width: 100%;
+}
+
+.study-board{
+	width: 100%;
+}
+
+.fishing-board{
+	width: 100%;
+}
+
+.free-board{
+	width: 100%;
+}
+
+.boardList{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 70%;
+	align-items: center;
+	margin: 0px auto;
+}
+
+.all-see{
+	display: flex;
+	justify-content: flex-end;
+}
+.all-see a{
+	text-decoration: none;
+	color: #637f8f;
+	font-size: 16px;
+    letter-spacing: -0.6px;
+}
+.list-box-area{
+   padding-right: 20px;
+   display: block;
+   width: 100%;
+   height: auto;
+   margin: 0;
+   position: relative;
+   display: block;
+   margin-top: 20px;
+   background: #fff;
+   border: 1px solid #d5d5d5;
+   border-radius: 0.3rem;
+   }
+.list-img-box{
+   display: flex;
+}
+.img-box{
+    width: 0;
+    height: 165px;
+    width: 275px;
+    padding-left: 317px;
+    overflow: hidden;
+    position: relative;
+    
+}
+.img-box img{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    transform: translate(-57%, 0);
+}
+.list-txt-box{
+	color: black;
+    float: left;
+    width: calc(100% - 275px);
+    padding-left: 15px;
+    margin: 0;
+    padding: 0;
+}
+.list-name{
+    font-size: 22px;
+    font-weight: bold;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 250px;
+}
+.fishBox{
+	display: flex;
+}
+.list-box-area2{
+	display: block;
+    width: 310px;
+    margin-left: 17px;
+    position: relative;
+    text-decoration: none;
+    border-radius: 0.3rem;
+    overflow: hidden;
+}
+.list-visual-box2{
+	border-bottom: none;
+    border-radius: 0.3rem;
+    overflow: hidden;
+    width: 100%;
+    padding-bottom: 52.26%;
+    height: 0;
+    position: relative;
+}
+.list-visual-box2 img{
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    max-width: 100%;
+}
+.list-box2{
+	color: black;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 14px 0;
+}
+.lsit-writer{
+	font-size: 15px;
+    color: #878787;
+    margin-bottom: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.freeList a{
+	text-decoration: none;
+	color: black;
+}
+.freeList p{
+	margin: 0;
+	padding: 0;
+}
+.freeArea{
+	padding: 0 0 15px;
+	display: block;
+    border-bottom: 1px solid #e6e6e6;
+    margin-top: 5px;
+}
+.freeTitle{
+	font-size: 22px;
+    color: #333;
+    letter-spacing: -0.6px;
+}
+.freeContent{
+	margin-top: 9px;
+    margin-left: 20px;
+    font-size: 17px;
+    color: #c7c7c7;
+    letter-spacing: -0.7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: calc(100% - 20px);
+}
+.freeWriter{
+	font-size: 15px;
+    color: #878787;
+    display: inline-block;
+}
+.board-title{
+	font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 15px;
+}
+.lsit-price{
+	font-size: 15px;
+    color: #878787;
+    margin-top: 15px;
+    margin-bottom: 7px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
