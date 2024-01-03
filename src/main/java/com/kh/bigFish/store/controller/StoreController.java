@@ -248,7 +248,7 @@ public class StoreController {
 				storeService.insertAttachment(a);
 			}
 			
-			session.setAttribute("alertMsg", "회원가입에 성공했습니다.");
+			session.setAttribute("alertMsg", "사업장 등록에 성공했습니다.");
 			return "redirect:/companyMyPage.me";
 			
 		}else {
