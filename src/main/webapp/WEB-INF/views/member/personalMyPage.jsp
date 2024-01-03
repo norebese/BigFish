@@ -71,9 +71,7 @@
 				class="btn btn-secondary">구매 목록</button>
 			<br>
 			<br>
-			<button
-				style="width: 100%; border: none; background: rgb(59, 175, 252);"
-				class="btn btn-secondary">장바구니</button>
+		
 
 		</div>
 
@@ -247,36 +245,31 @@
 					<c:when test="${not empty payList}">
 						<c:forEach var="r" items="${payList}">
 							<div style="width: 70%; height: 30px; margin-bottom: 105px;">
-								<table
-									style="width: 100%; border: 2px solid rgb(236, 236, 236); border-radius: 8px; border-collapse: separate;">
-									<tr
-										style="background-color: #f8f8f8; border-bottom: 1px solid rgb(236, 236, 236);">
-										<th style="border: none; text-align: left; width: 20%;">주문일/구매번호</th>
-										<th style="border: none; text-align: center; width: 60%;">상품정보</th>
-										<th style="border: none; text-align: right; width: 20%;">상태</th>
-									</tr>
-									<tr>
-										<td style="border: none;">${r.payDate}/${r.payNo}</td>
-										<td style="border: none;">
-											<div style="display: flex; align-items: center;">
-												<img src="<%=contextPath%>${r.changeName}"
-													alt="Product Image" style="width: 120px; height: auto;">
-												<div
-													style="margin-left: 20px; flex-grow: 1; text-align: left;">
-													<div style="float: left; width: 50%; margin-top:10px;">
-														<span>${r.item_name}</span>
-													</div>
-													<div style="float: right; width: 50%; text-align: right;">
-														<span>수량: ${r.quantity}개</span><br> <span>총금액:
-															${r.total_amount}원</span>
-													</div>
-												</div>
-											</div>
-										</td>
-										<td style="border: none; text-align: right;">구매완료</td>
-									</tr>
-								</table>
-							</div>
+    <table style="width: 100%; border: 2px solid rgb(236, 236, 236); border-radius: 8px; border-collapse: separate;">
+        <tr style="background-color: #f8f8f8; border-bottom: 1px solid rgb(236, 236, 236);">
+            <th style="border: none; text-align: left; width: 20%;">주문일/구매번호</th>
+            <th style="border: none; text-align: center; width: 60%;">상품정보</th>
+            <th style="border: none; text-align: right; width: 20%;">상태</th>
+        </tr>
+        <tr onclick="window.location.href='detail.sh?sno=${r.productNo}'" style="cursor: pointer;">
+            <td style="border: none;">${r.payDate}/${r.payNo}</td>
+            <td style="border: none;">
+                <div style="display: flex; align-items: center;">
+                    <img src="<%=contextPath%>${r.changeName}" alt="Product Image" style="width: 120px; height: auto;">
+                    <div style="margin-left: 20px; flex-grow: 1; text-align: left;">
+                        <div style="float: left; width: 50%; margin-top:10px;">
+                            <span>${r.item_name}</span>
+                        </div>
+                        <div style="float: right; width: 50%; text-align: right;">
+                            <span>수량: ${r.quantity}개</span><br> <span>총금액: ${r.total_amount}원</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td style="border: none; text-align: right;">구매완료</td>
+        </tr>
+    </table>
+</div>
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
