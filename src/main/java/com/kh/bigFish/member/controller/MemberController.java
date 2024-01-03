@@ -254,7 +254,7 @@ public class MemberController {
 		session.setAttribute("loginUser", loginUser);
 		model.addAttribute("reserList",reserList);
 		model.addAttribute("payList",payList);
-		
+		model.addAttribute("pi",pi);
 
 		
 		return "member/personalMyPage";

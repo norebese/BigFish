@@ -281,7 +281,7 @@
 		}
 		
 		function drawFreeBoardRow(freedata) {
-			
+			console.log(freedata);
 		    for (let rowData of freedata) {
 		        // 각각의 게시물을 추가하는 부분입니다.
 		        document.getElementById("freeCardAreaID").innerHTML +=

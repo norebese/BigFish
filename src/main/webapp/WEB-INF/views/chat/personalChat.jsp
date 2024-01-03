@@ -42,7 +42,7 @@
 <div id="topTitle" style="display: flex; justify-content: center; background: rgb(59, 175, 252);">
 	</div>
 	<br>
-	<div style="display: flex; width: 100%; height: 75vh;">
+	<div style="display: flex; width: 100%; height: 81vh;">
 		<div id="chooseStoreArea" style="display: flex; width: 35%; flex-direction: column; margin: 0px 10px; border-right: 2px solid rgb(204, 204, 204); ">
 
 		</div>
@@ -52,7 +52,7 @@
 		</div>
 
 	</div>
-	<div style="display: flex; flex-direction: row; height: 92px; border-top: 2px solid rgb(204, 204, 204);">
+	<div style="display: flex; flex-direction: row; height: 112px; border-top: 2px solid rgb(204, 204, 204);">
 		<textarea id="chatMsg" style="width: 80%; height: 90%; border: none; resize: none; margin-top: 3.5px;"></textarea>
 		<button id="chatSend" onclick="sendMsg(0)" style="width: 20%; background:rgb(59, 175, 252); border: none;" class="btn btn-sm btn-primary">전송</button>
 	</div>
