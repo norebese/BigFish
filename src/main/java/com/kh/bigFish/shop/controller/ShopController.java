@@ -341,8 +341,8 @@ public class ShopController {
 		
 		
 		                                
-		   String pg_token=kakaoRequestDto.getPg_token();
-		   int sno=kakaoRequestDto.getProductNo();
+		   String pg_token = kakaoRequestDto.getPg_token();
+		   int sno = kakaoRequestDto.getProductNo();
 		   
 		System.out.println(sno+"ROQKFWKSMSDURLEK"+pg_token);
 		   String j=pg_token+","+sno;
