@@ -141,7 +141,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" href="list.fbo?cpage=${p}">${p}</a>
+                        <a class="page-link" href="list.fibo?cpage=${p}">${p}</a>
                     </li>
                 </c:otherwise>
             </c:choose>
