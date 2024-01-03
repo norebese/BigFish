@@ -230,7 +230,6 @@
 						<c:forEach var="b" items="${list2}">
 							<a class="freeArea" href="detail.fbo?bno=${b.freeNo}">
 								<p class="freeTitle">${b.freeTitle}</p>
-								<p class="freeContent">${b.freeContent}</p>
 								<p class="freeWriter">
 									<span>${b.freeWriter}</span>
 									<span>| ${b.createDate}</span>
