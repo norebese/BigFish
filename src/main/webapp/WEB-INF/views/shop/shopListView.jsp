@@ -89,7 +89,7 @@
                     style="width: 60%; height: 60%; object-fit: contain; cursor: pointer;">
                 <h6 style="font-weight: 800;">${s.productBrand}</h6>
                 <p>${s.productName}</p>
-                <p>${s.productPrice}</p>
+                <p>${s.productPrice}원</p>
             </div>
         </c:forEach>
     </div>

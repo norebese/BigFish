@@ -170,11 +170,12 @@
  	
  	<select id="selectStudyList" resultMap="studyResult">
  		SELECT STUDY_NO,
- 			   STUDY_TITLE
+ 			   STUDY_TITLE,
+ 			   STUDY_LINK
  		   FROM STUDY
  		 WHERE STUDY_STATUS = 'Y'	
  		 AND STUDY_TITLE LIKE '%' || #{keyword} || '%'
-         AND ROWNUM &lt;= 2 
+         AND ROWNUM &lt;= 3
  	</select>
  	
  	<select id="selectmainList" resultMap="studyResult">
