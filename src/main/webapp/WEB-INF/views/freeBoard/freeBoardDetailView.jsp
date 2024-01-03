@@ -45,6 +45,14 @@
     width: 35px;
     margin-right: 10px;
 }
+ #footer {
+        width:100%;
+        margin:auto;
+        margin-top:50px;
+        margin-bottom: 0px;
+        background-color: rgb(59, 175, 252);
+        text-align: left;
+    }
 </style>
 </head>
 <body>
