@@ -74,11 +74,12 @@
 	const socket = new WebSocket("ws://localhost:8987/bigFish/server")
 
 	sendData = {receiverId : "${storeNo}"}
-
+	
 	chatApi.getUserForChat(sendData, function(result){
 		const chooseUserArea = document.querySelector("#chooseUserArea");
-
+		console.log(result);
 		for(let m of result){
+			
 			chooseUserArea.insertAdjacentHTML('beforeend','<div onclick="getChat('+m.memNo+',`'+m.memNick+'`)" style="cursor: pointer; width: 100%; height: 10%; border: 1px solid white; display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">'+m.memNick+'<img id="readCheckRedDot'+m.memNo+'" src="resources/images/red-dot.png" style="visibility: hidden; width:10px; height:10px;" alt=""></div>')
 
 			//m.memNo 가 sendId인 데이터중에 readcheck가 N인게 하나라도 있으면 빨간불 아니면 불없음

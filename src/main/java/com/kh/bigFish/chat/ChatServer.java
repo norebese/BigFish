@@ -67,7 +67,7 @@ public class ChatServer extends TextWebSocketHandler {
 			// 메시지 전송 시
 			int storeNo = (int)session.getAttributes().get("storeNo");
 			JsonObject obj = new JsonParser().parse(message.getPayload()).getAsJsonObject();
-			
+			System.out.println("objobjobj : " + obj);
 			// 발신 정보
 			ChatMsgVO vo = new ChatMsgVO();
 			
