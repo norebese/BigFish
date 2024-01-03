@@ -73,7 +73,7 @@
     k.C_ID,
     k.PARTNER_ORDER_ID,
     k.PARTNER_USER_ID,
-    k.ITEM_NAME,
+    TRIM(BOTH '"' FROM k.ITEM_NAME) AS ITEM_NAME,
     k.QUANTITY,
     k.TOTAL_AMOUNT,
     k.VAT_AMOUNT,
