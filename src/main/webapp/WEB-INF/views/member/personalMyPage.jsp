@@ -256,7 +256,7 @@
             <td style="border: none;">${r.payDate}/${r.payNo}</td>
             <td style="border: none;">
                 <div style="display: flex; align-items: center;">
-                    <img src="<%=contextPath%>${r.changeName}" alt="Product Image" style="width: 120px; height: auto;">
+                   <img src="<%=contextPath%>${r.changeName}" alt="Product Image" style="width: 120px; max-height: 60px; height: auto;">
                     <div style="margin-left: 20px; flex-grow: 1; text-align: left;">
                         <div style="float: left; width: 50%; margin-top:10px;">
                             <span>${r.item_name}</span>
