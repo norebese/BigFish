@@ -346,7 +346,7 @@
 	
     <div class="btn-fixed">
     	<div class="btn-inner">
-    		<button class="fixed-btn" onclick="saveSelectedDate()" <%= (loginUser == null || loginUser.getMemNo() == st.getRmemNo()) ? "disabled style='background: gray'" : "" %>>예약하기</button>
+    		<button class="fixed-btn" onclick="saveSelectedDate()" <%= (loginUser == null || loginUser.getBusinessStatus().equals("Y")) ? "disabled style='background: gray'" : "" %>>예약하기</button>
     	</div>
     </div>
     <jsp:include page="../common/footer.jsp"/>

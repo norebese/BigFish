@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -98,7 +99,7 @@
 				<c:forEach var="i" begin="1" end="${rev.revPeople}">
 		  			<div style="display:flex; justify-content:space-between">
 		  				<span>${tic.ticketName}</span>
-		  				<span>${tic.ticketPrice}원</span>
+		  				<span><fmt:formatNumber value="${tic.ticketPrice}"/>원</span>
 		  			</div>
 					<br>
 				</c:forEach>
@@ -110,7 +111,7 @@
 	  		<div style="display:flex; flex-direction: column;">
 	  			<div style="display:flex; justify-content:space-between">
 	  				<span>합계</span>
-	  				<span>${tic.ticketPrice * rev.revPeople}원</span>
+	  				<span><fmt:formatNumber value="${tic.ticketPrice * rev.revPeople}"/>원</span>
 	  			</div>
 	  		</div>
 	  	</div>
