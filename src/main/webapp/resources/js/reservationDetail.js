@@ -166,10 +166,14 @@ function changeQuantity(inputId, change) {
     }
     
     
-function selectNum(targetId){
-		numPeople = document.getElementById(targetId).value;
-
+function selectNum(targetId, maxNum){
+	numPeople = document.getElementById(targetId).value;
+	if(numPeople > maxNum){
+		alert("남은 이용권이 부족합니다");
+		numPeople = null;
 	}
+
+}
 	
 	
 function updateTicket(date){
@@ -196,7 +200,7 @@ function updateTicket(date){
 				+'<input type="text" class="resnum-area" id="quantity'+ticket.ticketNo+'" value="1">'
 				+`<button type="button" class="btn btn-outline-secondary" onclick="changeQuantity('quantity`+ticket.ticketNo+`', 1)">+</button>`
 				+'</div></div><div class="modal-footer">'
-				+`<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="selectNum('quantity`+ticket.ticketNo+`')">확인</button>'`
+				+`<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="selectNum('quantity`+ticket.ticketNo+`',`+ticket.amount+`)">확인</button>'`
 				+'</div></div></div></div></li>';
             });
     
@@ -395,6 +399,9 @@ function saveSelectedDate() {
         return;
     }else if (isChecked !=="checkOk") {
         alert('이용권을 선택해 주세요');
+        return;
+    }else if (numPeople == null) {
+        alert('이용인원을 선택해 주세요');
         return;
     }
 	let year = document.getElementById("calYear").textContent;

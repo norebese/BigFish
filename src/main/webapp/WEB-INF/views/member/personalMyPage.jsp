@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 	String contextPath = request.getContextPath();
 %>
@@ -204,7 +205,7 @@
 								<div class="card-body">
 									<div
 										style="display: flex; flex-direction: row; justify-content: space-between;">
-										<span>${r.rticketName}</span> <span>${r.rticketPrice * r.revPeople}원</span>
+										<span>${r.rticketName}</span> <span><fmt:formatNumber value="${r.rticketPrice * r.revPeople}"/>원</span>
 									</div>
 								</div>
 								<div class="card-footer">
@@ -261,7 +262,7 @@
                             <span>${r.item_name}</span>
                         </div>
                         <div style="float: right; width: 50%; text-align: right;">
-                            <span>수량: ${r.quantity}개</span><br> <span>총금액: ${r.total_amount}원</span>
+                            <span>수량: ${r.quantity}개</span><br> <span>총금액: <fmt:formatNumber value="${r.total_amount}"/>원</span>
                         </div>
                     </div>
                 </div>

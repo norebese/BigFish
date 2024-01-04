@@ -182,7 +182,7 @@ function choiceDate(nowColumn) {
         myStoreReservationList.innerHTML="";
 
         for(let res of JSON.parse(result)){
-
+		let formattedMinPrice = new Intl.NumberFormat().format(res.rticketPrice*res.revPeople);
             let revStatus;
             if(res.revStatus==="WAITREV")
                 revStatus = "예약 신청";
@@ -192,7 +192,7 @@ function choiceDate(nowColumn) {
                 revStatus = "예약 취소"
             else if(res.revStatus==="DONEREV")
                 revStatus = "이용 완료"
-            
+          
           myStoreReservationList.innerHTML += '<div class="card" style="margin-bottom: 30px;">'+
           '<div class="card-header" style="padding-bottom: 3px;">'+
               '<div style="display: flex; flex-direction: row; justify-content: space-between;">'+
@@ -208,7 +208,7 @@ function choiceDate(nowColumn) {
           '<div class="card-body">'+
               '<div style="display: flex; flex-direction: row; justify-content: space-between;">'+
                   '<span>'+res.rticketName+' '+res.revPeople+'매</span>'+
-                  '<span>'+(res.rticketPrice*res.revPeople)+'원</span>'+
+                  '<span>'+formattedMinPrice+'원</span>'+
               '</div>'+
 
               '<div class="top-line" style="border-bottom: 1px solid rgb(204, 204, 204);  width: 100%;"></div>'+
@@ -221,7 +221,7 @@ function choiceDate(nowColumn) {
 
           '<div class="card-footer" style="display: flex; justify-content: space-between;">'+
               '<span>'+
-              '총합 : '+(res.rticketPrice*res.revPeople)+'원'+
+              '총합 : '+formattedMinPrice+'원'+
               '</span>'+
               '<span>'+
                   '<button class="btn btn-sm btn-primary" id="okReservation'+res.revNo+'" onclick="okReservation('+res.revNo+')">예약 승인</button>'+'&nbsp;'+

@@ -270,10 +270,10 @@
 		LEFT JOIN
 		ATTACHMENT a ON s.STORE_NO = a.RSTORE_NO AND
 		a.FILE_LEVEL = 1
-		WHERE STORE_KIND =
+		WHERE (STORE_KIND =
 		'FreshSeat'
 		OR STORE_KIND =
-		'FreshCafe'
+		'FreshCafe')
 		AND STORE_STATUS = 'open'
 		GROUP BY
 		s.STORE_NO,
@@ -313,9 +313,9 @@
 		LEFT JOIN
 		ATTACHMENT a ON s.STORE_NO = a.RSTORE_NO AND
 		a.FILE_LEVEL = 1
-		WHERE STORE_KIND =
+		WHERE (STORE_KIND =
 		'seaShip'
-		OR STORE_KIND = 'seaSeat'
+		OR STORE_KIND = 'seaSeat')
 		AND STORE_STATUS = 'open'
 		GROUP BY
 		s.STORE_NO, s.STORE_ADDRESS,

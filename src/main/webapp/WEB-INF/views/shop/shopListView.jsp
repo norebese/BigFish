@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%String contextPath = request.getContextPath();%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +90,7 @@
                     style="width: 60%; height: 60%; object-fit: contain; cursor: pointer;">
                 <h6 style="font-weight: 800;">${s.productBrand}</h6>
                 <p>${s.productName}</p>
-                <p>${s.productPrice}원</p>
+                <p><fmt:formatNumber value="${s.productPrice}"/>원</p>
             </div>
         </c:forEach>
     </div>

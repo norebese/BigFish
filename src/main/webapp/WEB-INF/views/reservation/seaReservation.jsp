@@ -86,23 +86,23 @@
 	            <button class="prev-btn" title="이전으로 가기"></button>
 	            <div class="btn-area3">
 	                <p class="sub-txt">서해남부</p>
-	                <button class="icon-txt-btn5" onclick="seaAreaFilter('군산시' ,'부안군','','','','', '22A30101')">
+	                <button class="icon-txt-btn5" onclick="seaAreaFilter('군산시' ,'부안군','전주시','','','', '22A30101')">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
 	                    <span>전북 북부 앞바다</span>
 	                </button>
-	                <button class="icon-txt-btn6" onclick="seaAreaFilter('고창군','','','','','', '22A30102')">
+	                <button class="icon-txt-btn6" onclick="seaAreaFilter('고창군','나주시','','','','', '22A30102')">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
 	                    <span>전북 남부 앞바다</span>
 	                </button>
-	                <button class="icon-txt-btn7" onclick="seaAreaFilter('영광군','','','','','', '22A30103')">
+	                <button class="icon-txt-btn7" onclick="seaAreaFilter('영광군','속화초','','','','', '22A30103')">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
 	                    <span>전남 북부 서해 앞바다</span>
 	                </button>
-	                <button class="icon-txt-btn8" onclick="seaAreaFilter('신안군', '함평군', '무안군', '목포시','','', '22A30104')">
+	                <button class="icon-txt-btn8" onclick="seaAreaFilter('신안군', '함평군', '무안군', '목포시','전주시','', '22A30104')">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
 	                    <span>전남 중부 서해 앞바다</span>
 	                </button>
-	                <button class="icon-txt-btn9" onclick="seaAreaFilter('해남군', '진도군','','','','', '22A30105')">
+	                <button class="icon-txt-btn9" onclick="seaAreaFilter('해남군', '진도군','정읍시','','','', '22A30105')">
 	                    <img src="<%=contextPath%>/resources/images/icon-txt-btn.png" alt="">
 	                    <span>전남 남부 서해 앞바다</span>
 	                </button>
