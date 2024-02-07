@@ -39,6 +39,9 @@ Java Spring 낚시터 예약 등 종합 낚시사이트
 ## 🎣프로젝트 소개
 이 프로젝트는 낚시를 좋아하는 사람들을 위한 기존 사이트를 참고하여 새로운 UI와 기능을 추가해보았습니다.
 
+ERD
+<img src="src/main/webapp/resources/images/readme images/bigFish erd.png" height="300">
+
 주요 기능 및 특징
 
 ### 바다 날씨 정보 제공: 공공데이터를 활용하여 실시간으로 바다 날씨 정보를 제공, 안전한 낚시 활동을 지원합니다.
