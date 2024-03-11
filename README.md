@@ -43,7 +43,7 @@ ERD
 
 <img src="src/main/webapp/resources/images/readme images/bigFish erd.png" height="300">
 
-주요 기능 및 특징
+## 주요 기능 및 특징
 
 ### 바다 날씨 정보 제공: 공공데이터를 활용하여 실시간으로 바다 날씨 정보를 제공, 안전한 낚시 활동을 지원합니다.
 <img src="src/main/webapp/resources/images/readme images/sea api.png" height="300">
